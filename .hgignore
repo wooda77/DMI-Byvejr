@@ -1,0 +1,11 @@
+# use glob syntax.
+syntax: glob
+*.suo
+*.user
+
+syntax: regexp
+bin/
+obj/
+TestResults/
+TDD/
+obj/

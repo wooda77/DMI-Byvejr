@@ -1,0 +1,22 @@
+
+           Vejrudsigten fra DMI - For Windows Phone 7       
+
+    Copyright © 2010 Claus Jørgensen <thedeathart@gmail.com>
+
+    All included software is licensed under the Microsoft Public License (Ms-PL), 
+    available in full in the License.txt file. 
+    
+    The following persons and groups are acknowledged for their contributions
+    to the project and ideas.
+
+    Version 1.0.0.0
+    ---------------
+
+    Claus Jørgensen <thedeathart@gmail.com>
+        Project Lead, Programming, Design, Architecture
+
+    Stephane C, Microsoft (http://twitter.com/stephancr)
+        Pivot Control from http://phone.codeplex.com/
+
+    Microsoft (http://www.microsoft.com/)
+        Application Bar Icons for Windows Phone 7    
