@@ -10,7 +10,8 @@
         SupportedOrientations="PortraitOrLandscape"
         FontFamily="{StaticResource PhoneFontFamilyNormal}" 
         FontSize="{StaticResource PhoneFontSizeNormal}"
-        Foreground="{StaticResource PhoneForegroundBrush}">
+        Foreground="{StaticResource PhoneForegroundBrush}"
+        Loaded="PhoneApplicationPage_Loaded">
 
     <phoneNavigation:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
@@ -36,15 +37,17 @@
 
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="byvejr">
                 <StackPanel>
-                    <Image Margin="8,8,8,0"
-                            Source="http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by=8260&amp;mode=long" Loaded="Image_Loaded" VerticalAlignment="Top" />
-                    <Image Margin="8,8,8,0" Source="http://servlet.dmi.dk/byvejr/servlet/byvejr?by=8260&amp;tabel=dag3_9" Loaded="Image_Loaded" />
+                    <Image x:Name="CityWeatherImage1" Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
+                            Source="http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by=2000&amp;mode=long" />
+                    <Image x:Name="CityWeatherImage2" Margin="8,8,8,0" Loaded="Image_Loaded"
+                            Source="http://servlet.dmi.dk/byvejr/servlet/byvejr?by=2000&amp;tabel=dag3_9" />
                 </StackPanel>
             </phone:PivotItem>
 
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="pollental">
                 <StackPanel>
-                    <Image Margin="8,8,8,0" Source="http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by=8260" Loaded="Image_Loaded" VerticalAlignment="Top" />
+                    <Image x:Name="PollenImage" Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
+                           Source="http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by=2000" />
                     <StackPanel Margin="8,15,8,0">
 
                         <TextBlock Text="København" FontSize="{StaticResource PhoneFontSizeMedium}"
