@@ -5,16 +5,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone.Shell"
+        xmlns:mpc="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
         xmlns:phone="clr-namespace:Phone.Controls.Samples;assembly=Phone.Controls.Samples"
-        mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
-        SupportedOrientations="PortraitOrLandscape"
-        FontFamily="{StaticResource PhoneFontFamilyNormal}" 
-        FontSize="{StaticResource PhoneFontSizeNormal}"
-        Foreground="{StaticResource PhoneForegroundBrush}"
-        Loaded="PhoneApplicationPage_Loaded">
+        xmlns:converters="clr-namespace:DMI_Weather.Converters" mc:Ignorable="d" d:DesignWidth="480"
+        d:DesignHeight="800" SupportedOrientations="PortraitOrLandscape"
+        FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"
+        Foreground="{StaticResource PhoneForegroundBrush}" Loaded="PhoneApplicationPage_Loaded">
 
     <phoneNavigation:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="False" IsMenuEnabled="True">
             <shell:ApplicationBar.Buttons>
                 <shell:ApplicationBarIconButton x:Name="PickCityAppBarButton"
                         IconUri="/Images/appbar.feature.search.rest.png" />
@@ -31,25 +30,41 @@
         </shell:ApplicationBar>
     </phoneNavigation:PhoneApplicationPage.ApplicationBar>
 
+    <phoneNavigation:PhoneApplicationPage.Resources>
+        <converters:ImageConverter x:Key="ImageConverter" />
+    </phoneNavigation:PhoneApplicationPage.Resources>
+
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
 
         <phone:PivotControl>
 
+            <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="nyheder">
+                <Grid Margin="0,0,0,15">
+                    <ListBox ItemsSource="{Binding NewsFeedItems}" MouseLeftButtonUp="NewsListBox_MouseLeftButtonUp" Style="{StaticResource PhoneListBox}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <mpc:ListViewItem Layout="TextAndDetails" Text="{Binding Title}"
+                                        Details="{Binding Description}" Style="{StaticResource PhoneListBoxItemLayout}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+            
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="byvejr">
                 <StackPanel>
-                    <Image x:Name="CityWeatherImage1" Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
-                            Source="http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by=2000&amp;mode=long" />
-                    <Image x:Name="CityWeatherImage2" Margin="8,8,8,0" Loaded="Image_Loaded"
-                            Source="http://servlet.dmi.dk/byvejr/servlet/byvejr?by=2000&amp;tabel=dag3_9" />
+                    <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
+                            Source="{Binding CityWeather2days, Converter={StaticResource ImageConverter}}" />
+                    <Image Margin="8,8,8,0" Loaded="Image_Loaded"
+                            Source="{Binding CityWeather7days, Converter={StaticResource ImageConverter}}" />
                 </StackPanel>
             </phone:PivotItem>
 
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="pollental">
                 <StackPanel>
-                    <Image x:Name="PollenImage" Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
-                           Source="http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by=2000" />
+                    <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
+                            Source="{Binding Pollen, Converter={StaticResource ImageConverter}}" />
                     <StackPanel Margin="8,15,8,0">
-
                         <TextBlock Text="København" FontSize="{StaticResource PhoneFontSizeMedium}"
                                 FontFamily="{StaticResource PhoneFontFamilyNormal}" />
                         <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -81,85 +96,8 @@
                 </StackPanel>
             </phone:PivotItem>
 
-            <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="nyheder">
-                <ScrollViewer BorderThickness="0" VerticalScrollBarVisibility="Hidden">
-                    <StackPanel Margin="0,0,0,15">
-                        <HyperlinkButton BorderThickness="0" Foreground="White"
-                                NavigateUri="http://www.dmi.dk/dmi/dmi_bidrager_med_en_hovedforfatter_til_ipcc_s_5._hovedrapport">
-                            <HyperlinkButton.Content>
-                                <StackPanel>
-                                    <TextBlock Text="DMI bidrager med en hovedforfatter til IPCC s 5. hovedrapport"
-                                            TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}"
-                                            FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                                    <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                            Foreground="{StaticResource PhoneInactiveBrush}"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                            Text="Forskningsleder Jens Hesselbjerg, DMI, bliver igen hovedforfatter på den kommende IPCC-rapport. Denne gang på et kapitel om processer af betydning for regionale klimaændringer." />
-                                </StackPanel>
-                            </HyperlinkButton.Content>
-                        </HyperlinkButton>
-                        <HyperlinkButton BorderThickness="0" Foreground="White"
-                                NavigateUri="http://www.dmi.dk/dmi/sankt_hans_foer_og_nu">
-                            <HyperlinkButton.Content>
-                                <StackPanel>
-                                    <TextBlock Margin="0,15,0,0" Text="Sankt Hans før og nu" TextWrapping="Wrap"
-                                            FontSize="{StaticResource PhoneFontSizeMedium}"
-                                            FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                                    <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                            Foreground="{StaticResource PhoneInactiveBrush}"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                            Text="Vejrmæssigt tegner Sankt Hans 2010 til at blive en fin en af slagsen. Sådan er det dog langt fra altid. Vi kigger 17 år tilbage og mindes de værste og bedste." />
-                                </StackPanel>
-                            </HyperlinkButton.Content>
-                        </HyperlinkButton>
-                        <HyperlinkButton BorderThickness="0" Foreground="White"
-                                NavigateUri="http: //www.dmi.dk/dmi/kold_juni_under_opsejling">
-                            <HyperlinkButton.Content>
-                                <StackPanel>
-                                    <TextBlock Margin="0,15,0,0" Text="Kold juni under opsejling" TextWrapping="Wrap"
-                                            FontSize="{StaticResource PhoneFontSizeMedium}"
-                                            FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                                    <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                            Foreground="{StaticResource PhoneInactiveBrush}"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                            Text="Juni 2010 ender efter alt at dømme med en temperatur under klimanormalen." />
-                                </StackPanel>
-                            </HyperlinkButton.Content>
-                        </HyperlinkButton>
-                        <HyperlinkButton BorderThickness="0" Foreground="White"
-                                NavigateUri="http://www.dmi.dk/dmi/lyse_morgener_paa_retraete__aftenerne_foelger_trop">
-                            <HyperlinkButton.Content>
-                                <StackPanel>
-                                    <TextBlock Margin="0,15,0,0" Text="Lyse morgener på retræte, aftenerne følger trop"
-                                            TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}"
-                                            FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                                    <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                            Foreground="{StaticResource PhoneInactiveBrush}"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                            Text="Klokken 13:28 den 21. juni vender Solen ved Den Nordlige Vendekreds; det nordligste punkt på sin tilsyneladende årlige himmelvandring - det er solhverv. Når det er sommersolhverv, betyder det, at Jordens omdrejningsakse hælder mod Solen. Det betyder også, at den 21. juni er årets længste dag i Danmark." />
-                                </StackPanel>
-                            </HyperlinkButton.Content>
-                        </HyperlinkButton>
-                        <HyperlinkButton BorderThickness="0" Foreground="White"
-                                NavigateUri="http://www.dmi.dk/dmi/ugens_vejr_i_verden_-_uge_24_2010">
-                            <HyperlinkButton.Content>
-                                <StackPanel>
-                                    <TextBlock Margin="0,15,0,0" Text="Ugens Vejr i Verden - Uge 24 2010"
-                                            TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}"
-                                            FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                                    <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                            Foreground="{StaticResource PhoneInactiveBrush}"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                            Text="Dramatisk vejr i Himalaya, Ohio og sydlige Frankrig, suppleret med fint fodboldvejr i Pretoria i Ugens Vejr i Verden." />
-                                </StackPanel>
-                            </HyperlinkButton.Content>
-                        </HyperlinkButton>
-                    </StackPanel>
-                </ScrollViewer>
-            </phone:PivotItem>
+            
 
         </phone:PivotControl>
-
     </Grid>
-
 </phoneNavigation:PhoneApplicationPage>

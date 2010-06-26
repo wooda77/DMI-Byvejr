@@ -176,7 +176,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
                         <Grid>
-                            <ScrollViewer Foreground="{TemplateBinding Foreground}" x:Name="ScrollViewer" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Margin="7,1,1,1">
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Foreground="{TemplateBinding Foreground}" x:Name="ScrollViewer" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Margin="7,1,1,1">
                                 <ItemsPresenter/>
                             </ScrollViewer>
                         </Grid>
@@ -250,7 +250,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" x:Name="ItemText"  Text="{TemplateBinding Text}" Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Margin="-3,-4,0,0"/>
+                            <TextBlock Grid.Column="0" x:Name="ItemText" Text="{TemplateBinding Text}" Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Margin="-3,-4,0,0"/>
                             <ContentPresenter Grid.Column="1" x:Name="SecondaryContent" Content="{TemplateBinding SecondaryContent}" VerticalAlignment="Center" />
                         </Grid>
                     </ControlTemplate>
@@ -312,11 +312,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="mpc:ListViewItem">
                         <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" Margin="{TemplateBinding Padding}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Margin="12,0,0,0" x:Name="ItemText" Text="{TemplateBinding Text}" Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" />
+                            <TextBlock Margin="12,0,0,0" x:Name="ItemText" TextWrapping="Wrap"
+                                    Text="{TemplateBinding Text}" Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" />
                             <ContentPresenter Grid.Column="1" x:Name="SecondaryContent" Content="{TemplateBinding SecondaryContent}" VerticalAlignment="Center" />
                         </Grid>
                     </ControlTemplate>
