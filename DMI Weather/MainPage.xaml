@@ -38,19 +38,6 @@
 
         <phone:PivotControl>
 
-            <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="nyheder">
-                <Grid Margin="0,0,0,15">
-                    <ListBox ItemsSource="{Binding NewsFeedItems}" MouseLeftButtonUp="NewsListBox_MouseLeftButtonUp" Style="{StaticResource PhoneListBox}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <mpc:ListViewItem Layout="TextAndDetails" Text="{Binding Title}"
-                                        Details="{Binding Description}" Style="{StaticResource PhoneListBoxItemLayout}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
-            </phone:PivotItem>
-            
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="byvejr">
                 <StackPanel>
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
@@ -60,6 +47,7 @@
                 </StackPanel>
             </phone:PivotItem>
 
+            <!-- TODO -->
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="pollental">
                 <StackPanel>
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
@@ -96,7 +84,19 @@
                 </StackPanel>
             </phone:PivotItem>
 
-            
+            <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="nyheder">
+                <Grid Margin="0,0,0,15">
+                    <ListBox ItemsSource="{Binding NewsFeedItems}" MouseLeftButtonUp="NewsListBox_MouseLeftButtonUp"
+                            Style="{StaticResource PhoneListBox}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <mpc:ListViewItem Layout="TextAndDetails" Text="{Binding Title}"
+                                        Details="{Binding Description}" Style="{StaticResource PhoneListBoxItemLayout}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
 
         </phone:PivotControl>
     </Grid>
