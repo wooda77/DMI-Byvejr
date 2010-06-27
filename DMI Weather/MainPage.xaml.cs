@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ using Microsoft.Phone.Controls;
 namespace DMI_Weather
 {
     using ViewModels;
+    using ViewModels.Models;
 
     public partial class MainPage : PhoneApplicationPage
     {
@@ -38,6 +40,7 @@ namespace DMI_Weather
         {
             ResolveAddress();
             UpdateNewsFeed();
+            UpdatePollenFeed();
         }
 
         private void Image_Loaded(object sender, RoutedEventArgs e)
@@ -81,11 +84,11 @@ namespace DMI_Weather
         {
             var client = new WebClient();
             client.Encoding = new LatinEncoding();
-            client.DownloadStringCompleted += WebClient_DownloadStringCompleted;
+            client.DownloadStringCompleted += NewsWebClient_DownloadStringCompleted;
             client.DownloadStringAsync(new Uri("http://www.dmi.dk/dmi/rss-nyheder"));
         }
 
-        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void NewsWebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -102,7 +105,7 @@ namespace DMI_Weather
 
                 foreach (var item in items)
                 {
-                    viewModel.NewsFeedItems.Add(new FeedItemViewModel()
+                    viewModel.NewsFeedItems.Add(new NewsFeedItem()
                     {
                         Title = item.Element("title").Value,
                         Description = item.Element("description").Value,
@@ -117,11 +120,73 @@ namespace DMI_Weather
 
         private void NewsListBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var selectedItem = (sender as ListBox).SelectedItem;
+            var selectedItem = (sender as StackPanel).DataContext;
             if (selectedItem != null)
             {
-                NavigationService.Navigate((selectedItem as FeedItemViewModel).Link);
+                NavigationService.Navigate((selectedItem as NewsFeedItem).Link);
             }
+        }
+
+        private void UpdatePollenFeed()
+        {
+            var client = new WebClient();
+            client.Encoding = new LatinEncoding();
+            client.DownloadStringCompleted += PollenWebClient_DownloadStringCompleted;
+            client.DownloadStringAsync(new Uri("http://www.dmi.dk/dmi/pollen-feed.xml"));
+        }
+
+        private void PollenWebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                return;
+            }
+
+            try
+            {
+                var document = XElement.Parse(e.Result);
+
+                var items = document.Elements("channel").Elements("item").ToList();
+
+                viewModel.PollenFeedItems.Clear();
+
+                for (int i = 0; i < 4; i += 2)
+                {
+                    viewModel.PollenFeedItems.Add(new PollenItem()
+                    {
+                        City = items[i].Element("title").Value,
+                        Data = ParsePollenData(items[i].Element("description").Value),
+                        Forecast = items[i + 1].Element("description").Value
+                    });
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private string ParsePollenData(string data)
+        {
+            string input = data.Replace("\n", "");
+            input = input.Replace(" ", "");
+            
+            var resultB = new StringBuilder();
+
+            string[] parts = input.Split(new char[] { '.' });
+            foreach (var part in parts)
+            {
+                var partValues = part.Split(new char[]{ ',' });
+
+                if ((partValues.Length == 2) && (partValues[1] != "-"))
+                {
+                    resultB.AppendFormat("{0}: {1} , ", partValues[0], partValues[1]);
+                }
+            }          
+             
+            string result = resultB.ToString();
+            result = result.Substring(0, result.Length - 3);
+
+            return result;
         }
     }
 }

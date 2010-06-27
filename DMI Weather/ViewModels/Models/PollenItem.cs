@@ -9,23 +9,23 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace DMI_Weather.ViewModels
+namespace DMI_Weather.ViewModels.Models
 {
-    public class FeedItemViewModel
+    public class PollenItem
     {
-        public string Title
-        {
-            get;
-            set;
-        }
-        
-        public string Description
+        public string City
         {
             get;
             set;
         }
 
-        public Uri Link
+        public string Data
+        {
+            get;
+            set;
+        }
+
+        public string Forecast
         {
             get;
             set;

@@ -14,12 +14,14 @@ using System.Device.Location;
 
 namespace DMI_Weather.ViewModels
 {
+    using Models;
+
     public class MainPageViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<FeedItemViewModel> newsFeedItems
-             = new ObservableCollection<FeedItemViewModel>();
+        private ObservableCollection<NewsFeedItem> newsFeedItems
+             = new ObservableCollection<NewsFeedItem>();
 
-        public ObservableCollection<FeedItemViewModel> NewsFeedItems
+        public ObservableCollection<NewsFeedItem> NewsFeedItems
         {
             get
             {
@@ -31,6 +33,25 @@ namespace DMI_Weather.ViewModels
                 {
                     newsFeedItems = value;
                     NotifyPropertyChanged("NewsFeedItems");
+                }
+            }
+        }
+
+        private ObservableCollection<PollenItem> pollenFeedItems
+             = new ObservableCollection<PollenItem>();
+
+        public ObservableCollection<PollenItem> PollenFeedItems
+        {
+            get
+            {
+                return pollenFeedItems;
+            }
+            set
+            {
+                if (pollenFeedItems != value)
+                {
+                    pollenFeedItems = value;
+                    NotifyPropertyChanged("PollenFeedItems");
                 }
             }
         }

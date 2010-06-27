@@ -52,29 +52,21 @@
                 <StackPanel>
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
                             Source="{Binding Pollen, Converter={StaticResource ImageConverter}}" />
-                    <StackPanel Margin="8,15,8,0">
-                        <TextBlock Text="København" FontSize="{StaticResource PhoneFontSizeMedium}"
-                                FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                        <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                Foreground="{StaticResource PhoneInactiveBrush}"
-                                FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                Text="Græs: 56 / Alternaria: Lav / Cladosporium: Lav" />
-                        <TextBlock Margin="15,10,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                Foreground="{StaticResource PhoneInactiveBrush}"
-                                FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                Text="For i morgen, fredag den 25. juni 2010, ventes mange græspollen, over 50." />
-
-                        <TextBlock Margin="0,15,0,0" Text="Viborg" FontSize="{StaticResource PhoneFontSizeMedium}"
-                                FontFamily="{StaticResource PhoneFontFamilyNormal}" />
-                        <TextBlock Margin="15,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                Foreground="{StaticResource PhoneInactiveBrush}"
-                                FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                Text="Græs: 9 / Alternaria: Lav / Cladosporium: Lav" />
-                        <TextBlock Margin="15,10,0,0" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                Foreground="{StaticResource PhoneInactiveBrush}"
-                                FontFamily="{StaticResource PhoneFontFamilyLight}" TextWrapping="Wrap"
-                                Text="For i morgen, fredag den 25. juni 2010, ventes et moderat antal græspollen, mellem 10-50." />
-
+                    <StackPanel Margin="0,5,0,0">
+                        <ListBox ItemsSource="{Binding PollenFeedItems}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding City}" Style="{StaticResource PhoneTextLargeStyle}" />
+                                        <TextBlock Margin="15,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap"
+                                                Text="{Binding Data}" />
+                                        <TextBlock Margin="15,10,0,0" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap"
+                                                Text="{Binding Forecast}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </StackPanel>
                 </StackPanel>
             </phone:PivotItem>
@@ -85,16 +77,19 @@
             </phone:PivotItem>
 
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="nyheder">
-                <Grid Margin="0,0,0,15">
-                    <ListBox ItemsSource="{Binding NewsFeedItems}" MouseLeftButtonUp="NewsListBox_MouseLeftButtonUp"
-                            Style="{StaticResource PhoneListBox}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <mpc:ListViewItem Layout="TextAndDetails" Text="{Binding Title}"
-                                        Details="{Binding Description}" Style="{StaticResource PhoneListBoxItemLayout}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                <Grid Margin="15,0,0,15">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+                        <ItemsControl ItemsSource="{Binding NewsFeedItems}" BorderThickness="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15" MouseLeftButtonUp="NewsListBox_MouseLeftButtonUp">
+                                        <TextBlock Margin="0,0,15,0" Text="{Binding Title}" Style="{StaticResource PhoneTextMediumStyle}" TextWrapping="Wrap" />
+                                        <TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap" Text="{Binding Description}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
                 </Grid>
             </phone:PivotItem>
 
