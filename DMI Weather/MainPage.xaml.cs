@@ -12,10 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using System.Device.Location;
 using System.Xml;
 using System.Xml.Linq;
-using System.Windows.Navigation;
+using System.Diagnostics;
 
 using Microsoft.Phone.Controls;
 
@@ -26,8 +27,21 @@ namespace DMI_Weather
 
     public partial class MainPage : PhoneApplicationPage
     {
+        /// <summary>
+        /// ViewModel
+        /// </summary>
         private MainPageViewModel viewModel 
             = new MainPageViewModel();
+
+        /// <summary>
+        /// Amount of taps in a row.
+        /// </summary>
+        private int imageTapCount = 0;
+        
+        /// <summary>
+        /// Time of last tap.
+        /// </summary>
+        private DateTime imageTapTimer;
 
         public MainPage()
         {
@@ -114,7 +128,7 @@ namespace DMI_Weather
                 }
             }
             catch
-            {                
+            {
             }
         }
 
@@ -169,24 +183,63 @@ namespace DMI_Weather
         {
             string input = data.Replace("\n", "");
             input = input.Replace(" ", "");
-            
+
             var resultB = new StringBuilder();
 
             string[] parts = input.Split(new char[] { '.' });
             foreach (var part in parts)
             {
-                var partValues = part.Split(new char[]{ ',' });
+                var partValues = part.Split(new char[] { ',' });
 
                 if ((partValues.Length == 2) && (partValues[1] != "-"))
                 {
                     resultB.AppendFormat("{0}: {1} , ", partValues[0], partValues[1]);
                 }
-            }          
-             
+            }
+
             string result = resultB.ToString();
             result = result.Substring(0, result.Length - 3);
 
             return result;
+        }
+
+        private void Image_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            var image = (sender as Image);
+        }
+
+        private void Image_ManipulationDelta(object sender, ManipulationDeltaEventArgs e)
+        {
+            var image = (sender as Image);
+        }
+
+        private void Image_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            var image = (sender as Image);            
+        }
+
+        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var image = (sender as Image);
+
+            if (imageTapCount == 0)
+            {
+                imageTapTimer = DateTime.Now;
+            }
+
+            imageTapCount++;
+
+            if (imageTapCount > 1)
+            {
+                var timeSpan = DateTime.Now - imageTapTimer;
+                var limit = new TimeSpan(0, 0, 0, 0, 200);
+                if (timeSpan < limit)
+                {
+                    // TODO: Open Image in a seperate page for full version display, with a arrow back to the orginal page,
+                    // like in the example projects.
+                }
+                imageTapCount = 0;
+            }           
         }
     }
 }

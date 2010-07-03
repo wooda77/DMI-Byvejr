@@ -41,9 +41,11 @@
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="byvejr">
                 <StackPanel>
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
-                            Source="{Binding CityWeather2days, Converter={StaticResource ImageConverter}}" />
+                           ManipulationCompleted="Image_ManipulationCompleted"
+                           MouseLeftButtonUp="Image_MouseLeftButtonUp"
+                           Source="{Binding CityWeather2days, Converter={StaticResource ImageConverter}}" />
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded"
-                            Source="{Binding CityWeather7days, Converter={StaticResource ImageConverter}}" />
+                           Source="{Binding CityWeather7days, Converter={StaticResource ImageConverter}}" />
                 </StackPanel>
             </phone:PivotItem>
 
