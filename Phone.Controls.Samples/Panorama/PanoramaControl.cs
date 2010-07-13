@@ -10,7 +10,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Markup;
 using System.Collections.Specialized;
 
-
 namespace Phone.Controls.Samples
 {
     [ContentPropertyAttribute("Items")]

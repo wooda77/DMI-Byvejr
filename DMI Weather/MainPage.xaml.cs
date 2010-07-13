@@ -19,6 +19,7 @@ using System.Xml.Linq;
 using System.Diagnostics;
 
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 
 namespace DMI_Weather
 {
@@ -37,7 +38,7 @@ namespace DMI_Weather
         /// Amount of taps in a row.
         /// </summary>
         private int imageTapCount = 0;
-        
+
         /// <summary>
         /// Time of last tap.
         /// </summary>
@@ -76,7 +77,7 @@ namespace DMI_Weather
 
         private void ResolveAddress()
         {
-            using (var watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Low))
+            using (var watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default))
             {
                 watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
 
@@ -137,7 +138,9 @@ namespace DMI_Weather
             var selectedItem = (sender as StackPanel).DataContext;
             if (selectedItem != null)
             {
-                NavigationService.Navigate((selectedItem as NewsFeedItem).Link);
+                var task = new WebBrowserTask();
+                task.URL = (selectedItem as NewsFeedItem).Link.AbsoluteUri;
+                task.Show();
             }
         }
 
@@ -215,7 +218,7 @@ namespace DMI_Weather
 
         private void Image_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
-            var image = (sender as Image);            
+            var image = (sender as Image);
         }
 
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -239,7 +242,7 @@ namespace DMI_Weather
                     // like in the example projects.
                 }
                 imageTapCount = 0;
-            }           
+            }
         }
     }
 }
