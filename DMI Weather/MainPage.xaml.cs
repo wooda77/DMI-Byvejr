@@ -98,7 +98,7 @@ namespace DMI_Weather
         private void UpdateNewsFeed()
         {
             var client = new WebClient();
-            client.Encoding = new LatinEncoding();
+            client.Encoding = Encoding.GetEncoding("iso-8859-1"); 
             client.DownloadStringCompleted += NewsWebClient_DownloadStringCompleted;
             client.DownloadStringAsync(new Uri("http://www.dmi.dk/dmi/rss-nyheder"));
         }
@@ -147,7 +147,7 @@ namespace DMI_Weather
         private void UpdatePollenFeed()
         {
             var client = new WebClient();
-            client.Encoding = new LatinEncoding();
+            client.Encoding = Encoding.GetEncoding("iso-8859-1"); 
             client.DownloadStringCompleted += PollenWebClient_DownloadStringCompleted;
             client.DownloadStringAsync(new Uri("http://www.dmi.dk/dmi/pollen-feed.xml"));
         }
