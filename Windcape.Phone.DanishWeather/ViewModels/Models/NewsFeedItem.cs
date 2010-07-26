@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DMI_Weather.ViewModels.Models
+namespace Windcape.Phone.DanishWeather.ViewModels.Models
 {
     public class NewsFeedItem
     {

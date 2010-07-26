@@ -1,4 +1,4 @@
-﻿<phoneNavigation:PhoneApplicationPage x:Class="DMI_Weather.MainPage"
+﻿<phoneNavigation:PhoneApplicationPage x:Class="Windcape.Phone.DanishWeather.MainPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:phoneNavigation="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -7,11 +7,10 @@
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
         xmlns:mpc="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
         xmlns:phone="clr-namespace:Phone.Controls.Samples;assembly=Phone.Controls.Samples"
-        xmlns:converters="clr-namespace:DMI_Weather.Converters" mc:Ignorable="d" d:DesignWidth="480"
+        xmlns:converters="clr-namespace:Windcape.Phone.DanishWeather.Converters" mc:Ignorable="d" d:DesignWidth="480"
         d:DesignHeight="800" SupportedOrientations="PortraitOrLandscape"
         FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}" Loaded="PhoneApplicationPage_Loaded">
-    
     <phoneNavigation:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="False" IsMenuEnabled="True">
             <shell:ApplicationBar.Buttons>
@@ -29,18 +28,14 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phoneNavigation:PhoneApplicationPage.ApplicationBar>
-    
     <phoneNavigation:PhoneApplicationPage.Resources>
         <converters:ImageConverter x:Key="ImageConverter" />
     </phoneNavigation:PhoneApplicationPage.Resources>
-    
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
         <phone:PivotControl>
             <phone:PivotItem Title="VEJRUDSIGTEN FRA DMI" Header="byvejr">
                 <StackPanel>
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded" VerticalAlignment="Top"
-                           ManipulationCompleted="Image_ManipulationCompleted"
-                           MouseLeftButtonUp="Image_MouseLeftButtonUp"
                            Source="{Binding CityWeather2days, Converter={StaticResource ImageConverter}}" />
                     <Image Margin="8,8,8,0" Loaded="Image_Loaded"
                            Source="{Binding CityWeather7days, Converter={StaticResource ImageConverter}}" />
@@ -56,7 +51,7 @@
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
+                                    <StackPanel Margin="8,8,8,8">
                                         <TextBlock Text="{Binding City}" Style="{StaticResource PhoneTextLargeStyle}" />
                                         <TextBlock Margin="15,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap"
                                                 Text="{Binding Data}" />

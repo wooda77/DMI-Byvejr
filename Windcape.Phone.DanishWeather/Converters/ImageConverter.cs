@@ -5,7 +5,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace DMI_Weather.Converters
+namespace Windcape.Phone.DanishWeather.Converters
 {
     public sealed class ImageConverter : IValueConverter
     {

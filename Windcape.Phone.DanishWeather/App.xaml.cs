@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace DMI_Weather
+namespace Windcape.Phone.DanishWeather
 {
     public partial class App : Application
     {

@@ -21,7 +21,7 @@ using System.Diagnostics;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 
-namespace DMI_Weather
+namespace Windcape.Phone.DanishWeather
 {
     using ViewModels;
     using ViewModels.Models;
@@ -33,16 +33,6 @@ namespace DMI_Weather
         /// </summary>
         private MainPageViewModel viewModel 
             = new MainPageViewModel();
-
-        /// <summary>
-        /// Amount of taps in a row.
-        /// </summary>
-        private int imageTapCount = 0;
-
-        /// <summary>
-        /// Time of last tap.
-        /// </summary>
-        private DateTime imageTapTimer;
 
         public MainPage()
         {
@@ -187,62 +177,27 @@ namespace DMI_Weather
             string input = data.Replace("\n", "");
             input = input.Replace(" ", "");
 
-            var resultB = new StringBuilder();
+            var result = new StringBuilder();
 
-            string[] parts = input.Split(new char[] { '.' });
+            string[] parts = input.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)
             {
-                var partValues = part.Split(new char[] { ',' });
+                var partValues = part.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if ((partValues.Length == 2) && (partValues[1] != "-"))
                 {
-                    resultB.AppendFormat("{0}: {1} , ", partValues[0], partValues[1]);
+                    result.AppendFormat("{0}: {1} , ", partValues[0], partValues[1]);
                 }
             }
 
-            string result = resultB.ToString();
-            result = result.Substring(0, result.Length - 3);
-
-            return result;
-        }
-
-        private void Image_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
-        {
-            var image = (sender as Image);
-        }
-
-        private void Image_ManipulationDelta(object sender, ManipulationDeltaEventArgs e)
-        {
-            var image = (sender as Image);
-        }
-
-        private void Image_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
-        {
-            var image = (sender as Image);
-        }
-
-        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var image = (sender as Image);
-
-            if (imageTapCount == 0)
+            string output = result.ToString();
+            
+            if (output != string.Empty)
             {
-                imageTapTimer = DateTime.Now;
+                output = output.Substring(0, output.Length - 3);
             }
 
-            imageTapCount++;
-
-            if (imageTapCount > 1)
-            {
-                var timeSpan = DateTime.Now - imageTapTimer;
-                var limit = new TimeSpan(0, 0, 0, 0, 200);
-                if (timeSpan < limit)
-                {
-                    // TODO: Open Image in a seperate page for full version display, with a arrow back to the orginal page,
-                    // like in the example projects.
-                }
-                imageTapCount = 0;
-            }
+            return output;
         }
     }
 }

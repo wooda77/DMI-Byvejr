@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMI Weather", "DMI Weather\DMI Weather.csproj", "{6ED171AB-3354-4199-9318-4D91FAAF0829}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windcape.Phone.DanishWeather", "Windcape.Phone.DanishWeather\Windcape.Phone.DanishWeather.csproj", "{6ED171AB-3354-4199-9318-4D91FAAF0829}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phone.Controls.Samples", "Phone.Controls.Samples\Phone.Controls.Samples.csproj", "{700BA959-2F8B-459F-802A-76836144765B}"
 EndProject

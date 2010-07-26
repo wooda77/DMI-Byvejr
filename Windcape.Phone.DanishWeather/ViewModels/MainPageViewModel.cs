@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Net;
 using System.Device.Location;
 
-namespace DMI_Weather.ViewModels
+namespace Windcape.Phone.DanishWeather.ViewModels
 {
     using Models;
 
