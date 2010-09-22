@@ -4,15 +4,19 @@
 // Authors:
 //     Claus Jørgensen <10229@iha.dk>
 //
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+
+using Microsoft.Phone.Controls;
 
 namespace DMI_Weather.Views
 {
     using Models;
     using ViewModels;
-    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
 
     public partial class MainPage : PageViewBase
     {
@@ -37,21 +41,31 @@ namespace DMI_Weather.Views
             ViewModel.UpdateNewsFeed();
         }
 
-        private void NewsListBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var selectedItem = (sender as StackPanel).DataContext;
-            
-            if ((selectedItem != null) && (selectedItem is NewsItem))
-            {
-                ViewModel.OpenUrlInBrowser((selectedItem as NewsItem).Link);
-            }
-        }
-
         private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (sender is Image)
             {
                 ViewModel.CropImageBorders(sender as Image);
+            }
+        }
+
+        private void Image_DoubleTap(object sender, GestureEventArgs e)
+        {
+            var image = (sender as Image).Source as BitmapImage;
+
+            var uri = "/Views/ImagePage.xaml?ImageSource=" +
+                Uri.EscapeDataString(image.UriSource.ToString());
+
+            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
+        }
+
+        private void NewsItem_DoubleTap(object sender, GestureEventArgs e)
+        {
+            var selectedItem = (sender as StackPanel).DataContext;
+
+            if ((selectedItem != null) && (selectedItem is NewsItem))
+            {
+                ViewModel.OpenUrlInBrowser((selectedItem as NewsItem).Link);
             }
         }
     }

@@ -5,6 +5,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:DMI_Weather.Views"
@@ -32,9 +34,17 @@
                 <ScrollViewer Margin="0,0,0,16">
                     <StackPanel>
                         <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged" VerticalAlignment="Top" 
-                           Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}" />
+                           Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}">
+                            <toolkit:GestureService.GestureListener>
+                                <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
+                            </toolkit:GestureService.GestureListener>
+                        </Image>
                         <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged"
-                           Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}" />
+                           Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}">
+                            <toolkit:GestureService.GestureListener>
+                                <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
+                            </toolkit:GestureService.GestureListener>
+                        </Image>
                     </StackPanel>
                 </ScrollViewer>
             </controls:PivotItem>
@@ -43,7 +53,11 @@
                 <ScrollViewer>
                     <StackPanel>
                         <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged" VerticalAlignment="Top"
-                           Source="{Binding PollenGraph, Converter={StaticResource ImageConverter}}" />
+                           Source="{Binding PollenGraph, Converter={StaticResource ImageConverter}}">
+                            <toolkit:GestureService.GestureListener>
+                                <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
+                            </toolkit:GestureService.GestureListener>
+                        </Image>
                         <StackPanel Margin="0,5,0,0">
                             <ListBox ItemsSource="{Binding PollenData}">
                                 <ListBox.Template>
@@ -74,8 +88,10 @@
                         <ItemsControl ItemsSource="{Binding NewsItems}" BorderThickness="0">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" 
-                                                Margin="0,0,0,15" MouseLeftButtonUp="NewsListBox_MouseLeftButtonUp">
+                                    <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15">
+                                        <toolkit:GestureService.GestureListener>
+                                            <toolkit:GestureListener DoubleTap="NewsItem_DoubleTap" />
+                                        </toolkit:GestureService.GestureListener>
                                         <TextBlock Margin="0,0,15,0" Style="{StaticResource PhoneTextLargeStyle}" 
                                                    TextWrapping="Wrap" Text="{Binding Title}" />
                                         <TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextNormalStyle}" 

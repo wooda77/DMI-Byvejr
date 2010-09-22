@@ -53,6 +53,7 @@ namespace DMI_Weather
         private void InitializeServices()
         {
             App.Register<MainViewModel>(new MainViewModel());
+            App.Register<ImageViewModel>(new ImageViewModel());
         }
 
         public static void Register<TService>(TService service)
@@ -63,61 +64,6 @@ namespace DMI_Weather
         public static TService Resolve<TService>()
         {
             return (TService)services[typeof(TService)];
-        }
-
-        #endregion
-
-        #region Persistance Helpers
-
-        private void SaveApplicationSettings()
-        {
-            var store = IsolatedStorageSettings.ApplicationSettings;
-
-            if (store.Contains("MainViewModel"))
-            {
-                store["MainViewModel"] = App.Resolve<MainViewModel>();
-            }
-            else
-            {
-                store.Add("MainViewModel", App.Resolve<MainViewModel>());
-            }
-
-            store.Save();
-        }
-
-        private void RestoreApplicationSettings()
-        {
-            var store = IsolatedStorageSettings.ApplicationSettings;
-
-            if (store.Contains("MainViewModel"))
-            {
-                App.Register<MainViewModel>(
-                    (MainViewModel)store["MainViewModel"]);
-            }
-        }
-
-        #endregion
-
-        #region Phone Application Service Events
-
-        private void Application_Launching(object sender, LaunchingEventArgs e)
-        {
-            RestoreApplicationSettings();
-        }
-
-        private void Application_Activated(object sender, ActivatedEventArgs e)
-        {
-            RestoreApplicationSettings();
-        }
-
-        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
-        {
-            SaveApplicationSettings();
-        }
-
-        private void Application_Closing(object sender, ClosingEventArgs e)
-        {
-            SaveApplicationSettings();
         }
 
         #endregion
