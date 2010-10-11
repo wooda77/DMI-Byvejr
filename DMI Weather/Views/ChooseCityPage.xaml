@@ -1,0 +1,58 @@
+﻿<views:PageViewBase
+    x:Class="DMI_Weather.Views.ChooseCityPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:DMI_Weather.Views"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:cc="clr-namespace:Clarity.Phone.Controls;assembly=Clarity.Phone"
+    xmlns:models="clr-namespace:DMI_Weather.Models"
+    mc:Ignorable="d" 
+    d:DesignHeight="480" 
+    d:DesignWidth="800"
+    shell:SystemTray.IsVisible="False"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" 
+    Orientation="Portrait">    
+    <Grid x:Name="LayoutRoot" Background="Transparent" Loaded="LayoutRoot_Loaded">
+        <controls:Pivot Title="{Binding Localized.AppTitle, Source={StaticResource LocalizedStrings}}">
+            <controls:PivotItem Header="{Binding Localized.AppBar_ChooseCity, Source={StaticResource LocalizedStrings}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" x:Name="SearchTextBox" TextChanged="TextBox_TextChanged" />
+                    <Grid Grid.Row="1">
+                        <cc:QuickJumpGrid 
+                            x:Name="CitiesJumpGrid"
+                            IsAlphaNumeric="True"
+                            Margin="8,0"
+                            SelectionChanged="CitiesJumpGrid_SelectionChanged"
+                            OverlayClosed="QuickJumpGrid_OverlayClosed"
+                            OverlayOpened="QuickJumpGrid_OverlayOpened"> 
+                            <cc:QuickJumpGrid.QuickJumpGridSelector>
+                                <models:CitySelector />
+                            </cc:QuickJumpGrid.QuickJumpGridSelector>
+                            <cc:QuickJumpGrid.ItemTemplate>
+                                <DataTemplate>
+                                    <Canvas Margin="0,6,0,6" Height="62" Width="456">
+                                        <TextBlock Canvas.Left="62" Text="{Binding Name}" 
+                                                   FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                   FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                    </Canvas>
+                                </DataTemplate>
+                            </cc:QuickJumpGrid.ItemTemplate>
+                        </cc:QuickJumpGrid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+</views:PageViewBase>

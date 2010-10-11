@@ -7,12 +7,13 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
-[assembly: AssemblyTitle("DMI Weather")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Vejrudsigten fra DMI")]
+[assembly: AssemblyDescription("Vejrudsigten fra DMI.dk til WP7")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DMI Weather")]
+[assembly: AssemblyProduct("Vejrudsigten fra DMI")]
 [assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -23,3 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("da-DK")]

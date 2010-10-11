@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Navigation;
 using System.Diagnostics;
+using System.Globalization;
+using System.Threading;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -17,6 +19,7 @@ namespace DMI_Weather
 {
     using ViewModels;
     using System.IO.IsolatedStorage;
+    using System.Windows.Media;
 
     public partial class App : Application
     {
@@ -30,11 +33,30 @@ namespace DMI_Weather
             private set;
         }
 
-        /// <summary>
-        /// ServiceLocator container.
-        /// </summary>
-        private static readonly IDictionary<Type, object> services 
-            = new Dictionary<Type, object>();
+        public const string Favorites = "favorites";
+
+        public static ThemeBackground CurrentThemeBackground
+        {
+            get
+            {
+                var currentColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
+
+                if (currentColor == Colors.Black)
+                {
+                    return ThemeBackground.ThemeBackgroundDark;
+                }
+                else
+                {
+                    return ThemeBackground.ThemeBackgroundLight;
+                }
+            }
+        }
+
+        public enum ThemeBackground
+        {
+            ThemeBackgroundDark,
+            ThemeBackgroundLight
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:App"/> class.
@@ -43,30 +65,12 @@ namespace DMI_Weather
         {
             UnhandledException += Application_UnhandledException;
 
-            InitializeServices();
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
+
             InitializeComponent();
             InitializePhoneApplication();
         }
-
-        #region Service Locator
-
-        private void InitializeServices()
-        {
-            App.Register<MainViewModel>(new MainViewModel());
-            App.Register<ImageViewModel>(new ImageViewModel());
-        }
-
-        public static void Register<TService>(TService service)
-        {
-            services[typeof(TService)] = service;
-        }
-
-        public static TService Resolve<TService>()
-        {
-            return (TService)services[typeof(TService)];
-        }
-
-        #endregion
 
         #region Debugging Handlers
 

@@ -30,19 +30,19 @@ namespace DMI_Weather.ViewModels
     {
         #region Properties
 
-        public int SelectedPivotPage
-        {
-            get;
-            set;
-        }
+        private PollenFeed pollenFeed = new PollenFeed();
+        private NewsFeed newsFeed = new NewsFeed();
+        private CivicAddress address = new CivicAddress();
+        private ObservableCollection<City> favorites 
+            = new ObservableCollection<City>();
 
         public string PostalCode
         {
             get
             {
-                if (address == null)
+                if (string.IsNullOrEmpty(address.PostalCode))
                 {
-                    return "8000";
+                    return AppResources.DefaultPostal;
                 }
                 else
                 {
@@ -55,9 +55,7 @@ namespace DMI_Weather.ViewModels
         {
             get
             {
-                string uri = "http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&mode=long";
-
-                return new Uri(string.Format(uri, PostalCode));
+                return new Uri(string.Format(AppResources.CityWeather2daysGraph, PostalCode));
             }
         }
 
@@ -65,9 +63,7 @@ namespace DMI_Weather.ViewModels
         {
             get
             {
-                string uri = "http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&tabel=dag3_9";
-
-                return new Uri(string.Format(uri, PostalCode));
+                return new Uri(string.Format(AppResources.CityWeather7daysGraph, PostalCode));
             }
         }
 
@@ -75,13 +71,24 @@ namespace DMI_Weather.ViewModels
         {
             get
             {
-                string uri = "http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}";
-
-                return new Uri(string.Format(uri, PostalCode));
+                return new Uri(string.Format(AppResources.PollenGraph, PostalCode));
             }
         }
 
-        private CivicAddress address;
+        public string City
+        {
+            get
+            {
+                if (address != null)
+                {
+                    return address.City;
+                }
+                else
+                {
+                    return AppResources.DefaultCity;
+                }
+            }
+        }
 
         public CivicAddress Address
         {
@@ -96,14 +103,12 @@ namespace DMI_Weather.ViewModels
                     address = value;
 
                     OnPropertyChanged("Address");
-                    OnPropertyChanged("CityWeather2days");
-                    OnPropertyChanged("CityWeather7days");
-                    OnPropertyChanged("Pollen");
+                    OnPropertyChanged("CityWeather2daysGraph");
+                    OnPropertyChanged("CityWeather7daysGraph");
+                    OnPropertyChanged("PollenGraph");
                 }
             }
         }
-
-        private PollenFeed pollenFeed = new PollenFeed();
 
         public ObservableCollection<PollenItem> PollenData
         {
@@ -113,13 +118,23 @@ namespace DMI_Weather.ViewModels
             }
         }
 
-        private NewsFeed newsFeed = new NewsFeed();
-
         public ObservableCollection<NewsItem> NewsItems
         {
             get
             {
                 return newsFeed.NewsItems;
+            }
+        }
+        
+        public ObservableCollection<City> Favorites
+        {
+            get
+            {
+                return favorites;
+            }
+            set
+            {
+                favorites = value;
             }
         }
 
@@ -172,7 +187,7 @@ namespace DMI_Weather.ViewModels
 
         public void UpdateNewsFeed()
         {
-            newsFeed.Update();   
+            newsFeed.Update();
         }
 
         #endregion

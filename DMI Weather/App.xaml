@@ -3,5 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:models="clr-namespace:DMI_Weather.Models"
     x:Class="DMI_Weather.App">
+    <Application.Resources>
+        <models:Resources x:Key="LocalizedStrings" />
+    </Application.Resources>
 </Application>

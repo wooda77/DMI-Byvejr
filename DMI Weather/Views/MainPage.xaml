@@ -17,30 +17,30 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" 
     Orientation="Portrait"
-    Loaded="MainPage_Loaded"
     mc:Ignorable="d" 
     d:DesignWidth="480" 
-    d:DesignHeight="800"     
-    d:DataContext="{d:DesignData /SampleData/SampleData.xaml}"
-    shell:SystemTray.IsVisible="True">
+    d:DesignHeight="696"     
+    d:DataContext="{d:DesignData ../SampleData/MainPageSampleData.xaml}"
+    shell:SystemTray.IsVisible="False">
     <phone:PhoneApplicationPage.Resources>
         <converters:ImageConverter x:Key="ImageConverter" />
     </phone:PhoneApplicationPage.Resources>
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <controls:Pivot Title="VEJRUDSIGTEN FRA DMI" 
-                        SelectedIndex="{Binding SelectedPivotPage, Mode=TwoWay}">
-            <!-- /// Byvejr /// -->
-            <controls:PivotItem Header="byvejr">
+        <controls:Pivot x:Name="PivotLayout" 
+                        Title="{Binding Localized.AppTitle, Source={StaticResource LocalizedStrings}}" 
+                        SelectionChanged="Pivot_SelectionChanged">
+            <controls:PivotItem Header="{Binding Localized.CityWeatherHeader, Source={StaticResource LocalizedStrings}}" 
+                                x:Name="WeatherPivotItem" Loaded="WeatherPivotItem_Loaded">
                 <ScrollViewer Margin="0,0,0,16">
                     <StackPanel>
                         <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged" VerticalAlignment="Top" 
-                           Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}">
+                               Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}">
                             <toolkit:GestureService.GestureListener>
                                 <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
                             </toolkit:GestureService.GestureListener>
                         </Image>
                         <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged"
-                           Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}">
+                               Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}">
                             <toolkit:GestureService.GestureListener>
                                 <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
                             </toolkit:GestureService.GestureListener>
@@ -48,8 +48,8 @@
                     </StackPanel>
                 </ScrollViewer>
             </controls:PivotItem>
-            <!-- /// Pollental /// -->
-            <controls:PivotItem Header="pollental">
+            <controls:PivotItem Header="{Binding Localized.PollenHeader, Source={StaticResource LocalizedStrings}}" 
+                                x:Name="PollenPivotItem" Loaded="PollenPivotItem_Loaded">
                 <ScrollViewer>
                     <StackPanel>
                         <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged" VerticalAlignment="Top"
@@ -81,26 +81,54 @@
                     </StackPanel>
                 </ScrollViewer>
             </controls:PivotItem>
-            <!-- /// Nyheder /// -->
-            <controls:PivotItem Header="nyheder">
+            <controls:PivotItem Header="{Binding Localized.FavoritesHeader, Source={StaticResource LocalizedStrings}}" 
+                                x:Name="FavoritesPivotItem">
                 <Grid Margin="15,0,0,15">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
-                        <ItemsControl ItemsSource="{Binding NewsItems}" BorderThickness="0">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15">
-                                        <toolkit:GestureService.GestureListener>
-                                            <toolkit:GestureListener DoubleTap="NewsItem_DoubleTap" />
-                                        </toolkit:GestureService.GestureListener>
-                                        <TextBlock Margin="0,0,15,0" Style="{StaticResource PhoneTextLargeStyle}" 
-                                                   TextWrapping="Wrap" Text="{Binding Title}" />
-                                        <TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextNormalStyle}" 
-                                                   TextWrapping="Wrap" Text="{Binding Description}" />
+                    <ListBox x:Name="FavoritesListBox" ItemsSource="{Binding Favorites}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="{Binding Localized.RemoveFavorite, Source={StaticResource LocalizedStrings}}"
+                                                              Click="FavoritesContextMenuItem_Click" />
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                        <Canvas Width="38" Height="38">
+                                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" Width="38" Height="38" />
+                                            <Path Data="M12.7630033493042,0L15.8240032196045,9.27399387849619 25.5270023345947,9.27399387849619 17.6387557983398,15.0049251605396 20.6520004272461,24.2780326892262 12.7634763717651,18.5468887378102 4.87500381469727,24.2779850055103 7.88791990280151,15.0047172595387 0,9.27401295198251 9.70000457763672,9.27401295198251 12.762526512146,0.00146796110675496z" 
+                                              Fill="{StaticResource PhoneForegroundBrush}" Canvas.Top="7" Canvas.Left="7" Stretch="Fill" Height="24" Width="24" />
+                                        </Canvas>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                     </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <toolkit:GestureService.GestureListener>
+                            <toolkit:GestureListener DoubleTap="FavoritesGestureListener_Tap" />
+                        </toolkit:GestureService.GestureListener>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+            <controls:PivotItem Header="{Binding Localized.NewsHeader, Source={StaticResource LocalizedStrings}}" 
+                                x:Name="NewsPivotItem" Loaded="NewsPivotItem_Loaded">
+                <Grid Margin="15,0,0,15">
+                    <ListBox ItemsSource="{Binding NewsItems}" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15">
+                                    <TextBlock Margin="0,0,15,0" Style="{StaticResource PhoneTextLargeStyle}" 
+                                                TextWrapping="Wrap" Text="{Binding Title}" />
+                                    <TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextNormalStyle}" 
+                                                TextWrapping="Wrap" Text="{Binding Description}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <toolkit:GestureService.GestureListener>
+                            <toolkit:GestureListener Tap="NewsItem_Tap" />
+                        </toolkit:GestureService.GestureListener>
+                    </ListBox>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

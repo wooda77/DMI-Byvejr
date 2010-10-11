@@ -16,8 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>
-    </SupportedCultures>
+    <SupportedCultures>en-US</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>DMI Weather.xap</XapFilename>
@@ -68,19 +67,36 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="AppResources.en-US.Designer.cs">
+      <DependentUpon>AppResources.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\CitySelector.cs" />
+    <Compile Include="Models\Denmark.cs" />
     <Compile Include="Models\PollenFeed.cs" />
+    <Compile Include="Models\Resources.cs" />
     <Compile Include="ViewModels\ImageViewModel.cs" />
-    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\ChooseCityPage.xaml.cs">
+      <DependentUpon>ChooseCityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\IView.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\NewsFeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="Common\IViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\PageViewBase.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Common\PageViewBase.cs" />
     <Compile Include="Views\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
@@ -90,7 +106,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="SampleData\SampleData.xaml">
+    <DesignData Include="SampleData\MainPageSampleData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="Views\ChooseCityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -114,20 +134,34 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="SampleData\byvejr.png" />
-    <Resource Include="SampleData\byvejr_dag1.png" />
-    <Resource Include="SampleData\pollen_dag1.png" />
+    <Content Include="SampleData\Images\byvejr.png" />
+    <Content Include="SampleData\Images\byvejr_dag1.png" />
+    <Content Include="SampleData\Images\pollen_dag1.png" />
+    <Content Include="Images\appbar.addtofavs.light.png" />
+    <Content Include="Images\appbar.favs.dark.png" />
+    <Content Include="Images\appbar.favs.light.png" />
+    <Content Include="Images\appbar.home.dark.png" />
+    <Content Include="Images\appbar.home.light.png" />
+    <Content Include="Images\appbar.addtofavs.dark.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppResources.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clarity.Phone\Clarity.Phone.csproj">
+      <Project>{282CA4CA-0FF6-4A14-9FB2-1A14261A3953}</Project>
+      <Name>Clarity.Phone</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
   <ProjectExtensions />
 </Project>

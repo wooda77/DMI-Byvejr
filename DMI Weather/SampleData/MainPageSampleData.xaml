@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:viewmodels="clr-namespace:DMI_Weather.ViewModels" 
     xmlns:models="clr-namespace:DMI_Weather.Models"
-    CityWeather2daysGraph="byvejr_dag1.png"
-    CityWeather7daysGraph="byvejr.png"
-    PollenGraph="pollen_dag1.png">
+    CityWeather2daysGraph="/SampleData/Images/byvejr_dag1.png"
+    CityWeather7daysGraph="/SampleData/Images/byvejr.png"
+    PollenGraph="/SampleData/Images/pollen_dag1.png">
     <viewmodels:MainViewModel.PollenData>
         <models:PollenItem City="København" Forecast="For i morgen, lørdag d. 26 juni 2010, ventes mange græspollen, over 50."
                            Data="Bynke: 10 , Græs: 52 , Alternaria: Lav , Cladosporium: Lav" />
@@ -23,4 +23,14 @@
                          Description="Efterår kan være en blæsende tid. På dmi.dk kan du holde dig opdateret på vind og vejr, så du kan træffe de nødvendige forholdsregler." 
                          Link="http://www.dmi.dk/dmi/foelg_vinden_med_dmi" />
     </viewmodels:MainViewModel.NewsItems>
+    <viewmodels:MainViewModel.Favorites>
+        <models:City Name="Århus" />
+        <models:City Name="København" />
+        <models:City Name="Odense" />
+        <models:City Name="Aalborg" />
+        <models:City Name="Vejle" />
+        <models:City Name="Roskilde" />
+        <models:City Name="Horsens" />
+        <models:City Name="Esbjerg" />
+    </viewmodels:MainViewModel.Favorites>
 </viewmodels:MainViewModel>

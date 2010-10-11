@@ -28,7 +28,7 @@ namespace DMI_Weather.Views
         }
 
         public ImagePage()
-            : base(App.Resolve<ImageViewModel>())
+            : base(new ImageViewModel())
         {
             InitializeComponent();
         }
