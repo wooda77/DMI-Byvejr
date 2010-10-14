@@ -36,8 +36,8 @@ namespace DMI
         {
             UnhandledException += Application_UnhandledException;
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
 
             InitializeComponent();
             InitializePhoneApplication();

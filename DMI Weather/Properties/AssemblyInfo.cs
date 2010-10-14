@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
 
-[assembly: AssemblyTitle("Vejrudsigten fra DMI")]
+[assembly: AssemblyTitle("@AppResLib.dll,-100")]
 [assembly: AssemblyDescription("Vejrudsigten fra DMI.dk til WP7")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

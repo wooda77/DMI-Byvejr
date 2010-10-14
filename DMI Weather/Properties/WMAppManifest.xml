@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-    <App xmlns="" ProductID="{0b680f74-4233-4edc-ad07-12e994d95ebd}" Title="Vejrudsigten fra DMI"
+    <App xmlns="" ProductID="{0b680f74-4233-4edc-ad07-12e994d95ebd}" Title="@AppResLib.dll,-100"
          RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"
-         Author="Claus Jørgensen" Description="Vejrudsigten fra DMI" Publisher="Claus Jørgensen">
+         Author="Claus Jørgensen" Description="@AppResLib.dll,-100" Publisher="Claus Jørgensen">
         <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
         <Capabilities>
             <Capability Name="ID_CAP_CAMERA"/>

@@ -8,3 +8,5 @@ obj/
 TestResults/
 TDD/
 obj/
+Release/
+Debug/
