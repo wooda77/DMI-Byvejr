@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DMI_Weather {
+namespace DMI.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DMI_Weather {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DMI_Weather.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DMI.Properties.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -160,6 +160,15 @@ namespace DMI_Weather {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/pollen-feed.xml.
+        /// </summary>
+        public static string PollenFeed {
+            get {
+                return ResourceManager.GetString("PollenFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}.
         /// </summary>
         public static string PollenGraph {
@@ -183,6 +192,15 @@ namespace DMI_Weather {
         public static string RemoveFavorite {
             get {
                 return ResourceManager.GetString("RemoveFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/rss-nyheder.
+        /// </summary>
+        public static string RssFeed {
+            get {
+                return ResourceManager.GetString("RssFeed", resourceCulture);
             }
         }
     }

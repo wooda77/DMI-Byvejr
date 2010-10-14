@@ -1,38 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
-using System.Windows.Media.Imaging;
+﻿//
+// ImagePage.xaml.cs
+//
+// Authors:
+//     Claus Jørgensen <10229@iha.dk>
+//
 using System.Windows.Navigation;
 
-namespace DMI_Weather.Views
+using Microsoft.Phone.Controls;
+
+namespace DMI.Views
 {
     using ViewModels;
 
-    public partial class ImagePage : PageViewBase
+    public partial class ImagePage : PhoneApplicationPage
     {
-        public new ImageViewModel ViewModel
-        {
-            get
-            {
-                return (ImageViewModel)base.ViewModel;
-            }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:ImagePage"/> class.
+        /// </summary>
         public ImagePage()
-            : base(new ImageViewModel())
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Called when a page becomes the active page in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the event data.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -40,15 +33,7 @@ namespace DMI_Weather.Views
             string imageSource = "";
             if (NavigationContext.QueryString.TryGetValue("ImageSource", out imageSource))
             {
-                ViewModel.LoadImage(imageSource);
-            }
-        }
-
-        private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (sender is Image)
-            {
-                ViewModel.CropImageBorders(sender as Image);
+                (DataContext as ImageViewModel).LoadImage(imageSource);
             }
         }
     }

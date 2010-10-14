@@ -10,7 +10,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
 
-namespace DMI_Weather.Converters
+namespace DMI.Converters
 {
     public sealed class ImageConverter : IValueConverter
     {

@@ -1,20 +1,32 @@
-﻿<views:PageViewBase
-    x:Class="DMI_Weather.Views.ImagePage"
+﻿<phone:PhoneApplicationPage
+    x:Class="DMI.Views.ImagePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:DMI_Weather.Views"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+    xmlns:views="clr-namespace:DMI.Views"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Landscape" Orientation="Landscape"
-    mc:Ignorable="d" d:DesignHeight="480" d:DesignWidth="800"
-    shell:SystemTray.IsVisible="False">
+    DataContext="{Binding ImageViewModel, Source={StaticResource ViewModelLocator}}"
+    SupportedOrientations="Landscape" 
+    Orientation="Landscape">
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Image Source="{Binding ImageSource}" SizeChanged="Image_SizeChanged" 
-               Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SizeChanged">
+                    <mvvm:EventToCommand Command="{Binding CropBorders}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Loaded">
+                    <mvvm:EventToCommand Command="{Binding CropBorders}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
     </Grid>
-</views:PageViewBase>
+</phone:PhoneApplicationPage>

@@ -1,62 +1,92 @@
-﻿<views:PageViewBase
-    x:Class="DMI_Weather.Views.MainPage"
+﻿<p:PhoneApplicationPage
+    x:Class="DMI.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:w="clr-namespace:System;assembly=mscorlib"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
-    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"    
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:DMI_Weather.Views"
-    xmlns:viewmodels="clr-namespace:DMI_Weather.ViewModels"
-    xmlns:converters="clr-namespace:DMI_Weather.Converters"
+    xmlns:s="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:p="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:t="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+    xmlns:v="clr-namespace:DMI.Views"
+    xmlns:vm="clr-namespace:DMI.ViewModels"
+    xmlns:a="clr-namespace:DMI.Assets"
+    s:SystemTray.IsVisible="False"
+    a:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
+    Foreground="{StaticResource PhoneForegroundBrush}"    
+    DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
     SupportedOrientations="PortraitOrLandscape" 
-    Orientation="Portrait"
-    mc:Ignorable="d" 
-    d:DesignWidth="480" 
-    d:DesignHeight="696"     
-    d:DataContext="{d:DesignData ../SampleData/MainPageSampleData.xaml}"
-    shell:SystemTray.IsVisible="False">
-    <phone:PhoneApplicationPage.Resources>
-        <converters:ImageConverter x:Key="ImageConverter" />
-    </phone:PhoneApplicationPage.Resources>
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <controls:Pivot x:Name="PivotLayout" 
-                        Title="{Binding Localized.AppTitle, Source={StaticResource LocalizedStrings}}" 
-                        SelectionChanged="Pivot_SelectionChanged">
-            <controls:PivotItem Header="{Binding Localized.CityWeatherHeader, Source={StaticResource LocalizedStrings}}" 
-                                x:Name="WeatherPivotItem" Loaded="WeatherPivotItem_Loaded">
+    Orientation="Portrait">
+    <p:PhoneApplicationPage.Resources>
+        <ResourceDictionary>
+            <w:String x:Key="FavoritesListImagePath">M12.7630033493042,0L15.8240032196045,9.27399387849619 25.5270023345947,9.27399387849619 17.6387557983398,15.0049251605396 20.6520004272461,24.2780326892262 12.7634763717651,18.5468887378102 4.87500381469727,24.2779850055103 7.88791990280151,15.0047172595387 0,9.27401295198251 9.70000457763672,9.27401295198251 12.762526512146,0.00146796110675496z</w:String>
+        </ResourceDictionary>
+    </p:PhoneApplicationPage.Resources>
+    <Grid>
+        <c:Pivot x:Name="PivotLayout" 
+                 Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}" 
+                 SelectionChanged="PivotLayout_SelectionChanged">
+            <!-- City Weather -->
+            <c:PivotItem x:Name="WeatherPivotItem" 
+                         Header="{Binding AppResources.CityWeatherHeader, Source={StaticResource AppResources}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <mvvm:EventToCommand Command="{Binding LoadWeatherInformation}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ScrollViewer Margin="0,0,0,16">
                     <StackPanel>
-                        <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged" VerticalAlignment="Top" 
+                        <Image Margin="8,8,8,0" 
                                Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}">
-                            <toolkit:GestureService.GestureListener>
-                                <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
-                            </toolkit:GestureService.GestureListener>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SizeChanged">
+                                    <mvvm:EventToCommand Command="{Binding CropBorders}" 
+                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <t:GestureService.GestureListener>
+                                <t:GestureListener DoubleTap="OpenInLandscapeMode" />
+                            </t:GestureService.GestureListener>
                         </Image>
-                        <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged"
+                        <Image Margin="8,8,8,0" 
                                Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}">
-                            <toolkit:GestureService.GestureListener>
-                                <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
-                            </toolkit:GestureService.GestureListener>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SizeChanged">
+                                    <mvvm:EventToCommand Command="{Binding CropBorders}" 
+                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <t:GestureService.GestureListener>
+                                <t:GestureListener DoubleTap="OpenInLandscapeMode" />
+                            </t:GestureService.GestureListener>
                         </Image>
                     </StackPanel>
                 </ScrollViewer>
-            </controls:PivotItem>
-            <controls:PivotItem Header="{Binding Localized.PollenHeader, Source={StaticResource LocalizedStrings}}" 
-                                x:Name="PollenPivotItem" Loaded="PollenPivotItem_Loaded">
+            </c:PivotItem>
+            <!-- Pollen -->
+            <c:PivotItem x:Name="PollenPivotItem" 
+                         Header="{Binding AppResources.PollenHeader, Source={StaticResource AppResources}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <mvvm:EventToCommand Command="{Binding LoadPollenInformation}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ScrollViewer>
                     <StackPanel>
-                        <Image Margin="8,8,8,0" SizeChanged="Image_SizeChanged" VerticalAlignment="Top"
-                           Source="{Binding PollenGraph, Converter={StaticResource ImageConverter}}">
-                            <toolkit:GestureService.GestureListener>
-                                <toolkit:GestureListener DoubleTap="Image_DoubleTap" />
-                            </toolkit:GestureService.GestureListener>
+                        <Image Source="{Binding PollenGraph, Converter={StaticResource ImageConverter}}" 
+                               Margin="8,8,8,0" VerticalAlignment="Top">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SizeChanged">
+                                    <mvvm:EventToCommand Command="{Binding CropBorders}" 
+                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <t:GestureService.GestureListener>
+                                <t:GestureListener DoubleTap="OpenInLandscapeMode" />
+                            </t:GestureService.GestureListener>
                         </Image>
                         <StackPanel Margin="0,5,0,0">
                             <ListBox ItemsSource="{Binding PollenData}">
@@ -69,10 +99,10 @@
                                     <DataTemplate>
                                         <StackPanel Margin="8,8,8,8">
                                             <TextBlock Text="{Binding City}" Style="{StaticResource PhoneTextLargeStyle}" />
-                                            <TextBlock Margin="15,0,0,0" Style="{StaticResource PhoneTextNormalStyle}" 
-                                                   TextWrapping="Wrap" Text="{Binding Data}" />
-                                            <TextBlock Margin="15,10,0,0" Style="{StaticResource PhoneTextNormalStyle}" 
-                                                   TextWrapping="Wrap" Text="{Binding Forecast}" />
+                                            <TextBlock Text="{Binding Data}" Margin="15,0,0,0" 
+                                                       Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding Forecast}" Margin="15,10,0,0" 
+                                                       Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -80,57 +110,72 @@
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
-            </controls:PivotItem>
-            <controls:PivotItem Header="{Binding Localized.FavoritesHeader, Source={StaticResource LocalizedStrings}}" 
-                                x:Name="FavoritesPivotItem">
+            </c:PivotItem>
+            <!-- Favorites -->
+            <c:PivotItem x:Name="FavoritesPivotItem" 
+                         Header="{Binding AppResources.FavoritesHeader, Source={StaticResource AppResources}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <mvvm:EventToCommand Command="{Binding LoadFavorites}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid Margin="15,0,0,15">
                     <ListBox x:Name="FavoritesListBox" ItemsSource="{Binding Favorites}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <mvvm:EventToCommand Command="{Binding FavoriteItemSelected}" 
+                                                     CommandParameter="{Binding SelectedItem, ElementName=FavoritesListBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                    <toolkit:ContextMenuService.ContextMenu>
-                                        <toolkit:ContextMenu>
-                                            <toolkit:MenuItem Header="{Binding Localized.RemoveFavorite, Source={StaticResource LocalizedStrings}}"
-                                                              Click="FavoritesContextMenuItem_Click" />
-                                        </toolkit:ContextMenu>
-                                    </toolkit:ContextMenuService.ContextMenu>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
                                         <Canvas Width="38" Height="38">
-                                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" Width="38" Height="38" />
-                                            <Path Data="M12.7630033493042,0L15.8240032196045,9.27399387849619 25.5270023345947,9.27399387849619 17.6387557983398,15.0049251605396 20.6520004272461,24.2780326892262 12.7634763717651,18.5468887378102 4.87500381469727,24.2779850055103 7.88791990280151,15.0047172595387 0,9.27401295198251 9.70000457763672,9.27401295198251 12.762526512146,0.00146796110675496z" 
-                                              Fill="{StaticResource PhoneForegroundBrush}" Canvas.Top="7" Canvas.Left="7" Stretch="Fill" Height="24" Width="24" />
+                                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" 
+                                                     StrokeThickness="2" Width="38" Height="38" />
+                                            <Path Fill="{StaticResource PhoneForegroundBrush}" 
+                                                  Canvas.Top="7" Canvas.Left="7" Stretch="Fill" Height="24" Width="24"
+                                                  Data="{StaticResource FavoritesListImagePath}" />
                                         </Canvas>
-                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" 
+                                                   Style="{StaticResource PhoneTextLargeStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener DoubleTap="FavoritesGestureListener_Tap" />
-                        </toolkit:GestureService.GestureListener>
                     </ListBox>
                 </Grid>
-            </controls:PivotItem>
-            <controls:PivotItem Header="{Binding Localized.NewsHeader, Source={StaticResource LocalizedStrings}}" 
-                                x:Name="NewsPivotItem" Loaded="NewsPivotItem_Loaded">
+            </c:PivotItem>
+            <!-- News -->
+            <c:PivotItem x:Name="NewsPivotItem" 
+                         Header="{Binding AppResources.NewsHeader, Source={StaticResource AppResources}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <mvvm:EventToCommand Command="{Binding LoadNewsFeed}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid Margin="15,0,0,15">
-                    <ListBox ItemsSource="{Binding NewsItems}" BorderThickness="0">
+                    <ListBox x:Name="NewsListBox" ItemsSource="{Binding NewsItems}" BorderThickness="0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <mvvm:EventToCommand Command="{Binding NewsItemSelected}" 
+                                                     CommandParameter="{Binding SelectedItem, ElementName=NewsListBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15">
                                     <TextBlock Margin="0,0,15,0" Style="{StaticResource PhoneTextLargeStyle}" 
-                                                TextWrapping="Wrap" Text="{Binding Title}" />
+                                               TextWrapping="Wrap" Text="{Binding Title}" />
                                     <TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextNormalStyle}" 
-                                                TextWrapping="Wrap" Text="{Binding Description}" />
+                                               TextWrapping="Wrap" Text="{Binding Description}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener Tap="NewsItem_Tap" />
-                        </toolkit:GestureService.GestureListener>
                     </ListBox>
                 </Grid>
-            </controls:PivotItem>
-        </controls:Pivot>
+            </c:PivotItem>
+        </c:Pivot>
     </Grid>
-</views:PageViewBase>
+</p:PhoneApplicationPage>

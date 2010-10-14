@@ -150,6 +150,9 @@
   <data name="NewsHeader" xml:space="preserve">
     <value>news</value>
   </data>
+  <data name="PollenFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/pollen-feed.xml</value>
+  </data>
   <data name="PollenGraph" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}</value>
   </data>
@@ -158,5 +161,8 @@
   </data>
   <data name="RemoveFavorite" xml:space="preserve">
     <value>remove favorite</value>
+  </data>
+  <data name="RssFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/rss-nyheder</value>
   </data>
 </root>

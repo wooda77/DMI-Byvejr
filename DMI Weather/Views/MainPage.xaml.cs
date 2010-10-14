@@ -5,74 +5,36 @@
 //     Claus Jørgensen <10229@iha.dk>
 //
 using System;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Windows;
+using System.Device.Location;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Device.Location;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace DMI_Weather.Views
+namespace DMI.Views
 {
-    using Models;
+    using Properties;
     using ViewModels;
-    using System.IO.IsolatedStorage;
 
-    public partial class MainPage : PageViewBase
+    /// <summary>
+    /// Interaction logic for MainPage.xaml
+    /// </summary>
+    public partial class MainPage : PhoneApplicationPage
     {
-        public new MainViewModel ViewModel
-        {
-            get
-            {
-                return (MainViewModel)base.ViewModel;
-            }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:MainPage"/> class.
+        /// </summary>
         public MainPage()
-            : base(new MainViewModel())
         {
             InitializeComponent();
-
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
-            {
-                ViewModel.Favorites = (ObservableCollection<City>)
-                    IsolatedStorageSettings.ApplicationSettings[App.Favorites];
-            }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            string postalCode = "";
-            if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
-            {
-                ViewModel.Address.PostalCode = postalCode;
-            }
-        }
-
-        private void WeatherPivotItem_Loaded(object sender, RoutedEventArgs e)
-        {
             BuildApplicationBar();
-            ViewModel.ResolveAddressFromGeoPosition();
         }
 
-        private void PollenPivotItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.UpdatePollenFeed();
-        }
-
-        private void NewsPivotItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.UpdateNewsFeed();
-        }
-
+        /// <summary>
+        /// Creates a theme and localization aware Application Bar.
+        /// </summary>
         private void BuildApplicationBar()
         {
             ApplicationBar = new ApplicationBar();
@@ -96,7 +58,7 @@ namespace DMI_Weather.Views
 
             var chooseCityAppBarButton = new ApplicationBarIconButton(homeImage)
             {
-                Text = AppResources.AppBar_ChooseCity                
+                Text = AppResources.AppBar_ChooseCity
             };
             chooseCityAppBarButton.Click += new EventHandler(ChooseCityAppBarButton_Click);
 
@@ -117,45 +79,34 @@ namespace DMI_Weather.Views
             ApplicationBar.Buttons.Add(addtoFavoritesAppBarButton);
         }
 
-        private void AddtoFavoritesAppBarButton_Click(object sender, EventArgs e)
-        {
-            var postal = int.Parse(ViewModel.PostalCode);
-
-            if (!ViewModel.Favorites.Any(c => c.PostalCode == postal))
-            {
-                ViewModel.Favorites.Add(new City()
-                {
-                    PostalCode = postal,
-                    Name = Denmark.PostalCodes[postal]
-                });
-            }
-
-            SaveFavorites();
-        }
-
-        private void SaveFavorites()
-        {
-            if (!IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
-            {
-                IsolatedStorageSettings.ApplicationSettings.Add(App.Favorites, ViewModel.Favorites);
-            }
-            else
-            {
-                IsolatedStorageSettings.ApplicationSettings[App.Favorites] = ViewModel.Favorites;
-            }
-        }
-
-        private void ShowFavoritesAppBarButton_Click(object sender, EventArgs e)
-        {
-            PivotLayout.SelectedItem = FavoritesPivotItem;
-        }
-
+        /// <summary>
+        /// Executes the ChooseCity Command.
+        /// </summary>
         private void ChooseCityAppBarButton_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/ChooseCityPage.xaml", UriKind.Relative));
         }
 
-        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Executes the ShowFavorites Command.
+        /// </summary>
+        private void ShowFavoritesAppBarButton_Click(object sender, EventArgs e)
+        {
+            PivotLayout.SelectedItem = FavoritesPivotItem;
+        }
+
+        /// <summary>
+        /// Executes the AddToFavorites Command.
+        /// </summary>
+        private void AddtoFavoritesAppBarButton_Click(object sender, EventArgs e)
+        {
+            (DataContext as MainViewModel).AddToFavorites.Execute(null);
+        }
+
+        /// <summary>
+        /// Toggles the ApplicationBar on/off depending on the selected pivot item.
+        /// </summary>
+        private void PivotLayout_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ApplicationBar != null)
             {
@@ -163,57 +114,37 @@ namespace DMI_Weather.Views
             }
         }
 
-        private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
+        /// <summary>
+        /// Opens a image in landscape mode.
+        /// </summary>
+        private void OpenInLandscapeMode(object sender, GestureEventArgs e)
         {
-            if (sender is Image)
+            if (e.OriginalSource is Image)
             {
-                ViewModel.CropImageBorders(sender as Image);
+                var image = (e.OriginalSource as Image).Source as BitmapImage;
+                var uri = "/Views/ImagePage.xaml?ImageSource=" +
+                    Uri.EscapeDataString(image.UriSource.ToString());
+
+                NavigationService.Navigate(new Uri(uri, UriKind.Relative));
             }
         }
 
-        private void Image_DoubleTap(object sender, GestureEventArgs e)
+        /// <summary>
+        /// Called when a page becomes the active page in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the event data.</param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var image = (sender as Image).Source as BitmapImage;
+            base.OnNavigatedTo(e);
 
-            var uri = "/Views/ImagePage.xaml?ImageSource=" +
-                Uri.EscapeDataString(image.UriSource.ToString());
-
-            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
-        }
-
-        private void NewsItem_Tap(object sender, GestureEventArgs e)
-        {
-            var selectedItem = (sender as ListBox).SelectedItem;
-
-            if ((selectedItem != null) && (selectedItem is NewsItem))
+            string postalCode = "";
+            if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
-                ViewModel.OpenUrlInBrowser((selectedItem as NewsItem).Link);
-            }
-        }
-
-        private void FavoritesGestureListener_Tap(object sender, GestureEventArgs e)
-        {
-            var item = (City)FavoritesListBox.SelectedItem;      
-            if (item != null)
-            {
-                ViewModel.Address = new CivicAddress()
-                {
-                    PostalCode = item.PostalCode.ToString()
+                (DataContext as MainViewModel).CurrentLocation = new CivicAddress()
+                {    
+                    PostalCode = postalCode                     
                 };
                 PivotLayout.SelectedItem = WeatherPivotItem;
-
-                FavoritesListBox.SelectedIndex = -1;
-            }
-        }
-
-        private void FavoritesContextMenuItem_Click(object sender, RoutedEventArgs e)
-        {          
-            var item = sender as MenuItem;
-            if (item != null)
-            {
-                ViewModel.Favorites.Remove((City)item.DataContext);
-
-                SaveFavorites();   
             }
         }
     }

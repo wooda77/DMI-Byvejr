@@ -5,51 +5,49 @@
 //     Claus Jørgensen <10229@iha.dk>
 //
 using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using System.Net;
 using System.Device.Location;
-using Microsoft.Phone.Tasks;
+using System.IO.IsolatedStorage;
+using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace DMI_Weather.ViewModels
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+
+namespace DMI.ViewModels
 {
+    using Microsoft.Phone.Tasks;
     using Models;
+    using Properties;
 
     public class MainViewModel : ViewModelBase
     {
-        #region Properties
+        private const string CurrentLocationPropertyName = "CurrentLocation";
+        private const string CityWeather2daysGraphPropertyName = "CityWeather2daysGraph";
+        private const string CityWeather7daysGraphPropertyName = "CityWeather7daysGraph";
+        private const string PollenGraphPropertyName = "PollenGraph";
 
-        private PollenFeed pollenFeed = new PollenFeed();
-        private NewsFeed newsFeed = new NewsFeed();
-        private CivicAddress address = new CivicAddress();
-        private ObservableCollection<City> favorites 
-            = new ObservableCollection<City>();
+        private CivicAddress currentLocation 
+            = new CivicAddress();
 
-        public string PostalCode
+        private WeatherDataProvider weatherDataProvider 
+            = new WeatherDataProvider();
+
+        public MainViewModel()
         {
-            get
+            Favorites = new ObservableCollection<City>();
+            PollenData = new ObservableCollection<PollenItem>();
+            NewsItems = new ObservableCollection<NewsItem>();
+
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
             {
-                if (string.IsNullOrEmpty(address.PostalCode))
-                {
-                    return AppResources.DefaultPostal;
-                }
-                else
-                {
-                    return address.PostalCode;
-                }
+                Favorites = (ObservableCollection<City>)
+                    IsolatedStorageSettings.ApplicationSettings[App.Favorites];
             }
         }
+
+        #region Properties
 
         public Uri CityWeather2daysGraph
         {
@@ -75,13 +73,28 @@ namespace DMI_Weather.ViewModels
             }
         }
 
+        public string PostalCode
+        {
+            get
+            {
+                if ((currentLocation == null) || string.IsNullOrEmpty(currentLocation.PostalCode))
+                {
+                    return AppResources.DefaultPostal;
+                }
+                else
+                {
+                    return currentLocation.PostalCode;
+                }
+            }
+        }
+
         public string City
         {
             get
             {
-                if (address != null)
+                if (currentLocation != null)
                 {
-                    return address.City;
+                    return currentLocation.City;
                 }
                 else
                 {
@@ -90,71 +103,234 @@ namespace DMI_Weather.ViewModels
             }
         }
 
-        public CivicAddress Address
+        public CivicAddress CurrentLocation
         {
             get
             {
-                return address;
+                return currentLocation;
             }
             set
             {
-                if (address != value)
+                if (currentLocation != value && value != null)
                 {
-                    address = value;
+                    currentLocation = value;
 
-                    OnPropertyChanged("Address");
-                    OnPropertyChanged("CityWeather2daysGraph");
-                    OnPropertyChanged("CityWeather7daysGraph");
-                    OnPropertyChanged("PollenGraph");
+                    RaisePropertyChanged(CurrentLocationPropertyName);
+                    RaisePropertyChanged(CityWeather2daysGraphPropertyName);
+                    RaisePropertyChanged(CityWeather7daysGraphPropertyName);
+                    RaisePropertyChanged(PollenGraphPropertyName);
                 }
             }
         }
 
         public ObservableCollection<PollenItem> PollenData
         {
-            get
-            {
-                return pollenFeed.PollenData;
-            }
+            get;
+            set;
         }
 
         public ObservableCollection<NewsItem> NewsItems
         {
-            get
-            {
-                return newsFeed.NewsItems;
-            }
+            get;
+            set;
         }
-        
+
         public ObservableCollection<City> Favorites
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
+        #region Commands
+
+        private ICommand loadWeatherInformation;
+
+        public ICommand LoadWeatherInformation
         {
             get
             {
-                return favorites;
+                if (loadWeatherInformation == null)
+                {
+                    loadWeatherInformation = new RelayCommand(() =>
+                    {
+                        CurrentLocation = ResolveAddressFromGeoPosition();
+                    });
+                }
+
+                return loadWeatherInformation;
             }
-            set
+        }
+
+        private ICommand loadPollenInformation;
+
+        public ICommand LoadPollenInformation
+        {
+            get
             {
-                favorites = value;
+                if (loadPollenInformation == null)
+                {
+                    loadPollenInformation = new RelayCommand(() =>
+                    {
+                        weatherDataProvider.GetPollenData((items, e) =>
+                        {
+                            PollenData.Clear();
+
+                            foreach (var item in items)
+                            {
+                                PollenData.Add(item);
+                            }
+                        });
+                    });
+                }
+
+                return loadPollenInformation;
+            }
+        }
+
+        private ICommand loadNewsFeed;
+
+        public ICommand LoadNewsFeed
+        {
+            get
+            {
+                if (loadNewsFeed == null)
+                {
+                    loadNewsFeed = new RelayCommand(() =>
+                    {
+                        weatherDataProvider.GetNewsItems((items, e) =>
+                        {
+                            NewsItems.Clear();
+
+                            foreach (var item in items)
+                            {
+                                NewsItems.Add(item);
+                            }
+                        });
+                    });
+                }
+
+                return loadNewsFeed;
+            }
+        }
+
+        private ICommand loadFavorites;
+
+        public ICommand LoadFavorites
+        {
+            get
+            {
+                if (loadFavorites == null)
+                {
+                    loadFavorites = new RelayCommand(() =>
+                    {
+                        if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+                        {
+                            Favorites = (ObservableCollection<City>)
+                                IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+                        }
+                    });
+                }
+
+                return loadFavorites;
+            }
+        }
+
+        private ICommand addToFavorites;
+
+        public ICommand AddToFavorites
+        {
+            get
+            {
+                if (addToFavorites == null)
+                {
+                    addToFavorites = new RelayCommand(() =>
+                    {
+                        var postal = int.Parse(PostalCode);
+
+                        if (!Favorites.Any(c => c.PostalCode == postal))
+                        {
+                            Favorites.Add(new City()
+                            {
+                                PostalCode = postal,
+                                Name = Denmark.PostalCodes[postal]
+                            });
+                        }
+
+                        SaveFavorites();
+                    });
+                }
+
+                return addToFavorites;
+            }
+        }
+
+        private ICommand cropBorders;
+
+        public ICommand CropBorders
+        {
+            get
+            {
+                if (cropBorders == null)
+                {
+                    cropBorders = new RelayCommand<Image>(image =>
+                    {
+                        ImageUtility.CropImageBorders(image);
+                    });
+                }
+
+                return cropBorders;
+            }
+        }
+
+        private ICommand newsItemSelected;
+
+        public ICommand NewsItemSelected
+        {
+            get
+            {
+                if (newsItemSelected == null)
+                {
+                    newsItemSelected = new RelayCommand<NewsItem>(item =>
+                    {
+                        var task = new WebBrowserTask()
+                        {
+                            URL = item.Link.AbsoluteUri
+                        };
+                        task.Show();
+                    });
+                }
+
+                return newsItemSelected;
+            }
+        }
+
+        private ICommand favoriteItemSelected;
+
+        public ICommand FavoriteItemSelected
+        {
+            get
+            {
+                if (favoriteItemSelected == null)
+                {
+                    favoriteItemSelected = new RelayCommand<City>(city =>
+                    {
+                        var uri = string.Format("/Views/MainPage.xaml?PostalCode={0}", city.PostalCode);
+
+                        App.Navigate(new Uri(uri, UriKind.Relative));
+                    });
+                }
+
+                return favoriteItemSelected;
             }
         }
 
         #endregion
 
-        #region Public Methods
+        #region Utility
 
-        public void CropImageBorders(Image image)
-        {
-            if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
-            {
-                // Crops 2 pixels on each side, to remove ugly rounded border from DMIs images.
-                image.Clip = new RectangleGeometry()
-                {
-                    Rect = new Rect(2, 2, image.ActualWidth - 4, image.ActualHeight - 4)
-                };
-            }
-        }
-
-        public void ResolveAddressFromGeoPosition()
+        private CivicAddress ResolveAddressFromGeoPosition()
         {
             using (var watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default))
             {
@@ -163,31 +339,23 @@ namespace DMI_Weather.ViewModels
                 var resolver = new CivicAddressResolver();
                 if (!watcher.Position.Location.IsUnknown)
                 {
-                    var address = resolver.ResolveAddress(watcher.Position.Location);
-
-                    if (!address.IsUnknown)
-                    {
-                        this.address = address;
-                    }
+                    return resolver.ResolveAddress(watcher.Position.Location);
                 }
             }
+
+            return default(CivicAddress);
         }
 
-        public void OpenUrlInBrowser(Uri uri)
+        private void SaveFavorites()
         {
-            var task = new WebBrowserTask();
-            task.URL = uri.AbsoluteUri;
-            task.Show();
-        }
-
-        public void UpdatePollenFeed()
-        {
-            pollenFeed.Update();
-        }
-
-        public void UpdateNewsFeed()
-        {
-            newsFeed.Update();
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Add(App.Favorites, Favorites);
+            }
+            else
+            {
+                IsolatedStorageSettings.ApplicationSettings[App.Favorites] = Favorites;
+            }
         }
 
         #endregion

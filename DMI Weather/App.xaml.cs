@@ -5,20 +5,16 @@
 //     Claus Jørgensen <10229@iha.dk>
 //
 using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Navigation;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
+using System.Windows;
+using System.Windows.Navigation;
 
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 
-namespace DMI_Weather
+namespace DMI
 {
-    using ViewModels;
-    using System.IO.IsolatedStorage;
     using System.Windows.Media;
 
     public partial class App : Application
@@ -32,6 +28,24 @@ namespace DMI_Weather
             get;
             private set;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:App"/> class.
+        /// </summary>
+        public App()
+        {
+            UnhandledException += Application_UnhandledException;
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
+
+            InitializeComponent();
+            InitializePhoneApplication();
+        }
+
+        #region Custom Utility
+
+
 
         public const string Favorites = "favorites";
 
@@ -58,19 +72,12 @@ namespace DMI_Weather
             ThemeBackgroundLight
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:App"/> class.
-        /// </summary>
-        public App()
+        public static bool Navigate(Uri source)
         {
-            UnhandledException += Application_UnhandledException;
-
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
-
-            InitializeComponent();
-            InitializePhoneApplication();
+            return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);
         }
+
+        #endregion
 
         #region Debugging Handlers
 
