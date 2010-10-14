@@ -4,6 +4,7 @@ syntax: glob
 
 syntax: regexp
 bin/
+Bin/
 obj/
 TestResults/
 TDD/
