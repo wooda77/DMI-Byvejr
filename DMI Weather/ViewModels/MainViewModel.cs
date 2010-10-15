@@ -49,27 +49,62 @@ namespace DMI.ViewModels
 
         #region Properties
 
+        private Uri cityWeather2daysGraph;
+
         public Uri CityWeather2daysGraph
         {
             get
             {
-                return new Uri(string.Format(AppResources.CityWeather2daysGraph, PostalCode));
+                if (cityWeather2daysGraph == null)
+                {
+                    cityWeather2daysGraph = new Uri(string.Format(
+                        AppResources.CityWeather2daysGraph, PostalCode));
+                }
+
+                return cityWeather2daysGraph;
+            }
+            set
+            {
+                cityWeather2daysGraph = value;
             }
         }
+
+        private Uri cityWeather7daysGraph;
 
         public Uri CityWeather7daysGraph
         {
             get
             {
-                return new Uri(string.Format(AppResources.CityWeather7daysGraph, PostalCode));
+                if (cityWeather7daysGraph == null)
+                {
+                    cityWeather7daysGraph = new Uri(string.Format(
+                        AppResources.CityWeather7daysGraph, PostalCode));
+                }
+
+                return cityWeather7daysGraph;
+            }
+            set
+            {
+                cityWeather7daysGraph = value;
             }
         }
+
+        private Uri pollenGraph;
 
         public Uri PollenGraph
         {
             get
             {
-                return new Uri(string.Format(AppResources.PollenGraph, PostalCode));
+                if (pollenGraph == null)
+                {
+                    pollenGraph = new Uri(string.Format(AppResources.PollenGraph, PostalCode));
+                }
+
+                return pollenGraph;
+            }
+            set
+            {
+                pollenGraph = value;
             }
         }
 

@@ -1,0 +1,39 @@
+<DMI_ViewModels:MainViewModel 
+    xmlns:DMI_ViewModels="clr-namespace:DMI.ViewModels" 
+    xmlns:System_Device_Location="clr-namespace:System.Device.Location;assembly=System.Device" 
+    xmlns:DMI_Models="clr-namespace:DMI.Models" 
+    City="Århus" 
+    CityWeather2daysGraph="http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by=8000&amp;mode=long"
+    CityWeather7daysGraph="http://servlet.dmi.dk/byvejr/servlet/byvejr?by=8000&amp;tabel=dag3_9"
+    PollenGraph="http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by=8000"
+    IsInDesignMode="False"
+    PostalCode="8000">
+    <DMI_ViewModels:MainViewModel.CurrentLocation>
+        <System_Device_Location:CivicAddress PostalCode="8000" />
+    </DMI_ViewModels:MainViewModel.CurrentLocation>
+    <DMI_ViewModels:MainViewModel.Favorites>
+        <DMI_Models:City Name="København" PostalCode="1000"/>
+        <DMI_Models:City Name="Frederiksberg" PostalCode="2000"/>
+        <DMI_Models:City Name="Helsingør" PostalCode="3000"/>
+        <DMI_Models:City Name="Roskilde" PostalCode="4000"/>
+        <DMI_Models:City Name="Odense" PostalCode="5000"/>
+        <DMI_Models:City Name="Kolding" PostalCode="6000"/>
+        <DMI_Models:City Name="Fredericia" PostalCode="7000"/>
+        <DMI_Models:City Name="Århus" PostalCode="8000"/>
+        <DMI_Models:City Name="Aalborg" PostalCode="9000"/>
+    </DMI_ViewModels:MainViewModel.Favorites>
+    <DMI_ViewModels:MainViewModel.NewsItems>
+        <DMI_Models:NewsItem Title="Paula på kollisionskurs med Cuba" Description="Hurricane Paula er onsdag kategori to og på vej til at ramme Cuba fra en skæv vinkel."/>
+        <DMI_Models:NewsItem Title="DMI til kulturnat 2010 - føl på forskningen" Description="Mød DMI på Klima og Energiministeriets kulturnat 2010 på GEUS"/>
+        <DMI_Models:NewsItem Title="Mandag bød på nordlys" Description="Mandag aften bød på en kort forestilling af det spektakulære Nordlys, hvis du da ellers var heldig at kigge mod nord i de rigtige sekunder. Det var Jesper Grønne!"/>
+        <DMI_Models:NewsItem Title="Så kom den første meteorologiske nattefrost" Description="Natten til mandag nåede temperaturen ned på 0,1°C ved St. Jyndevad i det sydligste Jylland. Og de kommende nætter byder på reel meteorologisk nattefrost."/>
+        <DMI_Models:NewsItem Title="Nyt tema: Geoengineering" Description="Har vi teknikken til at ændre fremtidens klima med tekniske løsninger? Feltet geoengineering beskæftiger sig med lige præcis det emne."/>
+        <DMI_Models:NewsItem Title="Ugens Vejr i Verden - Uge 40 2010" Description="Svag Nicole, wallisisk uvejr og kold Reno er lidt af Ugens Vejr i Verden."/>
+    </DMI_ViewModels:MainViewModel.NewsItems>
+    <DMI_ViewModels:MainViewModel.PollenData>
+        <DMI_Models:PollenItem City="København" Data="Bynke: 40 , Græs: 50 , Alternaria: Høj , Cladosporium: Lav" 
+                               Forecast="Høj mængde græs og bynke i luften."/>
+        <DMI_Models:PollenItem City="Viborg" Data="Birk: 80 , Bynke: 10 , Elm: 30, Alternaria: Lav , Cladosporium: Lav." 
+                               Forecast="Meget birk i luften, samt moderat mængde elm."/>
+    </DMI_ViewModels:MainViewModel.PollenData>
+</DMI_ViewModels:MainViewModel>
