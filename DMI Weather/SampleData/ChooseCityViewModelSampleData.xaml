@@ -1,0 +1,17 @@
+<DMI_ViewModels:ChooseCityViewModel 
+    xmlns:DMI_ViewModels="clr-namespace:DMI.ViewModels" 
+    xmlns:DMI_Models="clr-namespace:DMI.Models" 
+    IsInDesignMode="True" 
+    IsInDesignModeStatic="False">
+    <DMI_ViewModels:ChooseCityViewModel.Cities>
+        <DMI_Models:City Name="København" PostalCode="1000"/>
+        <DMI_Models:City Name="Frederiksberg" PostalCode="2000"/>
+        <DMI_Models:City Name="Helsingør" PostalCode="3000"/>
+        <DMI_Models:City Name="Roskilde" PostalCode="4000"/>
+        <DMI_Models:City Name="Odense" PostalCode="5000"/>
+        <DMI_Models:City Name="Kolding" PostalCode="6000"/>
+        <DMI_Models:City Name="Fredericia" PostalCode="7000"/>
+        <DMI_Models:City Name="Århus" PostalCode="8000"/>
+        <DMI_Models:City Name="Aalborg" PostalCode="9000"/>
+    </DMI_ViewModels:ChooseCityViewModel.Cities>
+</DMI_ViewModels:ChooseCityViewModel>

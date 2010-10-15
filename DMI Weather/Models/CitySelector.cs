@@ -15,17 +15,32 @@ namespace DMI.Models
     {
         public Func<object, IComparable> GetGroupBySelector()
         {
-            return (p) => ((City)p).Name.FirstOrDefault();
+            return (p) => GetNamePropertyValue(p).FirstOrDefault();
         }
 
         public Func<object, string> GetOrderByKeySelector()
         {
-            return (p) => ((City)p).Name;
+            return (p) => GetNamePropertyValue(p);
         }
 
         public Func<object, string> GetThenByKeySelector()
         {
             return (p) => (string.Empty);
+        }
+
+        private string GetNamePropertyValue(object p)
+        {
+            if (p is City)
+            {
+                return (p as City).Name;
+            }
+            else
+            {
+                var type = p.GetType();
+                var info = type.GetProperty("Name");
+
+                return info.GetValue(p, null).ToString();
+            }
         }
     }
 }

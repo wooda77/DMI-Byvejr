@@ -20,7 +20,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}" 
-    d:DataContext="{d:DesignData Source=/SampleData/MainViewModelSampleData.xaml}"   
+    d:DataContext="{d:DesignData Source=/SampleData/MainViewModelSampleData.xaml}" 
     DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
     SupportedOrientations="PortraitOrLandscape" 
     Orientation="Portrait">
