@@ -1,7 +1,7 @@
 
            Vejrudsigten fra DMI - For Windows Phone 7       
 
-    Copyright © 2010 Claus Jørgensen <thedeathart@gmail.com>
+    Copyright © 2010 Claus Jørgensen <10229@iha.dk>
 
     All included software is licensed under the Microsoft Public License (Ms-PL), 
     available in full in the License.txt file. 
@@ -12,8 +12,8 @@
     Version 1.0.0.0
     ---------------
 
-    Claus Jørgensen <thedeathart@gmail.com>
-        Project Lead, Programming, Design, Architecture
+    Claus Jørgensen <10229@iha.dk>
+        Project Lead, Programming, UI Design, Architecture
 
     DMI.dk
-        Sample Data
+        Service Provider and Sample Data        

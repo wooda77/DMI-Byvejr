@@ -1,6 +1,0 @@
-<DMI_ViewModels:ImageViewModel 
-    xmlns:DMI_ViewModels="clr-namespace:DMI.ViewModels" 
-    IsInDesignMode="True" 
-    IsInDesignModeStatic="False"
-    ImageSource="http://servlet.dmi.dk/byvejr/servlet/byvejr?by=8000&amp;tabel=dag3_9"
-/>
