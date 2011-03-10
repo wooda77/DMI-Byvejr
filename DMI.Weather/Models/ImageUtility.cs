@@ -28,5 +28,22 @@ namespace DMI.Models
                 };
             }
         }
+
+        /// <summary>
+        /// Crops the Image Borders two pixels on each side.
+        /// </summary>
+        public static void CropImageBorders(Image image, Size newSize)
+        {
+            if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
+            {
+                image.Clip = new RectangleGeometry()
+                {
+                    Rect = new Rect(2, 2,
+                        newSize.Width - 4,
+                        newSize.Height - 4
+                    )
+                };
+            }
+        }
     }
 }

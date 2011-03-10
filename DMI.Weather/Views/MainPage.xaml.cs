@@ -11,12 +11,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using DMI.Properties;
+using DMI.ViewModels;
+using DMI.Models;
 
 namespace DMI.Views
 {
-    using Properties;
-    using ViewModels;
-
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
@@ -164,6 +164,32 @@ namespace DMI.Views
 
                 PivotLayout.SelectedItem = WeatherPivotItem;
             }
+        }
+
+        private void MainPhoneApplicationPage_OrientationChanged(object sender, 
+            OrientationChangedEventArgs e)
+        {                    
+            if (e.Orientation == PageOrientation.Landscape)
+            {                
+            }
+            else if (e.Orientation == PageOrientation.Portrait)
+            {
+            }
+        }
+
+        private void CityWeather2daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            ImageUtility.CropImageBorders(CityWeather2daysGraphImage, e.NewSize);
+        }
+
+        private void CityWeather7daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            ImageUtility.CropImageBorders(CityWeather7daysGraphImage, e.NewSize);
+        }
+
+        private void PollenGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            ImageUtility.CropImageBorders(PollenGraphImage, e.NewSize);
         }
     }
 }

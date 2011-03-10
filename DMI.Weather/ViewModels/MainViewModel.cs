@@ -39,7 +39,6 @@ namespace DMI.ViewModels
         private readonly ICommand removeFromFavorites;
         private readonly ICommand newsItemSelected;
         private readonly ICommand favoriteItemSelected;
-        private readonly ICommand cropBorders;
         private readonly ICommand goToLocation;
 
         private Uri cityWeather2daysGraph;
@@ -69,7 +68,6 @@ namespace DMI.ViewModels
             this.removeFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
             this.newsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
             this.favoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
-            this.cropBorders = new RelayCommand<Image>(CropBordersExecute);
             this.goToLocation = new RelayCommand(GoToLocationExecute);
         }
 
@@ -253,14 +251,6 @@ namespace DMI.ViewModels
             }
         }
 
-        public ICommand CropBorders
-        {
-            get
-            {
-                return cropBorders;
-            }
-        }
-
         public ICommand NewsItemSelected
         {
             get
@@ -353,11 +343,6 @@ namespace DMI.ViewModels
         {
             Favorites.Remove(city);
             SaveFavorites();
-        }
-
-        private void CropBordersExecute(Image image)
-        {
-            ImageUtility.CropImageBorders(image);
         }
 
         private void NewsItemSelectedExecute(NewsItem item)

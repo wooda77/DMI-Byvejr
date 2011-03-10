@@ -34,7 +34,7 @@ namespace DMI.ViewModels
                 if (cropBorders == null)
                 {
                     cropBorders = new RelayCommand<Image>(image =>
-                    {
+                    {                    
                         ImageUtility.CropImageBorders(image);
                     });
                 }

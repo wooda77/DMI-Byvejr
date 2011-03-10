@@ -23,6 +23,7 @@
     DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
     SupportedOrientations="PortraitOrLandscape" 
     Orientation="Portrait"
+    OrientationChanged="MainPhoneApplicationPage_OrientationChanged" 
     x:Name="MainPhoneApplicationPage">
     <p:PhoneApplicationPage.Resources>
         <ResourceDictionary>
@@ -42,26 +43,16 @@
                 </i:Interaction.Triggers>
                 <ScrollViewer Margin="0,0,0,16">
                     <StackPanel>
-                        <Image Margin="8,8,8,0" 
-                               Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SizeChanged">
-                                    <mvvm:EventToCommand Command="{Binding CropBorders}" 
-                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <Image x:Name="CityWeather2daysGraphImage" Margin="8,8,8,0" 
+                               Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}"
+                               SizeChanged="CityWeather2daysGraphImage_SizeChanged">
                             <t:GestureService.GestureListener>
                                 <t:GestureListener DoubleTap="OpenInLandscapeMode" />
                             </t:GestureService.GestureListener>
                         </Image>
-                        <Image Margin="8,8,8,0" 
-                               Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SizeChanged">
-                                    <mvvm:EventToCommand Command="{Binding CropBorders}" 
-                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <Image x:Name="CityWeather7daysGraphImage" Margin="8,8,8,0" 
+                               Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}"
+                               SizeChanged="CityWeather7daysGraphImage_SizeChanged">
                             <t:GestureService.GestureListener>
                                 <t:GestureListener DoubleTap="OpenInLandscapeMode" />
                             </t:GestureService.GestureListener>
@@ -78,14 +69,9 @@
                 </i:Interaction.Triggers>
                 <ScrollViewer>
                     <StackPanel>
-                        <Image Source="{Binding PollenGraph, Converter={StaticResource ImageConverter}}" 
-                               Margin="8,8,8,0" VerticalAlignment="Top">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SizeChanged">
-                                    <mvvm:EventToCommand Command="{Binding CropBorders}" 
-                                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <Image x:Name="PollenGraphImage" Source="{Binding PollenGraph, Converter={StaticResource ImageConverter}}" 
+                               Margin="8,8,8,0" VerticalAlignment="Top"
+                               SizeChanged="PollenGraphImage_SizeChanged">
                             <t:GestureService.GestureListener>
                                 <t:GestureListener DoubleTap="OpenInLandscapeMode" />
                             </t:GestureService.GestureListener>
