@@ -162,6 +162,7 @@ namespace DMI.ViewModels
                     if (!string.IsNullOrEmpty(currentLocation.PostalCode))
                     {
                         UpdateCurrentLocation();
+                        Loading = false;
                     }
 
                     RaisePropertyChanged(CurrentLocationPropertyName);
@@ -412,7 +413,7 @@ namespace DMI.ViewModels
             Loading = true;
 
             var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(8);
+            timer.Interval = TimeSpan.FromSeconds(15);
             timer.Tick += (s, e) =>
             {
                 if (Loading)
@@ -439,8 +440,8 @@ namespace DMI.ViewModels
                     LocationProvider.ResolveLocation(watcher.Position.Location,
                         (address, exception) =>
                         {
-                            CurrentLocation = address;
                             Loading = false;
+                            CurrentLocation = address;
                         });
                 }
             }

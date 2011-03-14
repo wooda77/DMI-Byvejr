@@ -9,8 +9,13 @@ using System.Device.Location;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.IO.IsolatedStorage;
+
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+
+using GalaSoft.MvvmLight.Messaging;
+
 using DMI.Properties;
 using DMI.ViewModels;
 using DMI.Models;
@@ -154,6 +159,11 @@ namespace DMI.Views
         {
             base.OnNavigatedTo(e);
 
+            if (State.ContainsKey(App.PivotItem))
+            {
+                PivotLayout.SelectedIndex = (int)State[App.PivotItem];
+            }
+
             string postalCode = "";
             if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
@@ -161,32 +171,52 @@ namespace DMI.Views
                 {
                     PostalCode = postalCode
                 };
-
-                PivotLayout.SelectedItem = WeatherPivotItem;
             }
         }
 
-        private void MainPhoneApplicationPage_OrientationChanged(object sender, 
-            OrientationChangedEventArgs e)
-        {                    
-            if (e.Orientation == PageOrientation.Landscape)
-            {                
-            }
-            else if (e.Orientation == PageOrientation.Portrait)
+        /// <summary>
+        /// Called when a page is no longer the active page in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the event data.</param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            if (State.ContainsKey(App.PivotItem))
             {
+                State[App.PivotItem] = PivotLayout.SelectedIndex;
+            }
+            else
+            {
+                State.Add(App.PivotItem, PivotLayout.SelectedIndex);
             }
         }
 
+        /// <summary>
+        /// Handles the SizeChanged event of the CityWeather2daysGraphImage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
         private void CityWeather2daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             ImageUtility.CropImageBorders(CityWeather2daysGraphImage, e.NewSize);
         }
 
+        /// <summary>
+        /// Handles the SizeChanged event of the CityWeather7daysGraphImage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
         private void CityWeather7daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             ImageUtility.CropImageBorders(CityWeather7daysGraphImage, e.NewSize);
         }
 
+        /// <summary>
+        /// Handles the SizeChanged event of the PollenGraphImage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
         private void PollenGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             ImageUtility.CropImageBorders(PollenGraphImage, e.NewSize);

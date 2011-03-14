@@ -16,9 +16,14 @@ using Microsoft.Phone.Controls;
 namespace DMI
 {
     using System.Windows.Media;
+    using GalaSoft.MvvmLight.Messaging;
+    using DMI.Models;
 
     public partial class App : Application
     {
+        public const string Favorites = "favorites";
+        public const string PivotItem = "pivotitem";
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -36,16 +41,15 @@ namespace DMI
         {
             UnhandledException += Application_UnhandledException;
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
+            // For Debugging
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
 
             InitializeComponent();
             InitializePhoneApplication();
         }
 
         #region Custom Utility
-
-        public const string Favorites = "favorites";
 
         public static ThemeBackground CurrentThemeBackground
         {

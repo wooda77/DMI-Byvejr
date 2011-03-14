@@ -127,7 +127,7 @@
     <value>favorites</value>
   </data>
   <data name="AppBar_GoToLocation" xml:space="preserve">
-    <value>my location</value>
+    <value>weather here</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Weather Forecast from DMI</value>

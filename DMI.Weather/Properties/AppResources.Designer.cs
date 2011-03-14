@@ -88,7 +88,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to min position.
+        ///   Looks up a localized string similar to vejret her.
         /// </summary>
         public static string AppBar_GoToLocation {
             get {

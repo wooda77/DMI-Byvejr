@@ -23,7 +23,6 @@
     DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
     SupportedOrientations="PortraitOrLandscape" 
     Orientation="Portrait"
-    OrientationChanged="MainPhoneApplicationPage_OrientationChanged" 
     x:Name="MainPhoneApplicationPage">
     <p:PhoneApplicationPage.Resources>
         <ResourceDictionary>
@@ -33,8 +32,9 @@
     <Grid>
         <c:Pivot x:Name="PivotLayout" 
                  Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}" 
-                 SelectionChanged="PivotLayout_SelectionChanged" Foreground="{StaticResource PhoneForegroundBrush}">
-            <c:PivotItem x:Name="WeatherPivotItem" 
+                 SelectionChanged="PivotLayout_SelectionChanged" 
+                 Foreground="{StaticResource PhoneForegroundBrush}">
+            <c:PivotItem x:Name="WeatherPivotItem"                          
                          Header="{Binding AppResources.CityWeatherHeader, Source={StaticResource AppResources}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
