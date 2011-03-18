@@ -106,6 +106,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vejrudsigten fra DMI.
+        /// </summary>
+        public static string AppTitleSmall {
+            get {
+                return ResourceManager.GetString("AppTitleSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long.
         /// </summary>
         public static string CityWeather2daysGraph {

@@ -132,6 +132,9 @@
   <data name="AppTitle" xml:space="preserve">
     <value>VEJRUDSIGTEN FRA DMI</value>
   </data>
+  <data name="AppTitleSmall" xml:space="preserve">
+    <value>Vejrudsigten fra DMI</value>
+  </data>
   <data name="CityWeather2daysGraph" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long</value>
   </data>

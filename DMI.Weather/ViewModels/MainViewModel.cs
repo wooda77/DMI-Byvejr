@@ -326,18 +326,21 @@ namespace DMI.ViewModels
 
         private void AddToFavoritesExecute()
         {
-            var postal = int.Parse(PostalCode);
-
-            if (!Favorites.Any(c => c.PostalCode == postal))
+            if (string.IsNullOrEmpty(PostalCode) == false)
             {
-                Favorites.Add(new City()
-                {
-                    PostalCode = postal,
-                    Name = Denmark.PostalCodes[postal]
-                });
-            }
+                var postal = int.Parse(PostalCode);
 
-            SaveFavorites();
+                if (!Favorites.Any(c => c.PostalCode == postal))
+                {
+                    Favorites.Add(new City()
+                    {
+                        PostalCode = postal,
+                        Name = Denmark.PostalCodes[postal]
+                    });
+                }
+
+                SaveFavorites();
+            }
         }
 
         private void RemoveFromFavoritesExecute(City city)
@@ -410,24 +413,31 @@ namespace DMI.ViewModels
 
         private void ResolveAddressFromGeoPosition()
         {
-            Loading = true;
-
-            var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(15);
-            timer.Tick += (s, e) =>
+            if (App.IsGPSEnabled == false)
             {
-                if (Loading)
-                {
-                    Loading = false;
-                    MessageBox.Show("Could not resolve the location.");
-                }
-            };
-            timer.Start();
+                MessageBox.Show("Could not resolve the location, because Location Servies aren't enabled.");
+            }
+            else
+            {
+                Loading = true;
 
-            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.MovementThreshold = 1.0;
-            watcher.PositionChanged += GeoCoordinateWatcher_PositionChanged;
-            watcher.Start();
+                var timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(15);
+                timer.Tick += (s, e) =>
+                {
+                    if (Loading)
+                    {
+                        Loading = false;
+                        MessageBox.Show("Could not resolve the location.");
+                    }
+                };
+                timer.Start();
+
+                watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+                watcher.MovementThreshold = 1.0;
+                watcher.PositionChanged += GeoCoordinateWatcher_PositionChanged;
+                watcher.Start();
+            }
         }
 
         private void GeoCoordinateWatcher_PositionChanged(object sender,
@@ -440,8 +450,19 @@ namespace DMI.ViewModels
                     LocationProvider.ResolveLocation(watcher.Position.Location,
                         (address, exception) =>
                         {
-                            Loading = false;
-                            CurrentLocation = address;
+                            if (Loading)
+                            {
+                                if (address != null) 
+                                {
+                                    Loading = false;
+                                    CurrentLocation = address;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No internet connection is available. Please try again later.");
+                                    Loading = false;
+                                }
+                            }
                         });
                 }
             }

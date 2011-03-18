@@ -53,5 +53,20 @@ namespace DMI.ViewModels
                 return chooseCityViewModel;
             }
         }
+
+        private static SupportViewModel supportViewModel;
+
+        public static SupportViewModel SupportViewModel
+        {
+            get
+            {
+                if (supportViewModel == null)
+                {
+                    supportViewModel = new SupportViewModel();
+                }
+
+                return supportViewModel;
+            }
+        }
     }
 }

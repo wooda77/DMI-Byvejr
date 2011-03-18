@@ -39,21 +39,23 @@ namespace DMI.Models
                 {
                     callback(null, e.Error);
                 }
-
-                var result = JsonConvert.DeserializeObject<BingLocationResponse>(e.Result);
-
-                var civicAddress = new CivicAddress();
-
-                if ((result.resourceSets.Length > 0) 
-                 && (result.resourceSets[0].resources.Length > 0))
+                else
                 {
-                    var resources = result.resourceSets[0].resources[0];
-                    
-                    civicAddress.AddressLine1 = resources.address.addressLine;
-                    civicAddress.PostalCode = resources.address.postalCode;
-                }
+                    var result = JsonConvert.DeserializeObject<BingLocationResponse>(e.Result);
 
-                callback(civicAddress, e.Error);
+                    var civicAddress = new CivicAddress();
+
+                    if ((result.resourceSets.Length > 0) 
+                     && (result.resourceSets[0].resources.Length > 0))
+                    {
+                        var resources = result.resourceSets[0].resources[0];
+                    
+                        civicAddress.AddressLine1 = resources.address.addressLine;
+                        civicAddress.PostalCode = resources.address.postalCode;
+                    }
+
+                    callback(civicAddress, e.Error);
+                }
             };
 
             client.DownloadStringAsync(new Uri(requestUriString));

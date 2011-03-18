@@ -87,10 +87,24 @@ namespace DMI.Views
             };
             goToLocationAppBarButton.Click += new EventHandler(GoToLocationAppBarButton_Click);
 
+            var supportMenu = new ApplicationBarMenuItem("Support");
+            supportMenu.Click += new EventHandler(SettingsMenu_Click);
+
             ApplicationBar.Buttons.Add(chooseCityAppBarButton);
             ApplicationBar.Buttons.Add(goToLocationAppBarButton);
             ApplicationBar.Buttons.Add(showFavoritesAppBarButton);
             ApplicationBar.Buttons.Add(addtoFavoritesAppBarButton);
+            ApplicationBar.MenuItems.Add(supportMenu);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the SettingsMenu control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void SettingsMenu_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/SupportPage.xaml", UriKind.Relative));
         }
 
         /// <summary>
@@ -157,6 +171,14 @@ namespace DMI.Views
         /// <param name="e">An object that contains the event data.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (App.IsFirstStart)
+            {
+                App.Navigate(new Uri("/Views/SupportPage.xaml", UriKind.Relative));
+                App.IsFirstStart = false;
+
+                return;
+            }  
+
             base.OnNavigatedTo(e);
 
             if (State.ContainsKey(App.PivotItem))

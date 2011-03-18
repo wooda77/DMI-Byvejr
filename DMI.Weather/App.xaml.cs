@@ -7,22 +7,23 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO.IsolatedStorage;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Navigation;
-
+using DMI.Models;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 
 namespace DMI
 {
-    using System.Windows.Media;
-    using GalaSoft.MvvmLight.Messaging;
-    using DMI.Models;
-
     public partial class App : Application
     {
         public const string Favorites = "favorites";
         public const string PivotItem = "pivotitem";
+        public const string ToggleGPS = "togglegps";
+        public const string FirstStart = "firststart";
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -47,6 +48,49 @@ namespace DMI
 
             InitializeComponent();
             InitializePhoneApplication();
+        }
+
+        public static bool IsGPSEnabled
+        {
+            get
+            {
+                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.ToggleGPS))
+                {
+                    return (bool)IsolatedStorageSettings.ApplicationSettings[App.ToggleGPS];
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool IsFirstStart
+        {
+            get
+            {
+                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.FirstStart))
+                {
+                    return (bool)IsolatedStorageSettings.ApplicationSettings[App.FirstStart];
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            set
+            {
+                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.FirstStart))
+                {
+                    IsolatedStorageSettings.ApplicationSettings[App.FirstStart] = value;
+                }
+                else
+                {
+                    IsolatedStorageSettings.ApplicationSettings.Add(App.FirstStart, value);
+                }
+
+                IsolatedStorageSettings.ApplicationSettings.Save();
+            }
         }
 
         #region Custom Utility

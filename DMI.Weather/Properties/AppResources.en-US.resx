@@ -130,6 +130,9 @@
     <value>weather here</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
+    <value>WEATHER FORECAST FROM DMI</value>
+  </data>
+  <data name="AppTitleSmall" xml:space="preserve">
     <value>Weather Forecast from DMI</value>
   </data>
   <data name="CityWeather2daysGraph" xml:space="preserve">

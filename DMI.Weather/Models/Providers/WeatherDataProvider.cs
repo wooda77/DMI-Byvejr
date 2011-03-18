@@ -34,21 +34,23 @@ namespace DMI.Models
                 {
                     callback(Enumerable.Empty<PollenItem>(), e.Error);
                 }
-
-                var items = XElement.Parse(e.Result)
-                    .Elements("channel")
-                    .Elements("item")
-                    .Take(4)
-                    .Chunks(2);
-
-                var pollenItems = items.Select(x => new PollenItem()
+                else
                 {
-                    City = x[0].Element("title").Value,
-                    Data = ParsePollenData(x[0].Element("description").Value),
-                    Forecast = x[1].Element("description").Value
-                });
+                    var items = XElement.Parse(e.Result)
+                        .Elements("channel")
+                        .Elements("item")
+                        .Take(4)
+                        .Chunks(2);
 
-                callback(pollenItems, e.Error);
+                    var pollenItems = items.Select(x => new PollenItem()
+                    {
+                        City = x[0].Element("title").Value,
+                        Data = ParsePollenData(x[0].Element("description").Value),
+                        Forecast = x[1].Element("description").Value
+                    });
+
+                    callback(pollenItems, e.Error);
+                }
             };
 
             client.DownloadStringAsync(new Uri(AppResources.PollenFeed));
@@ -71,19 +73,21 @@ namespace DMI.Models
                 {
                     callback(Enumerable.Empty<NewsItem>(), e.Error);
                 }
+                else
+                {
+                    var items = XElement.Parse(e.Result)
+                        .Elements("channel")
+                        .Elements("item")
+                        .Select(item =>
+                            new NewsItem()
+                            {
+                                Title = item.Element("title").Value,
+                                Description = item.Element("description").Value,
+                                Link = new Uri(item.Element("link").Value)
+                            });
 
-                var items = XElement.Parse(e.Result)
-                    .Elements("channel")
-                    .Elements("item")
-                    .Select(item =>
-                        new NewsItem()
-                        {
-                            Title = item.Element("title").Value,
-                            Description = item.Element("description").Value,
-                            Link = new Uri(item.Element("link").Value)
-                        });
-
-                callback(items, e.Error);
+                    callback(items, e.Error);
+                }
             };
 
             client.DownloadStringAsync(new Uri(AppResources.RssFeed));
