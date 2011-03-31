@@ -33,6 +33,7 @@
         <c:Pivot x:Name="PivotLayout" 
                  Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}" 
                  SelectionChanged="PivotLayout_SelectionChanged" 
+                 Loaded="PivotLayout_Loaded"
                  Foreground="{StaticResource PhoneForegroundBrush}">
             <c:PivotItem x:Name="WeatherPivotItem"                          
                          Header="{Binding AppResources.CityWeatherHeader, Source={StaticResource AppResources}}">

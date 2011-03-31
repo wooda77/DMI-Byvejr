@@ -58,6 +58,8 @@ namespace DMI.ViewModels
             {
                 this.Favorites = (ObservableCollection<City>)
                     IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+                
+                this.Favorites = this.Favorites ?? new ObservableCollection<City>(); 
             }
 
             this.loadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
@@ -328,25 +330,32 @@ namespace DMI.ViewModels
         {
             if (string.IsNullOrEmpty(PostalCode) == false)
             {
-                var postal = int.Parse(PostalCode);
-
-                if (!Favorites.Any(c => c.PostalCode == postal))
+                int postal;
+                if (int.TryParse(PostalCode, out postal) == true)
                 {
-                    Favorites.Add(new City()
+                    if (Favorites != null &&
+                        Favorites.Any(c => c.PostalCode == postal) == false &&
+                        Denmark.PostalCodes.ContainsKey(postal))
                     {
-                        PostalCode = postal,
-                        Name = Denmark.PostalCodes[postal]
-                    });
-                }
+                        Favorites.Add(new City()
+                        {
+                            PostalCode = postal,
+                            Name = Denmark.PostalCodes[postal]
+                        });
 
-                SaveFavorites();
+                        SaveFavorites();
+                    }
+                }
             }
         }
 
         private void RemoveFromFavoritesExecute(City city)
         {
-            Favorites.Remove(city);
-            SaveFavorites();
+            if ((city != null) && (city is City) && (Favorites != null)) 
+            {
+                Favorites.Remove(city);
+                SaveFavorites();
+            }
         }
 
         private void NewsItemSelectedExecute(NewsItem item)

@@ -61,7 +61,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tilføj favorit.
+        ///   Looks up a localized string similar to add favorite.
         /// </summary>
         public static string AppBar_AddToFavorites {
             get {
@@ -70,7 +70,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to vælg by.
+        ///   Looks up a localized string similar to choose city.
         /// </summary>
         public static string AppBar_ChooseCity {
             get {
@@ -79,7 +79,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to favoritter.
+        ///   Looks up a localized string similar to favorites.
         /// </summary>
         public static string AppBar_Favorites {
             get {
@@ -88,7 +88,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to vejret her.
+        ///   Looks up a localized string similar to weather here.
         /// </summary>
         public static string AppBar_GoToLocation {
             get {
@@ -97,7 +97,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VEJRUDSIGTEN FRA DMI.
+        ///   Looks up a localized string similar to WEATHER FORECAST FROM DMI.
         /// </summary>
         public static string AppTitle {
             get {
@@ -106,7 +106,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vejrudsigten fra DMI.
+        ///   Looks up a localized string similar to Weather Forecast from DMI.
         /// </summary>
         public static string AppTitleSmall {
             get {
@@ -133,7 +133,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to byvejr.
+        ///   Looks up a localized string similar to city weather.
         /// </summary>
         public static string CityWeatherHeader {
             get {
@@ -142,7 +142,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to favoritter.
+        ///   Looks up a localized string similar to favorites.
         /// </summary>
         public static string FavoritesHeader {
             get {
@@ -151,7 +151,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nyheder.
+        ///   Looks up a localized string similar to news.
         /// </summary>
         public static string NewsHeader {
             get {
@@ -178,7 +178,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pollental.
+        ///   Looks up a localized string similar to pollen.
         /// </summary>
         public static string PollenHeader {
             get {
@@ -187,7 +187,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to fjern favorit.
+        ///   Looks up a localized string similar to remove favorite.
         /// </summary>
         public static string RemoveFavorite {
             get {

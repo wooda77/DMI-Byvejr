@@ -94,14 +94,14 @@
     <Compile Include="Models\Providers\LocationProvider.cs" />
     <Compile Include="Models\ImageUtility.cs" />
     <Compile Include="Models\Providers\WeatherDataProvider.cs" />
-    <Compile Include="Properties\AppResources.Designer.cs">
+    <Compile Include="Properties\AppResources.da-DK.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.resx</DependentUpon>
+      <DependentUpon>AppResources.da-DK.resx</DependentUpon>
     </Compile>
     <Compile Include="Converters\ImageConverter.cs" />
-    <Compile Include="Properties\AppResources.en-US.Designer.cs">
-      <DependentUpon>AppResources.en-US.resx</DependentUpon>
+    <Compile Include="Properties\AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -186,13 +186,13 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\AppResources.da-DK.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.da-DK.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\AppResources.en-US.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

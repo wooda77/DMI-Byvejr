@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppBar_AddToFavorites" xml:space="preserve">
-    <value>tilføj favorit</value>
+    <value>add favorite</value>
   </data>
   <data name="AppBar_ChooseCity" xml:space="preserve">
-    <value>vælg by</value>
+    <value>choose city</value>
   </data>
   <data name="AppBar_Favorites" xml:space="preserve">
-    <value>favoritter</value>
+    <value>favorites</value>
   </data>
   <data name="AppBar_GoToLocation" xml:space="preserve">
-    <value>vejret her</value>
+    <value>weather here</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>VEJRUDSIGTEN FRA DMI</value>
+    <value>WEATHER FORECAST FROM DMI</value>
   </data>
   <data name="AppTitleSmall" xml:space="preserve">
-    <value>Vejrudsigten fra DMI</value>
+    <value>Weather Forecast from DMI</value>
   </data>
   <data name="CityWeather2daysGraph" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long</value>
@@ -142,13 +142,13 @@
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9</value>
   </data>
   <data name="CityWeatherHeader" xml:space="preserve">
-    <value>byvejr</value>
+    <value>city weather</value>
   </data>
   <data name="FavoritesHeader" xml:space="preserve">
-    <value>favoritter</value>
+    <value>favorites</value>
   </data>
   <data name="NewsHeader" xml:space="preserve">
-    <value>nyheder</value>
+    <value>news</value>
   </data>
   <data name="PollenFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/pollen-feed.xml</value>
@@ -157,10 +157,10 @@
     <value>http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}</value>
   </data>
   <data name="PollenHeader" xml:space="preserve">
-    <value>pollental</value>
+    <value>pollen</value>
   </data>
   <data name="RemoveFavorite" xml:space="preserve">
-    <value>fjern favorit</value>
+    <value>remove favorite</value>
   </data>
   <data name="RssFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/rss-nyheder</value>

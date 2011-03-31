@@ -181,11 +181,6 @@ namespace DMI.Views
 
             base.OnNavigatedTo(e);
 
-            if (State.ContainsKey(App.PivotItem))
-            {
-                PivotLayout.SelectedIndex = (int)State[App.PivotItem];
-            }
-
             string postalCode = "";
             if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
@@ -242,6 +237,15 @@ namespace DMI.Views
         private void PollenGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             ImageUtility.CropImageBorders(PollenGraphImage, e.NewSize);
+        }
+
+        private void PivotLayout_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (State.ContainsKey(App.PivotItem))
+            {
+                var index = (int)State[App.PivotItem];
+                PivotLayout.SelectedIndex = index;
+            }
         }
     }
 }
