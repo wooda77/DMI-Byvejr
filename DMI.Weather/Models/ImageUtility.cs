@@ -34,7 +34,8 @@ namespace DMI.Models
         /// </summary>
         public static void CropImageBorders(Image image, Size newSize)
         {
-            if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
+            if ((image.ActualWidth > 0) && (image.ActualHeight > 0) &&
+                (newSize.Width > 0) && (newSize.Height > 0))
             {
                 image.Clip = new RectangleGeometry()
                 {

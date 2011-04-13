@@ -138,6 +138,12 @@ namespace DMI.ViewModels
             {
                 if (currentLocation != null)
                 {
+                    int postal = 1000;
+                    if (int.TryParse(currentLocation.PostalCode, out postal))
+                    {
+                        return Denmark.GetValidPostalCode(postal).ToString();
+                    }
+
                     return currentLocation.PostalCode;
                 }
 
@@ -419,13 +425,13 @@ namespace DMI.ViewModels
             if (InternetIsAvailable())
             {
                 CityWeather2daysGraph = new Uri(string.Format(
-                    AppResources.CityWeather2daysGraph, currentLocation.PostalCode));
+                    AppResources.CityWeather2daysGraph, PostalCode));
 
                 CityWeather7daysGraph = new Uri(string.Format(
-                    AppResources.CityWeather7daysGraph, currentLocation.PostalCode));
+                    AppResources.CityWeather7daysGraph, PostalCode));
 
                 PollenGraph = new Uri(string.Format(
-                    AppResources.PollenGraph, currentLocation.PostalCode));
+                    AppResources.PollenGraph, PostalCode));
             }
         }
 
