@@ -24,6 +24,7 @@ namespace DMI
         public const string PivotItem = "pivotitem";
         public const string ToggleGPS = "togglegps";
         public const string FirstStart = "firststart";
+        public const string LastCity = "lastcity";
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.

@@ -45,60 +45,55 @@
                         <mvvm:EventToCommand Command="{Binding LoadWeatherInformation}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ScrollViewer Margin="0,0,0,16">
-                    <StackPanel>
-                        <Image x:Name="CityWeather2daysGraphImage" Margin="0" 
+                <Grid>
+                    <ScrollViewer Margin="0,0,0,16">
+                        <StackPanel Margin="0">
+                            <Image x:Name="CityWeather2daysGraphImage" Margin="0" 
                                Source="{Binding CityWeather2daysGraph, Converter={StaticResource ImageConverter}}"
                                SizeChanged="CityWeather2daysGraphImage_SizeChanged">
-                            <t:GestureService.GestureListener>
-                                <t:GestureListener Tap="OpenInLandscapeMode" />
-                            </t:GestureService.GestureListener>
-                        </Image>
-                        <Image x:Name="CityWeather7daysGraphImage" Margin="0,24,0,0" 
+                                <t:GestureService.GestureListener>
+                                    <t:GestureListener Tap="OpenInLandscapeMode" />
+                                </t:GestureService.GestureListener>
+                            </Image>
+                            <Image x:Name="CityWeather7daysGraphImage" Margin="0,24,0,0" 
                                Source="{Binding CityWeather7daysGraph, Converter={StaticResource ImageConverter}}"
                                SizeChanged="CityWeather7daysGraphImage_SizeChanged">
-                            <t:GestureService.GestureListener>
-                                <t:GestureListener Tap="OpenInLandscapeMode" />
-                            </t:GestureService.GestureListener>
-                        </Image>
-                        <TextBlock x:Name="ImageResizeHelpText" Text="(tab images to enlarge)" Margin="0,24,0,0" 
-                                   VerticalAlignment="Top" HorizontalAlignment="Center" 
-                                   Visibility="Collapsed"
-                                   FontSize="{StaticResource PhoneFontSizeSmall}" />
-                    </StackPanel>
-                </ScrollViewer>
+                                <t:GestureService.GestureListener>
+                                    <t:GestureListener Tap="OpenInLandscapeMode" />
+                                </t:GestureService.GestureListener>
+                            </Image>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <TextBlock x:Name="ImageResizeHelpText" Text="(tab images to enlarge)" Margin="0,0,0,12" 
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                   FontSize="{StaticResource PhoneFontSizeSmall}" Visibility="Collapsed" />
+                </Grid>
             </c:PivotItem>
             <c:PivotItem Header="regionaludsigt" Margin="0,28,0,0">
                 <StackPanel>
                     <Image x:Name="RegionalImage" Source="/DMI.Weather;component/Images/femdgn_ostjylland.png" VerticalAlignment="Top" Stretch="UniformToFill" 
                            SizeChanged="RegionalImage_SizeChanged"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="24,12,24,0" TextWrapping="Wrap" Text="Østjylland" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    <TextBlock HorizontalAlignment="Left" Margin="24,24,24,0" TextWrapping="Wrap" Text="Østjylland" FontSize="{StaticResource PhoneFontSizeLarge}" />
                     <TextBlock HorizontalAlignment="Left" Margin="24,12,24,0" TextWrapping="Wrap" Text="I aften og i nat tørt og først mest klart, men senere mulighed for tåge flere steder. Vinden aftager og bliver svag, mest omkring vest med temp. mellem frysepunktet og 3 graders varme, lokalt let frost. Torsdag morgen skyet eller tåge nogle steder, ellers kommer der nogen sol, men om eftermiddagen kan der lokalt komme en byge. Temp. mellem 8 og 13 grader og let skiftende vind." VerticalAlignment="Top"/>
                 </StackPanel>
             </c:PivotItem>
             <c:PivotItem Header="landsudsigt" Margin="0,28,0,0">
-            	<Grid>
-            		<Image x:Name="CountryImage" Height="220" Margin="0" Source="/DMI.Weather;component/Images/femdgn_dk.png" VerticalAlignment="Top" Stretch="UniformToFill"
+                <Grid>
+                    <Image x:Name="CountryImage" Height="220" Margin="0" Source="/DMI.Weather;component/Images/femdgn_dk.png" VerticalAlignment="Top" Stretch="UniformToFill"
                            SizeChanged="CountryImage_SizeChanged"/>
-            		<ListBox BorderThickness="0">
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <mvvm:EventToCommand Command="{Binding NewsItemSelected}" 
-                                                     CommandParameter="{Binding SelectedItem, ElementName=NewsListBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
-            			<ListBox.ItemTemplate>
-            				<DataTemplate>
-            					<StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15">
-            						<TextBlock Margin="0,0,15,0" Style="{StaticResource PhoneTextLargeStyle}" 
+                    <ListBox BorderThickness="0" ItemsSource="{Binding WeatherItems}" Margin="24,244,24,0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel DataContext="{Binding}" x:Name="LayoutRoot" Margin="0,0,0,15">
+                                    <TextBlock Margin="0,0,15,0" Style="{StaticResource PhoneTextLargeStyle}" 
             							TextWrapping="Wrap" Text="{Binding Title}" />
-            						<TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextNormalStyle}" 
+                                    <TextBlock Margin="15,0,15,0" Style="{StaticResource PhoneTextNormalStyle}" 
             							TextWrapping="Wrap" Text="{Binding Description}" />
-            					</StackPanel>
-            				</DataTemplate>
-            			</ListBox.ItemTemplate>
-            		</ListBox>                    
-            	</Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </c:PivotItem>
             <c:PivotItem x:Name="PollenPivotItem" 
                          Header="{Binding AppResources.PollenHeader, Source={StaticResource AppResources}}" Margin="0,28,0,0">
@@ -208,16 +203,6 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                </Grid>
-            </c:PivotItem>
-            <c:PivotItem x:Name="SettingsPivotItem" Header="settings">
-                <Grid>
-                    <StackPanel Orientation="Vertical">
-                        <CheckBox x:Name="ResolveCurrentLocation" Content="Always resolve current location" IsChecked="True" />
-                        <Button Content="Pick Home City" IsEnabled="{Binding IsChecked, ElementName=ResolveCurrentLocation, Converter={StaticResource NegationConverter}}" />
-                        <TextBlock Margin="12, 12, 12, 12" TextWrapping="Wrap" Text="The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area." />
-                        <CheckBox IsChecked="{Binding AllowGPS, Mode=TwoWay}" Content="Allow use of GPS location" />
-                    </StackPanel>
                 </Grid>
             </c:PivotItem>
         </c:Pivot>

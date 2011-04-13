@@ -262,14 +262,26 @@ namespace DMI.Views
 
         private void ToggleHelpText()
         {
-            ImageResizeHelpText.Visibility = System.Windows.Visibility.Visible;
+            //if ((Orientation & PageOrientation.Landscape) != PageOrientation.Landscape)
+            //{
+            //    ImageResizeHelpText.Visibility = System.Windows.Visibility.Visible;
+            //}
         }
 
         private void MainPhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             if (ApplicationBar != null)
             {
-                ApplicationBar.IsVisible = (e.Orientation & PageOrientation.Landscape) != PageOrientation.Landscape;
+                if ((e.Orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
+                {
+                    ApplicationBar.IsVisible = false;
+                    //ImageResizeHelpText.Visibility = System.Windows.Visibility.Collapsed;
+                }
+                else
+                {
+                    ApplicationBar.IsVisible = true;
+                    //ImageResizeHelpText.Visibility = System.Windows.Visibility.Visible;
+                }
             }
         }
 

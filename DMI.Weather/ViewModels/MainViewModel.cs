@@ -22,6 +22,8 @@ using DMI.Properties;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Collections.Generic;
+using System.Windows.Resources;
+using System.Windows.Media.Imaging;
 
 namespace DMI.ViewModels
 {
@@ -54,6 +56,7 @@ namespace DMI.ViewModels
             this.Favorites = new ObservableCollection<City>();
             this.PollenData = new ObservableCollection<PollenItem>();
             this.NewsItems = new ObservableCollection<NewsItem>();
+            this.WeatherItems = new ObservableCollection<WeatherItem>();
 
             if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
             {
@@ -72,6 +75,50 @@ namespace DMI.ViewModels
             this.newsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
             this.favoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
             this.goToLocation = new RelayCommand(GoToLocationExecute);
+
+            // Debug
+
+            WeatherItems.Add(new WeatherItem() 
+            {
+                Title = "Oversigt",
+                Description = "Et højtryk over Vesteuropa breder sig mod nordøst, og det vil i den kommende periode stabiliserer vejret over Danmark"
+            });
+
+            WeatherItems.Add(new WeatherItem()
+            {
+                Title = "Udsigt, der gælder til fredag morgen:",
+                Description = "I de østlige egne skyet og endnu stedvis lidt regn. I resten af landet tørt og mest klart vejr, men i løbet af natten mere skyet og stedvis tåget. Temp. mellem frysepunktet og 5 graders varme, i Jylland lokalt let frost. Svag til jævn vind fra nordvest og vest. Torsdag først mest skyet og stedvis tåget, men i løbet af dagen kommer der nogen sol de fleste steder. I løbet af eftermiddagen er der mulighed for lokale byger. Temp. op mellem 8 og 13 grader, og svag til let vind mest omkring nordvest. Natten til fredag tørt og mest klart vejr, men stedvis tåget eller skyet. Temp. ned mellem 0 og 5 grader, lokalt let frost. Ret svag skiftende vind."
+            });
+
+            WeatherItems.Add(new WeatherItem()
+            {
+                Title = "Fredag",
+                Description = "Først stedvis skyet eller tåget, men ellers nogen eller en del sol de fleste steder. I løbet af eftermiddagen er der mulighed for lokale byger. Dagtemp. op mellem 8 og 13 grader, og svag til let vind mest omkring sydvest. Om natten mest tørt og ret skyet. Temp. ned mellem 1 og 5 grader, og svag til jævn vind fra sydvest."
+            });
+
+            WeatherItems.Add(new WeatherItem()
+            {
+                Title = "Lørdag",
+                Description = "Mest tørt og ret skyet, men især i de sydøstlige egne også lidt sol. Temp. op mellem 10 og 15 grader. Svag til jævn vind fra sydvest, i Nordvestjylland op til frisk vind. Om natten efterhånden mest klart vejr. Temp. ned mellem 3 og 7 grader, og svag til jævn vind fra vest, i Nordjylland op til frisk vind."
+            });
+
+            WeatherItems.Add(new WeatherItem()
+            {
+                Title = "Søndag",
+                Description = "Først på dagen stedvis skyet, men ellers en del sol de fleste steder. Temp. op mellem 10 og 15 grader. og svag til frisk vind fra vest og nordvest. Om natten klart vejr, og temp. ned mellem 3 og 7 grader. Svag til jævn vind fra vest og nordvest."
+            });
+
+            WeatherItems.Add(new WeatherItem()
+            {
+                Title = "Mandag",
+                Description = "Tørt vejr med en del sol de fleste steder. Dagtemp. mellem 13 og 18 grader, men ved kyster med pålandsvind kun omkring 10 grader. Svag til jævn vind omkring vest. Om natten mest klart vejr, og temp. ned mellem 1 og 5 grader. Ret svag vind."
+            });
+
+            WeatherItems.Add(new WeatherItem()
+            {
+                Title = "Tirsdag og onsdag:",
+                Description = "Antagelig tørt med ret uændrede temp."
+            });
         }
 
         #region Properties
@@ -147,7 +194,7 @@ namespace DMI.ViewModels
                     return currentLocation.PostalCode;
                 }
 
-                return string.Empty;
+                return LastCity;
             }
         }
 
@@ -176,8 +223,9 @@ namespace DMI.ViewModels
                 {
                     currentLocation = value;
 
-                    if (!string.IsNullOrEmpty(currentLocation.PostalCode))
+                    if (string.IsNullOrEmpty(currentLocation.PostalCode) == false)
                     {
+                        SaveLastCity();
                         UpdateCurrentLocation();
                         Loading = false;
                     }
@@ -194,6 +242,12 @@ namespace DMI.ViewModels
         }
 
         public ObservableCollection<NewsItem> NewsItems
+        {
+            get;
+            set;
+        }
+
+        public ObservableCollection<WeatherItem> WeatherItems
         {
             get;
             set;
@@ -299,6 +353,8 @@ namespace DMI.ViewModels
 
         private void LoadWeatherInformationExecute()
         {
+            UpdateCurrentLocation();
+
             if (currentLocation == null
             || string.IsNullOrEmpty(currentLocation.PostalCode))
             {
@@ -492,9 +548,35 @@ namespace DMI.ViewModels
             }
         }
 
+        private string LastCity
+        {
+            get
+            {
+                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.LastCity))
+                {
+                    var lastCity = IsolatedStorageSettings.ApplicationSettings[App.LastCity];
+                    return lastCity.ToString();
+                }
+
+                return "1000";
+            }
+        }
+
+        private void SaveLastCity()
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.LastCity) == false)
+            {
+                IsolatedStorageSettings.ApplicationSettings.Add(App.LastCity, PostalCode);
+            }
+            else
+            {
+                IsolatedStorageSettings.ApplicationSettings[App.LastCity] = PostalCode;
+            }
+        }
+
         private void SaveFavorites()
         {
-            if (!IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites) == false)
             {
                 IsolatedStorageSettings.ApplicationSettings.Add(App.Favorites, Favorites);
             }
