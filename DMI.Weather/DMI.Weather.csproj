@@ -16,7 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>en-US</SupportedCultures>
+    <SupportedCultures>en-US;da-DK</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>DMI.Weather.xap</XapFilename>
@@ -94,12 +94,12 @@
     <Compile Include="Models\Providers\LocationProvider.cs" />
     <Compile Include="Models\ImageUtility.cs" />
     <Compile Include="Models\Providers\WeatherDataProvider.cs" />
+    <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Properties\AppResources.da-DK.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.da-DK.resx</DependentUpon>
     </Compile>
-    <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Properties\AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -152,6 +152,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\femdgn_dk.png" />
     <Resource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Resource Include="Toolkit.Content\ApplicationBar.Check.png" />
     <None Include="..\AppResLib0409\Debug\AppRes.dll.0409.mui">
@@ -175,6 +176,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\1daymap.gif" />
     <Content Include="Images\appbar.addtofavs.light.png" />
     <Content Include="Images\appbar.favs.dark.png" />
     <Content Include="Images\appbar.favs.light.png" />
@@ -183,6 +185,7 @@
     <Content Include="Images\appbar.addtofavs.dark.png" />
     <Content Include="Images\appbar.location.dark.png" />
     <Content Include="Images\appbar.location.light.png" />
+    <Resource Include="Images\femdgn_ostjylland.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

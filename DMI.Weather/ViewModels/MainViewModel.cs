@@ -21,6 +21,7 @@ using DMI.Models;
 using DMI.Properties;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Collections.Generic;
 
 namespace DMI.ViewModels
 {
@@ -74,6 +75,14 @@ namespace DMI.ViewModels
         }
 
         #region Properties
+
+        public IEnumerable<City> Cities
+        {
+            get
+            {
+                return Denmark.Cities;
+            }
+        }
 
         public Uri CityWeather2daysGraph
         {

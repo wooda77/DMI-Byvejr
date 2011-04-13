@@ -13,3 +13,5 @@ obj/
 Release/
 Debug/
 Packages/
+packages/
+ipch/

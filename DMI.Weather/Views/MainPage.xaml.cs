@@ -33,7 +33,11 @@ namespace DMI.Views
         public MainPage()
         {
             InitializeComponent();
-            BuildApplicationBar();
+
+            Dispatcher.BeginInvoke(() => 
+            {
+                BuildApplicationBar();
+            });
         }
 
         /// <summary>
@@ -144,10 +148,13 @@ namespace DMI.Views
         /// </summary>
         private void PivotLayout_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ApplicationBar != null)
+            Dispatcher.BeginInvoke(() => 
             {
-                ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
-            }
+                if (ApplicationBar != null)
+                {
+                    ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
+                }
+            });
         }
 
         /// <summary>
@@ -184,10 +191,13 @@ namespace DMI.Views
             string postalCode = "";
             if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
-                (DataContext as MainViewModel).CurrentLocation = new CivicAddress()
+                Dispatcher.BeginInvoke(() => 
                 {
-                    PostalCode = postalCode
-                };
+                    (DataContext as MainViewModel).CurrentLocation = new CivicAddress()
+                    {
+                        PostalCode = postalCode
+                    };
+                });
             }
         }
 
@@ -217,6 +227,7 @@ namespace DMI.Views
         private void CityWeather2daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             ImageUtility.CropImageBorders(CityWeather2daysGraphImage, e.NewSize);
+            ToggleHelpText();
         }
 
         /// <summary>
@@ -227,6 +238,7 @@ namespace DMI.Views
         private void CityWeather7daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             ImageUtility.CropImageBorders(CityWeather7daysGraphImage, e.NewSize);
+            ToggleHelpText();
         }
 
         /// <summary>
@@ -246,6 +258,29 @@ namespace DMI.Views
                 var index = (int)State[App.PivotItem];
                 PivotLayout.SelectedIndex = index;
             }
+        }
+
+        private void ToggleHelpText()
+        {
+            ImageResizeHelpText.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void MainPhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            if (ApplicationBar != null)
+            {
+                ApplicationBar.IsVisible = (e.Orientation & PageOrientation.Landscape) != PageOrientation.Landscape;
+            }
+        }
+
+        private void CountryImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            ImageUtility.CropImageBorders(CountryImage, e.NewSize);
+        }
+
+        private void RegionalImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            ImageUtility.CropImageBorders(RegionalImage, e.NewSize);
         }
     }
 }

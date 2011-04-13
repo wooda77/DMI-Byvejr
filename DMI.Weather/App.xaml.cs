@@ -42,10 +42,6 @@ namespace DMI
         {
             UnhandledException += Application_UnhandledException;
 
-            // For Debugging
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("da-DK");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("da-DK");
-
             InitializeComponent();
             InitializePhoneApplication();
         }
@@ -151,6 +147,9 @@ namespace DMI
 
         private void InitializePhoneApplication()
         {
+            // Set the UI Culture to the System Culture, to support more than WP7s six languages.
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
             if (phoneApplicationInitialized)
             {
                 return;
