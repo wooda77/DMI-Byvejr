@@ -13,6 +13,7 @@
     xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
     xmlns:v="clr-namespace:DMI.Views"
     xmlns:vm="clr-namespace:DMI.ViewModels"
+    xmlns:cv="clr-namespace:DMI.Converters"
     mc:Ignorable="d"
     s:SystemTray.IsVisible="False"
     t:TiltEffect.IsTiltEnabled="True"
@@ -28,6 +29,7 @@
     <p:PhoneApplicationPage.Resources>
         <ResourceDictionary>
             <w:String x:Key="FavoritesListImagePath">M12.7630033493042,0L15.8240032196045,9.27399387849619 25.5270023345947,9.27399387849619 17.6387557983398,15.0049251605396 20.6520004272461,24.2780326892262 12.7634763717651,18.5468887378102 4.87500381469727,24.2779850055103 7.88791990280151,15.0047172595387 0,9.27401295198251 9.70000457763672,9.27401295198251 12.762526512146,0.00146796110675496z</w:String>
+            <cv:NegationConverter x:Key="NegationConverter" />            
         </ResourceDictionary>
     </p:PhoneApplicationPage.Resources>
     <Grid>
@@ -125,9 +127,9 @@
                                     <DataTemplate>
                                         <StackPanel Margin="0,0,0,12">
                                             <TextBlock Text="{Binding City}" Style="{StaticResource PhoneTextLargeStyle}" Margin="0" />
-                                            <TextBlock Text="{Binding Data}" Margin="0" 
+                                            <TextBlock Text="{Binding Data}" Margin="12,0,0,0" 
                                                        Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" />
-                                            <TextBlock Text="{Binding Forecast}" Margin="0,12,0,0" 
+                                            <TextBlock Text="{Binding Forecast}" Margin="12,12,0,0" 
                                                        Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" />
                                         </StackPanel>
                                     </DataTemplate>
@@ -212,7 +214,7 @@
                 <Grid>
                     <StackPanel Orientation="Vertical">
                         <CheckBox x:Name="ResolveCurrentLocation" Content="Always resolve current location" IsChecked="True" />
-                        <Button Content="Pick Home City" IsEnabled="False" />
+                        <Button Content="Pick Home City" IsEnabled="{Binding IsChecked, ElementName=ResolveCurrentLocation, Converter={StaticResource NegationConverter}}" />
                         <TextBlock Margin="12, 12, 12, 12" TextWrapping="Wrap" Text="The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area." />
                         <CheckBox IsChecked="{Binding AllowGPS, Mode=TwoWay}" Content="Allow use of GPS location" />
                     </StackPanel>

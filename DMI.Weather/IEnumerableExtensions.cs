@@ -18,14 +18,15 @@ namespace DMI
 
             foreach (var item in self)
             {
-                if (index == size)
+                chunk[index++] = item;
+
+                if (index >= size)
                 {
                     yield return chunk;
+                    
                     index = 0;
                     chunk = new T[size];
                 }
-
-                chunk[index++] = item;
             }
         }
     }

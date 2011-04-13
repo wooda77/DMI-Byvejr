@@ -87,6 +87,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\GroupToBrushValueConverter.cs" />
+    <Compile Include="Converters\NegationConverter.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="Models\AllCities.cs" />
     <Compile Include="Models\BingLocationResponse.cs" />

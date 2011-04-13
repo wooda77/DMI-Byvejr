@@ -36,11 +36,12 @@ namespace DMI.Models
                 }
                 else
                 {
-                    var items = XElement.Parse(e.Result)
+                    var allItems = XElement.Parse(e.Result)
                         .Elements("channel")
                         .Elements("item")
-                        .Take(4)
-                        .Chunks(2);
+                        .ToArray();
+
+                    var items = allItems.Take(4).Chunks(2).ToArray();
 
                     var pollenItems = items.Select(x => new PollenItem()
                     {
