@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllowGPSUse" xml:space="preserve">
+    <value>Allow use of GPS location</value>
+  </data>
   <data name="AppBar_AddToFavorites" xml:space="preserve">
     <value>add favorite</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="AppBar_GoToLocation" xml:space="preserve">
     <value>weather here</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>App Name: </value>
   </data>
   <data name="AppTitle" xml:space="preserve">
     <value>WEATHER FORECAST FROM DMI</value>
@@ -144,8 +150,35 @@
   <data name="CityWeatherHeader" xml:space="preserve">
     <value>city weather</value>
   </data>
+  <data name="CountryHeader" xml:space="preserve">
+    <value>country</value>
+  </data>
+  <data name="CountryImage" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_dk.png</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by: </value>
+  </data>
+  <data name="DefaultCity" xml:space="preserve">
+    <value>1000</value>
+  </data>
+  <data name="EmailHelpText" xml:space="preserve">
+    <value>Please write comments or technical questions to: email: 10229@iha.dk</value>
+  </data>
   <data name="FavoritesHeader" xml:space="preserve">
     <value>favorites</value>
+  </data>
+  <data name="GPSDisabledError" xml:space="preserve">
+    <value>Could not resolve the location, because Location Servies aren't enabled.</value>
+  </data>
+  <data name="GPSHelpText" xml:space="preserve">
+    <value>The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area.</value>
+  </data>
+  <data name="GPSResolveError" xml:space="preserve">
+    <value>Could not resolve the location.</value>
+  </data>
+  <data name="InternetError" xml:space="preserve">
+    <value>No internet connection is available. Please try again later.</value>
   </data>
   <data name="NewsHeader" xml:space="preserve">
     <value>news</value>
@@ -159,10 +192,73 @@
   <data name="PollenHeader" xml:space="preserve">
     <value>pollen</value>
   </data>
+  <data name="RegionalHeader" xml:space="preserve">
+    <value>regional</value>
+  </data>
+  <data name="RegionalImage_Bornholm" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_bornholm.png</value>
+  </data>
+  <data name="RegionalImage_EastJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_ostjylland.png</value>
+  </data>
+  <data name="RegionalImage_Fyn" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_fyn.png</value>
+  </data>
+  <data name="RegionalImage_MiddleJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_vestjylland.png</value>
+  </data>
+  <data name="RegionalImage_NorthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_nordjylland.png</value>
+  </data>
+  <data name="RegionalImage_NorthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_kobenhavn.png</value>
+  </data>
+  <data name="RegionalImage_SouthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_sydjylland.png</value>
+  </data>
+  <data name="RegionalImage_SouthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_vestsjaelland.png</value>
+  </data>
+  <data name="RegionalText_Bornholm" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_born.htm</value>
+  </data>
+  <data name="RegionalText_EastJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_ostj.htm</value>
+  </data>
+  <data name="RegionalText_Fyn" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_fyn.htm</value>
+  </data>
+  <data name="RegionalText_MiddleJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_midtvj.htm</value>
+  </data>
+  <data name="RegionalText_NorthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_nord.htm</value>
+  </data>
+  <data name="RegionalText_NorthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_kbhnord.htm</value>
+  </data>
+  <data name="RegionalText_SouthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_sydson.htm</value>
+  </data>
+  <data name="RegionalText_SouthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm</value>
+  </data>
   <data name="RemoveFavorite" xml:space="preserve">
     <value>remove favorite</value>
   </data>
   <data name="RssFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/rss-nyheder</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>send email</value>
+  </data>
+  <data name="SupportHeader" xml:space="preserve">
+    <value>support</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version: </value>
+  </data>
+  <data name="WeatherFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm</value>
   </data>
 </root>

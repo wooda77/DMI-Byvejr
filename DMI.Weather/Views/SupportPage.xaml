@@ -19,34 +19,31 @@
     shell:SystemTray.IsVisible="True">
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <controls:Pivot Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}">
-            <controls:PivotItem Header="support">
+            <controls:PivotItem Header="{Binding AppResources.SupportHeader, Source={StaticResource AppResources}}">
                 <Grid>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="AppName: " />
+                            <TextBlock Text="{Binding AppResources.AppName, Source={StaticResource AppResources}}" />
                             <TextBlock Text="{Binding AppResources.AppTitleSmall, Source={StaticResource AppResources}}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Version: " />
+                            <TextBlock Text="{Binding AppResources.Version, Source={StaticResource AppResources}}" />
                             <TextBlock Text="{Binding Version}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Created by: " />
+                            <TextBlock Text="{Binding AppResources.CreatedBy, Source={StaticResource AppResources}}" />
                             <TextBlock Text="Claus Jørgensen" />
                         </StackPanel>
-                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Text="Please write comments or technical questions to: email: 10229@iha.dk" />
-                        <Button Content="send email">
+                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Text="{Binding AppResources.EmailHelpText, Source={StaticResource AppResources}}" />
+                        <Button Content="{Binding AppResources.SendEmail, Source={StaticResource AppResources}}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <mvvm:EventToCommand Command="{Binding OpenMailClient}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                        <TextBlock TextWrapping="Wrap" Text="The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area." />
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="{Binding AllowGPS, Mode=TwoWay}" />
-                            <TextBlock Text="Allow use of GPS location" VerticalAlignment="Center" />
-                        </StackPanel>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding AppResources.GPSHelpText, Source={StaticResource AppResources}}" />
+                        <CheckBox IsChecked="{Binding AllowGPS, Mode=TwoWay}" Content="{Binding AppResources.AllowGPSUse, Source={StaticResource AppResources}}" />
                         <Button Content="ok">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">

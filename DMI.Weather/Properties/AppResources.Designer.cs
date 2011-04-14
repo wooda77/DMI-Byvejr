@@ -61,6 +61,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow use of GPS location.
+        /// </summary>
+        public static string AllowGPSUse {
+            get {
+                return ResourceManager.GetString("AllowGPSUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to add favorite.
         /// </summary>
         public static string AppBar_AddToFavorites {
@@ -93,6 +102,15 @@ namespace DMI.Properties {
         public static string AppBar_GoToLocation {
             get {
                 return ResourceManager.GetString("AppBar_GoToLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App Name: .
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
             }
         }
         
@@ -142,11 +160,92 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to country.
+        /// </summary>
+        public static string CountryHeader {
+            get {
+                return ResourceManager.GetString("CountryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_dk.png.
+        /// </summary>
+        public static string CountryImage {
+            get {
+                return ResourceManager.GetString("CountryImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created by: .
+        /// </summary>
+        public static string CreatedBy {
+            get {
+                return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1000.
+        /// </summary>
+        public static string DefaultCity {
+            get {
+                return ResourceManager.GetString("DefaultCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please write comments or technical questions to: email: 10229@iha.dk.
+        /// </summary>
+        public static string EmailHelpText {
+            get {
+                return ResourceManager.GetString("EmailHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to favorites.
         /// </summary>
         public static string FavoritesHeader {
             get {
                 return ResourceManager.GetString("FavoritesHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not resolve the location, because Location Servies aren&apos;t enabled..
+        /// </summary>
+        public static string GPSDisabledError {
+            get {
+                return ResourceManager.GetString("GPSDisabledError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area..
+        /// </summary>
+        public static string GPSHelpText {
+            get {
+                return ResourceManager.GetString("GPSHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not resolve the location..
+        /// </summary>
+        public static string GPSResolveError {
+            get {
+                return ResourceManager.GetString("GPSResolveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No internet connection is available. Please try again later..
+        /// </summary>
+        public static string InternetError {
+            get {
+                return ResourceManager.GetString("InternetError", resourceCulture);
             }
         }
         
@@ -187,6 +286,159 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to regional.
+        /// </summary>
+        public static string RegionalHeader {
+            get {
+                return ResourceManager.GetString("RegionalHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_bornholm.png.
+        /// </summary>
+        public static string RegionalImage_Bornholm {
+            get {
+                return ResourceManager.GetString("RegionalImage_Bornholm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_ostjylland.png.
+        /// </summary>
+        public static string RegionalImage_EastJytland {
+            get {
+                return ResourceManager.GetString("RegionalImage_EastJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_fyn.png.
+        /// </summary>
+        public static string RegionalImage_Fyn {
+            get {
+                return ResourceManager.GetString("RegionalImage_Fyn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_vestjylland.png.
+        /// </summary>
+        public static string RegionalImage_MiddleJytland {
+            get {
+                return ResourceManager.GetString("RegionalImage_MiddleJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_nordjylland.png.
+        /// </summary>
+        public static string RegionalImage_NorthJytland {
+            get {
+                return ResourceManager.GetString("RegionalImage_NorthJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_kobenhavn.png.
+        /// </summary>
+        public static string RegionalImage_NorthZealand {
+            get {
+                return ResourceManager.GetString("RegionalImage_NorthZealand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_sydjylland.png.
+        /// </summary>
+        public static string RegionalImage_SouthJytland {
+            get {
+                return ResourceManager.GetString("RegionalImage_SouthJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_vestsjaelland.png.
+        /// </summary>
+        public static string RegionalImage_SouthZealand {
+            get {
+                return ResourceManager.GetString("RegionalImage_SouthZealand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_born.htm.
+        /// </summary>
+        public static string RegionalText_Bornholm {
+            get {
+                return ResourceManager.GetString("RegionalText_Bornholm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_ostj.htm.
+        /// </summary>
+        public static string RegionalText_EastJytland {
+            get {
+                return ResourceManager.GetString("RegionalText_EastJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_fyn.htm.
+        /// </summary>
+        public static string RegionalText_Fyn {
+            get {
+                return ResourceManager.GetString("RegionalText_Fyn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_midtvj.htm.
+        /// </summary>
+        public static string RegionalText_MiddleJytland {
+            get {
+                return ResourceManager.GetString("RegionalText_MiddleJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_nord.htm.
+        /// </summary>
+        public static string RegionalText_NorthJytland {
+            get {
+                return ResourceManager.GetString("RegionalText_NorthJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_kbhnord.htm.
+        /// </summary>
+        public static string RegionalText_NorthZealand {
+            get {
+                return ResourceManager.GetString("RegionalText_NorthZealand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_sydson.htm.
+        /// </summary>
+        public static string RegionalText_SouthJytland {
+            get {
+                return ResourceManager.GetString("RegionalText_SouthJytland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm.
+        /// </summary>
+        public static string RegionalText_SouthZealand {
+            get {
+                return ResourceManager.GetString("RegionalText_SouthZealand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to remove favorite.
         /// </summary>
         public static string RemoveFavorite {
@@ -201,6 +453,42 @@ namespace DMI.Properties {
         public static string RssFeed {
             get {
                 return ResourceManager.GetString("RssFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to send email.
+        /// </summary>
+        public static string SendEmail {
+            get {
+                return ResourceManager.GetString("SendEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to support.
+        /// </summary>
+        public static string SupportHeader {
+            get {
+                return ResourceManager.GetString("SupportHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: .
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm.
+        /// </summary>
+        public static string WeatherFeed {
+            get {
+                return ResourceManager.GetString("WeatherFeed", resourceCulture);
             }
         }
     }

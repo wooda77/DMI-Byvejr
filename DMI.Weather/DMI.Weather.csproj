@@ -96,6 +96,7 @@
     <Compile Include="Models\ImageUtility.cs" />
     <Compile Include="Models\Providers\WeatherDataProvider.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="Models\Region.cs" />
     <Compile Include="Models\WeatherItem.cs" />
     <Compile Include="Properties\AppResources.da-DK.Designer.cs">
       <AutoGen>True</AutoGen>

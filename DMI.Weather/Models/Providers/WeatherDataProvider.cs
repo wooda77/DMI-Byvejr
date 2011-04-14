@@ -12,6 +12,7 @@ using System.Text;
 using System.Xml.Linq;
 
 using DMI.Properties;
+using System.Text.RegularExpressions;
 
 namespace DMI.Models
 {
@@ -55,6 +56,106 @@ namespace DMI.Models
             };
 
             client.DownloadStringAsync(new Uri(AppResources.PollenFeed));
+        }
+
+        /// <summary>
+        /// Gets the regional weather text.
+        /// </summary>
+        /// <param name="callback"></param>
+        public static void GetRegionData(string regionUrl, Action<Region, Exception> callback)
+        {
+            var client = new WebClient()
+            {
+                Encoding = Encoding.GetEncoding("iso-8859-1")
+            };
+
+            client.DownloadStringCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    callback(new Region(), e.Error);
+                }
+                else
+                {
+                    var html = e.Result;
+                    html = html.Replace("&oslash;", "ø");
+                    html = html.Replace("&aring;", "å");
+                    html = html.Replace("&aelig;", "æ");
+
+                    var textPattern = @"<td class=""broedtekst"">(?<text>.*?)</td>";
+                    var textRegex = new Regex(textPattern, RegexOptions.Singleline);
+                    var textMatches = textRegex.Matches(html);
+
+                    var namePattern = @"<font class=""mellemrubrik"">(?<text>.*?)</font>";
+                    var nameRegex = new Regex(namePattern, RegexOptions.Singleline);
+                    var nameMatches = nameRegex.Matches(html);
+
+                    var region = new Region();
+                    region.Name = nameMatches[0].Groups["text"].Value;
+                    region.Text = textMatches[2].Groups["text"].Value;
+
+                    callback(region, e.Error);
+                }
+            };
+
+            client.DownloadStringAsync(new Uri(regionUrl));
+        }
+
+        /// <summary>
+        /// Get all the country-wide weather items from DMI.
+        /// </summary>
+        /// <param name="callback"></param>
+        public static void GetWeatherData(Action<IEnumerable<WeatherItem>, Exception> callback)
+        {
+            var client = new WebClient()
+            {
+                Encoding = Encoding.GetEncoding("iso-8859-1")
+            };
+
+            client.DownloadStringCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    callback(Enumerable.Empty<WeatherItem>(), e.Error);
+                }
+                else
+                {
+                    var html = e.Result;
+                    html = html.Replace("&oslash;", "ø");
+                    html = html.Replace("&aring;", "å");
+                    html = html.Replace("&aelig;", "æ");
+
+                    var pattern = @"<td class=""mellemrubrik"">(?<title>.*?)</td>(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
+
+                    var regex = new Regex(pattern, RegexOptions.Singleline);
+                    var matches = regex.Matches(html);
+
+                    var items = new List<WeatherItem>();
+
+                    foreach (var match in matches.Cast<Match>())
+                    {
+                        var title = match.Groups["title"].Value;
+                        title = title.Trim();
+                        title = title.Replace(":", "");
+
+                        var description = match.Groups["description"].Value;
+                        description = description.Trim();
+
+                        if (string.IsNullOrEmpty(title) == false)
+                        {
+                            items.Add(new WeatherItem()
+                            {
+                                Title = title,
+                                Description = description
+                            });
+                        }
+                    }
+
+                    callback(items, e.Error);
+                }
+            };
+
+            client.DownloadStringAsync(new Uri(AppResources.WeatherFeed));
         }
 
         /// <summary>

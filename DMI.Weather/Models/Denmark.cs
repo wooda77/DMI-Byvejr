@@ -6,6 +6,7 @@
 //
 using System.Collections.Generic;
 using System.Linq;
+using DMI.Properties;
 
 namespace DMI.Models
 {
@@ -78,7 +79,92 @@ namespace DMI.Models
 
             return postalCode;
         }
-  
+
+        public static string GetRegionTextFromPostalCode(int postalCode)
+        {
+            if (postalCode >= 1000 && postalCode <= 2999)
+            {
+                return AppResources.RegionalText_NorthZealand;
+            }
+            else if (postalCode >= 3000 && postalCode <= 3699)
+            {
+                return AppResources.RegionalText_NorthZealand;
+            }
+            else if (postalCode >= 4000 && postalCode <= 4999)
+            {
+                return AppResources.RegionalText_SouthZealand;
+            }
+            else if (postalCode >= 3700 && postalCode <= 3799)
+            {
+                return AppResources.RegionalText_Bornholm;
+            }
+            else if (postalCode >= 5000 && postalCode <= 5999)
+            {
+                return AppResources.RegionalText_Fyn;
+            }
+            else if (postalCode >= 6000 && postalCode <= 6999)
+            {
+                return AppResources.RegionalText_SouthJytland;
+            }
+            else if (postalCode >= 7000 && postalCode <= 7999)
+            {
+                return AppResources.RegionalText_MiddleJytland;
+            }
+            else if (postalCode >= 8000 && postalCode <= 8999)
+            {
+                return AppResources.RegionalText_EastJytland;
+            }
+            else if (postalCode >= 9000 && postalCode <= 9999)
+            {
+                return AppResources.RegionalImage_NorthJytland;
+            }
+
+            // Default to Copenhagen
+            return AppResources.RegionalText_NorthZealand; 
+        }
+
+        public static string GetRegionImageFromPostalCode(int postalCode)
+        {
+            if (postalCode >= 1000 && postalCode <= 2999)
+            {
+                return AppResources.RegionalImage_NorthZealand;
+            }
+            else if (postalCode >= 3000 && postalCode <= 3699)
+            {
+                return AppResources.RegionalImage_NorthZealand;
+            }
+            else if (postalCode >= 4000 && postalCode <= 4999)
+            {
+                return AppResources.RegionalImage_SouthZealand;
+            }
+            else if (postalCode >= 3700 && postalCode <= 3799)
+            {
+                return AppResources.RegionalImage_Bornholm;
+            }
+            else if (postalCode >= 5000 && postalCode <= 5999)
+            {
+                return AppResources.RegionalImage_Fyn;
+            }
+            else if (postalCode >= 6000 && postalCode <= 6999)
+            {
+                return AppResources.RegionalImage_SouthJytland;
+            }
+            else if (postalCode >= 7000 && postalCode <= 7999)
+            {
+                return AppResources.RegionalImage_MiddleJytland;
+            }
+            else if (postalCode >= 8000 && postalCode <= 8999)
+            {
+                return AppResources.RegionalImage_EastJytland;
+            }
+            else if (postalCode >= 9000 && postalCode <= 9999)
+            {
+                return AppResources.RegionalImage_NorthJytland;
+            }
+
+            // Default to Copenhagen
+            return AppResources.RegionalImage_NorthZealand;
+        } 
 
         public static IDictionary<int, string> PostalCodes = new Dictionary<int, string>()
         {

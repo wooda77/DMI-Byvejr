@@ -33,6 +33,9 @@ namespace DMI.ViewModels
         private const string CityWeather2daysGraphPropertyName = "CityWeather2daysGraph";
         private const string CityWeather7daysGraphPropertyName = "CityWeather7daysGraph";
         private const string PollenGraphPropertyName = "PollenGraph";
+        private const string RegionalImagePropertyName = "RegionalImage";
+        private const string CountryImagePropertyName = "CountryImage";
+        private const string RegionPropertyName = "Region";
 
         private readonly ICommand loadWeatherInformation;
         private readonly ICommand loadPollenInformation;
@@ -47,8 +50,11 @@ namespace DMI.ViewModels
         private Uri cityWeather2daysGraph;
         private Uri cityWeather7daysGraph;
         private Uri pollenGraph;
+        private Uri regionalImage;
+        private Uri countryImage;
         private GeoCoordinateWatcher watcher;
         private CivicAddress currentLocation;
+        private Region region;
         private bool loading = false;
 
         public MainViewModel()
@@ -62,8 +68,8 @@ namespace DMI.ViewModels
             {
                 this.Favorites = (ObservableCollection<City>)
                     IsolatedStorageSettings.ApplicationSettings[App.Favorites];
-                
-                this.Favorites = this.Favorites ?? new ObservableCollection<City>(); 
+
+                this.Favorites = this.Favorites ?? new ObservableCollection<City>();
             }
 
             this.loadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
@@ -75,50 +81,6 @@ namespace DMI.ViewModels
             this.newsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
             this.favoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
             this.goToLocation = new RelayCommand(GoToLocationExecute);
-
-            // Debug
-
-            WeatherItems.Add(new WeatherItem() 
-            {
-                Title = "Oversigt",
-                Description = "Et højtryk over Vesteuropa breder sig mod nordøst, og det vil i den kommende periode stabiliserer vejret over Danmark"
-            });
-
-            WeatherItems.Add(new WeatherItem()
-            {
-                Title = "Udsigt, der gælder til fredag morgen:",
-                Description = "I de østlige egne skyet og endnu stedvis lidt regn. I resten af landet tørt og mest klart vejr, men i løbet af natten mere skyet og stedvis tåget. Temp. mellem frysepunktet og 5 graders varme, i Jylland lokalt let frost. Svag til jævn vind fra nordvest og vest. Torsdag først mest skyet og stedvis tåget, men i løbet af dagen kommer der nogen sol de fleste steder. I løbet af eftermiddagen er der mulighed for lokale byger. Temp. op mellem 8 og 13 grader, og svag til let vind mest omkring nordvest. Natten til fredag tørt og mest klart vejr, men stedvis tåget eller skyet. Temp. ned mellem 0 og 5 grader, lokalt let frost. Ret svag skiftende vind."
-            });
-
-            WeatherItems.Add(new WeatherItem()
-            {
-                Title = "Fredag",
-                Description = "Først stedvis skyet eller tåget, men ellers nogen eller en del sol de fleste steder. I løbet af eftermiddagen er der mulighed for lokale byger. Dagtemp. op mellem 8 og 13 grader, og svag til let vind mest omkring sydvest. Om natten mest tørt og ret skyet. Temp. ned mellem 1 og 5 grader, og svag til jævn vind fra sydvest."
-            });
-
-            WeatherItems.Add(new WeatherItem()
-            {
-                Title = "Lørdag",
-                Description = "Mest tørt og ret skyet, men især i de sydøstlige egne også lidt sol. Temp. op mellem 10 og 15 grader. Svag til jævn vind fra sydvest, i Nordvestjylland op til frisk vind. Om natten efterhånden mest klart vejr. Temp. ned mellem 3 og 7 grader, og svag til jævn vind fra vest, i Nordjylland op til frisk vind."
-            });
-
-            WeatherItems.Add(new WeatherItem()
-            {
-                Title = "Søndag",
-                Description = "Først på dagen stedvis skyet, men ellers en del sol de fleste steder. Temp. op mellem 10 og 15 grader. og svag til frisk vind fra vest og nordvest. Om natten klart vejr, og temp. ned mellem 3 og 7 grader. Svag til jævn vind fra vest og nordvest."
-            });
-
-            WeatherItems.Add(new WeatherItem()
-            {
-                Title = "Mandag",
-                Description = "Tørt vejr med en del sol de fleste steder. Dagtemp. mellem 13 og 18 grader, men ved kyster med pålandsvind kun omkring 10 grader. Svag til jævn vind omkring vest. Om natten mest klart vejr, og temp. ned mellem 1 og 5 grader. Ret svag vind."
-            });
-
-            WeatherItems.Add(new WeatherItem()
-            {
-                Title = "Tirsdag og onsdag:",
-                Description = "Antagelig tørt med ret uændrede temp."
-            });
         }
 
         #region Properties
@@ -179,6 +141,38 @@ namespace DMI.ViewModels
             }
         }
 
+        public Uri RegionalImage
+        {
+            get
+            {
+                return regionalImage;
+            }
+            set
+            {
+                if (regionalImage != value)
+                {
+                    regionalImage = value;
+                    RaisePropertyChanged(RegionalImagePropertyName);
+                }
+            }
+        }
+
+        public Uri CountryImage
+        {
+            get
+            {
+                return countryImage;
+            }
+            set
+            {
+                if (countryImage != value)
+                {
+                    countryImage = value;
+                    RaisePropertyChanged(CountryImagePropertyName);
+                }
+            }
+        }
+
         public string PostalCode
         {
             get
@@ -231,6 +225,23 @@ namespace DMI.ViewModels
                     }
 
                     RaisePropertyChanged(CurrentLocationPropertyName);
+                }
+            }
+        }
+
+        public Region Region
+        {
+            get
+            {
+                return region;
+            }
+            set
+            {
+                if (region != value)
+                {
+                    region = value;
+
+                    RaisePropertyChanged(RegionPropertyName);
                 }
             }
         }
@@ -355,6 +366,16 @@ namespace DMI.ViewModels
         {
             UpdateCurrentLocation();
 
+            WeatherDataProvider.GetWeatherData((items, e) =>
+            {
+                WeatherItems.Clear();
+
+                foreach (var item in items)
+                {
+                    WeatherItems.Add(item);
+                }
+            });
+
             if (currentLocation == null
             || string.IsNullOrEmpty(currentLocation.PostalCode))
             {
@@ -422,7 +443,7 @@ namespace DMI.ViewModels
 
         private void RemoveFromFavoritesExecute(City city)
         {
-            if ((city != null) && (city is City) && (Favorites != null)) 
+            if ((city != null) && (city is City) && (Favorites != null))
             {
                 Favorites.Remove(city);
                 SaveFavorites();
@@ -469,7 +490,7 @@ namespace DMI.ViewModels
 
             if (available == false)
             {
-                MessageBox.Show("No internet connection is available. Please try again later.");
+                MessageBox.Show(AppResources.InternetError);
                 return false;
             }
 
@@ -488,14 +509,32 @@ namespace DMI.ViewModels
 
                 PollenGraph = new Uri(string.Format(
                     AppResources.PollenGraph, PostalCode));
+                
+                int postalCode = 1000;
+                if (int.TryParse(PostalCode, out postalCode))
+                {
+                    RegionalImage = new Uri(Denmark.GetRegionImageFromPostalCode(postalCode));
+                    UpdateRegion(Denmark.GetRegionTextFromPostalCode(postalCode));
+                }
+
+                CountryImage = new Uri(AppResources.CountryImage);
             }
+        }
+
+        private void UpdateRegion(string regionUrl)
+        {
+            WeatherDataProvider.GetRegionData(regionUrl, 
+                (region, e) => 
+                {
+                    Region = region;
+                });
         }
 
         private void ResolveAddressFromGeoPosition()
         {
             if (App.IsGPSEnabled == false)
             {
-                MessageBox.Show("Could not resolve the location, because Location Servies aren't enabled.");
+                MessageBox.Show(AppResources.GPSDisabledError);
             }
             else
             {
@@ -508,7 +547,7 @@ namespace DMI.ViewModels
                     if (Loading)
                     {
                         Loading = false;
-                        MessageBox.Show("Could not resolve the location.");
+                        MessageBox.Show(AppResources.GPSResolveError);
                     }
                 };
                 timer.Start();
@@ -532,14 +571,14 @@ namespace DMI.ViewModels
                         {
                             if (Loading)
                             {
-                                if (address != null) 
+                                if (address != null)
                                 {
                                     Loading = false;
                                     CurrentLocation = address;
                                 }
                                 else
                                 {
-                                    MessageBox.Show("No internet connection is available. Please try again later.");
+                                    MessageBox.Show(AppResources.InternetError);
                                     Loading = false;
                                 }
                             }
@@ -558,7 +597,7 @@ namespace DMI.ViewModels
                     return lastCity.ToString();
                 }
 
-                return "1000";
+                return AppResources.DefaultCity;
             }
         }
 

@@ -15,7 +15,7 @@
     xmlns:vm="clr-namespace:DMI.ViewModels"
     xmlns:cv="clr-namespace:DMI.Converters"
     mc:Ignorable="d"
-    s:SystemTray.IsVisible="False"
+    s:SystemTray.IsVisible="True"
     t:TiltEffect.IsTiltEnabled="True"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -25,7 +25,7 @@
     SupportedOrientations="PortraitOrLandscape" 
     Orientation="Portrait"
     OrientationChanged="MainPhoneApplicationPage_OrientationChanged"
-    x:Name="MainPhoneApplicationPage">
+    x:Name="MainPhoneApplicationPage" d:DesignHeight="768" d:DesignWidth="480">
     <p:PhoneApplicationPage.Resources>
         <ResourceDictionary>
             <w:String x:Key="FavoritesListImagePath">M12.7630033493042,0L15.8240032196045,9.27399387849619 25.5270023345947,9.27399387849619 17.6387557983398,15.0049251605396 20.6520004272461,24.2780326892262 12.7634763717651,18.5468887378102 4.87500381469727,24.2779850055103 7.88791990280151,15.0047172595387 0,9.27401295198251 9.70000457763672,9.27401295198251 12.762526512146,0.00146796110675496z</w:String>
@@ -69,18 +69,34 @@
                                    FontSize="{StaticResource PhoneFontSizeSmall}" Visibility="Collapsed" />
                 </Grid>
             </c:PivotItem>
-            <c:PivotItem Header="regionaludsigt" Margin="0,28,0,0">
+            <c:PivotItem x:Name="RegionalPivotItem" Margin="0,28,0,0"
+                         Header="{Binding AppResources.RegionalHeader, Source={StaticResource AppResources}}">
                 <StackPanel>
-                    <Image x:Name="RegionalImage" Source="/DMI.Weather;component/Images/femdgn_ostjylland.png" VerticalAlignment="Top" Stretch="UniformToFill" 
-                           SizeChanged="RegionalImage_SizeChanged"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="24,24,24,0" TextWrapping="Wrap" Text="Østjylland" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                    <TextBlock HorizontalAlignment="Left" Margin="24,12,24,0" TextWrapping="Wrap" Text="I aften og i nat tørt og først mest klart, men senere mulighed for tåge flere steder. Vinden aftager og bliver svag, mest omkring vest med temp. mellem frysepunktet og 3 graders varme, lokalt let frost. Torsdag morgen skyet eller tåge nogle steder, ellers kommer der nogen sol, men om eftermiddagen kan der lokalt komme en byge. Temp. mellem 8 og 13 grader og let skiftende vind." VerticalAlignment="Top"/>
+                    <Image x:Name="RegionalImage" 
+                           Source="{Binding RegionalImage, Converter={StaticResource ImageConverter}}"
+                           VerticalAlignment="Top" 
+                           Stretch="UniformToFill" 
+                           SizeChanged="RegionalImage_SizeChanged">
+                        <t:GestureService.GestureListener>
+                            <t:GestureListener Tap="OpenInLandscapeMode" />
+                        </t:GestureService.GestureListener>
+                    </Image>
+                    <TextBlock HorizontalAlignment="Left" Margin="24,24,24,0" TextWrapping="Wrap" Text="{Binding Region.Name}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    <TextBlock HorizontalAlignment="Left" Margin="24,12,24,0" TextWrapping="Wrap" Text="{Binding Region.Text}" VerticalAlignment="Top"/>
                 </StackPanel>
             </c:PivotItem>
-            <c:PivotItem Header="landsudsigt" Margin="0,28,0,0">
+            <c:PivotItem x:Name="CountryPivotItem" Margin="0,28,0,0"
+                         Header="{Binding AppResources.CountryHeader, Source={StaticResource AppResources}}">
                 <Grid>
-                    <Image x:Name="CountryImage" Height="220" Margin="0" Source="/DMI.Weather;component/Images/femdgn_dk.png" VerticalAlignment="Top" Stretch="UniformToFill"
-                           SizeChanged="CountryImage_SizeChanged"/>
+                    <Image x:Name="CountryImage" Height="220" Margin="0"
+                           Source="{Binding CountryImage, Converter={StaticResource ImageConverter}}"
+                           VerticalAlignment="Top" 
+                           Stretch="UniformToFill"
+                           SizeChanged="CountryImage_SizeChanged">
+                        <t:GestureService.GestureListener>
+                            <t:GestureListener Tap="OpenInLandscapeMode" />
+                        </t:GestureService.GestureListener>
+                    </Image>
                     <ListBox BorderThickness="0" ItemsSource="{Binding WeatherItems}" Margin="24,244,24,0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -95,8 +111,8 @@
                     </ListBox>
                 </Grid>
             </c:PivotItem>
-            <c:PivotItem x:Name="PollenPivotItem" 
-                         Header="{Binding AppResources.PollenHeader, Source={StaticResource AppResources}}" Margin="0,28,0,0">
+            <c:PivotItem x:Name="PollenPivotItem" Margin="0,28,0,0"
+                         Header="{Binding AppResources.PollenHeader, Source={StaticResource AppResources}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <mvvm:EventToCommand Command="{Binding LoadPollenInformation}" />
