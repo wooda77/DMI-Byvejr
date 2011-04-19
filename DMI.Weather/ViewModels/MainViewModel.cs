@@ -1,32 +1,43 @@
-﻿// 
-// MainViewModel.cs
+﻿#region License
+// Copyright (c) 2011 Claus Jørgensen <10229@iha.dk>
 //
-// Authors:
-//     Claus Jørgensen <10229@iha.dk>
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE
+#endregion
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Device.Location;
 using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Threading;
+using System.Net.NetworkInformation;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
-using Microsoft.Phone.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using DMI.Models;
-using DMI.Properties;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Collections.Generic;
-using System.Windows.Resources;
-using System.Windows.Media.Imaging;
+using Microsoft.Phone.Tasks;
 
 namespace DMI.ViewModels
 {
+    using DMI.Models;
+    using DMI.Properties;
+
     public class MainViewModel : ViewModelBase
     {
         private const string CurrentLocationPropertyName = "CurrentLocation";
@@ -249,25 +260,25 @@ namespace DMI.ViewModels
         public ObservableCollection<PollenItem> PollenData
         {
             get;
-            set;
+            private set;
         }
 
         public ObservableCollection<NewsItem> NewsItems
         {
             get;
-            set;
+            private set;
         }
 
         public ObservableCollection<WeatherItem> WeatherItems
         {
             get;
-            set;
+            private set;
         }
 
         public ObservableCollection<City> Favorites
         {
             get;
-            set;
+            private set;
         }
 
         public bool Loading
@@ -575,11 +586,6 @@ namespace DMI.ViewModels
                                 {
                                     Loading = false;
                                     CurrentLocation = address;
-                                }
-                                else
-                                {
-                                    MessageBox.Show(AppResources.InternetError);
-                                    Loading = false;
                                 }
                             }
                         });

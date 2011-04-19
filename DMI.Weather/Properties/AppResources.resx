@@ -132,6 +132,9 @@
   <data name="AppBar_GoToLocation" xml:space="preserve">
     <value>weather here</value>
   </data>
+  <data name="AppBar_Support" xml:space="preserve">
+    <value>support</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>App Name: </value>
   </data>

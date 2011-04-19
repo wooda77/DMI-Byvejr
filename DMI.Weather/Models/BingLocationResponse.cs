@@ -1,28 +1,49 @@
-﻿// 
-// BingLocationResponse.cs
+﻿#region License
+// Copyright (c) 2011 Claus Jørgensen <10229@iha.dk>
 //
-// Authors:
-//     Claus Jørgensen <10229@iha.dk>
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-using System.Runtime.Serialization;
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE
+#endregion
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace DMI.Models
 {
     public class BingLocationResponse
     {
-        public ResourceSet[] resourceSets
+        [JsonProperty("resourceSets")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")] 
+        public IList<ResourceSet> ResourceSets
         {
             get;
             set;
         }
 
-        public string statusCode
+        [JsonProperty("statusCode")]
+        public string StatusCode
         {
             get;
             set;
         }
 
-        public string statusDescription
+        [JsonProperty("statusDescription")]
+        public string StatusDescription
         {
             get;
             set;
@@ -30,7 +51,9 @@ namespace DMI.Models
 
         public class ResourceSet
         {
-            public Resource[] resources
+            [JsonProperty("resources")]
+            [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")] 
+            public IList<Resource> Resources
             {
                 get;
                 set;
@@ -38,51 +61,59 @@ namespace DMI.Models
 
             public class Resource
             {
-                public Address address
+                [JsonProperty("address")]
+                public ResourceAddress Address
                 {
                     get;
                     set;
                 }
 
-                public class Address
+                public class ResourceAddress
                 {
-                    public string addressLine
+                    [JsonProperty("addressLine")]
+                    public string AddressLine
                     {
                         get;
                         set;
                     }
 
-                    public string adminDistrict
+                    [JsonProperty("adminDistrict")]
+                    public string AdminDistrict
                     {
                         get;
                         set;
                     }
 
-                    public string adminDistrict2
+                    [JsonProperty("adminDistrict2")]
+                    public string AdminDistrict2
                     {
                         get;
                         set;
                     }
 
-                    public string countryRegion
+                    [JsonProperty("countryRegion")]
+                    public string CountryRegion
                     {
                         get;
                         set;
                     }
 
-                    public string formattedAddress
+                    [JsonProperty("formattedAddress")]
+                    public string FormattedAddress
                     {
                         get;
                         set;
                     }
 
-                    public string locality
+                    [JsonProperty("locality")]
+                    public string Locality
                     {
                         get;
                         set;
                     }
 
-                    public string postalCode
+                    [JsonProperty("postalCode")]
+                    public string PostalCode
                     {
                         get;
                         set;

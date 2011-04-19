@@ -1,21 +1,36 @@
-﻿//
-// WeatherDataProvider.cs
+﻿#region License
+// Copyright (c) 2011 Claus Jørgensen <10229@iha.dk>
 //
-// Authors:
-//     Claus Jørgensen <10229@iha.dk>
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Xml.Linq;
-
-using DMI.Properties;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace DMI.Models
 {
+    using DMI.Properties;
+
     public static class WeatherDataProvider
     {
         /// <summary>
@@ -77,22 +92,21 @@ namespace DMI.Models
                 }
                 else
                 {
-                    var html = e.Result;
-                    html = html.Replace("&oslash;", "ø");
-                    html = html.Replace("&aring;", "å");
-                    html = html.Replace("&aelig;", "æ");
+                    var input = HttpUtility.HtmlDecode(e.Result);
 
                     var textPattern = @"<td class=""broedtekst"">(?<text>.*?)</td>";
                     var textRegex = new Regex(textPattern, RegexOptions.Singleline);
-                    var textMatches = textRegex.Matches(html);
+                    var textMatches = textRegex.Matches(input);
 
                     var namePattern = @"<font class=""mellemrubrik"">(?<text>.*?)</font>";
                     var nameRegex = new Regex(namePattern, RegexOptions.Singleline);
-                    var nameMatches = nameRegex.Matches(html);
+                    var nameMatches = nameRegex.Matches(input);
 
-                    var region = new Region();
-                    region.Name = nameMatches[0].Groups["text"].Value;
-                    region.Text = textMatches[2].Groups["text"].Value;
+                    var region = new Region()
+                    {
+                        Name = nameMatches[0].Groups["text"].Value,
+                        Text = textMatches[2].Groups["text"].Value
+                    };
 
                     callback(region, e.Error);
                 }
@@ -120,15 +134,12 @@ namespace DMI.Models
                 }
                 else
                 {
-                    var html = e.Result;
-                    html = html.Replace("&oslash;", "ø");
-                    html = html.Replace("&aring;", "å");
-                    html = html.Replace("&aelig;", "æ");
+                    var input = HttpUtility.HtmlDecode(e.Result);
 
                     var pattern = @"<td class=""mellemrubrik"">(?<title>.*?)</td>(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
 
                     var regex = new Regex(pattern, RegexOptions.Singleline);
-                    var matches = regex.Matches(html);
+                    var matches = regex.Matches(input);
 
                     var items = new List<WeatherItem>();
 
@@ -215,7 +226,7 @@ namespace DMI.Models
 
             string output = result.ToString();
 
-            if (output != string.Empty)
+            if (string.IsNullOrEmpty(output) == false)
             {
                 output = output.Substring(0, output.Length - 3);
             }
