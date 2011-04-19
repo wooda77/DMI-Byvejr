@@ -8,7 +8,5 @@
     xmlns:converters="clr-namespace:DMI.Converters">
     <Application.Resources>
         <models:Resources x:Key="AppResources" />
-        <viewmodels:ViewModelLocator x:Key="ViewModelLocator" />
-        <converters:ImageConverter x:Key="ImageConverter" />       
     </Application.Resources>
 </Application>

@@ -9,15 +9,18 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
     xmlns:views="clr-namespace:DMI.Views"
+    xmlns:viewmodel="clr-namespace:DMI.ViewModels"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="False"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DataContext="{d:DesignData Source=/SampleData/ImageViewModelSampleData.xaml}" 
-    DataContext="{Binding ImageViewModel, Source={StaticResource ViewModelLocator}}"
     SupportedOrientations="Landscape" 
     Orientation="LandscapeLeft">
+    <phone:PhoneApplicationPage.DataContext>
+        <viewmodel:ImageViewModel />
+    </phone:PhoneApplicationPage.DataContext>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
             <i:Interaction.Triggers>

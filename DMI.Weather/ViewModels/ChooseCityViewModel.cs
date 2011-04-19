@@ -33,9 +33,6 @@ namespace DMI.ViewModels
 
     public class ChooseCityViewModel : ViewModelBase
     {
-        private readonly ICommand selectionChanged;
-        private readonly ICommand textChanged;
-
         private List<City> allCities;
         private List<CityGroup> currentCities;
 
@@ -44,11 +41,11 @@ namespace DMI.ViewModels
         /// </summary>
         public ChooseCityViewModel()
         {
-            this.selectionChanged = new RelayCommand<SelectionChangedEventArgs>(SelectionChangedExecute);
-            this.textChanged = new RelayCommand<TextBox>(TextChangedExecute);
+            this.SelectionChanged = new RelayCommand<SelectionChangedEventArgs>(SelectionChangedExecute);
+            this.TextChanged = new RelayCommand<TextBox>(TextChangedExecute);
 
             this.allCities = Denmark.Cities;
-            this.currentCities = new AllCities(Denmark.Cities);
+            this.currentCities = new CityGroups(Denmark.Cities);
         }
 
         public List<CityGroup> Cities
@@ -66,18 +63,14 @@ namespace DMI.ViewModels
 
         public ICommand SelectionChanged
         {
-            get
-            {
-                return selectionChanged;
-            }
+            get;
+            private set;
         }
 
         public ICommand TextChanged
         {
-            get
-            {
-                return textChanged;
-            }
+            get;
+            private set;
         }
 
         private void SelectionChangedExecute(SelectionChangedEventArgs e)
@@ -96,7 +89,7 @@ namespace DMI.ViewModels
             var filter = textbox.Text;
             var filtered = allCities.Where(city => FilterItem(filter, city));
 
-            this.Cities = new AllCities(filtered.ToList());
+            this.Cities = new CityGroups(filtered.ToList());
         }
 
         private bool FilterItem(string filter, object item)

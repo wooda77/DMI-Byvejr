@@ -28,6 +28,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -40,33 +41,43 @@ namespace DMI.ViewModels
 
     public class MainViewModel : ViewModelBase
     {
+        #region Constants
+
+        private const int DefaultPostalCode = 1000;
+
         private const string CurrentLocationPropertyName = "CurrentLocation";
-        private const string CityWeather2daysGraphPropertyName = "CityWeather2daysGraph";
-        private const string CityWeather7daysGraphPropertyName = "CityWeather7daysGraph";
-        private const string PollenGraphPropertyName = "PollenGraph";
+        private const string TwoDaysImagePropertyName = "TwoDaysImage";
+        private const string SevenDaysImagePropertyName = "SevenDaysImage";
+        private const string PollenImagePropertyName = "PollenImage";
         private const string RegionalImagePropertyName = "RegionalImage";
         private const string CountryImagePropertyName = "CountryImage";
         private const string RegionPropertyName = "Region";
 
-        private readonly ICommand loadWeatherInformation;
-        private readonly ICommand loadPollenInformation;
-        private readonly ICommand loadNewsFeed;
-        private readonly ICommand addToFavorites;
-        private readonly ICommand loadFavorites;
-        private readonly ICommand removeFromFavorites;
-        private readonly ICommand newsItemSelected;
-        private readonly ICommand favoriteItemSelected;
-        private readonly ICommand goToLocation;
+        private const string TwoDaysFileName = "2days.jpg";
+        private const string SevenDaysFileName = "7days.jpg";
+        private const string PollenFileName = "pollen.jpg";
+        private const string RegionalFileName = "regional.jpg";
+        private const string CountryFileName = "country.jpg";
 
-        private Uri cityWeather2daysGraph;
-        private Uri cityWeather7daysGraph;
-        private Uri pollenGraph;
-        private Uri regionalImage;
-        private Uri countryImage;
-        private GeoCoordinateWatcher watcher;
+        #endregion
+
+        #region Properties
+
+        private BitmapSource twoDaysImage;
+        private BitmapSource sevenDaysImage;
+        private BitmapSource pollenImage;
+        private BitmapSource regionalImage;
+        private BitmapSource countryImage;
+
+        private Region currentRegion;
         private CivicAddress currentLocation;
-        private Region region;
-        private bool loading = false;
+
+        private GeoCoordinateWatcher watcher;
+        private bool isLoading = false;
+
+        #endregion
+
+        #region Constructor
 
         public MainViewModel()
         {
@@ -74,6 +85,12 @@ namespace DMI.ViewModels
             this.PollenData = new ObservableCollection<PollenItem>();
             this.NewsItems = new ObservableCollection<NewsItem>();
             this.WeatherItems = new ObservableCollection<WeatherItem>();
+
+            this.TwoDaysImage = ImageUtility.LoadFromLocalStorage(TwoDaysFileName);
+            this.SevenDaysImage = ImageUtility.LoadFromLocalStorage(SevenDaysFileName);
+            this.PollenImage = ImageUtility.LoadFromLocalStorage(PollenFileName);
+            this.RegionalImage = ImageUtility.LoadFromLocalStorage(RegionalFileName);
+            this.CountryImage = ImageUtility.LoadFromLocalStorage(CountryFileName);
 
             if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
             {
@@ -83,18 +100,61 @@ namespace DMI.ViewModels
                 this.Favorites = this.Favorites ?? new ObservableCollection<City>();
             }
 
-            this.loadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
-            this.loadPollenInformation = new RelayCommand(LoadPollenInformationExecute);
-            this.loadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
-            this.addToFavorites = new RelayCommand(AddToFavoritesExecute);
-            this.loadFavorites = new RelayCommand(LoadFavoritesExecute);
-            this.removeFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
-            this.newsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
-            this.favoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
-            this.goToLocation = new RelayCommand(GoToLocationExecute);
+            this.LoadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
+            this.LoadPollenInformation = new RelayCommand(LoadPollenInformationExecute);
+            this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
+            this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
+            this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
+            this.RemoveFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
+            this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
+            this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
+            this.GoToLocation = new RelayCommand(GoToLocationExecute);
         }
 
+        #endregion
+
         #region Properties
+
+
+        public string TwoDaysImageFilename
+        {
+            get
+            {
+                return TwoDaysFileName;
+            }
+        }
+
+        public string SevenDaysImageFilename
+        {
+            get
+            {
+                return SevenDaysFileName;
+            }
+        }
+
+        public string PollenImageFilename
+        {
+            get
+            {
+                return PollenFileName;
+            }
+        }
+
+        public string RegionalImageFilename
+        {
+            get
+            {
+                return RegionalFileName;
+            }
+        }
+
+        public string CountryImageFilename
+        {
+            get
+            {
+                return CountryFileName;
+            }
+        }
 
         public IEnumerable<City> Cities
         {
@@ -104,55 +164,55 @@ namespace DMI.ViewModels
             }
         }
 
-        public Uri CityWeather2daysGraph
+        public BitmapSource TwoDaysImage
         {
             get
             {
-                return cityWeather2daysGraph;
+                return twoDaysImage;
             }
             set
             {
-                if (cityWeather2daysGraph != value)
+                if (twoDaysImage != value)
                 {
-                    cityWeather2daysGraph = value;
-                    RaisePropertyChanged(CityWeather2daysGraphPropertyName);
+                    twoDaysImage = value;
+                    RaisePropertyChanged(TwoDaysImagePropertyName);
                 }
             }
         }
 
-        public Uri CityWeather7daysGraph
+        public BitmapSource SevenDaysImage
         {
             get
             {
-                return cityWeather7daysGraph;
+                return sevenDaysImage;
             }
             set
             {
-                if (cityWeather7daysGraph != value)
+                if (sevenDaysImage != value)
                 {
-                    cityWeather7daysGraph = value;
-                    RaisePropertyChanged(CityWeather7daysGraphPropertyName);
+                    sevenDaysImage = value;
+                    RaisePropertyChanged(SevenDaysImagePropertyName);
                 }
             }
         }
 
-        public Uri PollenGraph
+        public BitmapSource PollenImage
         {
             get
             {
-                return pollenGraph;
+                return pollenImage;
             }
             set
             {
-                if (pollenGraph != value)
+                if (pollenImage != value)
                 {
-                    pollenGraph = value;
-                    RaisePropertyChanged(PollenGraphPropertyName);
+                    pollenImage = value;
+                    RaisePropertyChanged(PollenImagePropertyName);
                 }
             }
         }
 
-        public Uri RegionalImage
+        public BitmapSource RegionalImage
         {
             get
             {
@@ -168,7 +228,7 @@ namespace DMI.ViewModels
             }
         }
 
-        public Uri CountryImage
+        public BitmapSource CountryImage
         {
             get
             {
@@ -184,22 +244,24 @@ namespace DMI.ViewModels
             }
         }
 
-        public string PostalCode
+        public int PostalCode
         {
             get
             {
                 if (currentLocation != null)
                 {
-                    int postal = 1000;
+                    int postal = DefaultPostalCode;
                     if (int.TryParse(currentLocation.PostalCode, out postal))
                     {
-                        return Denmark.GetValidPostalCode(postal).ToString();
+                        return Denmark.GetValidPostalCode(postal);
                     }
-
-                    return currentLocation.PostalCode;
+                    else
+                    {
+                        return postal;
+                    }
                 }
 
-                return LastCity;
+                return DefaultPostalCode;
             }
         }
 
@@ -224,17 +286,9 @@ namespace DMI.ViewModels
             }
             set
             {
-                if (currentLocation != value && value != null)
+                if (currentLocation != value)
                 {
                     currentLocation = value;
-
-                    if (string.IsNullOrEmpty(currentLocation.PostalCode) == false)
-                    {
-                        SaveLastCity();
-                        UpdateCurrentLocation();
-                        Loading = false;
-                    }
-
                     RaisePropertyChanged(CurrentLocationPropertyName);
                 }
             }
@@ -244,14 +298,13 @@ namespace DMI.ViewModels
         {
             get
             {
-                return region;
+                return currentRegion;
             }
             set
             {
-                if (region != value)
+                if (currentRegion != value)
                 {
-                    region = value;
-
+                    currentRegion = value;
                     RaisePropertyChanged(RegionPropertyName);
                 }
             }
@@ -285,13 +338,13 @@ namespace DMI.ViewModels
         {
             get
             {
-                return loading;
+                return isLoading;
             }
             set
             {
-                if (loading != value)
+                if (isLoading != value)
                 {
-                    loading = value;
+                    isLoading = value;
                     RaisePropertyChanged("Loading");
                 }
             }
@@ -299,74 +352,56 @@ namespace DMI.ViewModels
 
         public ICommand LoadWeatherInformation
         {
-            get
-            {
-                return loadWeatherInformation;
-            }
+            get;
+            private set;
         }
 
         public ICommand LoadPollenInformation
         {
-            get
-            {
-                return loadPollenInformation;
-            }
+            get;
+            private set;
         }
 
         public ICommand LoadNewsFeed
         {
-            get
-            {
-                return loadNewsFeed;
-            }
+            get;
+            private set;
         }
 
         public ICommand LoadFavorites
         {
-            get
-            {
-                return loadFavorites;
-            }
+            get;
+            private set;
         }
 
         public ICommand AddToFavorites
         {
-            get
-            {
-                return addToFavorites;
-            }
+            get;
+            private set;
         }
 
         public ICommand RemoveFromFavorites
         {
-            get
-            {
-                return removeFromFavorites;
-            }
+            get;
+            private set;
         }
 
         public ICommand NewsItemSelected
         {
-            get
-            {
-                return newsItemSelected;
-            }
+            get;
+            private set;
         }
 
         public ICommand FavoriteItemSelected
         {
-            get
-            {
-                return favoriteItemSelected;
-            }
+            get;
+            private set;
         }
 
         public ICommand GoToLocation
         {
-            get
-            {
-                return goToLocation;
-            }
+            get;
+            private set;
         }
 
         #endregion
@@ -375,7 +410,11 @@ namespace DMI.ViewModels
 
         private void LoadWeatherInformationExecute()
         {
-            UpdateCurrentLocation();
+            if (InternetIsAvailable())
+            {
+                this.CountryImage = new BitmapImage(new Uri(AppResources.CountryImage));
+                this.ResolveAddressFromGeoPosition();
+            }
 
             WeatherDataProvider.GetWeatherData((items, e) =>
             {
@@ -386,12 +425,6 @@ namespace DMI.ViewModels
                     WeatherItems.Add(item);
                 }
             });
-
-            if (currentLocation == null
-            || string.IsNullOrEmpty(currentLocation.PostalCode))
-            {
-                ResolveAddressFromGeoPosition();
-            }
         }
 
         private void LoadPollenInformationExecute()
@@ -431,24 +464,17 @@ namespace DMI.ViewModels
 
         private void AddToFavoritesExecute()
         {
-            if (string.IsNullOrEmpty(PostalCode) == false)
+            if (Favorites != null &&
+                Favorites.Any(c => c.PostalCode == PostalCode) == false &&
+                Denmark.PostalCodes.ContainsKey(PostalCode))
             {
-                int postal;
-                if (int.TryParse(PostalCode, out postal) == true)
+                Favorites.Add(new City()
                 {
-                    if (Favorites != null &&
-                        Favorites.Any(c => c.PostalCode == postal) == false &&
-                        Denmark.PostalCodes.ContainsKey(postal))
-                    {
-                        Favorites.Add(new City()
-                        {
-                            PostalCode = postal,
-                            Name = Denmark.PostalCodes[postal]
-                        });
+                    PostalCode = PostalCode,
+                    Name = Denmark.PostalCodes[PostalCode]
+                });
 
-                        SaveFavorites();
-                    }
-                }
+                SaveFavorites();
             }
         }
 
@@ -482,9 +508,11 @@ namespace DMI.ViewModels
 
         private void GoToLocationExecute()
         {
-            currentLocation = null;
-
-            ResolveAddressFromGeoPosition();
+            if (InternetIsAvailable())
+            {
+                CurrentLocation = null;
+                ResolveAddressFromGeoPosition();
+            }
         }
 
         #endregion
@@ -495,13 +523,11 @@ namespace DMI.ViewModels
         {
             var available = NetworkInterface.GetIsNetworkAvailable();
 
-            //#if DEBUG
-            //    available = false;
-            //#endif
-
             if (available == false)
             {
+                isLoading = false;
                 MessageBox.Show(AppResources.InternetError);
+
                 return false;
             }
 
@@ -510,32 +536,25 @@ namespace DMI.ViewModels
 
         private void UpdateCurrentLocation()
         {
-            if (InternetIsAvailable())
-            {
-                CityWeather2daysGraph = new Uri(string.Format(
-                    AppResources.CityWeather2daysGraph, PostalCode));
+            TwoDaysImage = new BitmapImage(new Uri(string.Format(
+                AppResources.CityWeather2daysGraph, PostalCode)));
 
-                CityWeather7daysGraph = new Uri(string.Format(
-                    AppResources.CityWeather7daysGraph, PostalCode));
+            SevenDaysImage = new BitmapImage(new Uri(string.Format(
+                AppResources.CityWeather7daysGraph, PostalCode)));
 
-                PollenGraph = new Uri(string.Format(
-                    AppResources.PollenGraph, PostalCode));
-                
-                int postalCode = 1000;
-                if (int.TryParse(PostalCode, out postalCode))
-                {
-                    RegionalImage = new Uri(Denmark.GetRegionImageFromPostalCode(postalCode));
-                    UpdateRegion(Denmark.GetRegionTextFromPostalCode(postalCode));
-                }
+            PollenImage = new BitmapImage(new Uri(string.Format(
+                AppResources.PollenGraph, PostalCode)));
 
-                CountryImage = new Uri(AppResources.CountryImage);
-            }
+            RegionalImage = new BitmapImage(
+                new Uri(Denmark.GetRegionImageFromPostalCode(PostalCode)));
+
+            UpdateRegion(Denmark.GetRegionTextFromPostalCode(PostalCode));
         }
 
         private void UpdateRegion(string regionUrl)
         {
-            WeatherDataProvider.GetRegionData(regionUrl, 
-                (region, e) => 
+            WeatherDataProvider.GetRegionData(regionUrl,
+                (region, e) =>
                 {
                     Region = region;
                 });
@@ -586,36 +605,11 @@ namespace DMI.ViewModels
                                 {
                                     Loading = false;
                                     CurrentLocation = address;
+                                    UpdateCurrentLocation();
                                 }
                             }
                         });
                 }
-            }
-        }
-
-        private string LastCity
-        {
-            get
-            {
-                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.LastCity))
-                {
-                    var lastCity = IsolatedStorageSettings.ApplicationSettings[App.LastCity];
-                    return lastCity.ToString();
-                }
-
-                return AppResources.DefaultCity;
-            }
-        }
-
-        private void SaveLastCity()
-        {
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.LastCity) == false)
-            {
-                IsolatedStorageSettings.ApplicationSettings.Add(App.LastCity, PostalCode);
-            }
-            else
-            {
-                IsolatedStorageSettings.ApplicationSettings[App.LastCity] = PostalCode;
             }
         }
 

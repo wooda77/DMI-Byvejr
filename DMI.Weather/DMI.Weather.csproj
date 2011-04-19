@@ -90,8 +90,7 @@
     <Compile Include="Converters\GroupToBrushValueConverter.cs" />
     <Compile Include="Converters\NegationConverter.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
-    <Compile Include="Converters\ImageConverter.cs" />
-    <Compile Include="Models\AllCities.cs" />
+    <Compile Include="Models\CityGroups.cs" />
     <Compile Include="Models\BingLocationResponse.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityGroup.cs" />
@@ -117,7 +116,6 @@
     <Compile Include="ViewModels\ChooseCityViewModel.cs" />
     <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\SupportViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ChooseCityPage.xaml.cs">
       <DependentUpon>ChooseCityPage.xaml</DependentUpon>
     </Compile>

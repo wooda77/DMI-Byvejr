@@ -13,6 +13,7 @@
     xmlns:views="clr-namespace:DMI.Views"
     xmlns:models="clr-namespace:DMI.Models"
     xmlns:converters="clr-namespace:DMI.Converters"
+    xmlns:viewmodels="clr-namespace:DMI.ViewModels"
     mc:Ignorable="d"
     s:SystemTray.IsVisible="False"
     t:TiltEffect.IsTiltEnabled="True"
@@ -20,9 +21,11 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DataContext="{d:DesignData Source=/SampleData/ChooseCityViewModelSampleData.xaml}" 
-    DataContext="{Binding ChooseCityViewModel, Source={StaticResource ViewModelLocator}}"
     SupportedOrientations="PortraitOrLandscape"
     Orientation="Portrait">
+    <p:PhoneApplicationPage.DataContext>
+        <viewmodels:ChooseCityViewModel/>
+    </p:PhoneApplicationPage.DataContext>
     <Grid>
         <Grid.Resources>
             <converters:GroupToBrushValueConverter x:Key="groupBrush"/>

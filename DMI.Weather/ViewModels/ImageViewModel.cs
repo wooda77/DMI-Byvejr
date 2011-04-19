@@ -33,33 +33,29 @@ namespace DMI.ViewModels
 
     public class ImageViewModel : ViewModelBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:ImageViewModel"/> class.
+        /// </summary>
+        public ImageViewModel()
+        {
+            this.CropBorders = new RelayCommand<Image>(image => image.CropImageBorders());
+        }
+
         public ImageSource ImageSource
         {
             get;
             set;
         }
 
-        private ICommand cropBorders;
-
         public ICommand CropBorders
         {
-            get
-            {
-                if (cropBorders == null)
-                {
-                    cropBorders = new RelayCommand<Image>(image =>
-                    {                    
-                        ImageUtility.CropImageBorders(image);
-                    });
-                }
-
-                return cropBorders;
-            }
+            get;
+            private set;
         }
 
         public void LoadImage(string imageSource)
         {
-            ImageSource = new BitmapImage(new Uri(imageSource, UriKind.Absolute));
+            this.ImageSource = new BitmapImage(new Uri(imageSource, UriKind.Absolute));
         }
     }
 }

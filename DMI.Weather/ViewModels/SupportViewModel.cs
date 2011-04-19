@@ -32,16 +32,13 @@ namespace DMI.ViewModels
 
     public class SupportViewModel : ViewModelBase
     {
-        private readonly ICommand openMailClientCommand;
-        private readonly ICommand okCommand;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:SupportViewModel"/> class.
         /// </summary>
         public SupportViewModel()
         {
-            this.openMailClientCommand = new RelayCommand(OpenMailClientExecute);
-            this.okCommand = new RelayCommand(OKExecute);
+            this.OpenMailClient = new RelayCommand(OpenMailClientExecute);
+            this.OK = new RelayCommand(OKExecute);
         }
 
         public string Version
@@ -82,18 +79,14 @@ namespace DMI.ViewModels
 
         public ICommand OpenMailClient
         {
-            get
-            {
-                return openMailClientCommand;
-            }
+            get;
+            private set;
         }
 
         public ICommand OK
         {
-            get
-            {
-                return okCommand;
-            }
+            get;
+            private set;
         }
 
         private void OKExecute()

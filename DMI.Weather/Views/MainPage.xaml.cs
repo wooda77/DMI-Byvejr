@@ -21,6 +21,7 @@
 #endregion
 using System;
 using System.Device.Location;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -45,7 +46,7 @@ namespace DMI.Views
         {
             InitializeComponent();
 
-            Dispatcher.BeginInvoke(() => 
+            Dispatcher.BeginInvoke(() =>
             {
                 BuildApplicationBar();
             });
@@ -162,7 +163,7 @@ namespace DMI.Views
         /// </summary>
         private void PivotLayout_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Dispatcher.BeginInvoke(() => 
+            Dispatcher.BeginInvoke(() =>
             {
                 if (ApplicationBar != null)
                 {
@@ -198,14 +199,14 @@ namespace DMI.Views
                 App.IsFirstStart = false;
 
                 return;
-            }  
+            }
 
             base.OnNavigatedTo(e);
 
             string postalCode = "";
             if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
-                Dispatcher.BeginInvoke(() => 
+                Dispatcher.BeginInvoke(() =>
                 {
                     (DataContext as MainViewModel).CurrentLocation = new CivicAddress()
                     {
@@ -234,38 +235,29 @@ namespace DMI.Views
         }
 
         /// <summary>
-        /// Handles the SizeChanged event of the CityWeather2daysGraphImage control.
+        /// Handles the SizeChanged event of a Image control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
-        private void CityWeather2daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ImageUtility.CropImageBorders(CityWeather2daysGraphImage, e.NewSize);
-            ToggleHelpText();
+            if (sender is Image)
+            {
+                var image = sender as Image;
+                var source = image.Source as BitmapSource;
+                var filename = (string)image.Tag;
+
+                image.CropImageBorders(e.NewSize);
+                source.SaveToLocalStorage(filename);
+            }
         }
 
         /// <summary>
-        /// Handles the SizeChanged event of the CityWeather7daysGraphImage control.
+        /// Handles the Loaded event of the PivotLayout control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
-        private void CityWeather7daysGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        {
-            ImageUtility.CropImageBorders(CityWeather7daysGraphImage, e.NewSize);
-            ToggleHelpText();
-        }
-
-        /// <summary>
-        /// Handles the SizeChanged event of the PollenGraphImage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
-        private void PollenGraphImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        {
-            ImageUtility.CropImageBorders(PollenGraphImage, e.NewSize);
-        }
-
-        private void PivotLayout_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        private void PivotLayout_Loaded(object sender, RoutedEventArgs e)
         {
             if (State.ContainsKey(App.PivotItem))
             {
@@ -274,39 +266,24 @@ namespace DMI.Views
             }
         }
 
-        private void ToggleHelpText()
-        {
-            //if ((Orientation & PageOrientation.Landscape) != PageOrientation.Landscape)
-            //{
-            //    ImageResizeHelpText.Visibility = System.Windows.Visibility.Visible;
-            //}
-        }
-
-        private void MainPhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        /// <summary>
+        /// Handles the OrientationChanged event of the PhoneApplicationPage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="Microsoft.Phone.Controls.OrientationChangedEventArgs"/> instance containing the event data.</param>
+        private void Page_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             if (ApplicationBar != null)
             {
                 if ((e.Orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
                 {
                     ApplicationBar.IsVisible = false;
-                    //ImageResizeHelpText.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else
                 {
                     ApplicationBar.IsVisible = true;
-                    //ImageResizeHelpText.Visibility = System.Windows.Visibility.Visible;
                 }
             }
-        }
-
-        private void CountryImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        {
-            ImageUtility.CropImageBorders(CountryImage, e.NewSize);
-        }
-
-        private void RegionalImage_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        {
-            ImageUtility.CropImageBorders(RegionalImage, e.NewSize);
         }
     }
 }

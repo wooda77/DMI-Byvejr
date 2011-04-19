@@ -19,40 +19,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
-namespace DMI.Converters
+namespace DMI.Models
 {
-    public sealed class ImageConverter : IValueConverter
+    public class CityGroups : List<CityGroup>
     {
-        #region IValueConverter Members
+        private static readonly string Groups = "#abcdefghijklmnoprstuvæøå";
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public CityGroups(List<City> cities)
         {
-            try
+            cities.Sort();
+
+            var groups = new Dictionary<string, CityGroup>();
+
+            foreach (char c in Groups)
             {
-                if ((value != null) && (value is Uri))
-                {
-                    return new BitmapImage((Uri)value);
-                }
+                var group = new CityGroup(c.ToString());                
+                this.Add(group);
+                groups[c.ToString()] = group;
             }
-            catch (UriFormatException e)
+
+            foreach (City city in cities)
             {
-                Debug.WriteLine(e.Message);
+                groups[char.ToLower(city.Name[0]).ToString()].Add(city);
             }
-
-            return new BitmapImage();
         }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

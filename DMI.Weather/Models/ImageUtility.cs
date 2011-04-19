@@ -22,15 +22,19 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.IO.IsolatedStorage;
+using System.IO;
+using Microsoft.Phone;
+using System.Windows.Media.Imaging;
 
 namespace DMI.Models
 {
-    public class ImageUtility
+    public static class ImageUtility
     {
         /// <summary>
         /// Crops the Image Borders two pixels on each side.
         /// </summary>
-        public static void CropImageBorders(Image image)
+        public static Image CropImageBorders(this Image image)
         {
             if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
             {
@@ -42,12 +46,14 @@ namespace DMI.Models
                     )
                 };
             }
+
+            return image;
         }
 
         /// <summary>
         /// Crops the Image Borders two pixels on each side.
         /// </summary>
-        public static void CropImageBorders(Image image, Size newSize)
+        public static Image CropImageBorders(this Image image, Size newSize)
         {
             if ((image.ActualWidth > 0) && (image.ActualHeight > 0) &&
                 (newSize.Width > 0) && (newSize.Height > 0))
@@ -59,6 +65,85 @@ namespace DMI.Models
                         newSize.Height - 4
                     )
                 };
+            }
+
+            return image;
+        }
+
+        /// <summary>
+        /// Saves a image to local storage.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
+        public static BitmapSource SaveToLocalStorage(this BitmapSource image, string filename)
+        {
+            if (image.PixelWidth == 0 || image.PixelHeight == 0)
+            {
+                return image;
+            }
+
+            var bytes = image.ConvertToBytes();
+
+            var store = IsolatedStorageFile.GetUserStoreForApplication();
+
+            if (store.DirectoryExists(App.ImageFolder) == false)
+            {
+                store.CreateDirectory(App.ImageFolder);
+            }
+
+            string path = Path.Combine(App.ImageFolder, filename);
+            
+            if (store.FileExists(path))
+            {
+                store.DeleteFile(path);
+            }
+
+            using (var stream = store.CreateFile(path))
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
+
+            return image;
+        }
+
+        /// <summary>
+        /// Loads a image from local storage.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
+        public static BitmapSource LoadFromLocalStorage(string filename)
+        {
+            var store = IsolatedStorageFile.GetUserStoreForApplication();
+
+            if (store.DirectoryExists(App.ImageFolder) == false)
+            {
+                store.CreateDirectory(App.ImageFolder);
+            }
+
+            string path = Path.Combine(App.ImageFolder, filename);
+
+            if (store.FileExists(path))
+            {
+                using (var imageStream = store.OpenFile(path, FileMode.Open, FileAccess.Read))
+                {
+                    return PictureDecoder.DecodeJpeg(imageStream);
+                }
+            }
+
+            return new WriteableBitmap(0, 0);
+        }
+
+        public static byte[] ConvertToBytes(this BitmapSource image)
+        {
+            using (var stream = new MemoryStream())
+            {
+                var writeableBitmap = new WriteableBitmap(image.PixelWidth, image.PixelHeight);
+
+                Extensions.SaveJpeg(writeableBitmap, 
+                    stream, image.PixelWidth, image.PixelHeight, 0, 100);
+
+                return stream.ToArray();
             }
         }
     }

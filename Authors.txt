@@ -3,17 +3,17 @@
 
     Copyright © 2010 Claus Jørgensen <10229@iha.dk>
 
-    All included software is licensed under the Microsoft Public License (Ms-PL), 
+    All included software is licensed under the MIT License
     available in full in the License.txt file. 
 
     The following persons and groups are acknowledged for their contributions
     to the project and ideas.
     
-    Version 1.0.0.0
+    Version 1.2.0.0
     ---------------
 
     Claus Jørgensen <10229@iha.dk>
         Project Lead, Programming, UI Design, Architecture
 
     DMI.dk
-        Service Provider and Sample Data        
+        Service Provider and Sample Data

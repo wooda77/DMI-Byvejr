@@ -37,7 +37,8 @@ namespace DMI
         public const string ToggleGPS = "togglegps";
         public const string FirstStart = "firststart";
         public const string LastCity = "lastcity";
-
+        public const string ImageFolder = "dmiimagefolder";
+        
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -53,9 +54,27 @@ namespace DMI
         /// </summary>
         public App()
         {
+            // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
+            // Show graphics profiling information while debugging.
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // Display the current frame rate counters.
+                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
+
+                // Show the areas of the app that are being redrawn in each frame.
+                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+
+                // Enable non-production analysis visualization mode, 
+                // which shows areas of a page that are being GPU accelerated with a colored overlay.
+                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+            }
+
+            // Standard Silverlight initialization
             InitializeComponent();
+            
+            // Phone-specific initialization
             InitializePhoneApplication();
         }
 
