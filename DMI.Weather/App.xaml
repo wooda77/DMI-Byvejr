@@ -1,12 +1,12 @@
 ﻿<Application x:Class="DMI.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:models="clr-namespace:DMI.Models"
-    xmlns:viewmodels="clr-namespace:DMI.ViewModels"
-    xmlns:converters="clr-namespace:DMI.Converters">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dmi_models="clr-namespace:DMI.Models"
+             xmlns:mscore="clr-namespace:System;assembly=mscorlib"
+             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
     <Application.Resources>
-        <models:Resources x:Key="AppResources" />
+        <dmi_models:Resources x:Key="AppResources" />
+        <mscore:String x:Key="FavoritesListImagePath">M12.7630033493042,0L15.8240032196045,9.27399387849619 25.5270023345947,9.27399387849619 17.6387557983398,15.0049251605396 20.6520004272461,24.2780326892262 12.7634763717651,18.5468887378102 4.87500381469727,24.2779850055103 7.88791990280151,15.0047172595387 0,9.27401295198251 9.70000457763672,9.27401295198251 12.762526512146,0.00146796110675496z</mscore:String>
     </Application.Resources>
 </Application>
