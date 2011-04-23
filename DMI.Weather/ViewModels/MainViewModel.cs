@@ -46,6 +46,7 @@ namespace DMI.ViewModels
         private const int DefaultPostalCode = 1000;
 
         private const string CurrentLocationPropertyName = "CurrentLocation";
+        private const string PostalCodePropertyName = "PostalCode";
         private const string TwoDaysImagePropertyName = "TwoDaysImage";
         private const string SevenDaysImagePropertyName = "SevenDaysImage";
         private const string PollenImagePropertyName = "PollenImage";
@@ -289,7 +290,10 @@ namespace DMI.ViewModels
                 if (currentLocation != value)
                 {
                     currentLocation = value;
+                    
                     RaisePropertyChanged(CurrentLocationPropertyName);
+                    
+                    UpdateCurrentLocation();                    
                 }
             }
         }
@@ -412,8 +416,12 @@ namespace DMI.ViewModels
         {
             if (InternetIsAvailable())
             {
-                this.CountryImage = new BitmapImage(new Uri(AppResources.CountryImage));
-                this.ResolveAddressFromGeoPosition();
+                CountryImage = new BitmapImage(new Uri(AppResources.CountryImage));
+
+                if (CurrentLocation == null)
+                {
+                    ResolveAddressFromGeoPosition();
+                }
             }
 
             WeatherDataProvider.GetWeatherData((items, e) =>
@@ -601,9 +609,10 @@ namespace DMI.ViewModels
                         {
                             if (Loading)
                             {
+                                Loading = false;
+
                                 if (address != null)
                                 {
-                                    Loading = false;
                                     CurrentLocation = address;
                                     UpdateCurrentLocation();
                                 }
