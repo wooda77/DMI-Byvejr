@@ -1,0 +1,14 @@
+A Windows Phone 7 application for showing the city weather forecast from the [http://www.dmi.dk Danish Meteorological Institute]
+
+{|
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss1.png" width="240" /> 
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss2.png" width="240" /> 
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss3.png" width="240" /> 
+|- 
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss4.png" width="240" /> 
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss5.png" width="240" />  
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss6.png" width="240" /> 
+|-
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss7.png" width="240" />
+| <img src="http://dl.dropbox.com/u/1744224/wp7/ss8.png" width="240" />
+|}
