@@ -3,8 +3,10 @@ syntax: glob
 *.user
 *.sdf
 *.opensdf
+*.gitignore
 
 syntax: regexp
+.git
 bin/
 Bin/
 obj/
