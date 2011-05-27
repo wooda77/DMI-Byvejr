@@ -102,6 +102,7 @@ namespace DMI.Models
                     var nameRegex = new Regex(namePattern, RegexOptions.Singleline);
                     var nameMatches = nameRegex.Matches(input);
 
+                    // TODO: Add Range Check (Frederikshavn crasher)
                     var region = new Region()
                     {
                         Name = nameMatches[0].Groups["text"].Value,
