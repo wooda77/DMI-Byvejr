@@ -75,7 +75,13 @@ namespace DMI.ViewModels
 
         private void SelectionChangedExecute(SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
+            if (e == null)
+            {
+                throw new ArgumentException("e");
+            }
+
+            if (e.AddedItems != null &&
+                e.AddedItems.Count > 0)
             {
                 var city = e.AddedItems[0] as City;
                 var uri = string.Format("/Views/MainPage.xaml?PostalCode={0}", city.PostalCode);
@@ -84,9 +90,14 @@ namespace DMI.ViewModels
             }
         }
 
-        private void TextChangedExecute(TextBox textbox)
+        private void TextChangedExecute(TextBox textBox)
         {
-            var filter = textbox.Text;
+            if (textBox == null)
+            {
+                throw new ArgumentException("textBox");
+            }
+            
+            var filter = textBox.Text;
             var filtered = allCities.Where(city => FilterItem(filter, city));
 
             this.Cities = new CityGroups(filtered.ToList());

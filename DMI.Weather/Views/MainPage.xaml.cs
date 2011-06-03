@@ -139,7 +139,10 @@ namespace DMI.Views
         /// </summary>
         private void ShowFavoritesAppBarButton_Click(object sender, EventArgs e)
         {
-            PivotLayout.SelectedItem = FavoritesPivotItem;
+            if (PivotLayout != null)
+            {
+                PivotLayout.SelectedItem = FavoritesPivotItem;
+            }
         }
 
         /// <summary>
@@ -147,7 +150,10 @@ namespace DMI.Views
         /// </summary>
         private void AddtoFavoritesAppBarButton_Click(object sender, EventArgs e)
         {
-            (DataContext as MainViewModel).AddToFavorites.Execute(null);
+            if (DataContext != null && DataContext is MainViewModel)
+            {
+                (DataContext as MainViewModel).AddToFavorites.Execute(null);
+            }
         }
 
         /// <summary>
@@ -155,7 +161,10 @@ namespace DMI.Views
         /// </summary>
         private void GoToLocationAppBarButton_Click(object sender, EventArgs e)
         {
-            (DataContext as MainViewModel).GoToLocation.Execute(null);
+            if (DataContext != null && DataContext is MainViewModel)
+            {
+                (DataContext as MainViewModel).GoToLocation.Execute(null);
+            }
         }
 
         /// <summary>

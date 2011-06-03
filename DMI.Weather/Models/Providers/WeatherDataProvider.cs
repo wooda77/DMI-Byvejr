@@ -102,12 +102,17 @@ namespace DMI.Models
                     var nameRegex = new Regex(namePattern, RegexOptions.Singleline);
                     var nameMatches = nameRegex.Matches(input);
 
-                    // TODO: Add Range Check (Frederikshavn crasher)
-                    var region = new Region()
+                    var region = new Region();
+                    
+                    if (nameMatches.Count >= 1)
                     {
-                        Name = nameMatches[0].Groups["text"].Value,
-                        Text = textMatches[2].Groups["text"].Value
-                    };
+                        region.Name = nameMatches[0].Groups["text"].Value;
+                    }
+                    
+                    if (textMatches.Count >= 3)
+                    {
+                        region.Text = textMatches[2].Groups["text"].Value;
+                    }
 
                     callback(region, e.Error);
                 }
@@ -137,7 +142,8 @@ namespace DMI.Models
                 {
                     var input = HttpUtility.HtmlDecode(e.Result);
 
-                    var pattern = @"<td class=""mellemrubrik"">(?<title>.*?)</td>(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
+                    var pattern  = @"<td class=""mellemrubrik"">(?<title>.*?)</td>";
+                        pattern += @"(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
 
                     var regex = new Regex(pattern, RegexOptions.Singleline);
                     var matches = regex.Matches(input);
@@ -209,6 +215,11 @@ namespace DMI.Models
 
         private static string ParsePollenData(string data)
         {
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new ArgumentException("data");
+            }
+
             string input = data.Replace("\n", "");
             input = input.Replace(" ", "");
 
@@ -227,7 +238,8 @@ namespace DMI.Models
 
             string output = result.ToString();
 
-            if (string.IsNullOrEmpty(output) == false)
+            if (string.IsNullOrEmpty(output) == false &&
+                output.Length >= 4)
             {
                 output = output.Substring(0, output.Length - 3);
             }

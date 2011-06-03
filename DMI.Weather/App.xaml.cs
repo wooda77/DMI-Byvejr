@@ -196,7 +196,8 @@ namespace DMI
 
         private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
         {
-            if (RootVisual != RootFrame)
+            if (RootVisual != null && 
+                RootVisual != RootFrame)
             {
                 RootVisual = RootFrame;
             }

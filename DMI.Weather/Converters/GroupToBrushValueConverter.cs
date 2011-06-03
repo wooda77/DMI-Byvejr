@@ -6,6 +6,7 @@
 // All other rights reserved.
 #endregion
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -15,13 +16,14 @@ namespace DMI.Converters
 {
     public class GroupToBrushValueConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            CityGroup group = value as CityGroup;
-            object result = null;
-
-            if (group != null)
+            if (value != null && value is CityGroup)
             {
+                object result = null;
+
+                var group = value as CityGroup;
+
                 if (group.Count == 0)
                 {
                     result = (SolidColorBrush)Application.Current.Resources["PhoneChromeBrush"];
@@ -30,9 +32,11 @@ namespace DMI.Converters
                 {
                     result = (SolidColorBrush)Application.Current.Resources["PhoneAccentBrush"];
                 }
+        
+                return result;
             }
 
-            return result;
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

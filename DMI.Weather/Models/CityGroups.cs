@@ -19,6 +19,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace DMI.Models
@@ -29,6 +31,11 @@ namespace DMI.Models
 
         public CityGroups(List<City> cities)
         {
+            if (cities == null)
+            {
+                throw new ArgumentException("cities");
+            }
+
             cities.Sort();
 
             var groups = new Dictionary<string, CityGroup>();
@@ -42,7 +49,10 @@ namespace DMI.Models
 
             foreach (City city in cities)
             {
-                groups[char.ToLower(city.Name[0]).ToString()].Add(city);
+                if (city.Name.Length > 0) 
+                {
+                    groups[char.ToLower(city.Name[0]).ToString()].Add(city);
+                }
             }
         }
     }

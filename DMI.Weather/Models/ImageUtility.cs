@@ -19,6 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,8 +35,15 @@ namespace DMI.Models
         /// <summary>
         /// Crops the Image Borders two pixels on each side.
         /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>The cropped image.</returns>
         public static Image CropImageBorders(this Image image)
         {
+            if (image == null)
+            {
+                throw new ArgumentException("image");
+            }
+
             if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
             {
                 image.Clip = new RectangleGeometry()
@@ -53,8 +61,16 @@ namespace DMI.Models
         /// <summary>
         /// Crops the Image Borders two pixels on each side.
         /// </summary>
+        /// <param name="image">The image.</param>
+        /// <param name="newSize">The new size.</param>
+        /// <returns>The cropped image.</returns>
         public static Image CropImageBorders(this Image image, Size newSize)
         {
+            if (image == null)
+            {
+                throw new ArgumentException("image");
+            }
+
             if ((image.ActualWidth > 0) && (image.ActualHeight > 0) &&
                 (newSize.Width > 0) && (newSize.Height > 0))
             {
@@ -74,10 +90,20 @@ namespace DMI.Models
         /// Saves a image to local storage.
         /// </summary>
         /// <param name="image">The image.</param>
-        /// <param name="filename">The filename.</param>
-        /// <returns></returns>
-        public static BitmapSource SaveToLocalStorage(this BitmapSource image, string filename)
+        /// <param name="fileName">The filename.</param>
+        /// <returns>The image that was saved.</returns>
+        public static BitmapSource SaveToLocalStorage(this BitmapSource image, string fileName)
         {
+            if (image == null)
+            {
+                throw new ArgumentException("image");
+            }
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("fileName");
+            }
+
             if (image.PixelWidth == 0 || image.PixelHeight == 0)
             {
                 return image;
@@ -92,7 +118,7 @@ namespace DMI.Models
                 store.CreateDirectory(App.ImageFolder);
             }
 
-            string path = Path.Combine(App.ImageFolder, filename);
+            string path = Path.Combine(App.ImageFolder, fileName);
             
             if (store.FileExists(path))
             {
@@ -110,10 +136,15 @@ namespace DMI.Models
         /// <summary>
         /// Loads a image from local storage.
         /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <returns></returns>
-        public static BitmapSource LoadFromLocalStorage(string filename)
+        /// <param name="fileName">The filename.</param>
+        /// <returns>The image from the local storage if it exists; otherwise a empty image.</returns>
+        public static BitmapSource LoadFromLocalStorage(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("fileName");
+            }
+
             var store = IsolatedStorageFile.GetUserStoreForApplication();
 
             if (store.DirectoryExists(App.ImageFolder) == false)
@@ -121,7 +152,7 @@ namespace DMI.Models
                 store.CreateDirectory(App.ImageFolder);
             }
 
-            string path = Path.Combine(App.ImageFolder, filename);
+            string path = Path.Combine(App.ImageFolder, fileName);
 
             if (store.FileExists(path))
             {
@@ -134,8 +165,18 @@ namespace DMI.Models
             return new WriteableBitmap(0, 0);
         }
 
+        /// <summary>
+        /// Converts a BitmapSource to bytes.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>The bytes of the image.</returns>
         public static byte[] ConvertToBytes(this BitmapSource image)
         {
+            if (image == null)
+            {
+                throw new ArgumentException("image");
+            }
+
             using (var stream = new MemoryStream())
             {
                 var writeableBitmap = new WriteableBitmap(image.PixelWidth, image.PixelHeight);

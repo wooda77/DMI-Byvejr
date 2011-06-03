@@ -497,15 +497,25 @@ namespace DMI.ViewModels
 
         private void NewsItemSelectedExecute(NewsItem item)
         {
+            if (item == null)
+            {
+                throw new ArgumentException("item");
+            }
+
             var task = new WebBrowserTask()
             {
-                Uri = item.Link
+                URL = item.Link.AbsoluteUri
             };
             task.Show();
         }
 
         private void FavoriteItemSelectedExecute(City city)
         {
+            if (city == null)
+            {
+                throw new ArgumentException("city");
+            }
+
             var uri = string.Format("/Views/MainPage.xaml?PostalCode={0}&Time={1}",
                 city.PostalCode,
                 DateTime.Now.ToLongTimeString()

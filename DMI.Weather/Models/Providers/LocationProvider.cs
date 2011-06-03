@@ -38,6 +38,11 @@ namespace DMI.Models
         /// <param name="geoCoordinate"></param>
         public static void ResolveLocation(GeoCoordinate geoCoordinate, Action<CivicAddress, Exception> callback)
         {
+            if (geoCoordinate == null)
+            {
+                throw new ArgumentException("geoCoordinate");
+            }
+
             var requestUriString = string.Format(CultureInfo.InvariantCulture, bingMapsRESTUri,
                 geoCoordinate.Latitude, geoCoordinate.Longitude, bingMapsKey);
 
