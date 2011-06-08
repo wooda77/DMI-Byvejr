@@ -148,7 +148,7 @@ namespace DMI
 
         public static bool Navigate(Uri source)
         {
-            return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);
+            return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);            
         }
 
         #endregion
@@ -196,8 +196,7 @@ namespace DMI
 
         private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
         {
-            if (RootVisual != null && 
-                RootVisual != RootFrame)
+            if (RootVisual != RootFrame)
             {
                 RootVisual = RootFrame;
             }
