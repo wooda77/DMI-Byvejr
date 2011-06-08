@@ -4,6 +4,7 @@ syntax: glob
 *.sdf
 *.opensdf
 *.gitignore
+*.docstates
 
 syntax: regexp
 .git
