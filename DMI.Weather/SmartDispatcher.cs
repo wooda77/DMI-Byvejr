@@ -12,7 +12,7 @@ namespace System.Windows.Threading
     /// A smart dispatcher system for routing actions to the user interface
     /// thread.
     /// </summary>
-    public static class SmartDispatcher
+    internal static class SmartDispatcher
     {
         /// <summary>
         /// A single Dispatcher instance to marshall actions to the user
