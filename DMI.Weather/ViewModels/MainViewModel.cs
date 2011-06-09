@@ -116,7 +116,6 @@ namespace DMI.ViewModels
 
         #region Properties
 
-
         public string TwoDaysImageFilename
         {
             get

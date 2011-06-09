@@ -40,7 +40,6 @@
                  Foreground="{StaticResource PhoneForegroundBrush}"
                  Loaded="PivotLayout_Loaded"
                  SelectionChanged="PivotLayout_SelectionChanged">
-            <!--  Weather Pivot Item  -->
             <c:PivotItem x:Name="WeatherPivotItem"
                          Margin="0,28,0,0"
                          Header="{Binding AppResources.CityWeatherHeader,
@@ -75,7 +74,6 @@
                     </ScrollViewer>
                 </Grid>
             </c:PivotItem>
-            <!--  Regional Pivot Item  -->
             <c:PivotItem x:Name="RegionalPivotItem"
                          Margin="0,28,0,0"
                          Header="{Binding AppResources.RegionalHeader,
@@ -103,7 +101,6 @@
                                TextWrapping="Wrap" />
                 </StackPanel>
             </c:PivotItem>
-            <!--  Country Pivot Item  -->
             <c:PivotItem x:Name="CountryPivotItem"
                          Margin="0,28,0,0"
                          Header="{Binding AppResources.CountryHeader,
@@ -143,7 +140,6 @@
                     </ListBox>
                 </Grid>
             </c:PivotItem>
-            <!--  Pollen Pivot Item  -->
             <c:PivotItem x:Name="PollenPivotItem"
                          Margin="0,28,0,0"
                          Header="{Binding AppResources.PollenHeader,
@@ -196,7 +192,6 @@
                     </StackPanel>
                 </ScrollViewer>
             </c:PivotItem>
-            <!--  Favorites Pivot Item  -->
             <c:PivotItem x:Name="FavoritesPivotItem"
                          Margin="12,28,12,0"
                          Header="{Binding AppResources.FavoritesHeader,
@@ -250,8 +245,8 @@
                     </ListBox>
                 </Grid>
             </c:PivotItem>
-            <!--  News Pivot Item  -->
-            <c:PivotItem x:Name="NewsPivotItem" Header="{Binding AppResources.NewsHeader, Source={StaticResource AppResources}}">
+            <c:PivotItem x:Name="NewsPivotItem" 
+                         Header="{Binding AppResources.NewsHeader, Source={StaticResource AppResources}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <mvvm:EventToCommand Command="{Binding LoadNewsFeed}" />
@@ -287,7 +282,6 @@
                 </Grid>
             </c:PivotItem>
         </c:Pivot>
-        <!--  Progress Bar  -->
         <toolkit:PerformanceProgressBar x:Name="PerformanceProgressBar"
                                         VerticalAlignment="Center"
                                         IsIndeterminate="{Binding Loading}" />

@@ -27,6 +27,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
+using System.Windows.Threading;
 
 namespace DMI
 {
@@ -190,6 +191,8 @@ namespace DMI
             RootFrame = new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
+
+            SmartDispatcher.Initialize(Deployment.Current.Dispatcher);
 
             phoneApplicationInitialized = true;
         }

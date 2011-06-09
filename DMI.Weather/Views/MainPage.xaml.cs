@@ -33,6 +33,7 @@ namespace DMI.Views
     using DMI.Models;
     using DMI.Properties;
     using DMI.ViewModels;
+    using System.Windows.Threading;
 
     /// <summary>
     /// Interaction logic for MainPage.xaml
@@ -45,11 +46,6 @@ namespace DMI.Views
         public MainPage()
         {
             InitializeComponent();
-
-            Dispatcher.BeginInvoke(() =>
-            {
-                BuildApplicationBar();
-            });
         }
 
         /// <summary>
@@ -57,7 +53,12 @@ namespace DMI.Views
         /// </summary>
         private void BuildApplicationBar()
         {
-            ApplicationBar = new ApplicationBar();
+            if (ApplicationBar != null)
+            {
+                return;
+            }
+            
+            var appBar = new ApplicationBar();
 
             Uri homeImage;
             Uri favImage;
@@ -109,11 +110,13 @@ namespace DMI.Views
             };
             supportMenu.Click += new EventHandler(SettingsMenu_Click);
 
-            ApplicationBar.Buttons.Add(chooseCityAppBarButton);
-            ApplicationBar.Buttons.Add(goToLocationAppBarButton);
-            ApplicationBar.Buttons.Add(showFavoritesAppBarButton);
-            ApplicationBar.Buttons.Add(addtoFavoritesAppBarButton);
-            ApplicationBar.MenuItems.Add(supportMenu);
+            appBar.Buttons.Add(chooseCityAppBarButton);
+            appBar.Buttons.Add(goToLocationAppBarButton);
+            appBar.Buttons.Add(showFavoritesAppBarButton);
+            appBar.Buttons.Add(addtoFavoritesAppBarButton);
+            appBar.MenuItems.Add(supportMenu);
+
+            ApplicationBar = appBar;
         }
 
         /// <summary>
@@ -172,7 +175,7 @@ namespace DMI.Views
         /// </summary>
         private void PivotLayout_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Dispatcher.BeginInvoke(() =>
+            SmartDispatcher.BeginInvoke(() =>
             {
                 if (ApplicationBar != null)
                 {
@@ -215,7 +218,7 @@ namespace DMI.Views
             string postalCode = "";
             if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
-                Dispatcher.BeginInvoke(() =>
+                SmartDispatcher.BeginInvoke(() =>
                 {
                     (DataContext as MainViewModel).CurrentLocation = new CivicAddress()
                     {
@@ -272,6 +275,11 @@ namespace DMI.Views
             {
                 var index = (int)State[App.PivotItem];
                 PivotLayout.SelectedIndex = index;
+            }
+
+            if (ApplicationBar == null)
+            {
+                SmartDispatcher.BeginInvoke(BuildApplicationBar);
             }
         }
 
