@@ -1,5 +1,5 @@
 
-           Vejrudsigten fra DMI - For Windows Phone 7       
+              Weather Forecast from DMI - For Windows Phone 7       
 
     Copyright © 2010 Claus Jørgensen <10229@iha.dk>
 
@@ -9,7 +9,7 @@
     The following persons and groups are acknowledged for their contributions
     to the project and ideas.
     
-    Version 1.2.0.0
+    Version 1.4.0.0
     ---------------
 
     Claus Jørgensen <10229@iha.dk>

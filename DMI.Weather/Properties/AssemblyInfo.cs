@@ -4,6 +4,7 @@
 // Authors:
 //     Claus Jørgensen <10229@iha.dk>
 //
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -19,6 +20,7 @@ using System.Resources;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
+[assembly: CLSCompliant(false)]
 
 [assembly: Guid("8e2f2f7a-8b81-4813-b397-a0ed88f5301a")]
 
