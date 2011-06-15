@@ -48,7 +48,7 @@ namespace DMI.ViewModels
                 // TODO: 
                 //     string Version = XDocument.Load("WMAppManifest.xml")
                 //         .Root.Element("App").Attribute("Version").Value;
-                return "1.4.0.0";
+                return "1.5.0.0";
             }
         }
 
