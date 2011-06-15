@@ -236,13 +236,19 @@ namespace DMI.Views
         {
             base.OnNavigatedFrom(e);
 
-            if (State.ContainsKey(App.PivotItem))
+            try
             {
-                State[App.PivotItem] = PivotLayout.SelectedIndex;
-            }
-            else
+                if (State.ContainsKey(App.PivotItem))
+                {
+                    State[App.PivotItem] = PivotLayout.SelectedIndex;
+                }
+                else
+                {
+                    State.Add(App.PivotItem, PivotLayout.SelectedIndex);
+                }
+            } catch (InvalidOperationException)
             {
-                State.Add(App.PivotItem, PivotLayout.SelectedIndex);
+                // Fix for Emulator-only crashes.
             }
         }
 

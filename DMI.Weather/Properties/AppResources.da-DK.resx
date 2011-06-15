@@ -195,6 +195,9 @@
   <data name="PollenHeader" xml:space="preserve">
     <value>pollental</value>
   </data>
+  <data name="RadarHeader" xml:space="preserve">
+    <value>radar</value>
+  </data>
   <data name="RegionalHeader" xml:space="preserve">
     <value>regionaludsigt</value>
   </data>

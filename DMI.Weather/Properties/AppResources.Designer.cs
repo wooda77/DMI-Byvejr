@@ -295,6 +295,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to radar.
+        /// </summary>
+        public static string RadarHeader {
+            get {
+                return ResourceManager.GetString("RadarHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to regional.
         /// </summary>
         public static string RegionalHeader {
