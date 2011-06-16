@@ -199,12 +199,18 @@ namespace DMI.Models
                         .Elements("channel")
                         .Elements("item")
                         .Select(item =>
-                            new NewsItem()
+                        {
+                            var title = item.Element("title");
+                            var description = item.Element("description");
+                            var link = item.Element("link");
+
+                            return new NewsItem()
                             {
-                                Title = item.Element("title").Value,
-                                Description = item.Element("description").Value,
-                                Link = new Uri(item.Element("link").Value)
-                            });
+                                Title = title == null ? "" : title.Value,
+                                Description = description == null ? "" : description.Value,
+                                Link = link == null ? null : new Uri(link.Value)
+                            };
+                        });
 
                     callback(items, e.Error);
                 }
