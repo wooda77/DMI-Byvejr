@@ -29,6 +29,7 @@ using Microsoft.Phone.Tasks;
 namespace DMI.ViewModels
 {
     using DMI.Properties;
+    using System.Xml.Linq;
 
     public class SupportViewModel : ViewModelBase
     {
@@ -45,10 +46,9 @@ namespace DMI.ViewModels
         {
             get
             {
-                // TODO: 
-                //     string Version = XDocument.Load("WMAppManifest.xml")
-                //         .Root.Element("App").Attribute("Version").Value;
-                return "1.5.0.0";
+                return XDocument.Load("WMAppManifest.xml").Root
+                    .Element("App")
+                    .Attribute("Version").Value;
             }
         }
 
