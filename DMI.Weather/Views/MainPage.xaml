@@ -13,7 +13,6 @@
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
                             x:Name="MainPhoneApplicationPage"
-                            d:DataContext="{d:DesignData Source=/SampleData/MainViewModelSampleData.xaml}"
                             d:DesignHeight="768"
                             d:DesignWidth="480"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
