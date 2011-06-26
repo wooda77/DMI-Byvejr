@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="Converters\GroupToBrushValueConverter.cs" />
     <Compile Include="Converters\NegationConverter.cs" />
+    <Compile Include="Converters\StringIsEmptyToVisiblityConverter.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="Models\CityGroups.cs" />
     <Compile Include="Models\BingLocationResponse.cs" />

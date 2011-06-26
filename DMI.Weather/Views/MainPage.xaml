@@ -27,6 +27,7 @@
     <phone:PhoneApplicationPage.Resources>
         <ResourceDictionary>
             <dmi_converters:NegationConverter x:Key="NegationConverter" />
+            <dmi_converters:StringIsEmptyToVisiblityConverter x:Key="StringIsEmptyToVisiblityConverter" />
         </ResourceDictionary>
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.DataContext>
@@ -285,6 +286,7 @@
                                                Text="{Binding Title}"
                                                TextWrapping="Wrap" />
                                     <TextBlock Margin="12,0"
+                                               Visibility="{Binding Description, Converter={StaticResource StringIsEmptyToVisiblityConverter}}"
                                                Style="{StaticResource PhoneTextNormalStyle}"
                                                Text="{Binding Description}"
                                                TextWrapping="Wrap" />
