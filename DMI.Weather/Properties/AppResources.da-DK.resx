@@ -267,4 +267,7 @@
   <data name="WeatherFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm</value>
   </data>
+  <data name="WebTVFeed" xml:space="preserve">
+    <value>http://tv.dmi.dk/js/photos?raw</value>
+  </data>
 </root>
