@@ -277,10 +277,17 @@ namespace DMI.Views
         /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         private void PivotLayout_Loaded(object sender, RoutedEventArgs e)
         {
-            if (State.ContainsKey(App.PivotItem))
+            try
             {
-                var index = (int)State[App.PivotItem];
-                PivotLayout.SelectedIndex = index;
+                if (State.ContainsKey(App.PivotItem))
+                {
+                    var index = (int)State[App.PivotItem];
+                    PivotLayout.SelectedIndex = index;
+                }
+            } 
+            catch (Exception)
+            {
+                // Fix for loading bug in the emulator.
             }
 
             if (ApplicationBar == null)

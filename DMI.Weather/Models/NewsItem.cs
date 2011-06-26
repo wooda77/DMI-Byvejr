@@ -42,5 +42,11 @@ namespace DMI.Models
             get;
             set;
         }
+
+        public WebTVItem WebTVItem
+        {
+            get;
+            set;
+        }
     }
 }

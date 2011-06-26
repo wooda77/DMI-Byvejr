@@ -259,7 +259,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to news.
+        ///   Looks up a localized string similar to news and tv.
         /// </summary>
         public static string NewsHeader {
             get {
@@ -507,6 +507,15 @@ namespace DMI.Properties {
         public static string WeatherFeed {
             get {
                 return ResourceManager.GetString("WeatherFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://tv.dmi.dk/js/photos?raw.
+        /// </summary>
+        public static string WebTVFeed {
+            get {
+                return ResourceManager.GetString("WebTVFeed", resourceCulture);
             }
         }
     }

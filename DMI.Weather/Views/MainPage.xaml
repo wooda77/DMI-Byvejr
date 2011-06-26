@@ -191,11 +191,13 @@
                     </StackPanel>
                 </ScrollViewer>
             </c:PivotItem>
-            <!--<c:PivotItem x:Name="RadarPivotItem"
-                         Margin="0,28,0,0"
-                         Header="{Binding AppResources.RadarHeader,
-                                          Source={StaticResource AppResources}}">
-            </c:PivotItem>-->
+            <!--
+                <c:PivotItem x:Name="RadarPivotItem"
+                Margin="0,28,0,0"
+                Header="{Binding AppResources.RadarHeader,
+                Source={StaticResource AppResources}}">
+                </c:PivotItem>
+            -->
             <c:PivotItem x:Name="FavoritesPivotItem"
                          Margin="12,28,12,0"
                          Header="{Binding AppResources.FavoritesHeader,
@@ -206,18 +208,23 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid Margin="15,0,0,15">
-                    <ListBox x:Name="FavoritesListBox" ItemsSource="{Binding Favorites}">
+                    <ListBox x:Name="FavoritesListBox"
+                             ItemsSource="{Binding Favorites}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
-                                <mvvm:EventToCommand Command="{Binding FavoriteItemSelected}" 
-                                                     CommandParameter="{Binding SelectedItem, ElementName=FavoritesListBox}" />
+                                <mvvm:EventToCommand Command="{Binding FavoriteItemSelected}"
+                                                     CommandParameter="{Binding SelectedItem,
+                                                                                ElementName=FavoritesListBox}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,17" Orientation="Horizontal">
-                                    <StackPanel Margin="0,0,0,17" Orientation="Horizontal">
-                                        <Canvas Width="38" Height="38">
+                                <StackPanel Margin="0,0,0,17"
+                                            Orientation="Horizontal">
+                                    <StackPanel Margin="0,0,0,17"
+                                                Orientation="Horizontal">
+                                        <Canvas Width="38"
+                                                Height="38">
                                             <Ellipse Width="38"
                                                      Height="38"
                                                      Stroke="{StaticResource PhoneForegroundBrush}"
@@ -249,8 +256,9 @@
                     </ListBox>
                 </Grid>
             </c:PivotItem>
-            <c:PivotItem x:Name="NewsPivotItem" 
-                         Header="{Binding AppResources.NewsHeader, Source={StaticResource AppResources}}">
+            <c:PivotItem x:Name="NewsPivotItem"
+                         Header="{Binding AppResources.NewsHeader,
+                                          Source={StaticResource AppResources}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <mvvm:EventToCommand Command="{Binding LoadNewsFeed}" />
@@ -262,8 +270,9 @@
                              ItemsSource="{Binding NewsItems}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
-                                <mvvm:EventToCommand Command="{Binding NewsItemSelected}" 
-                                                     CommandParameter="{Binding SelectedItem, ElementName=NewsListBox}" />
+                                <mvvm:EventToCommand Command="{Binding NewsItemSelected}"
+                                                     CommandParameter="{Binding SelectedItem,
+                                                                                ElementName=NewsListBox}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListBox.ItemTemplate>

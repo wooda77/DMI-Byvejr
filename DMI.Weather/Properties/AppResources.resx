@@ -184,7 +184,7 @@
     <value>No internet connection is available. Please try again later.</value>
   </data>
   <data name="NewsHeader" xml:space="preserve">
-    <value>news</value>
+    <value>news and tv</value>
   </data>
   <data name="PollenFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/pollen-feed.xml</value>
@@ -266,5 +266,8 @@
   </data>
   <data name="WeatherFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm</value>
+  </data>
+  <data name="WebTVFeed" xml:space="preserve">
+    <value>http://tv.dmi.dk/js/photos?raw</value>
   </data>
 </root>

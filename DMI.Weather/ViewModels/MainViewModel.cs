@@ -449,15 +449,39 @@ namespace DMI.ViewModels
 
         private void LoadNewsFeedExecute()
         {
-            WeatherDataProvider.GetNewsItems((items, e) =>
+            WebTVProvider.GetVideos((videos, exception) =>
             {
                 NewsItems.Clear();
 
-                foreach (var item in items)
+                if (videos.Count >= 3)
                 {
-                    NewsItems.Add(item);
+                    NewsItems.Add(new NewsItem()
+                    {
+                        Title = "WebTV - Dagens Vejrudsigt",
+                        WebTVItem = videos.FirstOrDefault(v => v.Category == "DMI"),
+                    });
+
+                    NewsItems.Add(new NewsItem()
+                    {
+                        Title = "WebTV - Sejlervejret",
+                        WebTVItem = videos.FirstOrDefault(v => v.Category == "SEJL"),
+                    });
+
+                    NewsItems.Add(new NewsItem()
+                    {
+                        Title = "WebTV - 3-døgnsudsigten",
+                        WebTVItem = videos.FirstOrDefault(v => v.Category == "3D"),
+                    });
                 }
-            });
+
+                WeatherDataProvider.GetNewsItems((items, e) =>
+                {
+                    foreach (var item in items)
+                    {
+                        NewsItems.Add(item);
+                    }
+                });
+            }); 
         }
 
         private void LoadFavoritesExecute()
@@ -501,11 +525,22 @@ namespace DMI.ViewModels
                 throw new ArgumentException("item");
             }
 
-            var task = new WebBrowserTask()
+            if (item.WebTVItem != null)
             {
-                URL = item.Link.AbsoluteUri
-            };
-            task.Show();
+                var task = new MediaPlayerLauncher()
+                {
+                    Media = new Uri("http://tv.dmi.dk" + item.WebTVItem.Video, UriKind.Absolute)
+                };
+                task.Show();
+            }
+            else
+            {
+                var task = new WebBrowserTask()
+                {
+                    URL = item.Link.AbsoluteUri
+                };
+                task.Show();
+            }
         }
 
         private void FavoriteItemSelectedExecute(City city)
