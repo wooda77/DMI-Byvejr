@@ -9,7 +9,7 @@ It also includes regional and countrywide weather, pollen numbers, and news.
 Pictures
 --------
 
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss1.png>
+![](http://dl.dropbox.com/u/1744224/WP7/DMI/ss1.png)  
 <http://dl.dropbox.com/u/1744224/WP7/DMI/ss2.png>
 <http://dl.dropbox.com/u/1744224/WP7/DMI/ss3.png>
 <http://dl.dropbox.com/u/1744224/WP7/DMI/ss4.png>
