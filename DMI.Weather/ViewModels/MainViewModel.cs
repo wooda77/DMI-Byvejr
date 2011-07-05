@@ -87,29 +87,32 @@ namespace DMI.ViewModels
             this.NewsItems = new ObservableCollection<NewsItem>();
             this.WeatherItems = new ObservableCollection<WeatherItem>();
 
-            this.TwoDaysImage = ImageUtility.LoadFromLocalStorage(TwoDaysFileName);
-            this.SevenDaysImage = ImageUtility.LoadFromLocalStorage(SevenDaysFileName);
-            this.PollenImage = ImageUtility.LoadFromLocalStorage(PollenFileName);
-            this.RegionalImage = ImageUtility.LoadFromLocalStorage(RegionalFileName);
-            this.CountryImage = ImageUtility.LoadFromLocalStorage(CountryFileName);
-
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+            if (App.IsFirstStart == false)
             {
-                this.Favorites = (ObservableCollection<City>)
-                    IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+                this.TwoDaysImage = ImageUtility.LoadFromLocalStorage(TwoDaysFileName);
+                this.SevenDaysImage = ImageUtility.LoadFromLocalStorage(SevenDaysFileName);
+                this.PollenImage = ImageUtility.LoadFromLocalStorage(PollenFileName);
+                this.RegionalImage = ImageUtility.LoadFromLocalStorage(RegionalFileName);
+                this.CountryImage = ImageUtility.LoadFromLocalStorage(CountryFileName);
 
-                this.Favorites = this.Favorites ?? new ObservableCollection<City>();
+                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+                {
+                    this.Favorites = (ObservableCollection<City>)
+                        IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+
+                    this.Favorites = this.Favorites ?? new ObservableCollection<City>();
+                }
+
+                this.LoadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
+                this.LoadPollenInformation = new RelayCommand(LoadPollenInformationExecute);
+                this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
+                this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
+                this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
+                this.RemoveFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
+                this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
+                this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
+                this.GoToLocation = new RelayCommand(GoToLocationExecute);
             }
-
-            this.LoadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
-            this.LoadPollenInformation = new RelayCommand(LoadPollenInformationExecute);
-            this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
-            this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
-            this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
-            this.RemoveFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
-            this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
-            this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
-            this.GoToLocation = new RelayCommand(GoToLocationExecute);
         }
 
         #endregion

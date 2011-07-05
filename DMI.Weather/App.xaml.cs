@@ -152,6 +152,11 @@ namespace DMI
             return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);            
         }
 
+        public static void GoBack()
+        {
+            (App.Current.RootVisual as PhoneApplicationFrame).GoBack();
+        }
+
         #endregion
 
         #region Debugging Handlers

@@ -25,12 +25,12 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
 
-[assembly: AssemblyTitle("@AppResLib.dll,-100")]
-[assembly: AssemblyDescription("Vejrudsigten fra DMI.dk til WP7")]
+[assembly: AssemblyTitle("DMI Byvejr")]
+[assembly: AssemblyDescription("Vejrudsigten fra DMI")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Vejrudsigten fra DMI")]
-[assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2010")]
+[assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -39,7 +39,7 @@ using System.Resources;
 
 [assembly: Guid("8e2f2f7a-8b81-4813-b397-a0ed88f5301a")]
 
-[assembly: AssemblyVersion("1.6.0.0")]
-[assembly: AssemblyFileVersion("1.6.0.0")]
+[assembly: AssemblyVersion("1.7.0.0")]
+[assembly: AssemblyFileVersion("1.7.0.0")]
 
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

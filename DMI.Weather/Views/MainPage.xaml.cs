@@ -208,7 +208,6 @@ namespace DMI.Views
             if (App.IsFirstStart)
             {
                 NavigationService.Navigate(new Uri("/Views/SupportPage.xaml", UriKind.Relative));                                
-                App.IsFirstStart = false;
 
                 return;
             }

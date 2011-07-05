@@ -94,7 +94,7 @@ namespace DMI.ViewModels
 
         private void OKExecute()
         {
-            App.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
+            App.GoBack();
         }
 
         private void OpenMailClientExecute()

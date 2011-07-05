@@ -28,6 +28,8 @@ namespace DMI.Views
         public SupportPage()
         {
             InitializeComponent();
+
+            App.IsFirstStart = false;
         }
     }
 }

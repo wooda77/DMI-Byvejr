@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
   <App xmlns="" 
-       ProductID="{0b680f74-4233-4edc-ad07-12e994d95ebd}"
-       Title="@AppResLib.dll,-100" 
+       ProductID="{8e2f2f7a-8b81-4813-b397-a0ed88f5301a}"
+       Title="DMI Byvejr" 
        RuntimeType="Silverlight"
        Version="1.6.0.0" 
        Genre="apps.normal" 
        Author="Claus Jørgensen" 
-       Description="@AppResLib.dll,-100" 
+       Description="Vejrudsigten fra DMI" 
        Publisher="">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>

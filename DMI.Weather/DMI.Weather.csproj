@@ -184,10 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\femdgn_dk.png" />
-    <None Include="..\AppResLib0409\Debug\AppRes.dll.0409.mui">
-      <Link>AppRes.dll.0409.mui</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Packages.config" />
     <None Include="Properties\AppManifest.xml">
       <SubType>Designer</SubType>
@@ -197,16 +193,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\AppResLib\Debug\AppResLib.dll">
-      <Link>AppResLib.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ApplicationIcon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Background.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="ApplicationIcon.png" />
+    <Content Include="Background.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Images\1daymap.gif" />
     <Content Include="Images\appbar.addtofavs.light.png" />
