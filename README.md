@@ -9,14 +9,14 @@ It also includes regional and countrywide weather, pollen numbers, and news.
 Pictures
 --------
 
-![](http://dl.dropbox.com/u/1744224/WP7/DMI/ss1.png)  
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss2.png>
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss3.png>
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss4.png>
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss5.png>
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss6.png>
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss7.png>
-<http://dl.dropbox.com/u/1744224/WP7/DMI/ss8.png>
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss1.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss2.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss3.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss4.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss5.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss6.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss7.png>  
+<http://dl.dropbox.com/u/1744224/WP7/DMI/ss8.png>  
 
 Feedback
 ========
