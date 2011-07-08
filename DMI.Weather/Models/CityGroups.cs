@@ -27,7 +27,7 @@ namespace DMI.Models
 {
     public class CityGroups : List<CityGroup>
     {
-        private static readonly string Groups = "#abcdefghijklmnoprstuvæøå";
+        private static readonly string Groups = "abcdefghijklmnopqrstuvæøå";
 
         public CityGroups(List<City> cities)
         {

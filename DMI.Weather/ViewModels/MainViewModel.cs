@@ -86,33 +86,47 @@ namespace DMI.ViewModels
             this.PollenData = new ObservableCollection<PollenItem>();
             this.NewsItems = new ObservableCollection<NewsItem>();
             this.WeatherItems = new ObservableCollection<WeatherItem>();
+            this.IsInitialized = false;
 
             if (App.IsFirstStart == false)
             {
-                this.TwoDaysImage = ImageUtility.LoadFromLocalStorage(TwoDaysFileName);
-                this.SevenDaysImage = ImageUtility.LoadFromLocalStorage(SevenDaysFileName);
-                this.PollenImage = ImageUtility.LoadFromLocalStorage(PollenFileName);
-                this.RegionalImage = ImageUtility.LoadFromLocalStorage(RegionalFileName);
-                this.CountryImage = ImageUtility.LoadFromLocalStorage(CountryFileName);
-
-                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
-                {
-                    this.Favorites = (ObservableCollection<City>)
-                        IsolatedStorageSettings.ApplicationSettings[App.Favorites];
-
-                    this.Favorites = this.Favorites ?? new ObservableCollection<City>();
-                }
-
-                this.LoadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
-                this.LoadPollenInformation = new RelayCommand(LoadPollenInformationExecute);
-                this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
-                this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
-                this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
-                this.RemoveFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
-                this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
-                this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
-                this.GoToLocation = new RelayCommand(GoToLocationExecute);
+                Initialize();
             }
+        }
+
+        public bool IsInitialized
+        {
+            get;
+            set;
+        }
+
+        public void Initialize()
+        {
+            this.IsInitialized = true;
+            
+            this.TwoDaysImage = ImageUtility.LoadFromLocalStorage(TwoDaysFileName);
+            this.SevenDaysImage = ImageUtility.LoadFromLocalStorage(SevenDaysFileName);
+            this.PollenImage = ImageUtility.LoadFromLocalStorage(PollenFileName);
+            this.RegionalImage = ImageUtility.LoadFromLocalStorage(RegionalFileName);
+            this.CountryImage = ImageUtility.LoadFromLocalStorage(CountryFileName);
+
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+            {
+                this.Favorites = (ObservableCollection<City>)
+                    IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+
+                this.Favorites = this.Favorites ?? new ObservableCollection<City>();
+            }
+
+            this.LoadWeatherInformation = new RelayCommand(LoadWeatherInformationExecute);
+            this.LoadPollenInformation = new RelayCommand(LoadPollenInformationExecute);
+            this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
+            this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
+            this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
+            this.RemoveFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
+            this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
+            this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
+            this.GoToLocation = new RelayCommand(GoToLocationExecute);
         }
 
         #endregion
@@ -256,12 +270,15 @@ namespace DMI.ViewModels
                     int postal = DefaultPostalCode;
                     if (int.TryParse(currentLocation.PostalCode, out postal))
                     {
-                        return Denmark.GetValidPostalCode(postal);
-                    }
-                    else
-                    {
+                        if (currentLocation.CountryRegion == "Denmark")
+                        {
+                            return Denmark.GetValidPostalCode(postal);
+                        }
+                        
                         return postal;
                     }
+
+                    return postal;
                 }
 
                 return DefaultPostalCode;
@@ -500,12 +517,12 @@ namespace DMI.ViewModels
         {
             if (Favorites != null &&
                 Favorites.Any(c => c.PostalCode == PostalCode) == false &&
-                Denmark.PostalCodes.ContainsKey(PostalCode))
+                Denmark.DenmarkPostalCodes.ContainsKey(PostalCode))
             {
                 Favorites.Add(new City()
                 {
                     PostalCode = PostalCode,
-                    Name = Denmark.PostalCodes[PostalCode]
+                    Name = Denmark.DenmarkPostalCodes[PostalCode]
                 });
 
                 SaveFavorites();
@@ -591,11 +608,30 @@ namespace DMI.ViewModels
 
         private void UpdateCurrentLocation()
         {
-            TwoDaysImage = new BitmapImage(new Uri(string.Format(
-                AppResources.CityWeather2daysGraph, PostalCode)));
+            if (CurrentLocation != null && CurrentLocation.CountryRegion == "Greenland")
+            {
+                TwoDaysImage = new BitmapImage(new Uri(string.Format(
+                    AppResources.CityWeather2daysGraphGL, PostalCode)));
 
-            SevenDaysImage = new BitmapImage(new Uri(string.Format(
-                AppResources.CityWeather7daysGraph, PostalCode)));
+                SevenDaysImage = new BitmapImage(new Uri(string.Format(
+                    AppResources.CityWeather7daysGraphGL, PostalCode)));
+            }
+            else if (CurrentLocation != null && CurrentLocation.CountryRegion == "Faroe Islands")
+            {
+                TwoDaysImage = new BitmapImage(new Uri(string.Format(
+                    AppResources.CityWeather2daysGraphFR, PostalCode)));
+
+                SevenDaysImage = new BitmapImage(new Uri(string.Format(
+                    AppResources.CityWeather7daysGraphFR, PostalCode)));
+            }
+            else
+            {            
+                TwoDaysImage = new BitmapImage(new Uri(string.Format(
+                    AppResources.CityWeather2daysGraph, PostalCode)));
+
+                SevenDaysImage = new BitmapImage(new Uri(string.Format(
+                    AppResources.CityWeather7daysGraph, PostalCode)));
+            }
 
             PollenImage = new BitmapImage(new Uri(string.Format(
                 AppResources.PollenGraph, PostalCode)));

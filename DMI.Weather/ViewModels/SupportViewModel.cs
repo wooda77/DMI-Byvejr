@@ -22,6 +22,7 @@
 using System;
 using System.IO.IsolatedStorage;
 using System.Windows.Input;
+using System.Xml.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
@@ -29,7 +30,6 @@ using Microsoft.Phone.Tasks;
 namespace DMI.ViewModels
 {
     using DMI.Properties;
-    using System.Xml.Linq;
 
     public class SupportViewModel : ViewModelBase
     {

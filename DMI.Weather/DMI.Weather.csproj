@@ -25,7 +25,7 @@
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
+    <ExpressionBlendVersion>4.0.30422.0</ExpressionBlendVersion>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -83,9 +83,19 @@
       <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\GalaSoft.MvvmLight.WP7.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="ImageTools">
+      <HintPath>..\Packages\ImageTools\ImageTools.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageTools.Controls">
+      <HintPath>..\Packages\ImageTools\ImageTools.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageTools.IO.Gif">
+      <HintPath>..\Packages\ImageTools\ImageTools.IO.Gif.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Devices.Sensors" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
+    <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <HintPath>..\Packages\SilverlightToolkitWP.4.2011.2.1\lib\sl4\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
@@ -113,10 +123,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\GroupToBrushValueConverter.cs" />
-    <Compile Include="Converters\NegationConverter.cs" />
-    <Compile Include="Converters\StringIsEmptyToVisiblityConverter.cs" />
+    <Compile Include="Assets\DataTemplateSelector.cs" />
+    <Compile Include="Assets\GroupToBrushValueConverter.cs" />
+    <Compile Include="Assets\NegationConverter.cs" />
+    <Compile Include="Assets\PushpinScaleTransform.cs" />
+    <Compile Include="Assets\PushpinTemplateSelector.cs" />
+    <Compile Include="Assets\StringIsEmptyToVisiblityConverter.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
+    <Compile Include="Models\Beach.cs" />
     <Compile Include="Models\CityGroups.cs" />
     <Compile Include="Models\BingLocationResponse.cs" />
     <Compile Include="Models\City.cs" />
@@ -142,9 +156,16 @@
     </Compile>
     <Compile Include="Models\Resources.cs" />
     <Compile Include="SmartDispatcher.cs" />
+    <Compile Include="ViewModels\BeachWeatherViewModel.cs" />
     <Compile Include="ViewModels\ChooseCityViewModel.cs" />
     <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\SupportViewModel.cs" />
+    <Compile Include="Views\BeachWeatherInfoPage.xaml.cs">
+      <DependentUpon>BeachWeatherInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BeachWeatherPage.xaml.cs">
+      <DependentUpon>BeachWeatherPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChooseCityPage.xaml.cs">
       <DependentUpon>ChooseCityPage.xaml</DependentUpon>
     </Compile>
@@ -156,6 +177,9 @@
     <Compile Include="Views\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RadarPage.xaml.cs">
+      <DependentUpon>RadarPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SupportPage.xaml.cs">
       <DependentUpon>SupportPage.xaml</DependentUpon>
     </Compile>
@@ -165,6 +189,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
+    <Page Include="Resources\Styles\DefaultStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BeachWeatherInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BeachWeatherPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChooseCityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +217,10 @@
     <Page Include="Views\ImagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RadarPage.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SupportPage.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
@@ -191,10 +236,13 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Images\radaranim2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png" />
     <Content Include="Background.png" />
+    <Content Include="Images\blueflag.png" />
+    <Content Include="Images\blueflag2.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Images\1daymap.gif" />
     <Content Include="Images\appbar.addtofavs.light.png" />

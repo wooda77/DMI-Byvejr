@@ -20,26 +20,36 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Resources;
+using System.Windows;
+using System.Windows.Data;
 
-[assembly: AssemblyTitle("DMI Byvejr")]
-[assembly: AssemblyDescription("Vejrudsigten fra DMI")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Vejrudsigten fra DMI")]
-[assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2011")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+namespace DMI.Assets
+{
+    public class StringIsEmptyToVisiblityConverter : IValueConverter
+    {
+        #region IValueConverter Members
 
-[assembly: ComVisible(false)]
-[assembly: CLSCompliant(false)]
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return Visibility.Collapsed;
+            }
+            else if (value is string)
+            {
+                return string.IsNullOrEmpty((string)value) 
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+            }
 
-[assembly: Guid("8e2f2f7a-8b81-4813-b397-a0ed88f5301a")]
+            return value;
+        }
 
-[assembly: AssemblyVersion("1.8.0.0")]
-[assembly: AssemblyFileVersion("1.8.0.0")]
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
 
-[assembly: NeutralResourcesLanguageAttribute("en-US")]
+        #endregion
+    }
+}

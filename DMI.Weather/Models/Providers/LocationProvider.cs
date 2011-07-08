@@ -64,9 +64,22 @@ namespace DMI.Models
                      && (result.ResourceSets[0].Resources.Count > 0))
                     {
                         var resources = result.ResourceSets[0].Resources[0];
-                    
-                        civicAddress.AddressLine1 = resources.Address.AddressLine;
-                        civicAddress.PostalCode = resources.Address.PostalCode;
+
+                        civicAddress.CountryRegion = resources.Address.CountryRegion;
+
+                        if (resources.Address.CountryRegion == "Faroe Islands")                            
+                        {
+                            civicAddress.PostalCode = "6011";
+                        }
+                        else if(resources.Address.CountryRegion == "Greenland")
+                        {
+                            civicAddress.PostalCode = "4250";
+                        }
+                        else
+                        {
+                            civicAddress.AddressLine1 = resources.Address.AddressLine;
+                            civicAddress.PostalCode = resources.Address.PostalCode;
+                        }
                     }
 
                     callback(civicAddress, e.Error);

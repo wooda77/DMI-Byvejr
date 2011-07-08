@@ -84,7 +84,7 @@ namespace DMI.ViewModels
                 e.AddedItems.Count > 0)
             {
                 var city = e.AddedItems[0] as City;
-                var uri = string.Format("/Views/MainPage.xaml?PostalCode={0}", city.PostalCode);
+                var uri = string.Format("/Views/MainPage.xaml?PostalCode={0}&Country={1}", city.PostalCode, city.Country);
 
                 App.Navigate(new Uri(uri, UriKind.Relative));
             }

@@ -1,0 +1,57 @@
+﻿<phone:PhoneApplicationPage x:Class="DMI_Weather.RadarPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:imageTools="clr-namespace:ImageTools.Controls;assembly=ImageTools.Controls"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            d:DesignHeight="800"
+                            d:DesignWidth="480"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+    <phone:PhoneApplicationPage.Resources>
+        <imageTools:ImageConverter x:Key="ImageConverter" />
+    </phone:PhoneApplicationPage.Resources>
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="TitlePanel"
+                    Grid.Row="0"
+                    Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle"
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Text="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}" />
+            <TextBlock x:Name="PageTitle"
+                       Margin="9,-7,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Text="radar (nedbør)" />
+        </StackPanel>
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="0">
+            <imageTools:AnimatedImage HorizontalAlignment="Center"
+                                      VerticalAlignment="Top"
+                                      AnimationMode="Repeat"
+                                      Source="{Binding ImageSource, Converter={StaticResource ImageConverter}}" />
+            <StackPanel VerticalAlignment="Bottom">
+                <TextBlock Width="445"
+                           Margin="12,0,0,12"
+                           HorizontalAlignment="Left"
+                           Text="Billederne opdateres hver 10. minut og viser nedbør, dvs. regn, sne, slud mv. over dansk område."
+                           TextWrapping="Wrap" />
+                <TextBlock Margin="12,0,0,12"
+                           HorizontalAlignment="Left"
+                           Text="I stabilt højtryksvejr kan radarbølgerne spejles i et varmt luftlag i atmosfæren, således at de rammer jorden eller havet i stedet for at ramme skyerne. I disse tilfælde vil der optræde &quot;nedbørområder&quot; på radarbillederne, som er falske."
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

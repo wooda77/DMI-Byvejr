@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Data;
 
-namespace DMI.Converters
+namespace DMI.Assets
 {
     public class NegationConverter : IValueConverter
     {

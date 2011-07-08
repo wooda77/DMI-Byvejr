@@ -29,7 +29,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace DMI.ViewModels
 {
-    using Models;
+    using DMI.Models;
 
     public class ImageViewModel : ViewModelBase
     {

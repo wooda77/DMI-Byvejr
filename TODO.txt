@@ -1,0 +1,8 @@
+
+            TODO List
+
+Lokale vejrstationer (Temperatur / Middelvind)
+
+Radar (Nedbør fra Radar og Lynnedslag)
+
+Strandvejr (Bing Maps)

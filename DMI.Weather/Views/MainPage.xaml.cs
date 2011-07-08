@@ -20,6 +20,7 @@
 // THE SOFTWARE
 #endregion
 using System;
+using System.Linq;
 using System.Device.Location;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,6 +47,18 @@ namespace DMI.Views
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Gets the view model.
+        /// </summary>
+        /// <value>The view model.</value>
+        public MainViewModel ViewModel
+        {
+            get
+            {
+                return (DataContext as MainViewModel);
+            }
         }
 
         /// <summary>
@@ -211,17 +224,30 @@ namespace DMI.Views
 
                 return;
             }
+            else
+            {
+                if (ViewModel.IsInitialized == false)
+                {
+                    ViewModel.Initialize();
+                }
+            }
 
             base.OnNavigatedTo(e);
+
+            var queryString = NavigationContext.QueryString.Values.ToList();
 
             string postalCode = "";
             if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
             {
+                string country = "Denmark";
+                NavigationContext.QueryString.TryGetValue("Country", out country);
+
                 SmartDispatcher.BeginInvoke(() =>
                 {
                     (DataContext as MainViewModel).CurrentLocation = new CivicAddress()
                     {
-                        PostalCode = postalCode
+                        PostalCode = postalCode,
+                        CountryRegion = country,
                     };
                 });
             }

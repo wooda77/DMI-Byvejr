@@ -21,7 +21,9 @@
 #endregion
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 using DMI.Properties;
+using System;
 
 namespace DMI.Models
 {
@@ -31,13 +33,28 @@ namespace DMI.Models
         {
             get
             {
-                return Denmark.PostalCodes.Select(
-                    city => new City()
-                    {
-                        Name = city.Value,
-                        PostalCode = city.Key
-                    }
-                ).ToList();
+                return
+                    Denmark.DenmarkPostalCodes
+                        .Select(city => new City()
+                        {
+                            Name = city.Value,
+                            PostalCode = city.Key,
+                            Country = "Denmark",
+                        })
+                        .Concat(Denmark.GreenlandPostalCodes.Select(city => new City()
+                        {
+                            Name = city.Value,
+                            PostalCode = city.Key,
+                            Country = "Greenland",
+                        }))
+                        .Concat(Denmark.FaroeIslandsPostalCodes.Select(city => new City()
+                        {
+                            Name = city.Value,
+                            PostalCode = city.Key,
+                            Country = "Faroe Islands",
+                        }))
+                        .OrderBy(city => city.Name, StringComparer.CurrentCulture)
+                        .ToList();
             }
         }
 
@@ -181,130 +198,121 @@ namespace DMI.Models
             return AppResources.RegionalImage_NorthZealand;
         } 
 
-        public static IDictionary<int, string> PostalCodes = new Dictionary<int, string>()
+        public static IDictionary<int, string> GreenlandPostalCodes = new Dictionary<int, string>()
+        {
+            { 4220, "Aasiaat" },
+            { 4285, "Angissoq" },
+            { 4351, "Aputiteeq" },
+            { 9997, "Arsuk" },
+            { 4228, "Attu" },
+            { 4330, "Daneborg" },
+            { 4320, "Danmarkshavn" },
+            { 4207, "Hall Land" },
+            { 4313, "Henrik Krøyer Holme" },
+            { 4373, "Ikermit" },
+            { 4382, "Ikermiuarsuk" },
+            { 4221, "Ilulissat" },
+            { 4339, "Ittoqqortoormiit" },
+            { 9998, "Ivittuut" },
+            { 9995, "Kangaamiut" },
+            { 4825, "Kangaatsiaq" },
+            { 4231, "Kangerlussuaq" },
+            { 4301, "Kap Morris Jesup" },
+            { 4208, "Kitsissorsuit" },
+            { 4203, "Kitsissut/Careyøer" },
+            { 4241, "Maniitsoq" },
+            { 4283, "Nanortalik" },
+            { 4280, "Narsaq" },
+            { 4270, "Narsarsuaq" },
+            { 4266, "Nunarsuit" },
+            { 4250, "Nuuk" },
+            { 4214, "Nuussuaq" },
+            { 4260, "Paamiut" },
+            { 4202, "Pituffik" },
+            { 4390, "Prins Christian Sund" },
+            { 4205, "Qaanaaq" },
+            { 4272, "Qaqortoq" },
+            { 4817, "Qasigiannguit" },
+            { 4219, "Qeqertarsuaq" },
+            { 9996, "Qeqertarsuatsiaat" },
+            { 9994, "Savissivik" },
+            { 4242, "Sioralik" },
+            { 4234, "Sisimiut" },
+            { 4312, "Station Nord" },
+            { 4360, "Tasiilaq" },
+            { 9999, "Timmiarmiut" },
+            { 4253, "Ukiivik" },
+            { 4211, "Upernavik" },
+            { 4213, "Uummannaq" },
+        };
+
+        public static IDictionary<int, string> FaroeIslandsPostalCodes = new Dictionary<int, string>()
+        {
+            { 6009, "Akraberg" },            { 6012, "Fugloy" },            { 6005, "Mykines" },            { 6010, "Sørvágur/Vágar" },            { 6011, "Tórshavn" },        };
+
+        public static IDictionary<int, string> DenmarkPostalCodes = new Dictionary<int, string>()
         {
             { 5320, "Agedrup" },
-
             { 6753, "Agerbæk" },
-
             { 6534, "Agerskov" },
-
             { 2620, "Albertslund" },
-
             { 3450, "Allerød" },
-
             { 3770, "Allinge/Sandvig" },
-
             { 8961, "Allingåbro" },
-
             { 6051, "Almind" },
-
             { 8592, "Anholt" },
-
             { 8643, "Ans By" },
-
             { 6823, "Ansager" },
-
             { 9510, "Arden" },
-
             { 4792, "Askeby" },
-
             { 4550, "Asnæs" },
-
             { 5466, "Asperup" },
-
             { 5610, "Assens" },
-
             { 9340, "Asaa" },
-
             { 6440, "Augustenborg" },
-
             { 7490, "Aulum" },
-
             { 8963, "Auning" },
-
             { 5935, "Bagenkop" },
-
             { 2880, "Bagsværd" },
-
             { 8444, "Balle på Djursland" },
-
             { 2750, "Ballerup" },
-
             { 7150, "Barrit" },
-
             { 8330, "Beder" },
-
             { 7755, "Bedsted Thy" },
-
             { 6541, "Bevtoft" },
-
             { 6852, "Billum" },
-
             { 7190, "Billund" },
-
             { 9881, "Bindslev" },
-
             { 3460, "Birkerød" },
-
             { 8850, "Bjerringbro" },
-
             { 6091, "Bjert" },
-
             { 4632, "Bjæverskov" },
-
             { 9492, "Blokhus" },
-
             { 5491, "Blommenslyst" },
-
             { 6857, "Blåvand" },
-
             { 4242, "Boeslunde" },
-
             { 5400, "Bogense" },
-
             { 4793, "Bogø By" },
-
             { 6392, "Bolderslev" },
-
             { 7441, "Bording" },
-
             { 4791, "Borre" },
-
             { 4140, "Borup på Sjælland" },
-
             { 8220, "Brabrand" },
-
             { 6740, "Bramming" },
-
             { 7330, "Brande" },
-
             { 6535, "Branderup J" },
-
             { 6261, "Bredebro" },
-
             { 7182, "Bredsten" },
-
             { 5464, "Brenderup Fyn" },
-
             { 6310, "Broager" },
-
             { 5672, "Broby" },
-
             { 9460, "Brovst" },
-
             { 8654, "Bryrup" },
-
             { 8740, "Brædstrup" },
-
             { 2605, "Brøndby" },
-
             { 2660, "Brøndby Strand" },
-
             { 9700, "Brønderslev" },
-
             { 2700, "Brønshøj" },
-
             { 6650, "Brørup" },
 
             { 6372, "Bylderup - Bov" },

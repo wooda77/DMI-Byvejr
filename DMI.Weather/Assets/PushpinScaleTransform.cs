@@ -19,44 +19,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+// Thanks to Chris Pietschmann 
+// http://pietschsoft.com/post/2010/06/04/Resizing-and-Auto-Scaling-Pushpin-in-Bing-Maps-Silverlight.aspx
 using System;
+using System.Windows.Data;
+using System.Windows.Media;
 
-namespace DMI.Models
+namespace DMI.Assets
 {
-    public class City : IEquatable<City>, IComparable<City>
+    public class PushpinScaleTransform : IValueConverter
     {
-        public string Name
+        #region IValueConverter Members
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            get;
-            set;
+            double currentZoomLevel = (double)value;
+
+            var scaleVal = (0.02 * (currentZoomLevel + 1)) + 0.3;
+
+            if (currentZoomLevel >= 12)
+            {
+                scaleVal = 1.0;
+            }
+
+            var transform = new ScaleTransform();
+            transform.ScaleX = scaleVal;
+            transform.ScaleY = scaleVal;
+
+            if (currentZoomLevel < 12)
+            {
+                    transform.CenterX = 13.2;
+                    transform.CenterY = 48;
+            }
+
+            return transform;
         }
 
-        public int PostalCode
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            get;
-            set;
-        }
-
-        public string Country
-        {
-            get;
-            set;
-        }
-
-        #region IEquatable<City> Members
-
-        public bool Equals(City other)
-        {
-            return this.PostalCode == other.PostalCode;
-        }
-
-        #endregion
-
-        #region IComparable<City> Members
-
-        public int CompareTo(City other)
-        {
-            return this.Name.CompareTo(other.Name);
+            throw new NotImplementedException();
         }
 
         #endregion

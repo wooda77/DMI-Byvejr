@@ -3,7 +3,7 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:dmi_converters="clr-namespace:DMI.Converters"
+                            xmlns:dmi_converters="clr-namespace:DMI.Assets"
                             xmlns:dmi_viewmodels="clr-namespace:DMI.ViewModels"
                             xmlns:dmi_views="clr-namespace:DMI.Views"
                             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -22,7 +22,6 @@
                             OrientationChanged="Page_OrientationChanged"
                             shell:SystemTray.IsVisible="True"
                             SupportedOrientations="PortraitOrLandscape"
-                            toolkit:TiltEffect.IsTiltEnabled="True"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.Resources>
         <ResourceDictionary>
@@ -106,37 +105,41 @@
                          Header="{Binding AppResources.CountryHeader,
                                           Source={StaticResource AppResources}}">
                 <Grid>
-                    <Image x:Name="CountryImage"
-                           Height="220"
-                           Margin="0"
-                           VerticalAlignment="Top"
-                           SizeChanged="Image_SizeChanged"
-                           Source="{Binding CountryImage}"
-                           Stretch="UniformToFill"
-                           Tag="{Binding CountryImageFilename}">
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener Tap="OpenInLandscapeMode" />
-                        </toolkit:GestureService.GestureListener>
-                    </Image>
-                    <ListBox Margin="24,244,24,0"
-                             BorderThickness="0"
-                             ItemsSource="{Binding WeatherItems}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel x:Name="LayoutRoot"
-                                            Margin="0,0,0,15"
-                                            DataContext="{Binding}">
-                                    <TextBlock Margin="0,0,15,0"
-                                               Style="{StaticResource PhoneTextLargeStyle}"
-                                               Text="{Binding Title}"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Margin="15,0,15,0"
-                                               Style="{StaticResource PhoneTextNormalStyle}"
-                                               Text="{Binding Description}"
-                                               TextWrapping="Wrap" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                    <ListBox toolkit:TiltEffect.IsTiltEnabled="False">
+                        <Image x:Name="CountryImage"
+                               Height="220"
+                               Margin="0"
+                               VerticalAlignment="Top"
+                               SizeChanged="Image_SizeChanged"
+                               Source="{Binding CountryImage}"
+                               Stretch="UniformToFill"
+                               Tag="{Binding CountryImageFilename}">
+                            <toolkit:GestureService.GestureListener>
+                                <toolkit:GestureListener Tap="OpenInLandscapeMode" />
+                            </toolkit:GestureService.GestureListener>
+                        </Image>
+                        <ListBox Margin="24,0,24,0"
+                                 BorderThickness="0"
+                                 ItemsSource="{Binding WeatherItems}"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                 toolkit:TiltEffect.IsTiltEnabled="False">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel x:Name="LayoutRoot"
+                                                Margin="0,0,0,15"
+                                                DataContext="{Binding}">
+                                        <TextBlock Margin="0,0,15,0"
+                                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                                   Text="{Binding Title}"
+                                                   TextWrapping="Wrap" />
+                                        <TextBlock Margin="15,0,15,0"
+                                                   Style="{StaticResource PhoneTextNormalStyle}"
+                                                   Text="{Binding Description}"
+                                                   TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </ListBox>
                 </Grid>
             </c:PivotItem>
@@ -192,13 +195,128 @@
                     </StackPanel>
                 </ScrollViewer>
             </c:PivotItem>
-            <!--
-                <c:PivotItem x:Name="RadarPivotItem"
-                Margin="0,28,0,0"
-                Header="{Binding AppResources.RadarHeader,
-                Source={StaticResource AppResources}}">
-                </c:PivotItem>
-            -->
+            <c:PivotItem x:Name="MapsPivotItem"
+                         Margin="0,28,0,0"
+                         Header="{Binding AppResources.MapsHeader,
+                                          Source={StaticResource AppResources}}">
+                <StackPanel Margin="12,0"
+                            Orientation="Vertical">
+                    <StackPanel Margin="12,0"
+                                Orientation="Horizontal">
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="26"
+                                  Height="18"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource SwimmerImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="Strandvejr" />
+                    </StackPanel>
+                    <StackPanel Margin="12,0"
+                                Orientation="Horizontal">
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="26"
+                                  Height="26"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource CompassImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="Radar (nedbør)" />
+                    </StackPanel>
+                    <StackPanel Margin="12,0"
+                                Orientation="Horizontal" Visibility="Collapsed">
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="22"
+                                  Height="26"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource UmbrellaImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="Borgervejr" />
+                    </StackPanel>
+                    <StackPanel Margin="12,0"
+                                Orientation="Horizontal">
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="26"
+                                  Height="18"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource RainCloudImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="Vejrkort" />
+                    </StackPanel>
+                    <StackPanel Margin="12,0"
+                                Orientation="Horizontal" Visibility="Collapsed">
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="15"
+                                  Height="26"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource WaterDropImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="Vandstand" />
+                    </StackPanel>
+                    <StackPanel Margin="12,0"
+                                Orientation="Horizontal" Visibility="Collapsed">
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="26"
+                                  Height="24"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource AnchorImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="Tidevand" />
+                    </StackPanel>
+                </StackPanel>
+            </c:PivotItem>
             <c:PivotItem x:Name="FavoritesPivotItem"
                          Margin="12,28,12,0"
                          Header="{Binding AppResources.FavoritesHeader,
@@ -268,7 +386,8 @@
                 <Grid Margin="12,0">
                     <ListBox x:Name="NewsListBox"
                              BorderThickness="0"
-                             ItemsSource="{Binding NewsItems}">
+                             ItemsSource="{Binding NewsItems}"
+                             toolkit:TiltEffect.IsTiltEnabled="True">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <mvvm:EventToCommand Command="{Binding NewsItemSelected}"
@@ -286,10 +405,11 @@
                                                Text="{Binding Title}"
                                                TextWrapping="Wrap" />
                                     <TextBlock Margin="12,0"
-                                               Visibility="{Binding Description, Converter={StaticResource StringIsEmptyToVisiblityConverter}}"
                                                Style="{StaticResource PhoneTextNormalStyle}"
                                                Text="{Binding Description}"
-                                               TextWrapping="Wrap" />
+                                               TextWrapping="Wrap"
+                                               Visibility="{Binding Description,
+                                                                    Converter={StaticResource StringIsEmptyToVisiblityConverter}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

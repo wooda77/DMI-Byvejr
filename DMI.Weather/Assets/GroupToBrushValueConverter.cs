@@ -12,7 +12,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using DMI.Models;
 
-namespace DMI.Converters
+namespace DMI.Assets
 {
     public class GroupToBrushValueConverter : IValueConverter
     {

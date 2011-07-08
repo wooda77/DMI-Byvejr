@@ -3,7 +3,7 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:dmi_converters="clr-namespace:DMI.Converters"
+                            xmlns:dmi_converters="clr-namespace:DMI.Assets"
                             xmlns:dmi_models="clr-namespace:DMI.Models"
                             xmlns:dmi_viewmodels="clr-namespace:DMI.ViewModels"
                             xmlns:dmi_views="clr-namespace:DMI.Views"

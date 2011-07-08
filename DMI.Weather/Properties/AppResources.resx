@@ -130,7 +130,7 @@
     <value>favorites</value>
   </data>
   <data name="AppBar_GoToLocation" xml:space="preserve">
-    <value>weather here</value>
+    <value>me</value>
   </data>
   <data name="AppBar_Support" xml:space="preserve">
     <value>support</value>
@@ -147,8 +147,20 @@
   <data name="CityWeather2daysGraph" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long</value>
   </data>
+  <data name="CityWeather2daysGraphFR" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;lang=fo&amp;mode=long</value>
+  </data>
+  <data name="CityWeather2daysGraphGL" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by_gl={0}&amp;mode=long</value>
+  </data>
   <data name="CityWeather7daysGraph" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9</value>
+  </data>
+  <data name="CityWeather7daysGraphFR" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag2_6_glfo&amp;lang=fo</value>
+  </data>
+  <data name="CityWeather7daysGraphGL" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag3_9</value>
   </data>
   <data name="CityWeatherHeader" xml:space="preserve">
     <value>city weather</value>
@@ -183,6 +195,9 @@
   <data name="InternetError" xml:space="preserve">
     <value>No internet connection is available. Please try again later.</value>
   </data>
+  <data name="MapsHeader" xml:space="preserve">
+    <value>diverse</value>
+  </data>
   <data name="NewsHeader" xml:space="preserve">
     <value>news and tv</value>
   </data>
@@ -194,9 +209,6 @@
   </data>
   <data name="PollenHeader" xml:space="preserve">
     <value>pollen</value>
-  </data>
-  <data name="RadarHeader" xml:space="preserve">
-    <value>radar</value>
   </data>
   <data name="RegionalHeader" xml:space="preserve">
     <value>regional</value>

@@ -97,7 +97,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to weather here.
+        ///   Looks up a localized string similar to me.
         /// </summary>
         public static string AppBar_GoToLocation {
             get {
@@ -151,11 +151,47 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;lang=fo&amp;mode=long.
+        /// </summary>
+        public static string CityWeather2daysGraphFR {
+            get {
+                return ResourceManager.GetString("CityWeather2daysGraphFR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by_gl={0}&amp;mode=long.
+        /// </summary>
+        public static string CityWeather2daysGraphGL {
+            get {
+                return ResourceManager.GetString("CityWeather2daysGraphGL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9.
         /// </summary>
         public static string CityWeather7daysGraph {
             get {
                 return ResourceManager.GetString("CityWeather7daysGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag2_6_glfo&amp;lang=fo.
+        /// </summary>
+        public static string CityWeather7daysGraphFR {
+            get {
+                return ResourceManager.GetString("CityWeather7daysGraphFR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag3_9.
+        /// </summary>
+        public static string CityWeather7daysGraphGL {
+            get {
+                return ResourceManager.GetString("CityWeather7daysGraphGL", resourceCulture);
             }
         }
         
@@ -259,6 +295,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to diverse.
+        /// </summary>
+        public static string MapsHeader {
+            get {
+                return ResourceManager.GetString("MapsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to news and tv.
         /// </summary>
         public static string NewsHeader {
@@ -291,15 +336,6 @@ namespace DMI.Properties {
         public static string PollenHeader {
             get {
                 return ResourceManager.GetString("PollenHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to radar.
-        /// </summary>
-        public static string RadarHeader {
-            get {
-                return ResourceManager.GetString("RadarHeader", resourceCulture);
             }
         }
         
