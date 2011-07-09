@@ -19,39 +19,58 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Device.Location;
 
-namespace DMI.Assets
+namespace DMI.Model
 {
-    public class DataTemplateSelector : ContentControl
+    public class Beach
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        private GeoCoordinate location;
+        
+        public Beach()
         {
-            throw new NotImplementedException();
+            this.HasBlueFlag = true;
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        public GeoCoordinate Location
         {
-            base.OnContentChanged(oldContent, newContent);
+            get
+            {
+                if (location == null)
+                    location = new GeoCoordinate(this.Latitude, this.Longitude);
 
-            ContentTemplate = SelectTemplate(newContent, this);
+                return location;
+            }
+        }
+
+        public int ID
+        {
+            get;
+            set;
+        }
+
+        public double Latitude
+        {
+            get;
+            set;
+        }
+
+        public double Longitude
+        {
+            get;
+            set;
+        }
+
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public bool HasBlueFlag
+        {
+            get;
+            set;
         }
     }
 }

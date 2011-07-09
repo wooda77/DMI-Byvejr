@@ -19,32 +19,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Windows;
-using DMI.Model;
+using System.Collections.Generic;
 
-namespace DMI.Assets
+namespace DMI
 {
-    public class PushpinTemplateSelector : DataTemplateSelector
+    public static class IEnumerableEx
     {
-        public DataTemplate BlueFlag
+        public static IEnumerable<T[]> Chunks<T>(this IEnumerable<T> self, int size)
         {
-            get;
-            set;
-        }
+            var chunk = new T[size];
 
-        public DataTemplate NoFlag
-        {
-            get;
-            set;
-        }
+            int index = 0;
 
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            var beach = item as Beach;
-            if (beach != null)
-                return beach.HasBlueFlag ? BlueFlag : NoFlag;
+            foreach (var item in self)
+            {
+                chunk[index++] = item;
 
-            return base.SelectTemplate(item, container);
+                if (index >= size)
+                {
+                    yield return chunk;
+                    
+                    index = 0;
+                    chunk = new T[size];
+                }
+            }
         }
     }
 }

@@ -117,100 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllowGPSUse" xml:space="preserve">
-    <value>Allow use of GPS location</value>
+  <data name="BingMapsKey" xml:space="preserve">
+    <value>AlqAO_r2pYHWEKTnYolKAITA9Ix8p5mHO26jZ2bWZbmn1FHMU6eEJKRgqnS2v-P4</value>
   </data>
-  <data name="AppBar_AddToFavorites" xml:space="preserve">
-    <value>add favorite</value>
+  <data name="Denmark_CityWeatherSevenDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9</value>
   </data>
-  <data name="AppBar_ChooseCity" xml:space="preserve">
-    <value>choose city</value>
+  <data name="Denmark_CityWeatherThreeDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long</value>
   </data>
-  <data name="AppBar_Favorites" xml:space="preserve">
-    <value>favorites</value>
+  <data name="Denmark_CountryFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm</value>
   </data>
-  <data name="AppBar_GoToLocation" xml:space="preserve">
-    <value>me</value>
+  <data name="Denmark_CountryImage" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_dk.png</value>
   </data>
-  <data name="AppBar_Support" xml:space="preserve">
-    <value>support</value>
+  <data name="FaroeIslands_CityWeatherSevenDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag2_6_glfo&amp;lang=fo</value>
   </data>
-  <data name="AppName" xml:space="preserve">
-    <value>App Name: </value>
+  <data name="FaroeIslands_CityWeatherThreeDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;lang=fo&amp;mode=long</value>
   </data>
-  <data name="AppTitle" xml:space="preserve">
-    <value>WEATHER FORECAST FROM DMI</value>
+  <data name="FaroeIslands_CountryFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/index/faroerne.htm</value>
   </data>
-  <data name="AppTitleSmall" xml:space="preserve">
-    <value>Weather Forecast from DMI</value>
+  <data name="Greenland_CityWeatherSevenDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag3_9</value>
   </data>
-  <data name="BeachWeatherMenuItem" xml:space="preserve">
-    <value>Beach Weather</value>
+  <data name="Greenland_CityWeatherThreeDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by_gl={0}&amp;mode=long</value>
   </data>
-  <data name="CityWeatherHeader" xml:space="preserve">
-    <value>city weather</value>
+  <data name="Greenland_CountryFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/index/gronland/grover.htm</value>
   </data>
-  <data name="CountryHeader" xml:space="preserve">
-    <value>country</value>
+  <data name="NewsFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/rss-nyheder</value>
   </data>
-  <data name="CreatedBy" xml:space="preserve">
-    <value>Created by: </value>
+  <data name="PollenFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/pollen-feed.xml</value>
   </data>
-  <data name="EmailHelpText" xml:space="preserve">
-    <value>Please write comments or technical questions to: email: 10229@iha.dk</value>
+  <data name="PollenImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}</value>
   </data>
-  <data name="FavoritesHeader" xml:space="preserve">
-    <value>favorites</value>
+  <data name="RegionalImage_Bornholm" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_bornholm.png</value>
   </data>
-  <data name="GPSDisabledError" xml:space="preserve">
-    <value>Could not resolve the location, because Location Servies aren't enabled.</value>
+  <data name="RegionalImage_EastJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_ostjylland.png</value>
   </data>
-  <data name="GPSHelpText" xml:space="preserve">
-    <value>The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area.</value>
+  <data name="RegionalImage_Fyn" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_fyn.png</value>
   </data>
-  <data name="GPSResolveError" xml:space="preserve">
-    <value>Could not resolve the location.</value>
+  <data name="RegionalImage_MiddleJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_vestjylland.png</value>
   </data>
-  <data name="InternetError" xml:space="preserve">
-    <value>No internet connection is available. Please try again later.</value>
+  <data name="RegionalImage_NorthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_nordjylland.png</value>
   </data>
-  <data name="MapsHeader" xml:space="preserve">
-    <value>diverse</value>
+  <data name="RegionalImage_NorthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_kobenhavn.png</value>
   </data>
-  <data name="NewsHeader" xml:space="preserve">
-    <value>news and tv</value>
+  <data name="RegionalImage_SouthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_sydjylland.png</value>
   </data>
-  <data name="PollenHeader" xml:space="preserve">
-    <value>pollen</value>
+  <data name="RegionalImage_SouthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/femdgn_vestsjaelland.png</value>
   </data>
-  <data name="RadarAnimation" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/radaranim2.gif</value>
+  <data name="RegionalText_Bornholm" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_born.htm</value>
   </data>
-  <data name="RadarHeaderSmall" xml:space="preserve">
-    <value>radar (rain)</value>
+  <data name="RegionalText_EastJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_ostj.htm</value>
   </data>
-  <data name="RadarMenuItem" xml:space="preserve">
-    <value>Radar (rain)</value>
+  <data name="RegionalText_Fyn" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_fyn.htm</value>
   </data>
-  <data name="RegionalHeader" xml:space="preserve">
-    <value>regional</value>
+  <data name="RegionalText_MiddleJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_midtvj.htm</value>
   </data>
-  <data name="RemoveFavorite" xml:space="preserve">
-    <value>remove favorite</value>
+  <data name="RegionalText_NorthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_nord.htm</value>
   </data>
-  <data name="SendEmail" xml:space="preserve">
-    <value>send email</value>
+  <data name="RegionalText_NorthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_kbhnord.htm</value>
   </data>
-  <data name="SupportHeader" xml:space="preserve">
-    <value>support</value>
+  <data name="RegionalText_SouthJytland" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_sydson.htm</value>
   </data>
-  <data name="TemperatureImageSource" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;tabel=dag1&amp;mode=long</value>
+  <data name="RegionalText_SouthZealand" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm</value>
   </data>
-  <data name="Version" xml:space="preserve">
-    <value>Version: </value>
-  </data>
-  <data name="WavesImageSource" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag1&amp;param=bolger</value>
+  <data name="WebTVFeed" xml:space="preserve">
+    <value>http://tv.dmi.dk/js/photos?raw</value>
   </data>
 </root>

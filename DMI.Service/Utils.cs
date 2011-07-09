@@ -20,38 +20,45 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Text;
+using System.Xml.Linq;
 
-namespace DMI.Assets
+namespace DMI.Service
 {
-    public class DataTemplateSelector : ContentControl
+    public static class Utils
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        public static string TryGetValue(this XElement element, string defaultValue = "")
         {
-            throw new NotImplementedException();
+            if (element != null)
+                return element.Value;
+
+            return defaultValue;
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        public static string ParsePollenData(string data)
         {
-            base.OnContentChanged(oldContent, newContent);
+            if (string.IsNullOrEmpty(data))
+                throw new ArgumentException("data");
 
-            ContentTemplate = SelectTemplate(newContent, this);
+            string input = data.Replace("\n", "").Replace(" ", "");
+
+            var result = new StringBuilder();
+
+            string[] parts = input.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+            {
+                var partValues = part.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if ((partValues.Length == 2) && (partValues[1] != "-"))
+                    result.AppendFormat("{0}: {1} , ", partValues[0], partValues[1]);
+            }
+
+            string output = result.ToString();
+
+            if (string.IsNullOrEmpty(output) == false && output.Length >= 4)
+                output = output.Substring(0, output.Length - 3);
+
+            return output;
         }
     }
 }

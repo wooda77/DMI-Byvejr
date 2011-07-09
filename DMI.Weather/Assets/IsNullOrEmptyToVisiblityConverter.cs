@@ -21,37 +21,31 @@
 #endregion
 using System;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace DMI.Assets
 {
-    public class DataTemplateSelector : ContentControl
+    public class IsNullOrEmptyToVisiblityConverter : IValueConverter
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        #region IValueConverter Members
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+                return Visibility.Collapsed;
+            else if (value is string)
+                return string.IsNullOrEmpty((string)value) 
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+            else
+                return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
-        {
-            base.OnContentChanged(oldContent, newContent);
-
-            ContentTemplate = SelectTemplate(newContent, this);
-        }
+        #endregion
     }
 }

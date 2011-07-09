@@ -19,39 +19,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Device.Location;
 
-namespace DMI.Assets
+namespace DMI.Service
 {
-    public class DataTemplateSelector : ContentControl
+    public class GeoLocationCity
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        public GeoLocationCity(int postalCode, string name, double latitude, double longitude)
         {
-            throw new NotImplementedException();
+            this.PostalCode = postalCode;
+            this.Name = name;
+            this.Location = new GeoCoordinate(latitude, longitude);
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        public string Name
         {
-            base.OnContentChanged(oldContent, newContent);
+            get;
+            set;
+        }
 
-            ContentTemplate = SelectTemplate(newContent, this);
+        public int PostalCode
+        {
+            get;
+            set;
+        }
+
+        public GeoCoordinate Location
+        {
+            get;
+            set;
         }
     }
 }

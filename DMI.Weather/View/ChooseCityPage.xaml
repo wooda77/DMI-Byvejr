@@ -1,0 +1,109 @@
+﻿<phone:PhoneApplicationPage x:Class="DMI.View.ChooseCityPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:locale_assets="clr-namespace:DMI.Assets"
+                            xmlns:locale_viewmodel="clr-namespace:DMI.ViewModel"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="False"
+                            SupportedOrientations="PortraitOrLandscape"
+                            toolkit:TiltEffect.IsTiltEnabled="True"
+                            mc:Ignorable="d">
+    <phone:PhoneApplicationPage.DataContext>
+        <locale_viewmodel:ChooseCityViewModel />
+    </phone:PhoneApplicationPage.DataContext>
+    <Grid>
+        <Grid.Resources>
+            <locale_assets:GroupToBrushValueConverter x:Key="groupBrush" />
+        </Grid.Resources>
+        <c:Pivot Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}">
+            <c:PivotItem Header="{Binding AppResources.AppBar_ChooseCity, Source={StaticResource AppResources}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBox Name="SearchTextBox"
+                             Grid.Row="0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <mvvm:EventToCommand Command="{Binding TextChanged,
+                                                                       Mode=OneWay}"
+                                                     CommandParameter="{Binding ElementName=SearchTextBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <Grid Grid.Row="1">
+                        <toolkit:LongListSelector x:Name="ChooseCityGrid"
+                                                  Margin="12,0"
+                                                  Background="Transparent"
+                                                  ItemsSource="{Binding Cities}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <mvvm:EventToCommand Command="{Binding SelectionChanged,
+                                                                           Mode=OneTime}"
+                                                         PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <toolkit:LongListSelector.GroupItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </toolkit:LongListSelector.GroupItemsPanel>
+                            <toolkit:LongListSelector.GroupItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="99"
+                                            Height="99"
+                                            Margin="6"
+                                            Background="{Binding Converter={StaticResource groupBrush}}"
+                                            IsHitTestVisible="{Binding HasItems}">
+                                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                                   VerticalAlignment="Bottom"
+                                                   FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                                   FontSize="36"
+                                                   Foreground="{StaticResource PhoneForegroundBrush}"
+                                                   Text="{Binding Key}" />
+                                    </Border>
+                                </DataTemplate>
+                            </toolkit:LongListSelector.GroupItemTemplate>
+                            <toolkit:LongListSelector.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <Border Background="Transparent">
+                                        <Border Width="75"
+                                                Height="75"
+                                                HorizontalAlignment="Left"
+                                                Background="{StaticResource PhoneAccentBrush}">
+                                            <TextBlock VerticalAlignment="Bottom"
+                                                       Foreground="{StaticResource PhoneForegroundBrush}"
+                                                       Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                                       Text="{Binding Key}" />
+                                        </Border>
+                                    </Border>
+                                </DataTemplate>
+                            </toolkit:LongListSelector.GroupHeaderTemplate>
+                            <toolkit:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="{StaticResource PhoneTouchTargetOverhang}">
+                                        <TextBlock Canvas.Left="62"
+                                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                                   Text="{Binding Name}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </toolkit:LongListSelector.ItemTemplate>
+                        </toolkit:LongListSelector>
+                    </Grid>
+                </Grid>
+            </c:PivotItem>
+        </c:Pivot>
+    </Grid>
+</phone:PhoneApplicationPage>

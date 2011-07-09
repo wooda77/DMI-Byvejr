@@ -20,38 +20,60 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Linq;
+using System.Collections.Generic;
 
-namespace DMI.Assets
+namespace DMI.Model
 {
-    public class DataTemplateSelector : ContentControl
+    public class CityGroups : List<CityGroup>
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        private static readonly string Groups = "abcdefghijklmnopqrstuvæøå";
+
+        public CityGroups(List<City> cities)
         {
-            throw new NotImplementedException();
+            if (cities == null)
+                throw new ArgumentException("cities");
+
+            cities.Sort();
+
+            var groups = new Dictionary<string, CityGroup>();
+
+            foreach (char c in Groups)
+            {
+                var group = new CityGroup(c.ToString());                
+                this.Add(group);
+                groups[c.ToString()] = group;
+            }
+
+            foreach (City city in cities)
+            {
+                if (city.Name.Length > 0) 
+                {
+                    groups[char.ToLower(city.Name[0]).ToString()].Add(city);
+                }
+            }
+        }
+    }
+
+    public class CityGroup : List<City>
+    {
+        public CityGroup(string category)
+        {
+            Key = category;
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        public string Key
         {
-            base.OnContentChanged(oldContent, newContent);
+            get;
+            set;
+        }
 
-            ContentTemplate = SelectTemplate(newContent, this);
+        public bool HasItems
+        {
+            get
+            {
+                return Count > 0;
+            }
         }
     }
 }

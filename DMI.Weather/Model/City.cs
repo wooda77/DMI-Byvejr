@@ -20,38 +20,45 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
-using System.Windows.Controls;
 
-namespace DMI.Assets
+namespace DMI.Model
 {
-    public class DataTemplateSelector : ContentControl
+    public class City : IEquatable<City>, IComparable<City>
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        public string Name
         {
-            throw new NotImplementedException();
+            get;
+            set;
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        public int PostalCode
         {
-            base.OnContentChanged(oldContent, newContent);
-
-            ContentTemplate = SelectTemplate(newContent, this);
+            get;
+            set;
         }
+
+        public string Country
+        {
+            get;
+            set;
+        }
+
+        #region IEquatable<City> Members
+
+        public bool Equals(City other)
+        {
+            return this.PostalCode == other.PostalCode;
+        }
+
+        #endregion
+
+        #region IComparable<City> Members
+
+        public int CompareTo(City other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
+
+        #endregion
     }
 }

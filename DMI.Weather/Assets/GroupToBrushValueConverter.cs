@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using DMI.Models;
+using DMI.Model;
 
 namespace DMI.Assets
 {
@@ -20,20 +20,12 @@ namespace DMI.Assets
         {
             if (value != null && value is CityGroup)
             {
-                object result = null;
-
                 var group = value as CityGroup;
 
                 if (group.Count == 0)
-                {
-                    result = (SolidColorBrush)Application.Current.Resources["PhoneChromeBrush"];
-                }
+                    return (SolidColorBrush)Application.Current.Resources["PhoneChromeBrush"];
                 else
-                {
-                    result = (SolidColorBrush)Application.Current.Resources["PhoneAccentBrush"];
-                }
-        
-                return result;
+                    return (SolidColorBrush)Application.Current.Resources["PhoneAccentBrush"];
             }
 
             return value;

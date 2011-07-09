@@ -1,0 +1,71 @@
+﻿<phone:PhoneApplicationPage x:Class="DMI.View.SupportPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:dmi_viewmodels="clr-namespace:DMI.ViewModel"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            d:DesignHeight="800"
+                            d:DesignWidth="480"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            SupportedOrientations="Portrait"
+                            mc:Ignorable="d">
+    <phone:PhoneApplicationPage.DataContext>
+        <dmi_viewmodels:SupportViewModel />
+    </phone:PhoneApplicationPage.DataContext>
+    <Grid>
+        <controls:Pivot Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}">
+            <controls:PivotItem Header="{Binding AppResources.SupportHeader, Source={StaticResource AppResources}}">
+                <Grid>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding AppResources.AppName, Source={StaticResource AppResources}}" />
+                            <TextBlock Text="{Binding AppResources.AppTitleSmall, Source={StaticResource AppResources}}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding AppResources.Version, Source={StaticResource AppResources}}" />
+                            <TextBlock Text="{Binding Version}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding AppResources.CreatedBy, Source={StaticResource AppResources}}" />
+                            <TextBlock Text="Claus Jørgensen" />
+                        </StackPanel>
+                        <TextBlock Margin="0,10,0,0"
+                                   Text="{Binding AppResources.EmailHelpText,
+                                                  Source={StaticResource AppResources}}"
+                                   TextWrapping="Wrap" />
+                        <Button Content="{Binding AppResources.SendEmail, Source={StaticResource AppResources}}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <mvvm:EventToCommand Command="{Binding OpenMailClient}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <TextBlock Text="{Binding AppResources.GPSHelpText,
+                                                  Source={StaticResource AppResources}}"
+                                   TextWrapping="Wrap" />
+                        <CheckBox Content="{Binding AppResources.AllowGPSUse,
+                                                    Source={StaticResource AppResources}}"
+                                  IsChecked="{Binding AllowGPS,
+                                                      Mode=TwoWay}" />
+                        <Button Content="ok">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <mvvm:EventToCommand Command="{Binding OK}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+</phone:PhoneApplicationPage>

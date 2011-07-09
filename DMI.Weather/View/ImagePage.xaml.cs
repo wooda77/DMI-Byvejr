@@ -19,39 +19,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
+using DMI.ViewModel;
 
-namespace DMI.Assets
+namespace DMI.View
 {
-    public class DataTemplateSelector : ContentControl
+    public partial class ImagePage
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        public ImagePage()
         {
-            throw new NotImplementedException();
+            InitializeComponent();
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnContentChanged(oldContent, newContent);
+            base.OnNavigatedTo(e);
 
-            ContentTemplate = SelectTemplate(newContent, this);
+            string imageSource = "";
+            if (NavigationContext.QueryString.TryGetValue("ImageSource", out imageSource))
+            {
+                (DataContext as ImageViewModel).LoadImage(imageSource);
+            }
         }
     }
 }

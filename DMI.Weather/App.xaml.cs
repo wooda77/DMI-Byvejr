@@ -26,57 +26,34 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
 using System.Windows.Threading;
+using Microsoft.Phone.Controls;
 
 namespace DMI
 {
     public partial class App : Application
     {
+        private bool phoneApplicationInitialized = false;
+
         public const string Favorites = "favorites";
         public const string PivotItem = "pivotitem";
         public const string ToggleGPS = "togglegps";
         public const string FirstStart = "firststart";
         public const string LastCity = "lastcity";
         public const string ImageFolder = "dmiimagefolder";
-        
-        /// <summary>
-        /// Provides easy access to the root frame of the Phone Application.
-        /// </summary>
-        /// <returns>The root frame of the Phone Application.</returns>
+
+        public App()
+        {
+            UnhandledException += Application_UnhandledException;
+
+            InitializeComponent();
+            InitializePhoneApplication();
+        }
+
         public PhoneApplicationFrame RootFrame
         {
             get;
             private set;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:App"/> class.
-        /// </summary>
-        public App()
-        {
-            // Global handler for uncaught exceptions. 
-            UnhandledException += Application_UnhandledException;
-
-            // Show graphics profiling information while debugging.
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                // Display the current frame rate counters.
-                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
-
-                // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
-
-                // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are being GPU accelerated with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
-            }
-
-            // Standard Silverlight initialization
-            InitializeComponent();
-            
-            // Phone-specific initialization
-            InitializePhoneApplication();
         }
 
         public static bool IsGPSEnabled
@@ -84,13 +61,9 @@ namespace DMI
             get
             {
                 if (IsolatedStorageSettings.ApplicationSettings.Contains(App.ToggleGPS))
-                {
                     return (bool)IsolatedStorageSettings.ApplicationSettings[App.ToggleGPS];
-                }
                 else
-                {
                     return false;
-                }
             }
         }
 
@@ -99,30 +72,20 @@ namespace DMI
             get
             {
                 if (IsolatedStorageSettings.ApplicationSettings.Contains(App.FirstStart))
-                {
                     return (bool)IsolatedStorageSettings.ApplicationSettings[App.FirstStart];
-                }
                 else
-                {
                     return true;
-                }
             }
             set
             {
                 if (IsolatedStorageSettings.ApplicationSettings.Contains(App.FirstStart))
-                {
                     IsolatedStorageSettings.ApplicationSettings[App.FirstStart] = value;
-                }
                 else
-                {
                     IsolatedStorageSettings.ApplicationSettings.Add(App.FirstStart, value);
-                }
 
                 IsolatedStorageSettings.ApplicationSettings.Save();
             }
         }
-
-        #region Custom Utility
 
         public static ThemeBackground CurrentThemeBackground
         {
@@ -131,13 +94,9 @@ namespace DMI
                 var currentColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
 
                 if (currentColor == Colors.Black)
-                {
                     return ThemeBackground.ThemeBackgroundDark;
-                }
                 else
-                {
                     return ThemeBackground.ThemeBackgroundLight;
-                }
             }
         }
 
@@ -149,7 +108,7 @@ namespace DMI
 
         public static bool Navigate(Uri source)
         {
-            return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);            
+            return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);
         }
 
         public static void GoBack()
@@ -157,41 +116,24 @@ namespace DMI
             (App.Current.RootVisual as PhoneApplicationFrame).GoBack();
         }
 
-        #endregion
-
-        #region Debugging Handlers
-
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (Debugger.IsAttached)
-            {
                 Debugger.Break();
-            }
         }
 
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             if (Debugger.IsAttached)
-            {
                 Debugger.Break();
-            }
         }
-
-        #endregion
-
-        #region Phone Application Initialization
-
-        private bool phoneApplicationInitialized = false;
 
         private void InitializePhoneApplication()
         {
-            // Set the UI Culture to the System Culture, to support more than WP7s six languages.
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             if (phoneApplicationInitialized)
-            {
                 return;
-            }
 
             RootFrame = new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
@@ -205,13 +147,9 @@ namespace DMI
         private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
         {
             if (RootVisual != RootFrame)
-            {
                 RootVisual = RootFrame;
-            }
 
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
         }
-
-        #endregion
     }
 }

@@ -19,32 +19,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Windows;
-using DMI.Model;
+using Microsoft.Phone.Controls;
 
-namespace DMI.Assets
+namespace DMI.View
 {
-    public class PushpinTemplateSelector : DataTemplateSelector
+    public partial class SupportPage
     {
-        public DataTemplate BlueFlag
+        public SupportPage()
         {
-            get;
-            set;
-        }
+            InitializeComponent();
 
-        public DataTemplate NoFlag
-        {
-            get;
-            set;
-        }
-
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            var beach = item as Beach;
-            if (beach != null)
-                return beach.HasBlueFlag ? BlueFlag : NoFlag;
-
-            return base.SelectTemplate(item, container);
+            App.IsFirstStart = false;
         }
     }
 }

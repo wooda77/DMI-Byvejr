@@ -19,32 +19,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Windows;
-using DMI.Model;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
-namespace DMI.Assets
-{
-    public class PushpinTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate BlueFlag
-        {
-            get;
-            set;
-        }
+[assembly: AssemblyTitle("DMI.Service")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("DMI.Service")]
+[assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2011")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
-        public DataTemplate NoFlag
-        {
-            get;
-            set;
-        }
+[assembly: ComVisible(false)]
 
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            var beach = item as Beach;
-            if (beach != null)
-                return beach.HasBlueFlag ? BlueFlag : NoFlag;
+[assembly: Guid("0ea48502-d136-4651-b418-1948fe7787ae")]
 
-            return base.SelectTemplate(item, container);
-        }
-    }
-}
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

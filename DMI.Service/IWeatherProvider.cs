@@ -20,38 +20,28 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Device.Location;
 
-namespace DMI.Assets
+namespace DMI.Service
 {
-    public class DataTemplateSelector : ContentControl
+    public interface IWeatherProvider
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        bool HasRegionalWeather
         {
-            throw new NotImplementedException();
+            get;
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        bool HasPollenData
         {
-            base.OnContentChanged(oldContent, newContent);
-
-            ContentTemplate = SelectTemplate(newContent, this);
+            get;
         }
+
+        void GetCityWeather(GeoCoordinate location, string postalCode, Action<CityWeatherResult, Exception> callback);
+
+        void GetRegionalWeather(GeoCoordinate location, string postalCode, Action<RegionalWeatherResult, Exception> callback);
+
+        void GetCountryWeather(Action<CountryWeatherResult, Exception> callback);
+
+        void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback);
     }
 }

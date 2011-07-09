@@ -144,6 +144,9 @@
   <data name="AppTitleSmall" xml:space="preserve">
     <value>Vejrudsigten fra DMI</value>
   </data>
+  <data name="BeachWeatherMenuItem" xml:space="preserve">
+    <value>Strandvejr</value>
+  </data>
   <data name="CityWeatherHeader" xml:space="preserve">
     <value>byvejr</value>
   </data>
@@ -153,9 +156,6 @@
   <data name="CreatedBy" xml:space="preserve">
     <value>Lavet af: </value>
   </data>
-  <data name="DefaultCity" xml:space="preserve">
-    <value>1000</value>
-  </data>
   <data name="EmailHelpText" xml:space="preserve">
     <value>Send venligst kommentarer eller tekniske spørgsmål til email: 10229@iha.dk</value>
   </data>
@@ -163,16 +163,16 @@
     <value>favoritter</value>
   </data>
   <data name="GPSDisabledError" xml:space="preserve">
-    <value>Could not resolve the location, because Location Servies aren't enabled.</value>
+    <value>Kunne ikke finde din position, fordi GPS'en ikke er slået til.</value>
   </data>
   <data name="GPSHelpText" xml:space="preserve">
     <value>Positions servicen (GPS) i DMI Byvejr sender din nuværende position til en service i skyen for at kunne konvertere din geografiske position om til et postnummer. Lokalisationen bliver så brugt til at vise vejr-information for dit aktuelle område.</value>
   </data>
   <data name="GPSResolveError" xml:space="preserve">
-    <value>Could not resolve the location.</value>
+    <value>Kunne ikke finde din position.</value>
   </data>
   <data name="InternetError" xml:space="preserve">
-    <value>No internet connection is available. Please try again later.</value>
+    <value>Der er ingen internet forbindelse. Prøv igen senere.</value>
   </data>
   <data name="MapsHeader" xml:space="preserve">
     <value>diverse</value>
@@ -182,6 +182,12 @@
   </data>
   <data name="PollenHeader" xml:space="preserve">
     <value>pollental</value>
+  </data>
+  <data name="RadarHeaderSmall" xml:space="preserve">
+    <value>radar (nedbør)</value>
+  </data>
+  <data name="RadarMenuItem" xml:space="preserve">
+    <value>Radar (nedbør)</value>
   </data>
   <data name="RegionalHeader" xml:space="preserve">
     <value>regionaludsigt</value>

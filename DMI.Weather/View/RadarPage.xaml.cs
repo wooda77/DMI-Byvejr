@@ -20,38 +20,32 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using ImageTools.IO;
+using ImageTools.IO.Gif;
+using DMI.Properties;
 
-namespace DMI.Assets
+namespace DMI.View
 {
-    public class DataTemplateSelector : ContentControl
+    public partial class RadarPage
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        public RadarPage()
         {
-            throw new NotImplementedException();
+            InitializeComponent();
+            InitializeRadarImage();
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        private void InitializeRadarImage()
         {
-            base.OnContentChanged(oldContent, newContent);
+            Decoders.AddDecoder<GifDecoder>();
 
-            ContentTemplate = SelectTemplate(newContent, this);
+            ImageSource = new Uri(AppResources.RadarAnimation, UriKind.Absolute);
+            DataContext = this;
+        }
+
+        public Uri ImageSource
+        {
+            get;
+            private set;
         }
     }
 }

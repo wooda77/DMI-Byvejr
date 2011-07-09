@@ -19,32 +19,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Windows;
-using DMI.Model;
 
-namespace DMI.Assets
+namespace DMI.Model
 {
-    public class PushpinTemplateSelector : DataTemplateSelector
+    using Properties;
+
+    public class Resources
     {
-        public DataTemplate BlueFlag
-        {
-            get;
-            set;
-        }
+        private static AppResources resources = new AppResources();
 
-        public DataTemplate NoFlag
+        public AppResources AppResources
         {
-            get;
-            set;
-        }
-
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            var beach = item as Beach;
-            if (beach != null)
-                return beach.HasBlueFlag ? BlueFlag : NoFlag;
-
-            return base.SelectTemplate(item, container);
+            get
+            {
+                return resources;
+            }
         }
     }
 }

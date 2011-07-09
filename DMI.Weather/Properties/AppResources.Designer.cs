@@ -142,56 +142,11 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long.
+        ///   Looks up a localized string similar to Beach Weather.
         /// </summary>
-        public static string CityWeather2daysGraph {
+        public static string BeachWeatherMenuItem {
             get {
-                return ResourceManager.GetString("CityWeather2daysGraph", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;lang=fo&amp;mode=long.
-        /// </summary>
-        public static string CityWeather2daysGraphFR {
-            get {
-                return ResourceManager.GetString("CityWeather2daysGraphFR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by_gl={0}&amp;mode=long.
-        /// </summary>
-        public static string CityWeather2daysGraphGL {
-            get {
-                return ResourceManager.GetString("CityWeather2daysGraphGL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9.
-        /// </summary>
-        public static string CityWeather7daysGraph {
-            get {
-                return ResourceManager.GetString("CityWeather7daysGraph", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag2_6_glfo&amp;lang=fo.
-        /// </summary>
-        public static string CityWeather7daysGraphFR {
-            get {
-                return ResourceManager.GetString("CityWeather7daysGraphFR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag3_9.
-        /// </summary>
-        public static string CityWeather7daysGraphGL {
-            get {
-                return ResourceManager.GetString("CityWeather7daysGraphGL", resourceCulture);
+                return ResourceManager.GetString("BeachWeatherMenuItem", resourceCulture);
             }
         }
         
@@ -214,29 +169,11 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_dk.png.
-        /// </summary>
-        public static string CountryImage {
-            get {
-                return ResourceManager.GetString("CountryImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Created by: .
         /// </summary>
         public static string CreatedBy {
             get {
                 return ResourceManager.GetString("CreatedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1000.
-        /// </summary>
-        public static string DefaultCity {
-            get {
-                return ResourceManager.GetString("DefaultCity", resourceCulture);
             }
         }
         
@@ -313,29 +250,38 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/pollen-feed.xml.
-        /// </summary>
-        public static string PollenFeed {
-            get {
-                return ResourceManager.GetString("PollenFeed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}.
-        /// </summary>
-        public static string PollenGraph {
-            get {
-                return ResourceManager.GetString("PollenGraph", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to pollen.
         /// </summary>
         public static string PollenHeader {
             get {
                 return ResourceManager.GetString("PollenHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/radaranim2.gif.
+        /// </summary>
+        public static string RadarAnimation {
+            get {
+                return ResourceManager.GetString("RadarAnimation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to radar (rain).
+        /// </summary>
+        public static string RadarHeaderSmall {
+            get {
+                return ResourceManager.GetString("RadarHeaderSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radar (rain).
+        /// </summary>
+        public static string RadarMenuItem {
+            get {
+                return ResourceManager.GetString("RadarMenuItem", resourceCulture);
             }
         }
         
@@ -349,164 +295,11 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_bornholm.png.
-        /// </summary>
-        public static string RegionalImage_Bornholm {
-            get {
-                return ResourceManager.GetString("RegionalImage_Bornholm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_ostjylland.png.
-        /// </summary>
-        public static string RegionalImage_EastJytland {
-            get {
-                return ResourceManager.GetString("RegionalImage_EastJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_fyn.png.
-        /// </summary>
-        public static string RegionalImage_Fyn {
-            get {
-                return ResourceManager.GetString("RegionalImage_Fyn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_vestjylland.png.
-        /// </summary>
-        public static string RegionalImage_MiddleJytland {
-            get {
-                return ResourceManager.GetString("RegionalImage_MiddleJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_nordjylland.png.
-        /// </summary>
-        public static string RegionalImage_NorthJytland {
-            get {
-                return ResourceManager.GetString("RegionalImage_NorthJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_kobenhavn.png.
-        /// </summary>
-        public static string RegionalImage_NorthZealand {
-            get {
-                return ResourceManager.GetString("RegionalImage_NorthZealand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_sydjylland.png.
-        /// </summary>
-        public static string RegionalImage_SouthJytland {
-            get {
-                return ResourceManager.GetString("RegionalImage_SouthJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/femdgn_vestsjaelland.png.
-        /// </summary>
-        public static string RegionalImage_SouthZealand {
-            get {
-                return ResourceManager.GetString("RegionalImage_SouthZealand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_born.htm.
-        /// </summary>
-        public static string RegionalText_Bornholm {
-            get {
-                return ResourceManager.GetString("RegionalText_Bornholm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_ostj.htm.
-        /// </summary>
-        public static string RegionalText_EastJytland {
-            get {
-                return ResourceManager.GetString("RegionalText_EastJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_fyn.htm.
-        /// </summary>
-        public static string RegionalText_Fyn {
-            get {
-                return ResourceManager.GetString("RegionalText_Fyn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_midtvj.htm.
-        /// </summary>
-        public static string RegionalText_MiddleJytland {
-            get {
-                return ResourceManager.GetString("RegionalText_MiddleJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_nord.htm.
-        /// </summary>
-        public static string RegionalText_NorthJytland {
-            get {
-                return ResourceManager.GetString("RegionalText_NorthJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_kbhnord.htm.
-        /// </summary>
-        public static string RegionalText_NorthZealand {
-            get {
-                return ResourceManager.GetString("RegionalText_NorthZealand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_sydson.htm.
-        /// </summary>
-        public static string RegionalText_SouthJytland {
-            get {
-                return ResourceManager.GetString("RegionalText_SouthJytland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm.
-        /// </summary>
-        public static string RegionalText_SouthZealand {
-            get {
-                return ResourceManager.GetString("RegionalText_SouthZealand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to remove favorite.
         /// </summary>
         public static string RemoveFavorite {
             get {
                 return ResourceManager.GetString("RemoveFavorite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/rss-nyheder.
-        /// </summary>
-        public static string RssFeed {
-            get {
-                return ResourceManager.GetString("RssFeed", resourceCulture);
             }
         }
         
@@ -529,6 +322,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;tabel=dag1&amp;mode=long.
+        /// </summary>
+        public static string TemperatureImageSource {
+            get {
+                return ResourceManager.GetString("TemperatureImageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version: .
         /// </summary>
         public static string Version {
@@ -538,20 +340,11 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm.
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag1&amp;param=bolger.
         /// </summary>
-        public static string WeatherFeed {
+        public static string WavesImageSource {
             get {
-                return ResourceManager.GetString("WeatherFeed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://tv.dmi.dk/js/photos?raw.
-        /// </summary>
-        public static string WebTVFeed {
-            get {
-                return ResourceManager.GetString("WebTVFeed", resourceCulture);
+                return ResourceManager.GetString("WavesImageSource", resourceCulture);
             }
         }
     }

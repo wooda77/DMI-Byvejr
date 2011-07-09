@@ -20,38 +20,37 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
-namespace DMI.Assets
+namespace DMI.ViewModel
 {
-    public class DataTemplateSelector : ContentControl
+    public class ImageViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Selects the template.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        public virtual DataTemplate SelectTemplate(object item, DependencyObject container)
+        public ImageViewModel()
         {
-            throw new NotImplementedException();
+            this.CropBorders = new RelayCommand<Image>(image => image.CropImageBorders());
         }
 
-        /// <summary>
-        /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">
-        ///     The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        /// <param name="newContent">
-        ///     The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
-        /// </param>
-        protected override void OnContentChanged(object oldContent, object newContent)
+        public ImageSource ImageSource
         {
-            base.OnContentChanged(oldContent, newContent);
+            get;
+            set;
+        }
 
-            ContentTemplate = SelectTemplate(newContent, this);
+        public ICommand CropBorders
+        {
+            get;
+            private set;
+        }
+
+        public void LoadImage(string imageSource)
+        {
+            this.ImageSource = new BitmapImage(new Uri(imageSource, UriKind.Absolute));
         }
     }
 }
