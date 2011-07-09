@@ -132,14 +132,11 @@ namespace DMI.ViewModel
             else if (item is City)
             {
                 var city = item as City;
+                if (city != null)
+                    return city.Name.StartsWith(filter, StringComparison.CurrentCultureIgnoreCase);
+            }
 
-                return city.Name.StartsWith(filter,
-                    StringComparison.CurrentCultureIgnoreCase);
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

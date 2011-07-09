@@ -49,7 +49,10 @@ namespace DMI.Model
             {
                 if (city.Name.Length > 0) 
                 {
-                    groups[char.ToLower(city.Name[0]).ToString()].Add(city);
+                    var key = char.ToLower(city.Name[0]).ToString();
+
+                    if (groups.ContainsKey(key))
+                        groups[key].Add(city);
                 }
             }
         }

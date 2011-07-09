@@ -40,7 +40,7 @@ namespace System.Windows.Controls
         public static Image CropImageBorders(this Image image)
         {
             if (image == null)
-                throw new ArgumentException("image");
+                throw new ArgumentException("Argument 'image' cannot be null.");
 
             if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
             {
@@ -65,7 +65,7 @@ namespace System.Windows.Controls
         public static Image CropImageBorders(this Image image, Size newSize)
         {
             if (image == null)
-                throw new ArgumentException("image");
+                throw new ArgumentException("Argument 'image' cannot be null.");
 
             if ((image.ActualWidth > 0) && (image.ActualHeight > 0) &&
                 (newSize.Width > 0) && (newSize.Height > 0))
@@ -80,91 +80,6 @@ namespace System.Windows.Controls
             }
 
             return image;
-        }
-
-        /// <summary>
-        /// Saves a image to local storage.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <param name="fileName">The filename.</param>
-        /// <returns>The image that was saved.</returns>
-        public static BitmapSource SaveToLocalStorage(this BitmapSource image, string fileName)
-        {
-            if (image == null)
-                throw new ArgumentException("image");
-
-            if (string.IsNullOrEmpty(fileName))
-                throw new ArgumentException("fileName");
-
-            if (image.PixelWidth == 0 || image.PixelHeight == 0)
-                return image;
-
-            var bytes = image.ConvertToBytes();
-            var store = IsolatedStorageFile.GetUserStoreForApplication();
-
-            if (store.DirectoryExists(DMI.App.ImageFolder) == false)
-                store.CreateDirectory(DMI.App.ImageFolder);
-
-            string path = Path.Combine(DMI.App.ImageFolder, fileName);
-
-            if (store.FileExists(path))
-                store.DeleteFile(path);
-
-            using (var stream = store.CreateFile(path))
-            {
-                stream.Write(bytes, 0, bytes.Length);
-            }
-
-            return image;
-        }
-
-        /// <summary>
-        /// Loads a image from local storage.
-        /// </summary>
-        /// <param name="fileName">The filename.</param>
-        /// <returns>The image from the local storage if it exists; otherwise a empty image.</returns>
-        public static BitmapSource LoadFromLocalStorage(string fileName)
-        {
-            if (string.IsNullOrEmpty(fileName))
-                throw new ArgumentException("fileName");
-
-            var store = IsolatedStorageFile.GetUserStoreForApplication();
-
-            if (store.DirectoryExists(DMI.App.ImageFolder) == false)
-                store.CreateDirectory(DMI.App.ImageFolder);
-
-            string path = Path.Combine(DMI.App.ImageFolder, fileName);
-
-            if (store.FileExists(path))
-            {
-                using (var imageStream = store.OpenFile(path, FileMode.Open, FileAccess.Read))
-                {
-                    return PictureDecoder.DecodeJpeg(imageStream);
-                }
-            }
-
-            return new WriteableBitmap(0, 0);
-        }
-
-        /// <summary>
-        /// Converts a BitmapSource to bytes.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <returns>The bytes of the image.</returns>
-        public static byte[] ConvertToBytes(this BitmapSource image)
-        {
-            if (image == null)
-                throw new ArgumentException("image");
-
-            using (var stream = new MemoryStream())
-            {
-                var writeableBitmap = new WriteableBitmap(image.PixelWidth, image.PixelHeight);
-
-                Extensions.SaveJpeg(writeableBitmap,
-                    stream, image.PixelWidth, image.PixelHeight, 0, 100);
-
-                return stream.ToArray();
-            }
         }
     }
 }

@@ -20,11 +20,13 @@ namespace DMI.View
             string id = "";
             if (NavigationContext.QueryString.TryGetValue("ID", out id))
             {
-                TemperatureImage.Source = new BitmapImage(
-                    new Uri(string.Format(AppResources.TemperatureImageSource, id), UriKind.Absolute));
+                if (TemperatureImage != null)
+                    TemperatureImage.Source = new BitmapImage(new Uri(string.Format(
+                        AppResources.TemperatureImageSource, id), UriKind.Absolute));
 
-                WavesImage.Source = new BitmapImage(
-                    new Uri(string.Format(AppResources.WavesImageSource, id), UriKind.Absolute));
+                if (WavesImage != null)
+                    WavesImage.Source = new BitmapImage(new Uri(string.Format(
+                        AppResources.WavesImageSource, id), UriKind.Absolute));
             }
         }
 

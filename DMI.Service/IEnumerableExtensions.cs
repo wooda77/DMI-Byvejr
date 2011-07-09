@@ -23,7 +23,7 @@ using System.Collections.Generic;
 
 namespace DMI
 {
-    public static class IEnumerableEx
+    public static class IEnumerableExtensions
     {
         public static IEnumerable<T[]> Chunks<T>(this IEnumerable<T> self, int size)
         {

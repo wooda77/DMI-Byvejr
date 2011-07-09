@@ -37,7 +37,7 @@ namespace DMI.Service
         public static void ResolveLocation(GeoCoordinate geoCoordinate, Action<CivicAddress, Exception> callback)
         {
             if (geoCoordinate == null)
-                throw new ArgumentException("geoCoordinate");
+                throw new ArgumentException("Argument geoCoordinate cannot be null.");
 
             var client = new RestClient("https://dev.virtualearth.net");
 

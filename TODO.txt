@@ -1,8 +1,6 @@
+TODO
 
-            TODO List
-
-Lokale vejrstationer (Temperatur / Middelvind)
-
-Radar (Nedbør fra Radar og Lynnedslag)
-
-Strandvejr (Bing Maps)
+ - Lokale vejrstationer "Borgervejr" (Temperatur / Middelvind)
+ - Flere Vejrkort
+ - Tidevand
+ - Vandstand

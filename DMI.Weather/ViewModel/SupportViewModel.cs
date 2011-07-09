@@ -23,10 +23,10 @@ using System;
 using System.IO.IsolatedStorage;
 using System.Windows.Input;
 using System.Xml.Linq;
+using DMI.Properties;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
-using DMI.Properties;
 
 namespace DMI.ViewModel
 {

@@ -47,6 +47,9 @@ namespace DMI.Model
 
         public bool Equals(City other)
         {
+            if (other == null)
+                return false;
+            
             return this.PostalCode == other.PostalCode;
         }
 
@@ -56,6 +59,9 @@ namespace DMI.Model
 
         public int CompareTo(City other)
         {
+            if (other == null)
+                return 1;
+            
             return this.Name.CompareTo(other.Name);
         }
 

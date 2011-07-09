@@ -25,7 +25,7 @@ namespace DMI.Service
 {
     public class BingLocationResponse
     {
-        public List<ResourceSet> ResourceSets
+        public List<BingResourceSet> ResourceSets
         {
             get;
             set;
@@ -42,68 +42,68 @@ namespace DMI.Service
             get;
             set;
         }
+    }
 
-        public class ResourceSet
+    public class BingResourceSet
+    {
+        public List<BingResource> Resources
         {
-            public List<Resource> Resources
-            {
-                get;
-                set;
-            }
+            get;
+            set;
+        }
+    }
 
-            public class Resource
-            {
-                public ResourceAddress Address
-                {
-                    get;
-                    set;
-                }
+    public class BingResource
+    {
+        public BingResourceAddress Address
+        {
+            get;
+            set;
+        }
+    }
 
-                public class ResourceAddress
-                {
-                    public string AddressLine
-                    {
-                        get;
-                        set;
-                    }
+    public class BingResourceAddress
+    {
+        public string AddressLine
+        {
+            get;
+            set;
+        }
 
-                    public string AdminDistrict
-                    {
-                        get;
-                        set;
-                    }
+        public string AdminDistrict
+        {
+            get;
+            set;
+        }
 
-                    public string AdminDistrict2
-                    {
-                        get;
-                        set;
-                    }
+        public string AdminDistrict2
+        {
+            get;
+            set;
+        }
 
-                    public string CountryRegion
-                    {
-                        get;
-                        set;
-                    }
+        public string CountryRegion
+        {
+            get;
+            set;
+        }
 
-                    public string FormattedAddress
-                    {
-                        get;
-                        set;
-                    }
+        public string FormattedAddress
+        {
+            get;
+            set;
+        }
 
-                    public string Locality
-                    {
-                        get;
-                        set;
-                    }
+        public string Locality
+        {
+            get;
+            set;
+        }
 
-                    public string PostalCode
-                    {
-                        get;
-                        set;
-                    }
-                }
-            }
+        public string PostalCode
+        {
+            get;
+            set;
         }
     }
 }

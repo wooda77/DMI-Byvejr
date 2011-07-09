@@ -66,6 +66,9 @@ namespace DMI.Service
 
         public void GetCityWeather(GeoCoordinate location, string postalCode, Action<CityWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+            
             if (string.IsNullOrEmpty(postalCode))
                 postalCode = GetPostalCodeFromGeoCoordinate(location).ToString();
 
@@ -87,6 +90,9 @@ namespace DMI.Service
 
         public void GetCountryWeather(Action<CountryWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")
@@ -148,7 +154,7 @@ namespace DMI.Service
 
         #endregion
 
-        private int GetPostalCodeFromGeoCoordinate(GeoCoordinate location)
+        private static int GetPostalCodeFromGeoCoordinate(GeoCoordinate location)
         {
             GeoLocationCity nearestCity = PostalCodes[4214];
             double shortestDistance = nearestCity.Location.GetDistanceTo(location);

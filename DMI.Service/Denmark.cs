@@ -54,7 +54,7 @@ namespace DMI.Service
         {
             get
             {
-                throw new NotImplementedException();
+                return false;
             }
         }
 
@@ -62,12 +62,15 @@ namespace DMI.Service
         {
             get
             {
-                throw new NotImplementedException();
+                return false;
             }
         }
 
         public void GetCityWeather(GeoCoordinate location, string postalCode, Action<CityWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             if (string.IsNullOrEmpty(postalCode))
             {
                 GetPostalCodeFromGeoCoordinate(location,
@@ -88,6 +91,9 @@ namespace DMI.Service
 
         public void GetRegionalWeather(GeoCoordinate location, string postalCode, Action<RegionalWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             if (string.IsNullOrEmpty(postalCode))
             {
                 GetPostalCodeFromGeoCoordinate(location,
@@ -108,6 +114,9 @@ namespace DMI.Service
 
         public void GetCountryWeather(Action<CountryWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")
@@ -165,6 +174,9 @@ namespace DMI.Service
 
         public void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             if (string.IsNullOrEmpty(postalCode))
             {            
                 GetPostalCodeFromGeoCoordinate(location,
@@ -185,8 +197,11 @@ namespace DMI.Service
 
         #endregion
 
-        private void GetCityWeatherFromPostalCode(int postalCode, Action<CityWeatherResult, Exception> callback)
+        private static void GetCityWeatherFromPostalCode(int postalCode, Action<CityWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var result = new CityWeatherResult()
             {
                 CityWeatherThreeDaysImage = new Uri(string.Format(
@@ -198,8 +213,11 @@ namespace DMI.Service
             callback(result, null);
         }
 
-        private void GetRegionalWeatherFromPostalCode(int postalCode, Action<RegionalWeatherResult, Exception> callback)
+        private static void GetRegionalWeatherFromPostalCode(int postalCode, Action<RegionalWeatherResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")
@@ -242,8 +260,11 @@ namespace DMI.Service
             client.DownloadStringAsync(address);
         }
 
-        private void GetPollenDataFromPostalCode(int postalCode, Action<PollenResult, Exception> callback)
+        private static void GetPollenDataFromPostalCode(int postalCode, Action<PollenResult, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")
@@ -286,6 +307,9 @@ namespace DMI.Service
 
         private static void GetPostalCodeFromGeoCoordinate(GeoCoordinate location, Action<int> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             BingLocationProvider.ResolveLocation(location,
                 (address, exception) =>
                 {

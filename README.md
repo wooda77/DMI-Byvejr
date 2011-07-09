@@ -4,7 +4,16 @@ Overview
 DMI City Weather is a Danish weather application for Windows Phone 7,
 displaying local weather information for over 500 danish cities.
 
-It also includes regional and countrywide weather, pollen numbers, and news.
+Version 2.0
+-----------
+
+The version 2.0 update includes following improvements:
+
+* Support for Greenland and Faroe Islands.
+* Beach Weather.
+* Radar images for rain, snow and lightning.
+* Minor adjustments and performance improvements.
+
 
 Screenshots
 -----------

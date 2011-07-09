@@ -22,23 +22,26 @@
 using System;
 using System.Text;
 using System.Xml.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DMI.Service
 {
     public static class Utils
     {
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", 
+            Justification="Result is dependant on the argument 'element' being null or not.")]
         public static string TryGetValue(this XElement element, string defaultValue = "")
         {
             if (element != null)
                 return element.Value;
-
-            return defaultValue;
+            else
+                return defaultValue;
         }
 
         public static string ParsePollenData(string data)
         {
             if (string.IsNullOrEmpty(data))
-                throw new ArgumentException("data");
+                throw new ArgumentException("Argument 'data' cannot be null or empty.");
 
             string input = data.Replace("\n", "").Replace(" ", "");
 

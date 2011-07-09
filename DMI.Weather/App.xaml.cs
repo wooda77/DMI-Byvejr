@@ -56,6 +56,14 @@ namespace DMI
             private set;
         }
 
+        public static PhoneApplicationFrame CurrentRootVisual
+        {
+            get
+            {
+                return (App.Current.RootVisual as PhoneApplicationFrame);
+            }
+        }
+
         public static bool IsGPSEnabled
         {
             get
@@ -108,12 +116,16 @@ namespace DMI
 
         public static bool Navigate(Uri source)
         {
-            return (App.Current.RootVisual as PhoneApplicationFrame).Navigate(source);
+            if (CurrentRootVisual != null)
+                return CurrentRootVisual.Navigate(source);
+            
+            return false;
         }
 
         public static void GoBack()
         {
-            (App.Current.RootVisual as PhoneApplicationFrame).GoBack();
+            if (CurrentRootVisual != null)
+                CurrentRootVisual.GoBack();
         }
 
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)

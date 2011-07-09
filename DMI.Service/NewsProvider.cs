@@ -30,10 +30,13 @@ using Newtonsoft.Json;
 
 namespace DMI.Service
 {
-    public class NewsProvider
+    public static class NewsProvider
     {
         public static void GetNewsItems(Action<IEnumerable<NewsItem>, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")
@@ -73,6 +76,9 @@ namespace DMI.Service
 
         public static void GetVideos(Action<List<WebTVItem>, Exception> callback)
         {
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")

@@ -408,7 +408,7 @@ namespace DMI.ViewModel
                         CountryImage = new BitmapImage(result.Image);
                     });
             }
-            else
+            else if (CurrentAddress != null)
             {
                 Denmark.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>

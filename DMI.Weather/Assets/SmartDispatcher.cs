@@ -101,20 +101,23 @@ namespace System.Windows.Threading
         /// thread. If the current thread is the user interface thread, the
         /// dispatcher if not used and the operation happens immediately.
         /// </summary>
-        /// <param name="a">A delegate to a method that takes no arguments and
+        /// <param name="action">A delegate to a method that takes no arguments and
         /// does not return a value, which is either pushed onto the Dispatcher
         /// event queue or immediately run, depending on the current thread.</param>
-        public static void BeginInvoke(Action a)
+        public static void BeginInvoke(Action action)
         {
+            if (action == null)
+                throw new ArgumentNullException("action");
+            
             if (instance == null)
                 RequireInstance();
 
             // If the current thread is the user interface thread, skip the
             // dispatcher and directly invoke the Action.
             if (instance.CheckAccess() || designer == true)
-                a();
+                action();
             else
-                instance.BeginInvoke(a);
+                instance.BeginInvoke(action);
         }
     }
 }
