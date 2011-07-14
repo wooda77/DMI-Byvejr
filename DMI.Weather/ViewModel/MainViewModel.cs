@@ -77,7 +77,10 @@ namespace DMI.ViewModel
             this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
             this.GoToLocation = new RelayCommand(GoToLocationExecute);
 
-            ResolveAddress();
+            if (InternetIsAvailable())
+            {
+                ResolveAddress();
+            }
         }
 
         public bool IsInitialized
@@ -262,6 +265,11 @@ namespace DMI.ViewModel
 
         private void AddToFavoritesExecute()
         {
+            if (CurrentAddress == null)
+            {
+                return;
+            }
+            
             int postalCode = 0;
             if (int.TryParse(CurrentAddress.PostalCode, out postalCode))
             {
@@ -348,6 +356,10 @@ namespace DMI.ViewModel
         private bool InternetIsAvailable()
         {
             var available = NetworkInterface.GetIsNetworkAvailable();
+
+//#if DEBUG
+//    available = false;
+//#endif
 
             if (available == false)
             {

@@ -55,7 +55,8 @@ namespace DMI.Service
                     var result = response.Data;
                     var civicAddress = new CivicAddress();
 
-                    if ((result.ResourceSets.Count > 0) &&
+                    if ((result != null) &&
+                        (result.ResourceSets.Count > 0) &&
                         (result.ResourceSets[0].Resources.Count > 0))
                     {
                         var resources = result.ResourceSets[0].Resources[0];

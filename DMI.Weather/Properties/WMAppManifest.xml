@@ -4,7 +4,7 @@
        ProductID="{8e2f2f7a-8b81-4813-b397-a0ed88f5301a}"
        Title="DMI Byvejr" 
        RuntimeType="Silverlight"
-       Version="2.0.0.0" 
+       Version="2.1.0.0" 
        Genre="apps.normal" 
        Author="Claus Jørgensen" 
        Description="Vejrudsigten fra DMI" 
