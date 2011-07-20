@@ -107,13 +107,13 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="ImageTools">
-      <HintPath>..\Packages\ImageTools\ImageTools.dll</HintPath>
+      <HintPath>..\lib\ImageTools\ImageTools.dll</HintPath>
     </Reference>
     <Reference Include="ImageTools.Controls">
-      <HintPath>..\Packages\ImageTools\ImageTools.Controls.dll</HintPath>
+      <HintPath>..\lib\ImageTools\ImageTools.Controls.dll</HintPath>
     </Reference>
     <Reference Include="ImageTools.IO.Gif">
-      <HintPath>..\Packages\ImageTools\ImageTools.IO.Gif.dll</HintPath>
+      <HintPath>..\lib\ImageTools\ImageTools.IO.Gif.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Devices.Sensors" />
     <Reference Include="Microsoft.Phone" />
