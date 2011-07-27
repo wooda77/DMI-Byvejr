@@ -34,8 +34,6 @@ namespace DMI.ViewModel
     {
         public SupportViewModel()
         {
-            this.OpenMailClient = new RelayCommand(OpenMailClientExecute);
-            this.OK = new RelayCommand(OKExecute);
         }
 
         public string Version
@@ -74,34 +72,6 @@ namespace DMI.ViewModel
 
                 IsolatedStorageSettings.ApplicationSettings.Save();
             }
-        }
-
-        public ICommand OpenMailClient
-        {
-            get;
-            private set;
-        }
-
-        public ICommand OK
-        {
-            get;
-            private set;
-        }
-
-        private void OKExecute()
-        {
-            App.GoBack();
-        }
-
-        private void OpenMailClientExecute()
-        {
-            var emailTask = new EmailComposeTask()
-            {
-                To = "10229@iha.dk",
-                Subject = AppResources.AppTitleSmall + " Support"
-            };
-
-            emailTask.Show();
         }
     }
 }

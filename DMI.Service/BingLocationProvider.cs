@@ -37,17 +37,18 @@ namespace DMI.Service
         public static void ResolveLocation(GeoCoordinate geoCoordinate, Action<CivicAddress, Exception> callback)
         {
             if (geoCoordinate == null)
-                throw new ArgumentException("Argument geoCoordinate cannot be null.");
+                throw new ArgumentNullException("geoCoordinate");
+
+            if (callback == null)
+                throw new ArgumentNullException("callback");
 
             var client = new RestClient("https://dev.virtualearth.net");
 
             var request = new RestRequest();
-            request.Resource = string.Format(CultureInfo.InvariantCulture,
-                "REST/v1/Locations/{0},{1}?key={2}",
-                geoCoordinate.Latitude,
-                geoCoordinate.Longitude,
-                AppResources.BingMapsKey
-            );
+            request.Resource = "REST/v1/Locations/{latitude},{longitude}?key={key}";
+            request.AddUrlSegment("latitude", geoCoordinate.Latitude.ToString(CultureInfo.InvariantCulture));
+            request.AddUrlSegment("longitude", geoCoordinate.Longitude.ToString(CultureInfo.InvariantCulture));
+            request.AddUrlSegment("key", AppResources.BingMapsKey);
 
             client.ExecuteAsync<BingLocationResponse>(request,
                 (response) =>

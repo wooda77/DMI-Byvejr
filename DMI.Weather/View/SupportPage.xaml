@@ -42,13 +42,7 @@
                                    Text="{Binding AppResources.EmailHelpText,
                                                   Source={StaticResource AppResources}}"
                                    TextWrapping="Wrap" />
-                        <Button Content="{Binding AppResources.SendEmail, Source={StaticResource AppResources}}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <mvvm:EventToCommand Command="{Binding OpenMailClient}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
+                        <Button Content="{Binding AppResources.SendEmail, Source={StaticResource AppResources}}" Click="SendEmailButton_Click" />
                         <TextBlock Text="{Binding AppResources.GPSHelpText,
                                                   Source={StaticResource AppResources}}"
                                    TextWrapping="Wrap" />
@@ -56,13 +50,7 @@
                                                     Source={StaticResource AppResources}}"
                                   IsChecked="{Binding AllowGPS,
                                                       Mode=TwoWay}" />
-                        <Button Content="ok">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <mvvm:EventToCommand Command="{Binding OK}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
+                        <Button Content="ok" Click="OKButton_Click" />
                     </StackPanel>
                 </Grid>
             </controls:PivotItem>

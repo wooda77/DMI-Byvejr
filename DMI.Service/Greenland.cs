@@ -93,6 +93,7 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
+            // TODO: Replace with HttpWebRequest
             var client = new WebClient()
             {
                 Encoding = Encoding.GetEncoding("iso-8859-1")

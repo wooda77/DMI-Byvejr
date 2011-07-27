@@ -249,14 +249,10 @@
     <Content Include="Background.png" />
     <Content Include="Resources\Images\blueflag.png" />
     <Content Include="SplashScreenImage.jpg" />
-    <Content Include="Resources\Images\appbar.addtofavs.light.png" />
-    <Content Include="Resources\Images\appbar.favs.dark.png" />
-    <Content Include="Resources\Images\appbar.favs.light.png" />
-    <Content Include="Resources\Images\appbar.home.dark.png" />
-    <Content Include="Resources\Images\appbar.home.light.png" />
-    <Content Include="Resources\Images\appbar.addtofavs.dark.png" />
-    <Content Include="Resources\Images\appbar.location.dark.png" />
-    <Content Include="Resources\Images\appbar.location.light.png" />
+    <Content Include="Resources\Images\appbar.addtofavs.png" />
+    <Content Include="Resources\Images\appbar.favs.png" />
+    <Content Include="Resources\Images\appbar.home.png" />
+    <Content Include="Resources\Images\appbar.location.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\AppResources.da-DK.resx">

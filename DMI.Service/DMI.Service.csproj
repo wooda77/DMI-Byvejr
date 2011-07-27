@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BingLocationResponse.cs" />
+    <Compile Include="CityWithId.cs" />
     <Compile Include="GeoLocationCity.cs" />
     <Compile Include="Denmark.cs" />
     <Compile Include="BingLocationProvider.cs" />

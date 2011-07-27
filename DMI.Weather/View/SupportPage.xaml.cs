@@ -20,6 +20,8 @@
 // THE SOFTWARE
 #endregion
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
+using DMI.Properties;
 
 namespace DMI.View
 {
@@ -30,6 +32,22 @@ namespace DMI.View
             InitializeComponent();
 
             App.IsFirstStart = false;
+        }
+
+        private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void SendEmailButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var emailTask = new EmailComposeTask()
+            {
+                To = "10229@iha.dk",
+                Subject = AppResources.AppTitleSmall + " Support"
+            };
+
+            emailTask.Show();
         }
     }
 }

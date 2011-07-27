@@ -53,69 +53,41 @@ namespace DMI.View
         private void BuildApplicationBar()
         {
             if (ApplicationBar != null)
-            {
                 return;
-            }
 
-            var appBar = new ApplicationBar();
+            ApplicationBar = new ApplicationBar();
 
-            Uri homeImage;
-            Uri favImage;
-            Uri addToFavImage;
-            Uri gotoLocationImage;
+            var homeImage = new Uri("/Resources/Images/appbar.home.png", UriKind.Relative);
+            var favImage = new Uri("/Resources/Images/appbar.favs.png", UriKind.Relative);
+            var addToFavImage = new Uri("/Resources/Images/appbar.addtofavs.png", UriKind.Relative);
+            var gotoLocationImage = new Uri("/Resources/Images/appbar.location.png", UriKind.Relative);
 
-            if (App.CurrentThemeBackground == App.ThemeBackground.ThemeBackgroundDark)
-            {
-                homeImage = new Uri("/Resources/Images/appbar.home.light.png", UriKind.Relative);
-                favImage = new Uri("/Resources/Images/appbar.favs.light.png", UriKind.Relative);
-                addToFavImage = new Uri("/Resources/Images/appbar.addtofavs.light.png", UriKind.Relative);
-                gotoLocationImage = new Uri("/Resources/Images/appbar.location.light.png", UriKind.Relative);
-            }
-            else
-            {
-                homeImage = new Uri("/Resources/Images/appbar.home.dark.png", UriKind.Relative);
-                favImage = new Uri("/Resources/Images/appbar.favs.dark.png", UriKind.Relative);
-                addToFavImage = new Uri("/Resources/Images/appbar.addtofavs.dark.png", UriKind.Relative);
-                gotoLocationImage = new Uri("/Resources/Images/appbar.location.dark.png", UriKind.Relative);
-            }
-
-            var chooseCityAppBarButton = new ApplicationBarIconButton(homeImage)
-            {
-                Text = AppResources.AppBar_ChooseCity
-            };
+            var chooseCityAppBarButton = new ApplicationBarIconButton(homeImage);
+            chooseCityAppBarButton.Text = AppResources.AppBar_ChooseCity;
             chooseCityAppBarButton.Click += new EventHandler(ChooseCityAppBarButton_Click);
 
-            var showFavoritesAppBarButton = new ApplicationBarIconButton(favImage)
-            {
-                Text = AppResources.AppBar_Favorites
-            };
+            var showFavoritesAppBarButton = new ApplicationBarIconButton(favImage);
+            showFavoritesAppBarButton.Text = AppResources.AppBar_Favorites;
             showFavoritesAppBarButton.Click += new EventHandler(ShowFavoritesAppBarButton_Click);
 
-            var addtoFavoritesAppBarButton = new ApplicationBarIconButton(addToFavImage)
-            {
-                Text = AppResources.AppBar_AddToFavorites
-            };
+            var addtoFavoritesAppBarButton = new ApplicationBarIconButton(addToFavImage);
+            addtoFavoritesAppBarButton.Text = AppResources.AppBar_AddToFavorites;
             addtoFavoritesAppBarButton.Click += new EventHandler(AddtoFavoritesAppBarButton_Click);
 
-            var goToLocationAppBarButton = new ApplicationBarIconButton(gotoLocationImage)
-            {
-                Text = AppResources.AppBar_GoToLocation
-            };
+            var goToLocationAppBarButton = new ApplicationBarIconButton(gotoLocationImage);
+            goToLocationAppBarButton.Text = AppResources.AppBar_GoToLocation;
             goToLocationAppBarButton.Click += new EventHandler(GoToLocationAppBarButton_Click);
 
-            var supportMenu = new ApplicationBarMenuItem()
-            {
-                Text = AppResources.AppBar_Support
-            };
+            var supportMenu = new ApplicationBarMenuItem();
+            supportMenu.Text = AppResources.AppBar_Support;
             supportMenu.Click += new EventHandler(SettingsMenu_Click);
 
-            appBar.Buttons.Add(chooseCityAppBarButton);
-            appBar.Buttons.Add(goToLocationAppBarButton);
-            appBar.Buttons.Add(showFavoritesAppBarButton);
-            appBar.Buttons.Add(addtoFavoritesAppBarButton);
-            appBar.MenuItems.Add(supportMenu);
+            ApplicationBar.Buttons.Add(chooseCityAppBarButton);
+            ApplicationBar.Buttons.Add(goToLocationAppBarButton);
+            ApplicationBar.Buttons.Add(showFavoritesAppBarButton);
+            ApplicationBar.Buttons.Add(addtoFavoritesAppBarButton);
+            ApplicationBar.MenuItems.Add(supportMenu);
 
-            ApplicationBar = appBar;
             ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
         }
 
