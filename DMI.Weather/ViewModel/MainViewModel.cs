@@ -328,7 +328,7 @@ namespace DMI.ViewModel
             {
                 var task = new WebBrowserTask()
                 {
-                    URL = item.Link.AbsoluteUri
+                    Uri = item.Link
                 };
                 task.Show();
             }

@@ -19,27 +19,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Resources;
+using Microsoft.Phone.Scheduler;
 
-[assembly: AssemblyTitle("DMI Byvejr")]
-[assembly: AssemblyDescription("Vejrudsigten fra DMI")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Vejrudsigten fra DMI")]
-[assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2011")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+namespace DMI.TaskAgent
+{
+    public class ScheduledAgent : ScheduledTaskAgent
+    {
+        /// <summary>
+        /// Agent that runs a scheduled task
+        /// </summary>
+        /// <param name="task">
+        /// The invoked task
+        /// </param>
+        /// <remarks>
+        /// This method is called when a periodic or resource intensive task is invoked
+        /// </remarks>
+        protected override void OnInvoke(ScheduledTask task)
+        {
+            //TODO: Add code to perform your task in background
 
-[assembly: ComVisible(false)]
-[assembly: CLSCompliant(false)]
-
-[assembly: Guid("8e2f2f7a-8b81-4813-b397-a0ed88f5301a")]
-
-[assembly: AssemblyVersion("2.1.0.0")]
-[assembly: AssemblyFileVersion("2.1.0.0")]
-
-[assembly: NeutralResourcesLanguageAttribute("en")]
+            NotifyComplete();
+        }
+    }
+}

@@ -19,27 +19,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
 
-[assembly: AssemblyTitle("DMI Byvejr")]
-[assembly: AssemblyDescription("Vejrudsigten fra DMI")]
+[assembly: AssemblyTitle("DMI.TaskAgent")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Vejrudsigten fra DMI")]
+[assembly: AssemblyProduct("")]
 [assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-[assembly: CLSCompliant(false)]
 
-[assembly: Guid("8e2f2f7a-8b81-4813-b397-a0ed88f5301a")]
+[assembly: Guid("33710a46-4973-46f9-abe3-778708dfb0f1")]
 
-[assembly: AssemblyVersion("2.1.0.0")]
-[assembly: AssemblyFileVersion("2.1.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: NeutralResourcesLanguageAttribute("en")]
+[assembly: NeutralResourcesLanguage("en")]
