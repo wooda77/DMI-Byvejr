@@ -16,7 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>en-US;da-DK</SupportedCultures>
+    <SupportedCultures>en;da-DK</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>DMI.Weather.xap</XapFilename>
@@ -99,12 +99,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WP7, Version=3.0.0.27837, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\GalaSoft.MvvmLight.Extras.WP7.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.3.0.2\lib\sl3-wp\GalaSoft.MvvmLight.Extras.WP7.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.WP7, Version=3.0.0.27833, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\GalaSoft.MvvmLight.WP7.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.3.0.2\lib\sl3-wp\GalaSoft.MvvmLight.WP7.dll</HintPath>
     </Reference>
     <Reference Include="ImageTools">
       <HintPath>..\lib\ImageTools\ImageTools.dll</HintPath>
@@ -137,7 +135,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Interactivity, Version=3.7.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MvvmLightLibs.3.0.2\lib\sl3-wp\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -249,7 +247,6 @@
   <ItemGroup>
     <Content Include="ApplicationIcon.png" />
     <Content Include="Background.png" />
-    <Content Include="README_FIRST.txt" />
     <Content Include="Resources\Images\blueflag.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Resources\Images\appbar.addtofavs.light.png" />
@@ -260,8 +257,6 @@
     <Content Include="Resources\Images\appbar.addtofavs.dark.png" />
     <Content Include="Resources\Images\appbar.location.dark.png" />
     <Content Include="Resources\Images\appbar.location.light.png" />
-    <Resource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Resource Include="Toolkit.Content\ApplicationBar.Check.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\AppResources.da-DK.resx">
