@@ -45,5 +45,10 @@ namespace DMI.View
         {
             ViewModel.SelectionChanged.Execute(e);
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ViewModel.TextChanged.Execute(sender);
+        }
     }
 }

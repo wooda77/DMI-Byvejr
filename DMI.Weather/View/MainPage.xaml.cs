@@ -33,6 +33,7 @@ using DMI.Properties;
 using DMI.ViewModel;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Windows.Data;
 
 namespace DMI.View
 {
@@ -99,10 +100,15 @@ namespace DMI.View
 
         private void LiveTileMenu_Click(object sender, EventArgs e)
         {
-            string address = string.Format(AppSettings.AddTilePageAddress, 
-                ViewModel.CurrentAddress.PostalCode, ViewModel.CurrentAddress.CountryRegion);
+            if (ViewModel != null && 
+                ViewModel.IsInitialized && 
+                ViewModel.CurrentAddress != null)
+            {
+                string address = string.Format(AppSettings.AddTilePageAddress, 
+                    ViewModel.CurrentAddress.PostalCode, ViewModel.CurrentAddress.CountryRegion);
 
-            NavigationService.Navigate(new Uri(address, UriKind.Relative));
+                NavigationService.Navigate(new Uri(address, UriKind.Relative));
+            }
         }
 
         private void SettingsMenu_Click(object sender, EventArgs e)

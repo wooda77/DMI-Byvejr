@@ -31,15 +31,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBox Name="SearchTextBox"
-                             Grid.Row="0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <mvvm:EventToCommand Command="{Binding TextChanged,
-                                                                       Mode=OneWay}"
-                                                     CommandParameter="{Binding ElementName=SearchTextBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
+                             Grid.Row="0"
+                             TextChanged="SearchTextBox_TextChanged" />
                     <Grid Grid.Row="1">
                         <toolkit:LongListSelector x:Name="ChooseCityGrid"
                                                   Margin="12,0"
