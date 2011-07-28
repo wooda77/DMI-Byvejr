@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
-using Microsoft.Phone.Shell;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Microsoft.Phone.Shell;
+using Microsoft.Phone.Scheduler;
 
 namespace DMI.Common
 {
@@ -50,7 +45,7 @@ namespace DMI.Common
             backgroundRectangle.Width = 173;
             backgroundRectangle.Fill = new SolidColorBrush(Color.FromArgb(255, 13, 45, 132));
 
-            var source = new BitmapImage(new Uri("/Resources/Weather/3.png", UriKind.Relative));
+            var source = new BitmapImage(item.CloudImage);
             source.CreateOptions = BitmapCreateOptions.None;
             source.ImageOpened += (sender, e) =>
             {
@@ -71,8 +66,13 @@ namespace DMI.Common
                 tempTextBlock.Foreground = fontForeground;
                 tempTextBlock.FontFamily = fontFamily;
 
-                var tileImage = string.Format("/Shared/ShellContent/{0}.jpg", (int)item.TileType);
-                var isoStoreTileImage = string.Format("isostore:/Shared/ShellContent/{0}.jpg", (int)item.TileType);
+                string fileName = string.Format("{0}_{1}_{2}.jpg", 
+                    (int)item.TileType, 
+                    item.City.PostalCode, 
+                    item.City.ShortCountryName);
+
+                var tileImage = string.Format("/Shared/ShellContent/{0}", fileName);
+                var isoStoreTileImage = string.Format("isostore:/Shared/ShellContent/{0}", fileName);
 
                 using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
                 {
@@ -106,13 +106,10 @@ namespace DMI.Common
                     stream.Close();
                 }
 
-                var tileTypeUrlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)item.TileType);
+                var address = string.Format(AppSettings.MainPageWithTileAddress,
+                    item.City.PostalCode, item.City.Country, (int)item.TileType);
 
-                var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(
-                    x => x.NavigationUri.ToString().Contains(tileTypeUrlSegment));
-
-                if (dmiTile != null)
-                    dmiTile.Delete();
+                var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString() == address);
 
                 var tileData = new StandardTileData
                 {
@@ -120,12 +117,16 @@ namespace DMI.Common
                     Title = item.City.Name,
                 };
 
-                var address = string.Format(AppSettings.MainPageWithTileAddress,
-                    item.City.PostalCode, item.City.Country, (int)item.TileType);
+                if (dmiTile != null)
+                {    
+                    dmiTile.Update(tileData);    
+                }
+                else
+                {
+                    var navigationUri = new Uri(address, UriKind.Relative);
 
-                var navigationUri = new Uri(address, UriKind.Relative);
-
-                ShellTile.Create(navigationUri, tileData);
+                    ShellTile.Create(navigationUri, tileData);
+                }
             };
         }
     }

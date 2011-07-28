@@ -331,6 +331,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Periodically checks for weather updates and updates the tile on the start screen..
+        /// </summary>
+        public static string PeriodicTaskHelpMessage {
+            get {
+                return ResourceManager.GetString("PeriodicTaskHelpMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click on a tile to pin it to your home screen..
         /// </summary>
         public static string PinToHomeHelpText {

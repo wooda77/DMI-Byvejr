@@ -207,6 +207,9 @@
   <data name="NoRegionalForecast" xml:space="preserve">
     <value>There is no regional forecast for your region.</value>
   </data>
+  <data name="PeriodicTaskHelpMessage" xml:space="preserve">
+    <value>Periodically checks for weather updates and updates the tile on the start screen.</value>
+  </data>
   <data name="PinToHomeHelpText" xml:space="preserve">
     <value>Click on a tile to pin it to your home screen.</value>
   </data>

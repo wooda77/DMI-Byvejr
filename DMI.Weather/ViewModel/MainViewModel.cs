@@ -33,6 +33,7 @@ using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
+using Microsoft.Phone.Shell;
 
 namespace DMI.ViewModel
 {

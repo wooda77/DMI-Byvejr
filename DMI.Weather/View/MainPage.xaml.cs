@@ -269,22 +269,26 @@ namespace DMI.View
 
         private void NewsPivotItem_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.LoadNewsFeed.Execute(null);
+            if (ViewModel.IsInitialized)
+                ViewModel.LoadNewsFeed.Execute(null);
         }
 
         private void NewsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.NewsItemSelected.Execute(NewsListBox.SelectedItem);
+            if (ViewModel.IsInitialized)
+                ViewModel.NewsItemSelected.Execute(NewsListBox.SelectedItem);
         }
 
         private void FavoritesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.FavoriteItemSelected.Execute(FavoritesListBox.SelectedItem);
+            if (ViewModel.IsInitialized)
+                ViewModel.FavoriteItemSelected.Execute(FavoritesListBox.SelectedItem);
         }
 
         private void FavoritesPivotItem_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.LoadFavorites.Execute(null);
+            if (ViewModel.IsInitialized)
+                ViewModel.LoadFavorites.Execute(null);
         }
     }
 }

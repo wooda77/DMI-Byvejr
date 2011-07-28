@@ -45,6 +45,21 @@ namespace DMI.Common
             set;
         }
 
+        public string ShortCountryName
+        {
+            get
+            {
+                if (Country == "Denmark")
+                    return "DK";
+                else if (Country == "Greenland")
+                    return "GR";
+                else if (Country == "Faroe Islands")
+                    return "FR";
+                else
+                    return "__";
+            }
+        }
+
         public int Id
         {
             get;

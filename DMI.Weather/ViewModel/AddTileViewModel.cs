@@ -96,10 +96,26 @@ namespace DMI.ViewModel
                         }
                     });
             }
-        }        
+        }
 
-        public void AddTile(TileItem item)
+        public void GenerateTile(TileItem item)
         {
+            PeriodicTask task = new PeriodicTask(AppSettings.PeriodicTaskName);
+            task.Description = Properties.Resources.PeriodicTaskHelpMessage;
+            task.ExpirationTime = DateTime.Now.AddDays(14);
+
+            try
+            {
+                ScheduledActionService.Add(task);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
+#if DEBUG
+            ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(2));
+#endif
+
             TileGenerator.GenerateTile(item);
         }
 
@@ -116,6 +132,11 @@ namespace DMI.ViewModel
             }
 
             return Denmark.PostalCodes[postalCode];
+        }
+
+        private Uri ImageIdToUri(string imageId)
+        {
+            return new Uri(string.Format("/Resources/Weather/{0}.png", imageId), UriKind.Relative);
         }
 
         private TileItem CreateTileItem(GeoLocationCity city, LiveTileWeatherResponse response, TileType type)

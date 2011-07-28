@@ -218,7 +218,7 @@
                                    Text="{Binding Resources.BeachWeatherMenuItem,
                                                   Source={StaticResource AppResources}}" />
                     </StackPanel>
-                    <StackPanel Margin="0,0"
+                    <StackPanel Margin="0,24,0,0"
                                 Orientation="Horizontal">
                         <toolkit:GestureService.GestureListener>
                             <toolkit:GestureListener Tap="RadarMenuItem_Tap" />
@@ -326,4 +326,7 @@
             </c:PivotItem>
         </c:Pivot>
     </Grid>
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding Loading}" IsVisible="{Binding Loading}" Text="Loading..." />
+    </shell:SystemTray.ProgressIndicator>
 </phone:PhoneApplicationPage>
