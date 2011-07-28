@@ -131,7 +131,7 @@ namespace DMI.ViewModel
                     return FaroeIslands.PostalCodes[postalCode];
             }
 
-            return Denmark.PostalCodes[postalCode];
+            return Denmark.PostalCodes[Denmark.DefaultPostalCode];
         }
 
         private Uri ImageIdToUri(string imageId)
