@@ -40,11 +40,6 @@ namespace DMI.Common
         public const string FavoritesKey = "favorites";
 
         /// <summary>
-        /// PivotItem IsolatedStorage Key.
-        /// </summary>
-        public const string PivotItemKey = "pivotitem";
-
-        /// <summary>
         /// ToggleGPS IsolatedStorage Key.
         /// </summary>
         public const string ToggleGPSKey = "togglegps";

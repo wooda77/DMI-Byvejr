@@ -121,10 +121,10 @@ namespace DMI.ViewModel
             }
 
 #if DEBUG
-            ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(2));
+            ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(1));
 #endif
 
-            TileGenerator.GenerateTile(item);
+            TileGenerator.GenerateTile(item, () => {});
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)

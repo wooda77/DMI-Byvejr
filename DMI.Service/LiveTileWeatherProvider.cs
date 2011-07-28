@@ -4,6 +4,7 @@ using System.Linq;
 using RestSharp;
 using System.Globalization;
 using DMI.Common;
+using System.Windows;
 
 namespace DMI.Service
 {
@@ -30,6 +31,40 @@ namespace DMI.Service
                 {
                     callback(response.Data, response.ErrorException);
                 });
+        }
+
+        public static void GetFakeForecast(GeoLocationCity city, DateTime date, Action<IEnumerable<LiveTileWeatherResponse>, Exception> callback)
+        {
+            var response = new List<LiveTileWeatherResponse>();
+
+            response.Add(new LiveTileWeatherResponse()
+            {
+                Df = new DateTime(2011, 07, 29, 21, 00, 00),
+                Dtt = "Aften",
+                Prosa = "Skyet. Jævn vind, 6 m/s fra nordvest. Ingen nedbør",
+                S = "1",
+                T = "30",
+            });
+
+            response.Add(new LiveTileWeatherResponse()
+            {
+                Df = new DateTime(2011, 07, 30, 03, 00, 00),
+                Dtt = "Nat",
+                Prosa = "Skyet. Frisk vind, 8 m/s fra vest-nordvest. Ingen nedbør",
+                S = "4",
+                T = "14",
+            });
+
+            response.Add(new LiveTileWeatherResponse()
+            {
+                Df = new DateTime(2011, 07, 30, 09, 00, 00),
+                Dtt = "Morgen",
+                Prosa = "Skyet. Frisk vind, 8 m/s fra vest-nordvest. Ingen nedbør",
+                S = "4",
+                T = "15",
+            });
+
+            Deployment.Current.Dispatcher.BeginInvoke(() => callback(response, null));
         }
     }
 

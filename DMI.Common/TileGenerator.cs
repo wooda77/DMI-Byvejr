@@ -28,12 +28,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Scheduler;
+using System.Windows;
 
 namespace DMI.Common
 {
     public class TileGenerator
     {
-        public static void GenerateTile(TileItem item)
+        public static void GenerateTile(TileItem item, Action completed)
         {
             if (item.TileType == TileType.PlusSix)
             {
@@ -141,12 +142,16 @@ namespace DMI.Common
                 if (dmiTile != null)
                 {    
                     dmiTile.Update(tileData);    
+
+                    completed();
                 }
                 else
                 {
                     var navigationUri = new Uri(address, UriKind.Relative);
 
                     ShellTile.Create(navigationUri, tileData);
+
+                    completed();
                 }
             };
         }

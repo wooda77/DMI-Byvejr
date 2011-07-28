@@ -33,9 +33,10 @@ namespace DMI.TaskAgent
     {
         protected override void OnInvoke(ScheduledTask task)
         {
-            var latestTiles = GetTiles(TileType.Latest);
-            var plus6Tiles = GetTiles(TileType.PlusSix);
-            var plus12Tiles = GetTiles(TileType.PlusTwelve);
+            var latestTiles = GetTiles(TileType.Latest).ToArray();
+            var plus6Tiles = GetTiles(TileType.PlusSix).ToArray();
+            var plus12Tiles = GetTiles(TileType.PlusTwelve).ToArray();
+
             if (latestTiles.Any() || plus6Tiles.Any() || plus12Tiles.Any())
             {
                 foreach (var tile in latestTiles)
@@ -89,9 +90,7 @@ namespace DMI.TaskAgent
                                 var now = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
                                 if (now != null)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, now, type));
-
-                                    NotifyComplete();
+                                    TileGenerator.GenerateTile(CreateTileItem(city, now, type), () => NotifyComplete());
                                 }
                             });
                     }
@@ -105,12 +104,10 @@ namespace DMI.TaskAgent
                         LiveTileWeatherProvider.GetForecast(city, date,
                             (response, exception) =>
                             {
-                                var plus6 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
+                                var plus6 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(6).Hour);
                                 if (plus6 != null)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, plus6, type));
-
-                                    NotifyComplete();
+                                    TileGenerator.GenerateTile(CreateTileItem(city, plus6, type), () => NotifyComplete());
                                 }
                             });
                     }
@@ -124,12 +121,10 @@ namespace DMI.TaskAgent
                         LiveTileWeatherProvider.GetForecast(city, date,
                             (response, exception) =>
                             {
-                                var plus12 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
+                                var plus12 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(12).Hour);
                                 if (plus12 != null)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, plus12, type));
-
-                                    NotifyComplete();
+                                    TileGenerator.GenerateTile(CreateTileItem(city, plus12, type), () => NotifyComplete());
                                 }
                             });
                     }

@@ -191,22 +191,6 @@ namespace DMI.View
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
-            try
-            {
-                if (State.ContainsKey(AppSettings.PivotItemKey))
-                {
-                    State[AppSettings.PivotItemKey] = PivotLayout.SelectedIndex;
-                }
-                else
-                {
-                    State.Add(AppSettings.PivotItemKey, PivotLayout.SelectedIndex);
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Fix for Emulator-only crashes.
-            }
         }
 
         private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -223,19 +207,6 @@ namespace DMI.View
 
         private void PivotLayout_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (State.ContainsKey(AppSettings.PivotItemKey))
-                {
-                    var index = (int)State[AppSettings.PivotItemKey];
-                    PivotLayout.SelectedIndex = index;
-                }
-            }
-            catch (Exception)
-            {
-                // Fix for loading bug in the emulator.
-            }
-
             if (ApplicationBar == null)
             {
                 SmartDispatcher.BeginInvoke(BuildApplicationBar);
