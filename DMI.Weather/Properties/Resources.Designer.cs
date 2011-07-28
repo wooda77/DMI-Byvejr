@@ -22,14 +22,14 @@ namespace DMI.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AppResources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources() {
+        internal Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DMI.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DMI.Properties.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DMI.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -106,7 +106,16 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to support.
+        ///   Looks up a localized string similar to Live Tile.
+        /// </summary>
+        public static string AppBar_LiveTile {
+            get {
+                return ResourceManager.GetString("AppBar_LiveTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support.
         /// </summary>
         public static string AppBar_Support {
             get {
@@ -120,6 +129,15 @@ namespace DMI.Properties {
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DMI Byvejr Support.
+        /// </summary>
+        public static string AppSupportEmailHeader {
+            get {
+                return ResourceManager.GetString("AppSupportEmailHeader", resourceCulture);
             }
         }
         
@@ -160,6 +178,33 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danmark.
+        /// </summary>
+        public static string Country_Denmark {
+            get {
+                return ResourceManager.GetString("Country_Denmark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Færøerne.
+        /// </summary>
+        public static string Country_FaroeIslands {
+            get {
+                return ResourceManager.GetString("Country_FaroeIslands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grønland.
+        /// </summary>
+        public static string Country_Greenland {
+            get {
+                return ResourceManager.GetString("Country_Greenland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to country.
         /// </summary>
         public static string CountryHeader {
@@ -174,6 +219,15 @@ namespace DMI.Properties {
         public static string CreatedBy {
             get {
                 return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10229@iha.dk.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -223,11 +277,29 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to live tile.
+        /// </summary>
+        public static string Header_LiveTile {
+            get {
+                return ResourceManager.GetString("Header_LiveTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No internet connection is available. Please try again later..
         /// </summary>
         public static string InternetError {
             get {
                 return ResourceManager.GetString("InternetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest ({0:HH&apos;:&apos;mm}).
+        /// </summary>
+        public static string LatestTitle {
+            get {
+                return ResourceManager.GetString("LatestTitle", resourceCulture);
             }
         }
         
@@ -246,6 +318,42 @@ namespace DMI.Properties {
         public static string NewsHeader {
             get {
                 return ResourceManager.GetString("NewsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no regional forecast for your region..
+        /// </summary>
+        public static string NoRegionalForecast {
+            get {
+                return ResourceManager.GetString("NoRegionalForecast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on a tile to pin it to your home screen..
+        /// </summary>
+        public static string PinToHomeHelpText {
+            get {
+                return ResourceManager.GetString("PinToHomeHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +6 hours ({0:HH&apos;:&apos;mm}).
+        /// </summary>
+        public static string PlusSixHoursTitle {
+            get {
+                return ResourceManager.GetString("PlusSixHoursTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +12 hours ({0:HH&apos;:&apos;mm}).
+        /// </summary>
+        public static string PlusTwelveHoursTitle {
+            get {
+                return ResourceManager.GetString("PlusTwelveHoursTitle", resourceCulture);
             }
         }
         
@@ -304,6 +412,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string RemoveFromFavorites {
+            get {
+                return ResourceManager.GetString("RemoveFromFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to send email.
         /// </summary>
         public static string SendEmail {
@@ -345,6 +462,33 @@ namespace DMI.Properties {
         public static string WavesImageSource {
             get {
                 return ResourceManager.GetString("WavesImageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebTV - 3-døgnsudsigten.
+        /// </summary>
+        public static string WebTV_3D {
+            get {
+                return ResourceManager.GetString("WebTV_3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebTV - Dagens Vejrudsigt.
+        /// </summary>
+        public static string WebTV_DMI {
+            get {
+                return ResourceManager.GetString("WebTV_DMI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebTV - Sejlervejret.
+        /// </summary>
+        public static string WebTV_SEJL {
+            get {
+                return ResourceManager.GetString("WebTV_SEJL", resourceCulture);
             }
         }
     }

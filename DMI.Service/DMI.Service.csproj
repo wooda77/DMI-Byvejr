@@ -34,7 +34,7 @@
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
-    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
     <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
     <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
     <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
@@ -116,33 +116,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Beach.cs" />
     <Compile Include="BingLocationResponse.cs" />
-    <Compile Include="CityWithId.cs" />
-    <Compile Include="GeoLocationCity.cs" />
     <Compile Include="Denmark.cs" />
     <Compile Include="BingLocationProvider.cs" />
     <Compile Include="FaroeIslands.cs" />
+    <Compile Include="LiveTileWeatherProvider.cs" />
     <Compile Include="NewsProvider.cs" />
-    <Compile Include="Properties\AppResources.Designer.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Greenland.cs" />
-    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="IWeatherProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
     <Compile Include="WeatherResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\AppResources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMI.Common\DMI.Common.csproj">
+      <Project>{EBC918D6-094E-4F0B-B399-8064ADF0913E}</Project>
+      <Name>DMI.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

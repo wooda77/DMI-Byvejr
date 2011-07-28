@@ -48,7 +48,7 @@ namespace DMI.Service
             request.Resource = "REST/v1/Locations/{latitude},{longitude}?key={key}";
             request.AddUrlSegment("latitude", geoCoordinate.Latitude.ToString(CultureInfo.InvariantCulture));
             request.AddUrlSegment("longitude", geoCoordinate.Longitude.ToString(CultureInfo.InvariantCulture));
-            request.AddUrlSegment("key", AppResources.BingMapsKey);
+            request.AddUrlSegment("key", Resources.BingMapsKey);
 
             client.ExecuteAsync<BingLocationResponse>(request,
                 (response) =>

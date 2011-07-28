@@ -2,7 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using DMI.Properties;
+using System.Windows.Navigation;
+using DMI.Assets;
 
 namespace DMI.View
 {
@@ -13,20 +14,21 @@ namespace DMI.View
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            string id = "";
-            if (NavigationContext.QueryString.TryGetValue("ID", out id))
+            string beachId = NavigationContext.TryGetStringKey("ID");
+            
+            if (string.IsNullOrEmpty(beachId) == false)
             {
                 if (TemperatureImage != null)
                     TemperatureImage.Source = new BitmapImage(new Uri(string.Format(
-                        AppResources.TemperatureImageSource, id), UriKind.Absolute));
+                        Properties.Resources.TemperatureImageSource, beachId), UriKind.Absolute));
 
                 if (WavesImage != null)
                     WavesImage.Source = new BitmapImage(new Uri(string.Format(
-                        AppResources.WavesImageSource, id), UriKind.Absolute));
+                        Properties.Resources.WavesImageSource, beachId), UriKind.Absolute));
             }
         }
 

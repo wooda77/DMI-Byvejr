@@ -23,11 +23,8 @@
         <locale_viewmodel:ChooseCityViewModel />
     </phone:PhoneApplicationPage.DataContext>
     <Grid>
-        <Grid.Resources>
-            <locale_assets:GroupToBrushValueConverter x:Key="groupBrush" />
-        </Grid.Resources>
-        <c:Pivot Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}">
-            <c:PivotItem Header="{Binding AppResources.AppBar_ChooseCity, Source={StaticResource AppResources}}">
+        <c:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
+            <c:PivotItem Header="{Binding Resources.AppBar_ChooseCity, Source={StaticResource AppResources}}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="75" />
@@ -47,14 +44,8 @@
                         <toolkit:LongListSelector x:Name="ChooseCityGrid"
                                                   Margin="12,0"
                                                   Background="Transparent"
-                                                  ItemsSource="{Binding Cities}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <mvvm:EventToCommand Command="{Binding SelectionChanged,
-                                                                           Mode=OneTime}"
-                                                         PassEventArgsToCommand="True" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                                                  ItemsSource="{Binding Cities}"
+                                                  SelectionChanged="ChooseCityGrid_SelectionChanged">
                             <toolkit:LongListSelector.GroupItemsPanel>
                                 <ItemsPanelTemplate>
                                     <toolkit:WrapPanel Orientation="Horizontal" />
@@ -65,7 +56,7 @@
                                     <Border Width="99"
                                             Height="99"
                                             Margin="6"
-                                            Background="{Binding Converter={StaticResource groupBrush}}"
+                                            Background="{StaticResource PhoneAccentBrush}"
                                             IsHitTestVisible="{Binding HasItems}">
                                         <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
                                                    VerticalAlignment="Bottom"

@@ -27,11 +27,14 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using DMI.Service.Properties;
+using DMI.Common;
 
 namespace DMI.Service
 {
     public class FaroeIslands : IWeatherProvider
     {
+        public const string Name = "Faroe Islands";
+
         private static FaroeIslands instance;
 
         public static FaroeIslands Instance
@@ -74,9 +77,9 @@ namespace DMI.Service
             var result = new CityWeatherResult()
             {
                 CityWeatherThreeDaysImage = new Uri(string.Format(
-                    AppResources.FaroeIslands_CityWeatherThreeDaysImage, postalCode)),
+                    Resources.FaroeIslands_CityWeatherThreeDaysImage, postalCode)),
                 CityWeatherSevenDaysImage = new Uri(string.Format(
-                    AppResources.FaroeIslands_CityWeatherSevenDaysImage, postalCode)),
+                    Resources.FaroeIslands_CityWeatherSevenDaysImage, postalCode)),
             };
 
             callback(result, null);    
@@ -141,7 +144,7 @@ namespace DMI.Service
                 }
             };
 
-            client.DownloadStringAsync(new Uri(AppResources.FaroeIslands_CountryFeed));
+            client.DownloadStringAsync(new Uri(Resources.FaroeIslands_CountryFeed));
         }
 
         public void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback)
@@ -153,8 +156,8 @@ namespace DMI.Service
 
         private static int GetPostalCodeFromGeoCoordinate(GeoCoordinate location)
         {
-            double shortestDistance = 0;
-            GeoLocationCity nearestCity = PostalCodes[6011];
+            var shortestDistance = 0.0;
+            var nearestCity = PostalCodes[6011];
 
             foreach (var city in PostalCodes.Values)
             {
@@ -173,11 +176,11 @@ namespace DMI.Service
 
         public static IDictionary<int, GeoLocationCity> PostalCodes = new Dictionary<int, GeoLocationCity>()
         {
-            { 6009, new GeoLocationCity(6009, "Akraberg", 61.400663, -6.687927) },
-            { 6012, new GeoLocationCity(6012, "Fugloy", 62.321555, -6.325378) },
-            { 6005, new GeoLocationCity(6005, "Mykines", 62.097457, -7.676697) },
-            { 6010, new GeoLocationCity(6010, "Sørvágur/Vágar", 62.082833, -7.318611) },
-            { 6011, new GeoLocationCity(6011, "Tórshavn", 62.017985, -6.782684) },
+            { 6009, new GeoLocationCity("Faroe Islands", 6009, 2624923, "Akraberg", 61.400663, -6.687927) },
+            { 6012, new GeoLocationCity("Faroe Islands", 6012, 2621795, "Fugloy", 62.321555, -6.325378) },
+            { 6005, new GeoLocationCity("Faroe Islands", 6005, 2616648, "Mykines", 62.097457, -7.676697) },
+            { 6010, new GeoLocationCity("Faroe Islands", 6010, 2612890, "Sørvágur/Vágar", 62.082833, -7.318611) },
+            { 6011, new GeoLocationCity("Faroe Islands", 6011, 2611396, "Tórshavn", 62.017985, -6.782684) },
         };
 
         #endregion

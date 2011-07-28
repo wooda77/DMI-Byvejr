@@ -1,6 +1,6 @@
 ﻿using System;
+using DMI.Service;
 using DMI.ViewModel;
-using DMI.Model;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
 

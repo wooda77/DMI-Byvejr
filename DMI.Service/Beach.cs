@@ -21,7 +21,7 @@
 #endregion
 using System.Device.Location;
 
-namespace DMI.Model
+namespace DMI.Service
 {
     public class Beach
     {

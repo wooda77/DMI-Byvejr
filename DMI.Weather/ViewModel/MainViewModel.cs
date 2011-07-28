@@ -20,7 +20,6 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Device.Location;
 using System.IO.IsolatedStorage;
@@ -29,14 +28,11 @@ using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-using DMI.Model;
-using DMI.Properties;
+using DMI.Common;
 using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
-using System.Windows.Controls;
 
 namespace DMI.ViewModel
 {
@@ -46,12 +42,12 @@ namespace DMI.ViewModel
 
         public MainViewModel()
         {
-            this.Favorites = new ObservableCollection<City>();
+            this.Favorites = new ObservableCollection<GeoLocationCity>();
             this.NewsItems = new ObservableCollection<NewsItem>();
             this.IsInitialized = false;
             this.Loading = false;
 
-            if (App.IsFirstStart == false)
+            if (AppSettings.IsFirstStart == false)
             {
                 Initialize();
             }
@@ -61,20 +57,20 @@ namespace DMI.ViewModel
         {
             this.IsInitialized = true;
 
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.FavoritesKey))
             {
-                this.Favorites = (ObservableCollection<City>)
-                    IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+                this.Favorites = (ObservableCollection<GeoLocationCity>)
+                    IsolatedStorageSettings.ApplicationSettings[AppSettings.FavoritesKey];
 
-                this.Favorites = this.Favorites ?? new ObservableCollection<City>();
+                this.Favorites = this.Favorites ?? new ObservableCollection<GeoLocationCity>();
             }
 
             this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
             this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
             this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
-            this.RemoveFromFavorites = new RelayCommand<City>(RemoveFromFavoritesExecute);
+            this.RemoveFromFavorites = new RelayCommand<GeoLocationCity>(RemoveFromFavoritesExecute);
             this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
-            this.FavoriteItemSelected = new RelayCommand<City>(FavoriteItemSelectedExecute);
+            this.FavoriteItemSelected = new RelayCommand<GeoLocationCity>(FavoriteItemSelectedExecute);
             this.GoToLocation = new RelayCommand(GoToLocationExecute);
 
             if (InternetIsAvailable())
@@ -155,7 +151,7 @@ namespace DMI.ViewModel
             private set;
         }
 
-        public ObservableCollection<City> Favorites
+        public ObservableCollection<GeoLocationCity> Favorites
         {
             get;
             private set;
@@ -230,19 +226,19 @@ namespace DMI.ViewModel
                 {
                     NewsItems.Add(new NewsItem()
                     {
-                        Title = "WebTV - Dagens Vejrudsigt",
+                        Title = Properties.Resources.WebTV_DMI,
                         WebTVItem = videos.FirstOrDefault(v => v.Category == "DMI"),
                     });
 
                     NewsItems.Add(new NewsItem()
                     {
-                        Title = "WebTV - Sejlervejret",
+                        Title = Properties.Resources.WebTV_SEJL,
                         WebTVItem = videos.FirstOrDefault(v => v.Category == "SEJL"),
                     });
 
                     NewsItems.Add(new NewsItem()
                     {
-                        Title = "WebTV - 3-døgnsudsigten",
+                        Title = Properties.Resources.WebTV_3D,
                         WebTVItem = videos.FirstOrDefault(v => v.Category == "3D"),
                     });
                 }
@@ -259,8 +255,8 @@ namespace DMI.ViewModel
 
         private void LoadFavoritesExecute()
         {
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites))
-                Favorites = (ObservableCollection<City>)IsolatedStorageSettings.ApplicationSettings[App.Favorites];
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.FavoritesKey))
+                Favorites = (ObservableCollection<GeoLocationCity>)IsolatedStorageSettings.ApplicationSettings[AppSettings.FavoritesKey];
         }
 
         private void AddToFavoritesExecute()
@@ -269,42 +265,36 @@ namespace DMI.ViewModel
             {
                 return;
             }
-            
+
             int postalCode = 0;
             if (int.TryParse(CurrentAddress.PostalCode, out postalCode))
             {
-                string cityName = string.Empty;
+                GeoLocationCity city = null;
 
                 switch (CurrentAddress.CountryRegion)
                 {
-                    case "Greenland":
-                        cityName = Greenland.PostalCodes[postalCode].Name;
+                    case Greenland.Name:
+                        city = Greenland.PostalCodes[postalCode];
                         break;
-                    case "Faroe Islands":
-                        cityName = FaroeIslands.PostalCodes[postalCode].Name;
+                    case FaroeIslands.Name:
+                        city = FaroeIslands.PostalCodes[postalCode];
                         break;
-                    case "Denmark":
-                        cityName = Denmark.PostalCodes[postalCode];
+                    case Denmark.Name:
+                        city = Denmark.PostalCodes[postalCode];
                         break;
                 }
 
-                if (string.IsNullOrEmpty(cityName) == false && Favorites.Any(c => c.Name == cityName) == false)
+                if (city != null && Favorites.Any(c => c.Name == city.Name) == false)
                 {
-                    Favorites.Add(new City()
-                    {
-                        Country = CurrentAddress.CountryRegion,
-                        PostalCode = postalCode,
-                        Name = cityName
-                    });
-
+                    Favorites.Add(city);
                     SaveFavorites();
                 }
             }
         }
 
-        private void RemoveFromFavoritesExecute(City city)
+        private void RemoveFromFavoritesExecute(GeoLocationCity city)
         {
-            if ((city != null) && (city is City) && (Favorites != null))
+            if ((city != null) && (city is GeoLocationCity) && (Favorites != null))
             {
                 Favorites.Remove(city);
                 SaveFavorites();
@@ -334,12 +324,12 @@ namespace DMI.ViewModel
             }
         }
 
-        private void FavoriteItemSelectedExecute(City city)
+        private void FavoriteItemSelectedExecute(GeoLocationCity city)
         {
             if (city == null)
                 throw new ArgumentException("city");
 
-            var uri = string.Format("/View/MainPage.xaml?PostalCode={0}", city.PostalCode);
+            var uri = string.Format(AppSettings.MainPageAddress, city.PostalCode, city.Country);
 
             App.Navigate(new Uri(uri, UriKind.Relative));
         }
@@ -357,14 +347,14 @@ namespace DMI.ViewModel
         {
             var available = NetworkInterface.GetIsNetworkAvailable();
 
-//#if DEBUG
-//    available = false;
-//#endif
+            //#if DEBUG
+            //    available = false;
+            //#endif
 
             if (available == false)
             {
                 Loading = false;
-                MessageBox.Show(AppResources.InternetError);
+                MessageBox.Show(Properties.Resources.InternetError);
 
                 return false;
             }
@@ -375,12 +365,12 @@ namespace DMI.ViewModel
         private void UpdateCurrentLocation()
         {
             if (CurrentAddress != null &&
-                CurrentAddress.CountryRegion == "Greenland")
+                CurrentAddress.CountryRegion == Greenland.Name)
             {
                 RegionalWeather = new RegionalWeatherResult()
                 {
-                    Name = "Grønland",
-                    Content = "Der er ingen regionaludsigt for din region"
+                    Name = Properties.Resources.Country_Greenland,
+                    Content = Properties.Resources.NoRegionalForecast
                 };
 
                 Greenland.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
@@ -398,12 +388,12 @@ namespace DMI.ViewModel
                     });
             }
             else if (CurrentAddress != null &&
-                     CurrentAddress.CountryRegion == "Faroe Islands")
+                     CurrentAddress.CountryRegion == FaroeIslands.Name)
             {
                 RegionalWeather = new RegionalWeatherResult()
                 {
-                    Name = "Færøerne",
-                    Content = "Der er ingen regionaludsigt for din region"
+                    Name = Properties.Resources.Country_FaroeIslands,
+                    Content = Properties.Resources.NoRegionalForecast
                 };
 
                 FaroeIslands.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
@@ -454,9 +444,9 @@ namespace DMI.ViewModel
 
         private void ResolveAddress()
         {
-            if (App.IsGPSEnabled == false)
+            if (AppSettings.IsGPSEnabled == false)
             {
-                MessageBox.Show(AppResources.GPSDisabledError);
+                MessageBox.Show(Properties.Resources.GPSDisabledError);
             }
             else
             {
@@ -498,13 +488,13 @@ namespace DMI.ViewModel
 
         private void SaveFavorites()
         {
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(App.Favorites) == false)
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.FavoritesKey) == false)
             {
-                IsolatedStorageSettings.ApplicationSettings.Add(App.Favorites, Favorites);
+                IsolatedStorageSettings.ApplicationSettings.Add(AppSettings.FavoritesKey, Favorites);
             }
             else
             {
-                IsolatedStorageSettings.ApplicationSettings[App.Favorites] = Favorites;
+                IsolatedStorageSettings.ApplicationSettings[AppSettings.FavoritesKey] = Favorites;
             }
 
             IsolatedStorageSettings.ApplicationSettings.Save();

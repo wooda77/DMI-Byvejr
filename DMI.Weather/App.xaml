@@ -1,7 +1,7 @@
 ﻿<Application x:Class="DMI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:dmi_models="clr-namespace:DMI.Model"
+             xmlns:r="clr-namespace:DMI.Resources"
              xmlns:mscore="clr-namespace:System;assembly=mscorlib"
              xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
              xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
@@ -11,6 +11,6 @@
                 <ResourceDictionary Source="Resources/Styles/DefaultStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        <dmi_models:Resources x:Key="AppResources" />
+        <r:AppResources x:Key="AppResources" />
     </Application.Resources>
 </Application>

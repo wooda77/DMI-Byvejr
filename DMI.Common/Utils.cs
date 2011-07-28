@@ -21,21 +21,23 @@
 #endregion
 using System;
 using System.Text;
-using System.Xml.Linq;
-using System.Diagnostics.CodeAnalysis;
+using Microsoft.Phone.Scheduler;
+using System.Collections.Generic;
 
-namespace DMI.Service
+namespace DMI.Common
 {
     public static class Utils
     {
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", 
-            Justification="Result is dependant on the argument 'element' being null or not.")]
-        public static string TryGetValue(this XElement element, string defaultValue = "")
+        public static void CreateTask()
         {
-            if (element != null)
-                return element.Value;
-            else
-                return defaultValue;
+            PeriodicTask task = new PeriodicTask(AppSettings.PeriodicTaskName);
+            task.Description = Properties.Resources.PeriodicTaskHelpMessage;
+            task.ExpirationTime = DateTime.Now.AddDays(7);
+
+            if (ScheduledActionService.Find(AppSettings.PeriodicTaskName) != null)
+                ScheduledActionService.Remove(AppSettings.PeriodicTaskName);
+
+            ScheduledActionService.Add(task);
         }
 
         public static string ParsePollenData(string data)
@@ -62,6 +64,25 @@ namespace DMI.Service
                 output = output.Substring(0, output.Length - 3);
 
             return output;
+        }
+
+        public static Dictionary<string, string> ParseQueryString(string queryString)
+        {
+            Dictionary<string, string> nameValueCollection = new Dictionary<string, string>();
+            string[] items = queryString.Split('&');
+
+            foreach (string item in items)
+            {
+                if (item.Contains("="))
+                {
+                    string[] nameValue = item.Split('=');
+                    if (nameValue[0].Contains("?"))
+                        nameValue[0] = nameValue[0].Replace("?", "");
+                    nameValueCollection.Add(nameValue[0], System.Net.HttpUtility.UrlDecode(nameValue[1]));
+                }
+            }
+
+            return nameValueCollection;
         }
     }
 }

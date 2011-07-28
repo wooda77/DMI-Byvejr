@@ -21,7 +21,7 @@
 #endregion
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
-using DMI.Properties;
+using DMI.Common;
 
 namespace DMI.View
 {
@@ -31,7 +31,7 @@ namespace DMI.View
         {
             InitializeComponent();
 
-            App.IsFirstStart = false;
+            AppSettings.IsFirstStart = false;
         }
 
         private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -43,8 +43,8 @@ namespace DMI.View
         {
             var emailTask = new EmailComposeTask()
             {
-                To = "10229@iha.dk",
-                Subject = AppResources.AppTitleSmall + " Support"
+                To = Properties.Resources.Email,
+                Subject = Properties.Resources.AppSupportEmailHeader
             };
 
             emailTask.Show();

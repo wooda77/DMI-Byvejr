@@ -12,13 +12,13 @@ Mango
    - Refactor alle paths, og settings nøgler ind i en AppSettings klasse (også, IsGPSEnabled / IsFirstStart)
    - Live Tile
       - Menu (Live Tile)
-       - Vælg "seneste", "eftermiddag", "aften"
+       - Vælg "morgen", "eftermiddag", "aften", "nat"
 
        Hack DR, http://www.dr.dk/tjenester/drvejret/Forecast/56.122591449212/10.1514530181885/20110727120000
 
        - http://www.dr.dk/nyheder/vejret#/Viby/2610310/0/0/10
 
-       http://www.dr.dk/tjenester/drvejret/Forecast/{Latitude}/{Longitude}/{Year}{Month}{Day}{Hour}0000
+       http://www.dr.dk/tjenester/drvejret/Forecast/{Latitude}/{Longitude}/
 
    - Kun nødvendigt med en farve billeder
    - Ændre alt brug af WebClient , for at undgå UI thread load.

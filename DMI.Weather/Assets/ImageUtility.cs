@@ -28,7 +28,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone;
 
-namespace System.Windows.Controls
+namespace DMI.Assets
 {
     public static class ImageUtility
     {

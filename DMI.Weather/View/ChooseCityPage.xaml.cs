@@ -19,6 +19,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System;
+using System.Windows.Controls;
+using DMI.ViewModel;
 using Microsoft.Phone.Controls;
 
 namespace DMI.View
@@ -28,6 +31,19 @@ namespace DMI.View
         public ChooseCityPage()
         {
             InitializeComponent();
+        }
+
+        private ChooseCityViewModel ViewModel
+        {
+            get
+            {
+                return DataContext as ChooseCityViewModel;
+            }
+        }
+
+        private void ChooseCityGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SelectionChanged.Execute(e);
         }
     }
 }

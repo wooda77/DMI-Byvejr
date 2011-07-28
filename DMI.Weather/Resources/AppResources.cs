@@ -19,29 +19,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Collections.Generic;
 
-namespace DMI
+namespace DMI.Resources
 {
-    public static class IEnumerableExtensions
+    using Properties;
+
+    public class AppResources
     {
-        public static IEnumerable<T[]> Chunks<T>(this IEnumerable<T> self, int size)
+        private static Resources resources = new Resources();
+
+        public Resources Resources
         {
-            var chunk = new T[size];
-
-            int index = 0;
-
-            foreach (var item in self)
+            get
             {
-                chunk[index++] = item;
-
-                if (index >= size)
-                {
-                    yield return chunk;
-                    
-                    index = 0;
-                    chunk = new T[size];
-                }
+                return resources;
             }
         }
     }

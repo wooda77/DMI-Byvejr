@@ -20,11 +20,37 @@
 // THE SOFTWARE
 #endregion
 using System;
+using System.Device.Location;
 
-namespace DMI.Model
+namespace DMI.Common
 {
-    public class City : IEquatable<City>, IComparable<City>
+    public class GeoLocationCity : IComparable<GeoLocationCity>
     {
+        public GeoLocationCity()
+        {
+        }
+
+        public GeoLocationCity(string country, int postalCode, int id, string name, double latitude, double longitude)
+        {
+            this.Country = country;
+            this.Id = id;
+            this.PostalCode = postalCode;
+            this.Name = name;
+            this.Location = new GeoCoordinate(latitude, longitude);
+        }
+
+        public string Country
+        {
+            get;
+            set;
+        }
+
+        public int Id
+        {
+            get;
+            set;
+        }
+
         public string Name
         {
             get;
@@ -37,34 +63,18 @@ namespace DMI.Model
             set;
         }
 
-        public string Country
+        public GeoCoordinate Location
         {
             get;
             set;
         }
 
-        #region IEquatable<City> Members
-
-        public bool Equals(City other)
+        public int CompareTo(GeoLocationCity other)
         {
             if (other == null)
-                return false;
-            
-            return this.PostalCode == other.PostalCode;
-        }
+                return -1;
 
-        #endregion
-
-        #region IComparable<City> Members
-
-        public int CompareTo(City other)
-        {
-            if (other == null)
-                return 1;
-            
             return this.Name.CompareTo(other.Name);
         }
-
-        #endregion
     }
 }

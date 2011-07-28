@@ -118,82 +118,124 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AllowGPSUse" xml:space="preserve">
-    <value>Tillad brug af GPS</value>
+    <value>Allow use of GPS location</value>
   </data>
   <data name="AppBar_AddToFavorites" xml:space="preserve">
-    <value>tilføj favorit</value>
+    <value>add favorite</value>
   </data>
   <data name="AppBar_ChooseCity" xml:space="preserve">
-    <value>vælg by</value>
+    <value>choose city</value>
   </data>
   <data name="AppBar_Favorites" xml:space="preserve">
-    <value>favoritter</value>
+    <value>favorites</value>
   </data>
   <data name="AppBar_GoToLocation" xml:space="preserve">
-    <value>vejret her</value>
+    <value>me</value>
+  </data>
+  <data name="AppBar_LiveTile" xml:space="preserve">
+    <value>Live Tile</value>
   </data>
   <data name="AppBar_Support" xml:space="preserve">
-    <value>support</value>
+    <value>Support</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>App Navn: </value>
+    <value>App Name: </value>
+  </data>
+  <data name="AppSupportEmailHeader" xml:space="preserve">
+    <value>DMI Byvejr Support</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>VEJRUDSIGTEN FRA DMI</value>
+    <value>WEATHER FORECAST FROM DMI</value>
   </data>
   <data name="AppTitleSmall" xml:space="preserve">
-    <value>Vejrudsigten fra DMI</value>
+    <value>Weather Forecast from DMI</value>
   </data>
   <data name="BeachWeatherMenuItem" xml:space="preserve">
-    <value>Strandvejr</value>
+    <value>Beach Weather</value>
   </data>
   <data name="CityWeatherHeader" xml:space="preserve">
-    <value>byvejr</value>
+    <value>city weather</value>
   </data>
   <data name="CountryHeader" xml:space="preserve">
-    <value>landsudsigt</value>
+    <value>country</value>
+  </data>
+  <data name="Country_Denmark" xml:space="preserve">
+    <value>Danmark</value>
+  </data>
+  <data name="Country_FaroeIslands" xml:space="preserve">
+    <value>Færøerne</value>
+  </data>
+  <data name="Country_Greenland" xml:space="preserve">
+    <value>Grønland</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
-    <value>Lavet af: </value>
+    <value>Created by: </value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>10229@iha.dk</value>
   </data>
   <data name="EmailHelpText" xml:space="preserve">
-    <value>Send venligst kommentarer eller tekniske spørgsmål til email: 10229@iha.dk</value>
+    <value>Please write comments or technical questions to: email: 10229@iha.dk</value>
   </data>
   <data name="FavoritesHeader" xml:space="preserve">
-    <value>favoritter</value>
+    <value>favorites</value>
   </data>
   <data name="GPSDisabledError" xml:space="preserve">
-    <value>Kunne ikke finde din position, fordi GPS'en ikke er slået til.</value>
+    <value>Could not resolve the location, because Location Servies aren't enabled.</value>
   </data>
   <data name="GPSHelpText" xml:space="preserve">
-    <value>Positions servicen (GPS) i DMI Byvejr sender din nuværende position til en service i skyen for at kunne konvertere din geografiske position om til et postnummer. Lokalisationen bliver så brugt til at vise vejr-information for dit aktuelle område.</value>
+    <value>The location service (GPS) in DMI City Weather is sending your current location to a cloud service in order to convert the geographical coordinates into a postal code. The location is then used to display the weather-information for your area.</value>
   </data>
   <data name="GPSResolveError" xml:space="preserve">
-    <value>Kunne ikke finde din position.</value>
+    <value>Could not resolve the location.</value>
+  </data>
+  <data name="Header_LiveTile" xml:space="preserve">
+    <value>live tile</value>
   </data>
   <data name="InternetError" xml:space="preserve">
-    <value>Der er ingen internet forbindelse. Prøv igen senere.</value>
+    <value>No internet connection is available. Please try again later.</value>
+  </data>
+  <data name="LatestTitle" xml:space="preserve">
+    <value>Latest ({0:HH':'mm})</value>
   </data>
   <data name="MapsHeader" xml:space="preserve">
     <value>diverse</value>
   </data>
   <data name="NewsHeader" xml:space="preserve">
-    <value>nyheder og tv</value>
+    <value>news and tv</value>
+  </data>
+  <data name="NoRegionalForecast" xml:space="preserve">
+    <value>There is no regional forecast for your region.</value>
+  </data>
+  <data name="PinToHomeHelpText" xml:space="preserve">
+    <value>Click on a tile to pin it to your home screen.</value>
+  </data>
+  <data name="PlusSixHoursTitle" xml:space="preserve">
+    <value>+6 hours ({0:HH':'mm})</value>
+  </data>
+  <data name="PlusTwelveHoursTitle" xml:space="preserve">
+    <value>+12 hours ({0:HH':'mm})</value>
   </data>
   <data name="PollenHeader" xml:space="preserve">
-    <value>pollental</value>
+    <value>pollen</value>
+  </data>
+  <data name="RadarAnimation" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/radaranim2.gif</value>
   </data>
   <data name="RadarHeaderSmall" xml:space="preserve">
-    <value>radar (nedbør)</value>
+    <value>radar (rain)</value>
   </data>
   <data name="RadarMenuItem" xml:space="preserve">
-    <value>Radar (nedbør)</value>
+    <value>Radar (rain)</value>
   </data>
   <data name="RegionalHeader" xml:space="preserve">
-    <value>regionaludsigt</value>
+    <value>regional</value>
   </data>
   <data name="RemoveFavorite" xml:space="preserve">
-    <value>fjern favorit</value>
+    <value>remove favorite</value>
+  </data>
+  <data name="RemoveFromFavorites" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="SendEmail" xml:space="preserve">
     <value>send email</value>
@@ -201,7 +243,22 @@
   <data name="SupportHeader" xml:space="preserve">
     <value>support</value>
   </data>
+  <data name="TemperatureImageSource" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;tabel=dag1&amp;mode=long</value>
+  </data>
   <data name="Version" xml:space="preserve">
     <value>Version: </value>
+  </data>
+  <data name="WavesImageSource" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag1&amp;param=bolger</value>
+  </data>
+  <data name="WebTV_3D" xml:space="preserve">
+    <value>WebTV - 3-døgnsudsigten</value>
+  </data>
+  <data name="WebTV_DMI" xml:space="preserve">
+    <value>WebTV - Dagens Vejrudsigt</value>
+  </data>
+  <data name="WebTV_SEJL" xml:space="preserve">
+    <value>WebTV - Sejlervejret</value>
   </data>
 </root>

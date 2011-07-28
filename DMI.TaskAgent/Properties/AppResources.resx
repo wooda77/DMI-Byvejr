@@ -117,97 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BingMapsKey" xml:space="preserve">
-    <value>AlqAO_r2pYHWEKTnYolKAITA9Ix8p5mHO26jZ2bWZbmn1FHMU6eEJKRgqnS2v-P4</value>
+  <data name="LatestTitle" xml:space="preserve">
+    <value>Latest ({0:HH':'mm})</value>
   </data>
-  <data name="Denmark_CityWeatherSevenDaysImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9</value>
+  <data name="PlusSixHoursTitle" xml:space="preserve">
+    <value>+6 hours ({0:HH':'mm})</value>
   </data>
-  <data name="Denmark_CityWeatherThreeDaysImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;mode=long</value>
+  <data name="PlusTwelveHoursTitle" xml:space="preserve">
+    <value>+12 hours ({0:HH':'mm})</value>
   </data>
-  <data name="Denmark_CountryFeed" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/index/danmark/landsudsigten.htm</value>
+  <data name="Tile_Afternoon" xml:space="preserve">
+    <value>Afternoon ({0:HH':'mm})</value>
   </data>
-  <data name="Denmark_CountryImage" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_dk.png</value>
+  <data name="Tile_Evening" xml:space="preserve">
+    <value>Evening ({0:HH':'mm})</value>
   </data>
-  <data name="FaroeIslands_CityWeatherSevenDaysImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag2_6_glfo&amp;lang=fo</value>
+  <data name="Tile_Morning" xml:space="preserve">
+    <value>Morning ({0:HH':'mm})</value>
   </data>
-  <data name="FaroeIslands_CityWeatherThreeDaysImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;lang=fo&amp;mode=long</value>
-  </data>
-  <data name="FaroeIslands_CountryFeed" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/index/faroerne.htm</value>
-  </data>
-  <data name="Greenland_CityWeatherSevenDaysImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag3_9</value>
-  </data>
-  <data name="Greenland_CityWeatherThreeDaysImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by_gl={0}&amp;mode=long</value>
-  </data>
-  <data name="Greenland_CountryFeed" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/index/gronland/grover.htm</value>
-  </data>
-  <data name="NewsFeed" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/rss-nyheder</value>
-  </data>
-  <data name="PollenFeed" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/pollen-feed.xml</value>
-  </data>
-  <data name="PollenImage" xml:space="preserve">
-    <value>http://servlet.dmi.dk/byvejr/servlet/pollen_dag1?by={0}</value>
-  </data>
-  <data name="RegionalImage_Bornholm" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_bornholm.png</value>
-  </data>
-  <data name="RegionalImage_EastJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_ostjylland.png</value>
-  </data>
-  <data name="RegionalImage_Fyn" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_fyn.png</value>
-  </data>
-  <data name="RegionalImage_MiddleJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_vestjylland.png</value>
-  </data>
-  <data name="RegionalImage_NorthJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_nordjylland.png</value>
-  </data>
-  <data name="RegionalImage_NorthZealand" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_kobenhavn.png</value>
-  </data>
-  <data name="RegionalImage_SouthJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_sydjylland.png</value>
-  </data>
-  <data name="RegionalImage_SouthZealand" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/femdgn_vestsjaelland.png</value>
-  </data>
-  <data name="RegionalText_Bornholm" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_born.htm</value>
-  </data>
-  <data name="RegionalText_EastJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_ostj.htm</value>
-  </data>
-  <data name="RegionalText_Fyn" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_fyn.htm</value>
-  </data>
-  <data name="RegionalText_MiddleJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_midtvj.htm</value>
-  </data>
-  <data name="RegionalText_NorthJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_nord.htm</value>
-  </data>
-  <data name="RegionalText_NorthZealand" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_kbhnord.htm</value>
-  </data>
-  <data name="RegionalText_SouthJytland" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_sydson.htm</value>
-  </data>
-  <data name="RegionalText_SouthZealand" xml:space="preserve">
-    <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm</value>
-  </data>
-  <data name="WebTVFeed" xml:space="preserve">
-    <value>http://tv.dmi.dk/js/photos?raw</value>
+  <data name="Tile_Night" xml:space="preserve">
+    <value>Night ({0:HH':'mm})</value>
   </data>
 </root>
