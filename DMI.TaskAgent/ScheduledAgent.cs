@@ -26,6 +26,7 @@ using DMI.Common;
 using DMI.Service;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
+using System.Threading;
 
 namespace DMI.TaskAgent
 {
@@ -33,20 +34,39 @@ namespace DMI.TaskAgent
     {
         protected override void OnInvoke(ScheduledTask task)
         {
-            var latestTiles = GetTiles(TileType.Latest).ToArray();
-            var plus6Tiles = GetTiles(TileType.PlusSix).ToArray();
-            var plus12Tiles = GetTiles(TileType.PlusTwelve).ToArray();
+            var latestTiles = GetTiles(TileType.Latest);
+            var plus6Tiles = GetTiles(TileType.PlusSix);
+            var plus12Tiles = GetTiles(TileType.PlusTwelve);
 
-            if (latestTiles.Any() || plus6Tiles.Any() || plus12Tiles.Any())
+            if (latestTiles.Any())
             {
-                foreach (var tile in latestTiles)
-                    RefreshTile(tile, TileType.Latest);
-
-                foreach (var tile in plus6Tiles)
-                    RefreshTile(tile, TileType.PlusSix);
-
-                foreach (var tile in plus12Tiles)
-                    RefreshTile(tile, TileType.PlusTwelve);
+                RefreshTile(latestTiles.First(), TileType.Latest, () => 
+                {
+                    System.Diagnostics.Debug.WriteLine("Updated Latest Tile");
+                    if (plus6Tiles.Any())
+                    {
+                        RefreshTile(plus6Tiles.First(), TileType.PlusSix, () => 
+                        {
+                            System.Diagnostics.Debug.WriteLine("Updated +6 Tile");
+                            if (plus12Tiles.Any())
+                            {
+                                RefreshTile(plus12Tiles.First(), TileType.PlusTwelve, () => 
+                                {
+                                    System.Diagnostics.Debug.WriteLine("Updated +12 Tile");
+                                    NotifyComplete();
+                                });
+                            }
+                            else
+                            {
+                                NotifyComplete();
+                            }
+                        });
+                    } 
+                    else
+                    {
+                        NotifyComplete();
+                    }
+                });
             }
             else
             {
@@ -54,7 +74,7 @@ namespace DMI.TaskAgent
             }
         }
 
-        private void RefreshTile(ShellTile tile, TileType type)
+        private void RefreshTile(ShellTile tile, TileType type, Action done)
         {
             var queryString = tile.NavigationUri.ToString();
             queryString = queryString.Substring(queryString.IndexOf('?'));
@@ -90,7 +110,7 @@ namespace DMI.TaskAgent
                                 var now = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
                                 if (now != null)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, now, type), () => NotifyComplete());
+                                    TileGenerator.GenerateTile(CreateTileItem(city, now, type), done);
                                 }
                             });
                     }
@@ -107,7 +127,7 @@ namespace DMI.TaskAgent
                                 var plus6 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(6).Hour);
                                 if (plus6 != null)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, plus6, type), () => NotifyComplete());
+                                    TileGenerator.GenerateTile(CreateTileItem(city, plus6, type), done);
                                 }
                             });
                     }
@@ -124,27 +144,27 @@ namespace DMI.TaskAgent
                                 var plus12 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(12).Hour);
                                 if (plus12 != null)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, plus12, type), () => NotifyComplete());
+                                    TileGenerator.GenerateTile(CreateTileItem(city, plus12, type), done);
                                 }
                             });
                     }
                 }
                 else
                 {
-                    NotifyComplete();
+                    done();
                 }
             }
             else
             {
-                NotifyComplete();
+                done();
             }
         }
 
-        private IEnumerable<ShellTile> GetTiles(TileType type)
+        private ShellTile[] GetTiles(TileType type)
         {
             string urlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)type);
 
-            return ShellTile.ActiveTiles.Where(x => x.NavigationUri.ToString().Contains(urlSegment));
+            return ShellTile.ActiveTiles.Where(x => x.NavigationUri.ToString().Contains(urlSegment)).ToArray();
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)
