@@ -29,6 +29,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using DMI.Service.Properties;
 using DMI.Common;
+using System.IO;
 
 namespace DMI.Service
 {
@@ -121,21 +122,10 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            // TODO: Replace with HttpWebRequest
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.Denmark_CountryFeed);
+            client.DownloadStringAsync(html =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
-
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
-                {
-                    callback(new CountryWeatherResult(), e.Error);
-                }
-                else
-                {
-                    var input = HttpUtility.HtmlDecode(e.Result);
+                    var input = HttpUtility.HtmlDecode(html);
 
                     var pattern = @"<td class=""mellemrubrik"">(?<title>.*?)</td>";
                     pattern += @"(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
@@ -164,17 +154,14 @@ namespace DMI.Service
                         }
                     }
 
-                    var result = new CountryWeatherResult()
+                    var countryWeatherResult = new CountryWeatherResult()
                     {
                         Image = new Uri(Resources.Denmark_CountryImage),
                         Items = items
                     };
 
-                    callback(result, e.Error);
-                }
-            };
-
-            client.DownloadStringAsync(new Uri(Resources.Denmark_CountryFeed));
+                    callback(countryWeatherResult, null);
+            });
         }
 
         public void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback)
@@ -223,47 +210,31 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            // TODO: Replace with HttpWebRequest
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(GetRegionalContentFromPostalCode(postalCode));
+            client.DownloadStringAsync(html =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var input = HttpUtility.HtmlDecode(html);
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
-                {
-                    callback(new RegionalWeatherResult(), e.Error);
-                }
-                else
-                {
-                    var input = HttpUtility.HtmlDecode(e.Result);
+                var textPattern = @"<td class=""broedtekst"">(?<text>.*?)</td>";
+                var textRegex = new Regex(textPattern, RegexOptions.Singleline);
+                var textMatches = textRegex.Matches(input);
 
-                    var textPattern = @"<td class=""broedtekst"">(?<text>.*?)</td>";
-                    var textRegex = new Regex(textPattern, RegexOptions.Singleline);
-                    var textMatches = textRegex.Matches(input);
+                var namePattern = @"<font class=""mellemrubrik"">(?<text>.*?)</font>";
+                var nameRegex = new Regex(namePattern, RegexOptions.Singleline);
+                var nameMatches = nameRegex.Matches(input);
 
-                    var namePattern = @"<font class=""mellemrubrik"">(?<text>.*?)</font>";
-                    var nameRegex = new Regex(namePattern, RegexOptions.Singleline);
-                    var nameMatches = nameRegex.Matches(input);
+                var region = new RegionalWeatherResult();
 
-                    var region = new RegionalWeatherResult();
+                region.Image = new Uri(GetRegionalImageFromPostalCode(postalCode));
 
-                    region.Image = new Uri(GetRegionalImageFromPostalCode(postalCode));
+                if (nameMatches.Count >= 1)
+                    region.Name = nameMatches[0].Groups["text"].Value;
 
-                    if (nameMatches.Count >= 1)
-                        region.Name = nameMatches[0].Groups["text"].Value;
+                if (textMatches.Count >= 3)
+                    region.Content = textMatches[2].Groups["text"].Value;
 
-                    if (textMatches.Count >= 3)
-                        region.Content = textMatches[2].Groups["text"].Value;
-
-                    callback(region, e.Error);
-                }
-            };
-
-            var address = new Uri(GetRegionalContentFromPostalCode(postalCode));
-
-            client.DownloadStringAsync(address);
+                callback(region, null);
+            });
         }
 
         private static void GetPollenDataFromPostalCode(int postalCode, Action<PollenResult, Exception> callback)
@@ -271,45 +242,31 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            // TODO: Replace with HttpWebRequest
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.PollenFeed);
+            client.DownloadStringAsync(html =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var allItems = XElement.Parse(html)
+                    .Elements("channel")
+                    .Elements("item")
+                    .ToArray();
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
-                {
-                    callback(new PollenResult(), e.Error);
-                }
-                else
-                {
-                    var allItems = XElement.Parse(e.Result)
-                        .Elements("channel")
-                        .Elements("item")
-                        .ToArray();
-
-                    var pollenItems = allItems.Take(4).Chunks(2).ToArray()
-                        .Where(x => x.Length >= 1)
-                        .Select(x => new PollenItem()
-                        {
-                            City = x[0].Element("title").TryGetValue(),
-                            Data = Utils.ParsePollenData(x[0].Element("description").TryGetValue()),
-                            Forecast = x[1].Element("description").TryGetValue()
-                        });
-
-                    var result = new PollenResult()
+                var pollenItems = allItems.Take(4).Chunks(2).ToArray()
+                    .Where(x => x.Length >= 1)
+                    .Select(x => new PollenItem()
                     {
-                        Image = new Uri(string.Format(Resources.PollenImage, postalCode)),
-                        Items = pollenItems
-                    };
+                        City = x[0].Element("title").TryGetValue(),
+                        Data = Utils.ParsePollenData(x[0].Element("description").TryGetValue()),
+                        Forecast = x[1].Element("description").TryGetValue()
+                    });
 
-                    callback(result, null);
-                }
-            };
+                var result = new PollenResult()
+                {
+                    Image = new Uri(string.Format(Resources.PollenImage, postalCode)),
+                    Items = pollenItems
+                };
 
-            client.DownloadStringAsync(new Uri(Resources.PollenFeed));
+                callback(result, null);
+            });
         }
 
         private static void GetPostalCodeFromGeoCoordinate(GeoCoordinate location, Action<int> callback)

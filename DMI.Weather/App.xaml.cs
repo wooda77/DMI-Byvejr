@@ -59,7 +59,7 @@ namespace DMI
         {
             if (CurrentRootVisual != null)
                 return CurrentRootVisual.Navigate(source);
-            
+         
             return false;
         }
 

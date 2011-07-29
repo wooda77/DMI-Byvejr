@@ -106,7 +106,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live Tile.
+        ///   Looks up a localized string similar to live tile.
         /// </summary>
         public static string AppBar_LiveTile {
             get {
@@ -115,7 +115,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Support.
+        ///   Looks up a localized string similar to support.
         /// </summary>
         public static string AppBar_Support {
             get {
@@ -178,7 +178,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Danmark.
+        ///   Looks up a localized string similar to Denmark.
         /// </summary>
         public static string Country_Denmark {
             get {
@@ -187,7 +187,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Færøerne.
+        ///   Looks up a localized string similar to Faroe Islands.
         /// </summary>
         public static string Country_FaroeIslands {
             get {
@@ -196,7 +196,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grønland.
+        ///   Looks up a localized string similar to Greenland.
         /// </summary>
         public static string Country_Greenland {
             get {
@@ -403,6 +403,24 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The pictures are updated every 10th minute, and shows rain and snow over Denmark..
+        /// </summary>
+        public static string RadarPageHelpText1 {
+            get {
+                return ResourceManager.GetString("RadarPageHelpText1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to During a stable high pressure weather radarwaves can reflect in a warm layer of air in the atmosphere, so it hits the air or the sea, instead of the skies. In these cases, fake rainy areas will appear on the pictures..
+        /// </summary>
+        public static string RadarPageHelpText2 {
+            get {
+                return ResourceManager.GetString("RadarPageHelpText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to regional.
         /// </summary>
         public static string RegionalHeader {
@@ -417,15 +435,6 @@ namespace DMI.Properties {
         public static string RemoveFavorite {
             get {
                 return ResourceManager.GetString("RemoveFavorite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string RemoveFromFavorites {
-            get {
-                return ResourceManager.GetString("RemoveFromFavorites", resourceCulture);
             }
         }
         

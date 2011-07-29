@@ -132,11 +132,17 @@
   <data name="AppBar_GoToLocation" xml:space="preserve">
     <value>vejret her</value>
   </data>
+  <data name="AppBar_LiveTile" xml:space="preserve">
+    <value>live tile</value>
+  </data>
   <data name="AppBar_Support" xml:space="preserve">
     <value>support</value>
   </data>
   <data name="AppName" xml:space="preserve">
     <value>App Navn: </value>
+  </data>
+  <data name="AppSupportEmailHeader" xml:space="preserve">
+    <value>DMI Byvejr Support</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
     <value>VEJRUDSIGTEN FRA DMI</value>
@@ -152,6 +158,15 @@
   </data>
   <data name="CountryHeader" xml:space="preserve">
     <value>landsudsigt</value>
+  </data>
+  <data name="Country_Denmark" xml:space="preserve">
+    <value>Danmark</value>
+  </data>
+  <data name="Country_FaroeIslands" xml:space="preserve">
+    <value>Færøerne</value>
+  </data>
+  <data name="Country_Greenland" xml:space="preserve">
+    <value>Grønland</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
     <value>Lavet af: </value>
@@ -170,6 +185,9 @@
   </data>
   <data name="GPSResolveError" xml:space="preserve">
     <value>Kunne ikke finde din position.</value>
+  </data>
+  <data name="Header_LiveTile" xml:space="preserve">
+    <value>live tile</value>
   </data>
   <data name="InternetError" xml:space="preserve">
     <value>Der er ingen internet forbindelse. Prøv igen senere.</value>
@@ -204,14 +222,17 @@
   <data name="RadarMenuItem" xml:space="preserve">
     <value>Radar (nedbør)</value>
   </data>
+  <data name="RadarPageHelpText1" xml:space="preserve">
+    <value>Billederne opdateres hver 10. minut og viser nedbør, dvs. regn, sne, slud mv. over dansk område.</value>
+  </data>
+  <data name="RadarPageHelpText2" xml:space="preserve">
+    <value>I stabilt højtryksvejr kan radarbølgerne spejles i et varmt luftlag i atmosfæren, således at de rammer jorden eller havet i stedet for at ramme skyerne. I disse tilfælde vil der optræde &amp;quot;nedbørområder&amp;quot; på radarbillederne, som er falske.</value>
+  </data>
   <data name="RegionalHeader" xml:space="preserve">
     <value>regionaludsigt</value>
   </data>
   <data name="RemoveFavorite" xml:space="preserve">
     <value>fjern favorit</value>
-  </data>
-  <data name="RemoveFromFavorites" xml:space="preserve">
-    <value>Fjern</value>
   </data>
   <data name="SendEmail" xml:space="preserve">
     <value>send email</value>
@@ -233,5 +254,14 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version: </value>
+  </data>
+  <data name="WebTV_3D" xml:space="preserve">
+    <value>WebTV - 3-døgnsudsigten</value>
+  </data>
+  <data name="WebTV_DMI" xml:space="preserve">
+    <value>WebTV - Dagens Vejrudsigt</value>
+  </data>
+  <data name="WebTV_SEJL" xml:space="preserve">
+    <value>WebTV - Sejlervejret</value>
   </data>
 </root>

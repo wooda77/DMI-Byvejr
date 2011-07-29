@@ -281,7 +281,7 @@
                                                     <toolkit:MenuItem Command="{Binding DataContext.RemoveFromFavorites,
                                                                                         ElementName=MainPhoneApplicationPage}"
                                                                       CommandParameter="{Binding}"
-                                                                      Header="{Binding Resources.RemoveFromFavorites,
+                                                                      Header="{Binding Resources.RemoveFavorite,
                                                                                        Source={StaticResource AppResources}}" />
                                                 </toolkit:ContextMenu>
                                             </toolkit:ContextMenuService.ContextMenu>

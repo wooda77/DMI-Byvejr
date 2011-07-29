@@ -34,7 +34,7 @@ namespace DMI.Common
 {
     public class TileGenerator
     {
-        public static void GenerateTile(TileItem item, Action completed)
+        public static void GenerateTile(TileItem item, Action completed, bool recreate = false)
         {
             if (item.TileType == TileType.PlusSix)
             {
@@ -88,9 +88,9 @@ namespace DMI.Common
                 tempTextBlock.Foreground = fontForeground;
                 tempTextBlock.FontFamily = fontFamily;
 
-                string fileName = string.Format("{0}_{1}_{2}.jpg", 
-                    (int)item.TileType, 
-                    item.City.PostalCode, 
+                string fileName = string.Format("{0}_{1}_{2}.jpg",
+                    (int)item.TileType,
+                    item.City.PostalCode,
                     item.City.ShortCountryName);
 
                 var tileImage = string.Format("/Shared/ShellContent/{0}", fileName);
@@ -131,7 +131,10 @@ namespace DMI.Common
                 var address = string.Format(AppSettings.MainPageWithTileAddress,
                     item.City.PostalCode, item.City.Country, (int)item.TileType);
 
-                var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString() == address);
+                var tileTypeUrlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)item.TileType);
+
+                var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(x =>
+                    x.NavigationUri.ToString().Contains(tileTypeUrlSegment));
 
                 var tileData = new StandardTileData
                 {
@@ -139,18 +142,26 @@ namespace DMI.Common
                     Title = item.City.Name,
                 };
 
+                var navigationUri = new Uri(address, UriKind.Relative);
+
                 if (dmiTile != null)
-                {    
-                    dmiTile.Update(tileData);    
+                {
+                    if (recreate)
+                    {
+                        dmiTile.Delete();
+                        ShellTile.Create(navigationUri, tileData);
+                        completed();
+                    }
+                    else
+                    {
+                        dmiTile.Update(tileData);
+                    }
 
                     completed();
                 }
                 else
                 {
-                    var navigationUri = new Uri(address, UriKind.Relative);
-
                     ShellTile.Create(navigationUri, tileData);
-
                     completed();
                 }
             };

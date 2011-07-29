@@ -283,6 +283,9 @@ namespace DMI.ViewModel
                     case Denmark.Name:
                         city = Denmark.PostalCodes[postalCode];
                         break;
+                    default:
+                        city = Denmark.PostalCodes[Denmark.DefaultPostalCode];
+                        break;
                 }
 
                 if (city != null && Favorites.Any(c => c.Name == city.Name) == false)
@@ -377,15 +380,21 @@ namespace DMI.ViewModel
                 Greenland.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
-                        SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
+                            SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                        });
                     });
 
                 Greenland.Instance.GetCountryWeather(
                     (result, exception) =>
                     {
-                        CountryWeather = result;
-                        CountryImage = new BitmapImage(result.Image);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            CountryWeather = result;
+                            CountryImage = new BitmapImage(result.Image);
+                        });
                     });
             }
             else if (CurrentAddress != null &&
@@ -400,15 +409,21 @@ namespace DMI.ViewModel
                 FaroeIslands.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
-                        SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
+                            SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                        });
                     });
 
                 FaroeIslands.Instance.GetCountryWeather(
                     (result, exception) =>
                     {
-                        CountryWeather = result;
-                        CountryImage = new BitmapImage(result.Image);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            CountryWeather = result;
+                            CountryImage = new BitmapImage(result.Image);
+                        });
                     });
             }
             else if (CurrentAddress != null)
@@ -416,29 +431,41 @@ namespace DMI.ViewModel
                 Denmark.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
-                        SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
+                            SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                        });
                     });
 
                 Denmark.Instance.GetPollenData(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        PollenImage = new BitmapImage(result.Image);
-                        PollenData = result;
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            PollenImage = new BitmapImage(result.Image);
+                            PollenData = result;
+                        });
                     });
 
                 Denmark.Instance.GetRegionalWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        RegionalWeather = result;
-                        RegionalImage = new BitmapImage(result.Image);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            RegionalWeather = result;
+                            RegionalImage = new BitmapImage(result.Image);
+                        });
                     });
 
                 Denmark.Instance.GetCountryWeather(
                     (result, exception) =>
                     {
-                        CountryWeather = result;
-                        CountryImage = new BitmapImage(result.Image);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            CountryWeather = result;
+                            CountryImage = new BitmapImage(result.Image);
+                        });
                     });
             }
         }

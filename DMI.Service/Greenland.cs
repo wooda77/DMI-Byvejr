@@ -96,59 +96,45 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            // TODO: Replace with HttpWebRequest
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.Greenland_CountryFeed);
+            client.DownloadStringAsync(html =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var input = HttpUtility.HtmlDecode(html);
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
+                var pattern = @"<td class=""broedtekst"">(?<content>.*?)</td>";
+
+                var regex = new Regex(pattern, RegexOptions.Singleline);
+                var matches = regex.Matches(input);
+
+                var description = new StringBuilder();
+
+                foreach (var match in matches.Cast<Match>().Skip(1))
                 {
-                    callback(new CountryWeatherResult(), e.Error);
-                }
-                else
-                {
-                    var input = HttpUtility.HtmlDecode(e.Result);
+                    var content = match.Groups["content"].Value;
+                    content = content.Replace("<br>", Environment.NewLine).Trim();
 
-                    var pattern = @"<td class=""broedtekst"">(?<content>.*?)</td>";
-
-                    var regex = new Regex(pattern, RegexOptions.Singleline);
-                    var matches = regex.Matches(input);
-
-                    var description = new StringBuilder();
-
-                    foreach (var match in matches.Cast<Match>().Skip(1))
+                    if (string.IsNullOrEmpty(content) == false)
                     {
-                        var content = match.Groups["content"].Value;
-                        content = content.Replace("<br>", Environment.NewLine).Trim();
+                        description.AppendLine(content);
+                        description.AppendLine();
+                    }
+                }
 
-                        if (string.IsNullOrEmpty(content) == false)
+                var result = new CountryWeatherResult()
+                {
+                    Image = null,
+                    Items = new List<CountryWeatherItem>()
+                    {
+                        new CountryWeatherItem() 
                         {
-                            description.AppendLine(content);
-                            description.AppendLine();
+                            Title = Resources.Greenland_CountryWeatherTitle,
+                            Description = description.ToString()
                         }
                     }
+                };
 
-                    var result = new CountryWeatherResult()
-                    {
-                        Image = null,
-                        Items = new List<CountryWeatherItem>()
-                        {
-                            new CountryWeatherItem() 
-                            {
-                                Title = Resources.Greenland_CountryWeatherTitle,
-                                Description = description.ToString()
-                            }
-                        }
-                    };
-
-                    callback(result, e.Error);
-                }
-            };
-
-            client.DownloadStringAsync(new Uri(Resources.Greenland_CountryFeed));
+                callback(result, null);
+            });
         }
 
         public void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback)

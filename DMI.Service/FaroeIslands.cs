@@ -82,7 +82,7 @@ namespace DMI.Service
                     Resources.FaroeIslands_CityWeatherSevenDaysImage, postalCode)),
             };
 
-            callback(result, null);    
+            callback(result, null);
         }
 
         public void GetRegionalWeather(GeoCoordinate location, string postalCode, Action<RegionalWeatherResult, Exception> callback)
@@ -95,56 +95,42 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            // TODO: Replace with HttpWebRequest
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.FaroeIslands_CountryFeed);
+            client.DownloadStringAsync(html =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var input = HttpUtility.HtmlDecode(html);
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
+                var pattern = @"<td class=""broedtekst"">(?<content>.*?)</td>";
+
+                var regex = new Regex(pattern, RegexOptions.Singleline);
+                var matches = regex.Matches(input);
+
+                var description = new StringBuilder();
+
+                foreach (var match in matches.Cast<Match>().Skip(1))
                 {
-                    callback(new CountryWeatherResult(), e.Error);
+                    var content = match.Groups["content"].Value;
+                    content = content.Replace("<br>", Environment.NewLine).Trim();
+
+                    if (string.IsNullOrEmpty(content) == false)
+                        description.AppendLine(content);
                 }
-                else
+
+                var result = new CountryWeatherResult()
                 {
-                    var input = HttpUtility.HtmlDecode(e.Result);
-
-                    var pattern = @"<td class=""broedtekst"">(?<content>.*?)</td>";
-
-                    var regex = new Regex(pattern, RegexOptions.Singleline);
-                    var matches = regex.Matches(input);
-
-                    var description = new StringBuilder();
-
-                    foreach (var match in matches.Cast<Match>().Skip(1))
+                    Image = null,
+                    Items = new List<CountryWeatherItem>()
                     {
-                        var content = match.Groups["content"].Value;
-                        content = content.Replace("<br>", Environment.NewLine).Trim();
-
-                        if (string.IsNullOrEmpty(content) == false)
-                            description.AppendLine(content);
-                    }
-
-                    var result = new CountryWeatherResult()
-                    {
-                        Image = null,
-                        Items = new List<CountryWeatherItem>()
+                        new CountryWeatherItem() 
                         {
-                            new CountryWeatherItem() 
-                            {
-                                Title = "Udsigt for Færøerne",
-                                Description = description.ToString()
-                            }
+                            Title = "Udsigt for Færøerne",
+                            Description = description.ToString()
                         }
-                    };
+                    }
+                };
 
-                    callback(result, e.Error);
-                }
-            };
-
-            client.DownloadStringAsync(new Uri(Resources.FaroeIslands_CountryFeed));
+                callback(result, null);
+            });
         }
 
         public void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback)

@@ -124,7 +124,7 @@ namespace DMI.ViewModel
             ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(1));
 #endif
 
-            TileGenerator.GenerateTile(item, () => {});
+            TileGenerator.GenerateTile(item, () => {}, true);
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)

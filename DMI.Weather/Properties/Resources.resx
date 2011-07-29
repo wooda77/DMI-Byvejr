@@ -133,10 +133,10 @@
     <value>me</value>
   </data>
   <data name="AppBar_LiveTile" xml:space="preserve">
-    <value>Live Tile</value>
+    <value>live tile</value>
   </data>
   <data name="AppBar_Support" xml:space="preserve">
-    <value>Support</value>
+    <value>support</value>
   </data>
   <data name="AppName" xml:space="preserve">
     <value>App Name: </value>
@@ -160,13 +160,13 @@
     <value>country</value>
   </data>
   <data name="Country_Denmark" xml:space="preserve">
-    <value>Danmark</value>
+    <value>Denmark</value>
   </data>
   <data name="Country_FaroeIslands" xml:space="preserve">
-    <value>Færøerne</value>
+    <value>Faroe Islands</value>
   </data>
   <data name="Country_Greenland" xml:space="preserve">
-    <value>Grønland</value>
+    <value>Greenland</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
     <value>Created by: </value>
@@ -231,14 +231,17 @@
   <data name="RadarMenuItem" xml:space="preserve">
     <value>Radar (rain)</value>
   </data>
+  <data name="RadarPageHelpText1" xml:space="preserve">
+    <value>The pictures are updated every 10th minute, and shows rain and snow over Denmark.</value>
+  </data>
+  <data name="RadarPageHelpText2" xml:space="preserve">
+    <value>During a stable high pressure weather radarwaves can reflect in a warm layer of air in the atmosphere, so it hits the air or the sea, instead of the skies. In these cases, fake rainy areas will appear on the pictures.</value>
+  </data>
   <data name="RegionalHeader" xml:space="preserve">
     <value>regional</value>
   </data>
   <data name="RemoveFavorite" xml:space="preserve">
     <value>remove favorite</value>
-  </data>
-  <data name="RemoveFromFavorites" xml:space="preserve">
-    <value>Delete</value>
   </data>
   <data name="SendEmail" xml:space="preserve">
     <value>send email</value>
