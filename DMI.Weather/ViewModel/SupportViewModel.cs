@@ -23,6 +23,7 @@ using System;
 using System.IO.IsolatedStorage;
 using System.Windows.Input;
 using System.Xml.Linq;
+using DMI.Common;
 using DMI.Properties;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -34,17 +35,13 @@ namespace DMI.ViewModel
     {
         public SupportViewModel()
         {
-            this.OpenMailClient = new RelayCommand(OpenMailClientExecute);
-            this.OK = new RelayCommand(OKExecute);
         }
 
         public string Version
         {
             get
             {
-                return XDocument.Load("WMAppManifest.xml").Root
-                    .Element("App")
-                    .Attribute("Version").Value;
+                return XDocument.Load("WMAppManifest.xml").Root.Element("App").Attribute("Version").Value;
             }
         }
 
@@ -52,56 +49,21 @@ namespace DMI.ViewModel
         {
             get
             {
-                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.ToggleGPS))
-                {
-                    return (bool)IsolatedStorageSettings.ApplicationSettings[App.ToggleGPS];
-                }
-                else
-                {
-                    return false;
-                }
+                return AppSettings.IsGPSEnabled;
             }
             set
             {
-                if (!IsolatedStorageSettings.ApplicationSettings.Contains(App.ToggleGPS))
+                if (!IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.ToggleGPSKey))
                 {
-                    IsolatedStorageSettings.ApplicationSettings.Add(App.ToggleGPS, value);
+                    IsolatedStorageSettings.ApplicationSettings.Add(AppSettings.ToggleGPSKey, value);
                 }
                 else
                 {
-                    IsolatedStorageSettings.ApplicationSettings[App.ToggleGPS] = value;
+                    IsolatedStorageSettings.ApplicationSettings[AppSettings.ToggleGPSKey] = value;
                 }
 
                 IsolatedStorageSettings.ApplicationSettings.Save();
             }
-        }
-
-        public ICommand OpenMailClient
-        {
-            get;
-            private set;
-        }
-
-        public ICommand OK
-        {
-            get;
-            private set;
-        }
-
-        private void OKExecute()
-        {
-            App.GoBack();
-        }
-
-        private void OpenMailClientExecute()
-        {
-            var emailTask = new EmailComposeTask()
-            {
-                To = "10229@iha.dk",
-                Subject = AppResources.AppTitleSmall + " Support"
-            };
-
-            emailTask.Show();
         }
     }
 }

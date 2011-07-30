@@ -22,47 +22,35 @@
         <dmi_viewmodels:SupportViewModel />
     </phone:PhoneApplicationPage.DataContext>
     <Grid>
-        <controls:Pivot Title="{Binding AppResources.AppTitle, Source={StaticResource AppResources}}">
-            <controls:PivotItem Header="{Binding AppResources.SupportHeader, Source={StaticResource AppResources}}">
-                <Grid>
+        <controls:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
+            <controls:PivotItem Header="{Binding Resources.SupportHeader, Source={StaticResource AppResources}}">
+                <Grid Margin="0">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding AppResources.AppName, Source={StaticResource AppResources}}" />
-                            <TextBlock Text="{Binding AppResources.AppTitleSmall, Source={StaticResource AppResources}}" />
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <TextBlock Text="{Binding Resources.AppName, Source={StaticResource AppResources}}" />
+                            <TextBlock Text="{Binding Resources.AppTitleSmall, Source={StaticResource AppResources}}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding AppResources.Version, Source={StaticResource AppResources}}" />
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <TextBlock Text="{Binding Resources.Version, Source={StaticResource AppResources}}" />
                             <TextBlock Text="{Binding Version}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding AppResources.CreatedBy, Source={StaticResource AppResources}}" />
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <TextBlock Text="{Binding Resources.CreatedBy, Source={StaticResource AppResources}}" />
                             <TextBlock Text="Claus Jørgensen" />
                         </StackPanel>
-                        <TextBlock Margin="0,10,0,0"
-                                   Text="{Binding AppResources.EmailHelpText,
+                        <TextBlock Margin="12"
+                                   Text="{Binding Resources.EmailHelpText,
                                                   Source={StaticResource AppResources}}"
                                    TextWrapping="Wrap" />
-                        <Button Content="{Binding AppResources.SendEmail, Source={StaticResource AppResources}}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <mvvm:EventToCommand Command="{Binding OpenMailClient}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
-                        <TextBlock Text="{Binding AppResources.GPSHelpText,
+                        <Button Content="{Binding Resources.SendEmail, Source={StaticResource AppResources}}" Click="SendEmailButton_Click" />
+                        <TextBlock Text="{Binding Resources.GPSHelpText,
                                                   Source={StaticResource AppResources}}"
-                                   TextWrapping="Wrap" />
-                        <CheckBox Content="{Binding AppResources.AllowGPSUse,
+                                   TextWrapping="Wrap" Margin="12" />
+                        <CheckBox Content="{Binding Resources.AllowGPSUse,
                                                     Source={StaticResource AppResources}}"
                                   IsChecked="{Binding AllowGPS,
                                                       Mode=TwoWay}" />
-                        <Button Content="ok">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <mvvm:EventToCommand Command="{Binding OK}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
+                        <Button Content="ok" Click="OKButton_Click" />
                     </StackPanel>
                 </Grid>
             </controls:PivotItem>

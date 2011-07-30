@@ -22,17 +22,7 @@
         <Image HorizontalAlignment="Center"
                VerticalAlignment="Center"
                Source="{Binding ImageSource}"
-               Stretch="Uniform">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SizeChanged">
-                    <mvvm:EventToCommand Command="{Binding CropBorders}"
-                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="Loaded">
-                    <mvvm:EventToCommand Command="{Binding CropBorders}"
-                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Image>
+               Stretch="Uniform"
+               SizeChanged="Image_SizeChanged" />
     </Grid>
 </phone:PhoneApplicationPage>

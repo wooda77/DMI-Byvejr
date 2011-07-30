@@ -20,18 +20,20 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Linq;
 using System.Device.Location;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using DMI.Model;
+using System.Windows.Threading;
+using DMI.Assets;
+using DMI.Common;
 using DMI.Properties;
 using DMI.ViewModel;
-using System.Windows.Threading;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System.Windows.Data;
 
 namespace DMI.View
 {
@@ -53,80 +55,70 @@ namespace DMI.View
         private void BuildApplicationBar()
         {
             if (ApplicationBar != null)
-            {
                 return;
-            }
 
-            var appBar = new ApplicationBar();
+            ApplicationBar = new ApplicationBar();
 
-            Uri homeImage;
-            Uri favImage;
-            Uri addToFavImage;
-            Uri gotoLocationImage;
+            var chooseCityAppBarButton = new ApplicationBarIconButton(
+                new Uri("/Resources/Images/appbar.home.png", UriKind.Relative));
+            chooseCityAppBarButton.Text = Properties.Resources.AppBar_ChooseCity;
+            chooseCityAppBarButton.Click += ChooseCityAppBarButton_Click;
 
-            if (App.CurrentThemeBackground == App.ThemeBackground.ThemeBackgroundDark)
-            {
-                homeImage = new Uri("/Resources/Images/appbar.home.light.png", UriKind.Relative);
-                favImage = new Uri("/Resources/Images/appbar.favs.light.png", UriKind.Relative);
-                addToFavImage = new Uri("/Resources/Images/appbar.addtofavs.light.png", UriKind.Relative);
-                gotoLocationImage = new Uri("/Resources/Images/appbar.location.light.png", UriKind.Relative);
-            }
-            else
-            {
-                homeImage = new Uri("/Resources/Images/appbar.home.dark.png", UriKind.Relative);
-                favImage = new Uri("/Resources/Images/appbar.favs.dark.png", UriKind.Relative);
-                addToFavImage = new Uri("/Resources/Images/appbar.addtofavs.dark.png", UriKind.Relative);
-                gotoLocationImage = new Uri("/Resources/Images/appbar.location.dark.png", UriKind.Relative);
-            }
+            var showFavoritesAppBarButton = new ApplicationBarIconButton(
+                new Uri("/Resources/Images/appbar.favs.png", UriKind.Relative));
+            showFavoritesAppBarButton.Text = Properties.Resources.AppBar_Favorites;
+            showFavoritesAppBarButton.Click += ShowFavoritesAppBarButton_Click;
 
-            var chooseCityAppBarButton = new ApplicationBarIconButton(homeImage)
-            {
-                Text = AppResources.AppBar_ChooseCity
-            };
-            chooseCityAppBarButton.Click += new EventHandler(ChooseCityAppBarButton_Click);
+            var addtoFavoritesAppBarButton = new ApplicationBarIconButton(
+                new Uri("/Resources/Images/appbar.addtofavs.png", UriKind.Relative));
+            addtoFavoritesAppBarButton.Text = Properties.Resources.AppBar_AddToFavorites;
+            addtoFavoritesAppBarButton.Click += AddtoFavoritesAppBarButton_Click;
 
-            var showFavoritesAppBarButton = new ApplicationBarIconButton(favImage)
-            {
-                Text = AppResources.AppBar_Favorites
-            };
-            showFavoritesAppBarButton.Click += new EventHandler(ShowFavoritesAppBarButton_Click);
+            var goToLocationAppBarButton = new ApplicationBarIconButton(
+                new Uri("/Resources/Images/appbar.location.png", UriKind.Relative));
+            goToLocationAppBarButton.Text = Properties.Resources.AppBar_GoToLocation;
+            goToLocationAppBarButton.Click += GoToLocationAppBarButton_Click;
 
-            var addtoFavoritesAppBarButton = new ApplicationBarIconButton(addToFavImage)
-            {
-                Text = AppResources.AppBar_AddToFavorites
-            };
-            addtoFavoritesAppBarButton.Click += new EventHandler(AddtoFavoritesAppBarButton_Click);
+            var liveTileMenu = new ApplicationBarMenuItem();
+            liveTileMenu.Text = Properties.Resources.AppBar_LiveTile;
+            liveTileMenu.Click += LiveTileMenu_Click;
 
-            var goToLocationAppBarButton = new ApplicationBarIconButton(gotoLocationImage)
-            {
-                Text = AppResources.AppBar_GoToLocation
-            };
-            goToLocationAppBarButton.Click += new EventHandler(GoToLocationAppBarButton_Click);
+            var supportMenu = new ApplicationBarMenuItem();
+            supportMenu.Text = Properties.Resources.AppBar_Support;
+            supportMenu.Click += SettingsMenu_Click;
 
-            var supportMenu = new ApplicationBarMenuItem()
-            {
-                Text = AppResources.AppBar_Support
-            };
-            supportMenu.Click += new EventHandler(SettingsMenu_Click);
+            ApplicationBar.Buttons.Add(chooseCityAppBarButton);
+            ApplicationBar.Buttons.Add(goToLocationAppBarButton);
+            ApplicationBar.Buttons.Add(showFavoritesAppBarButton);
+            ApplicationBar.Buttons.Add(addtoFavoritesAppBarButton);
 
-            appBar.Buttons.Add(chooseCityAppBarButton);
-            appBar.Buttons.Add(goToLocationAppBarButton);
-            appBar.Buttons.Add(showFavoritesAppBarButton);
-            appBar.Buttons.Add(addtoFavoritesAppBarButton);
-            appBar.MenuItems.Add(supportMenu);
+            ApplicationBar.MenuItems.Add(liveTileMenu);
+            ApplicationBar.MenuItems.Add(supportMenu);
 
-            ApplicationBar = appBar;
             ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
+        }
+
+        private void LiveTileMenu_Click(object sender, EventArgs e)
+        {
+            if (ViewModel != null && 
+                ViewModel.IsInitialized && 
+                ViewModel.CurrentAddress != null)
+            {
+                string address = string.Format(AppSettings.AddTilePageAddress, 
+                    ViewModel.CurrentAddress.PostalCode, ViewModel.CurrentAddress.CountryRegion);
+
+                NavigationService.Navigate(new Uri(address, UriKind.Relative));
+            }
         }
 
         private void SettingsMenu_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/View/SupportPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
         }
 
         private void ChooseCityAppBarButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/View/ChooseCityPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri(AppSettings.ChooseCityPageAddress, UriKind.Relative));
         }
 
         private void ShowFavoritesAppBarButton_Click(object sender, EventArgs e)
@@ -169,65 +161,42 @@ namespace DMI.View
             if (e.OriginalSource is Image)
             {
                 var image = (e.OriginalSource as Image).Source as BitmapImage;
-                var uri = "/View/ImagePage.xaml?ImageSource=" +
-                    Uri.EscapeDataString(image.UriSource.ToString());
+                var address = string.Format(AppSettings.ImagePageAddress, Uri.EscapeDataString(image.UriSource.ToString()));
 
-                NavigationService.Navigate(new Uri(uri, UriKind.Relative));
+                NavigationService.Navigate(new Uri(address, UriKind.Relative));
             }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (App.IsFirstStart)
-            {
-                NavigationService.Navigate(new Uri("/View/SupportPage.xaml", UriKind.Relative));
+            base.OnNavigatedTo(e);
 
-                return;
+            if (AppSettings.IsFirstStart)
+            {
+                NavigationService.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
             }
             else
             {
                 if (ViewModel.IsInitialized == false)
-                {
                     ViewModel.Initialize();
-                }
-            }
 
-            base.OnNavigatedTo(e);
+                var postalCode = NavigationContext.TryGetStringKey("PostalCode");
+                var country = NavigationContext.TryGetStringKey("Country");
 
-            var queryString = NavigationContext.QueryString.Values.ToList();
-
-            string postalCode = "";
-            if (NavigationContext.QueryString.TryGetValue("PostalCode", out postalCode))
-            {
-                string country = "Denmark";
-                NavigationContext.QueryString.TryGetValue("Country", out country);
-
-                SmartDispatcher.BeginInvoke(() =>
+                if (string.IsNullOrEmpty(postalCode) == false && 
+                    string.IsNullOrEmpty(country) == false)
                 {
-                    ViewModel.ResolveLocation(postalCode, country);
-                });
+                    SmartDispatcher.BeginInvoke(() =>
+                    {
+                        ViewModel.ResolveLocation(postalCode, country);
+                    });
+                }
             }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
-            try
-            {
-                if (State.ContainsKey(App.PivotItem))
-                {
-                    State[App.PivotItem] = PivotLayout.SelectedIndex;
-                }
-                else
-                {
-                    State.Add(App.PivotItem, PivotLayout.SelectedIndex);
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // Fix for Emulator-only crashes.
-            }
         }
 
         private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -244,19 +213,6 @@ namespace DMI.View
 
         private void PivotLayout_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (State.ContainsKey(App.PivotItem))
-                {
-                    var index = (int)State[App.PivotItem];
-                    PivotLayout.SelectedIndex = index;
-                }
-            }
-            catch (Exception)
-            {
-                // Fix for loading bug in the emulator.
-            }
-
             if (ApplicationBar == null)
             {
                 SmartDispatcher.BeginInvoke(BuildApplicationBar);
@@ -278,34 +234,38 @@ namespace DMI.View
             }
         }
 
-        private void TideWaterMenuItem_Tap(object sender, GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/View/TideWaterPage.xaml", UriKind.Relative));
-        }
-
-        private void WaterHeightMenuItem_Tap(object sender, GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/View/WaterHeightPage.xaml", UriKind.Relative));
-        }
-
-        private void MapsMenuItem_Tap(object sender, GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/View/MapsPage.xaml", UriKind.Relative));
-        }
-
-        private void BorgerVejrMenuItem_Tap(object sender, GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/View/PeopleWeatherPage.xaml", UriKind.Relative));
-        }
-
         private void RadarMenuItem_Tap(object sender, GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/View/RadarPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri(AppSettings.RadarPageAddress, UriKind.Relative));
         }
 
         private void BeachWeatherMenuItem_Tap(object sender, GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/View/BeachWeatherPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
+        }
+
+        private void NewsPivotItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsInitialized)
+                ViewModel.LoadNewsFeed.Execute(null);
+        }
+
+        private void NewsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel.IsInitialized)
+                ViewModel.NewsItemSelected.Execute(NewsListBox.SelectedItem);
+        }
+
+        private void FavoritesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel.IsInitialized)
+                ViewModel.FavoriteItemSelected.Execute(FavoritesListBox.SelectedItem);
+        }
+
+        private void FavoritesPivotItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.IsInitialized)
+                ViewModel.LoadFavorites.Execute(null);
         }
     }
 }

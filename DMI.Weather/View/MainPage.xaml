@@ -33,14 +33,14 @@
     </phone:PhoneApplicationPage.DataContext>
     <Grid>
         <c:Pivot x:Name="PivotLayout"
-                 Title="{Binding AppResources.AppTitle,
+                 Title="{Binding Resources.AppTitle,
                                  Source={StaticResource AppResources}}"
                  Foreground="{StaticResource PhoneForegroundBrush}"
                  Loaded="PivotLayout_Loaded"
                  SelectionChanged="PivotLayout_SelectionChanged">
             <c:PivotItem x:Name="WeatherPivotItem"
                          Margin="0,28,0,0"
-                         Header="{Binding AppResources.CityWeatherHeader,
+                         Header="{Binding Resources.CityWeatherHeader,
                                           Source={StaticResource AppResources}}">
                 <Grid>
                     <ScrollViewer Margin="0,0,0,16">
@@ -67,7 +67,7 @@
             </c:PivotItem>
             <c:PivotItem x:Name="RegionalPivotItem"
                          Margin="0,28,0,0"
-                         Header="{Binding AppResources.RegionalHeader,
+                         Header="{Binding Resources.RegionalHeader,
                                           Source={StaticResource AppResources}}">
                 <StackPanel>
                     <Image x:Name="RegionalImage"
@@ -96,7 +96,7 @@
             </c:PivotItem>
             <c:PivotItem x:Name="CountryPivotItem"
                          Margin="0,28,0,0"
-                         Header="{Binding AppResources.CountryHeader,
+                         Header="{Binding Resources.CountryHeader,
                                           Source={StaticResource AppResources}}">
                 <Grid>
                     <ListBox toolkit:TiltEffect.IsTiltEnabled="False">
@@ -142,7 +142,7 @@
             </c:PivotItem>
             <c:PivotItem x:Name="PollenPivotItem"
                          Margin="0,24,0,0"
-                         Header="{Binding AppResources.PollenHeader,
+                         Header="{Binding Resources.PollenHeader,
                                           Source={StaticResource AppResources}}">
                 <ScrollViewer>
                     <StackPanel>
@@ -191,11 +191,11 @@
             </c:PivotItem>
             <c:PivotItem x:Name="MapsPivotItem"
                          Margin="0,28,0,0"
-                         Header="{Binding AppResources.MapsHeader,
+                         Header="{Binding Resources.MapsHeader,
                                           Source={StaticResource AppResources}}">
-                <ListBox toolkit:TiltEffect.IsTiltEnabled="True"
-                         Margin="24,0,24,0">
-                    <StackPanel Margin="0,0"                                   
+                <ListBox Margin="24,0,24,0"
+                         toolkit:TiltEffect.IsTiltEnabled="True">
+                    <StackPanel Margin="0,0"
                                 Orientation="Horizontal">
                         <toolkit:GestureService.GestureListener>
                             <toolkit:GestureListener Tap="BeachWeatherMenuItem_Tap" />
@@ -215,9 +215,10 @@
                         </Grid>
                         <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
                                    Style="{StaticResource PhoneTextLargeStyle}"
-                                   Text="{Binding AppResources.BeachWeatherMenuItem, Source={StaticResource AppResources}}" />
+                                   Text="{Binding Resources.BeachWeatherMenuItem,
+                                                  Source={StaticResource AppResources}}" />
                     </StackPanel>
-                    <StackPanel Margin="0,0"
+                    <StackPanel Margin="0,24,0,0"
                                 Orientation="Horizontal">
                         <toolkit:GestureService.GestureListener>
                             <toolkit:GestureListener Tap="RadarMenuItem_Tap" />
@@ -237,122 +238,21 @@
                         </Grid>
                         <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
                                    Style="{StaticResource PhoneTextLargeStyle}"
-                                   Text="{Binding AppResources.RadarMenuItem, Source={StaticResource AppResources}}" />
+                                   Text="{Binding Resources.RadarMenuItem,
+                                                  Source={StaticResource AppResources}}" />
                     </StackPanel>
-                    <!--<StackPanel Margin="0,0"
-                                Orientation="Horizontal"
-                                Visibility="Collapsed">
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener Tap="BorgerVejrMenuItem_Tap" />
-                        </toolkit:GestureService.GestureListener>
-                        <Grid>
-                            <Ellipse Width="38"
-                                     Height="38"
-                                     Stroke="{StaticResource PhoneForegroundBrush}"
-                                     StrokeThickness="2" />
-                            <Path Width="22"
-                                  Height="26"
-                                  HorizontalAlignment="Center"
-                                  Data="{StaticResource UmbrellaImagePath}"
-                                  Fill="{StaticResource PhoneForegroundBrush}"
-                                  Stretch="Fill"
-                                  UseLayoutRounding="False" />
-                        </Grid>
-                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
-                                   Style="{StaticResource PhoneTextLargeStyle}"
-                                   Text="Borgervejr" />
-                    </StackPanel>-->
-                    <!--<StackPanel Margin="0,0"
-                                Orientation="Horizontal"
-                                Visibility="Collapsed">
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener Tap="MapsMenuItem_Tap" />
-                        </toolkit:GestureService.GestureListener>
-                        <Grid>
-                            <Ellipse Width="38"
-                                     Height="38"
-                                     Stroke="{StaticResource PhoneForegroundBrush}"
-                                     StrokeThickness="2" />
-                            <Path Width="26"
-                                  Height="18"
-                                  HorizontalAlignment="Center"
-                                  Data="{StaticResource RainCloudImagePath}"
-                                  Fill="{StaticResource PhoneForegroundBrush}"
-                                  Stretch="Fill"
-                                  UseLayoutRounding="False" />
-                        </Grid>
-                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
-                                   Style="{StaticResource PhoneTextLargeStyle}"
-                                   Text="Vejrkort" />
-                    </StackPanel>-->
-                    <!--<StackPanel Margin="0,0"
-                                Orientation="Horizontal"
-                                Visibility="Collapsed">
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener Tap="WaterHeightMenuItem_Tap" />
-                        </toolkit:GestureService.GestureListener>
-                        <Grid>
-                            <Ellipse Width="38"
-                                     Height="38"
-                                     Stroke="{StaticResource PhoneForegroundBrush}"
-                                     StrokeThickness="2" />
-                            <Path Width="15"
-                                  Height="26"
-                                  HorizontalAlignment="Center"
-                                  Data="{StaticResource WaterDropImagePath}"
-                                  Fill="{StaticResource PhoneForegroundBrush}"
-                                  Stretch="Fill"
-                                  UseLayoutRounding="False" />
-                        </Grid>
-                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
-                                   Style="{StaticResource PhoneTextLargeStyle}"
-                                   Text="Vandstand" />
-                    </StackPanel>-->
-                    <!--<StackPanel Margin="0,0"
-                                Orientation="Horizontal"
-                                Visibility="Collapsed">
-                        <toolkit:GestureService.GestureListener>
-                            <toolkit:GestureListener Tap="TideWaterMenuItem_Tap" />
-                        </toolkit:GestureService.GestureListener>
-                        <Grid>
-                            <Ellipse Width="38"
-                                     Height="38"
-                                     Stroke="{StaticResource PhoneForegroundBrush}"
-                                     StrokeThickness="2" />
-                            <Path Width="26"
-                                  Height="24"
-                                  HorizontalAlignment="Center"
-                                  Data="{StaticResource AnchorImagePath}"
-                                  Fill="{StaticResource PhoneForegroundBrush}"
-                                  Stretch="Fill"
-                                  UseLayoutRounding="False" />
-                        </Grid>
-                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
-                                   Style="{StaticResource PhoneTextLargeStyle}"
-                                   Text="Tidevand" />
-                    </StackPanel>-->
                 </ListBox>
             </c:PivotItem>
             <c:PivotItem x:Name="FavoritesPivotItem"
                          Margin="0,28,0,0"
-                         Header="{Binding AppResources.FavoritesHeader,
+                         Loaded="FavoritesPivotItem_Loaded"
+                         Header="{Binding Resources.FavoritesHeader,
                                           Source={StaticResource AppResources}}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <mvvm:EventToCommand Command="{Binding LoadFavorites}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
                 <Grid Margin="24,0,24,0">
                     <ListBox x:Name="FavoritesListBox"
+                             ItemsSource="{Binding Favorites}"
                              toolkit:TiltEffect.IsTiltEnabled="True"
-                             ItemsSource="{Binding Favorites}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <mvvm:EventToCommand Command="{Binding FavoriteItemSelected}"
-                                                     CommandParameter="{Binding SelectedItem,
-                                                                                ElementName=FavoritesListBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                             SelectionChanged="FavoritesListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17"
@@ -381,7 +281,8 @@
                                                     <toolkit:MenuItem Command="{Binding DataContext.RemoveFromFavorites,
                                                                                         ElementName=MainPhoneApplicationPage}"
                                                                       CommandParameter="{Binding}"
-                                                                      Header="Delete" />
+                                                                      Header="{Binding Resources.RemoveFavorite,
+                                                                                       Source={StaticResource AppResources}}" />
                                                 </toolkit:ContextMenu>
                                             </toolkit:ContextMenuService.ContextMenu>
                                         </TextBlock>
@@ -393,25 +294,15 @@
                 </Grid>
             </c:PivotItem>
             <c:PivotItem x:Name="NewsPivotItem"
-                         Header="{Binding AppResources.NewsHeader,
-                                          Source={StaticResource AppResources}}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <mvvm:EventToCommand Command="{Binding LoadNewsFeed}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                         Header="{Binding Resources.NewsHeader,
+                                          Source={StaticResource AppResources}}"
+                         Loaded="NewsPivotItem_Loaded">
                 <Grid Margin="12,0">
                     <ListBox x:Name="NewsListBox"
                              BorderThickness="0"
                              ItemsSource="{Binding NewsItems}"
-                             toolkit:TiltEffect.IsTiltEnabled="True">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <mvvm:EventToCommand Command="{Binding NewsItemSelected}"
-                                                     CommandParameter="{Binding SelectedItem,
-                                                                                ElementName=NewsListBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                             toolkit:TiltEffect.IsTiltEnabled="True"
+                             SelectionChanged="NewsListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel x:Name="LayoutRoot"
@@ -434,8 +325,8 @@
                 </Grid>
             </c:PivotItem>
         </c:Pivot>
-        <toolkit:PerformanceProgressBar x:Name="PerformanceProgressBar"
-                                        VerticalAlignment="Center"
-                                        IsIndeterminate="{Binding Loading}" />
     </Grid>
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding Loading}" IsVisible="{Binding Loading}" Text="Loading..." />
+    </shell:SystemTray.ProgressIndicator>
 </phone:PhoneApplicationPage>

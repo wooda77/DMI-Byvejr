@@ -21,10 +21,8 @@
 #endregion
 using System;
 using System.Diagnostics;
-using System.IO.IsolatedStorage;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
@@ -34,13 +32,6 @@ namespace DMI
     public partial class App : Application
     {
         private bool phoneApplicationInitialized = false;
-
-        public const string Favorites = "favorites";
-        public const string PivotItem = "pivotitem";
-        public const string ToggleGPS = "togglegps";
-        public const string FirstStart = "firststart";
-        public const string LastCity = "lastcity";
-        public const string ImageFolder = "dmiimagefolder";
 
         public App()
         {
@@ -64,61 +55,11 @@ namespace DMI
             }
         }
 
-        public static bool IsGPSEnabled
-        {
-            get
-            {
-                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.ToggleGPS))
-                    return (bool)IsolatedStorageSettings.ApplicationSettings[App.ToggleGPS];
-                else
-                    return false;
-            }
-        }
-
-        public static bool IsFirstStart
-        {
-            get
-            {
-                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.FirstStart))
-                    return (bool)IsolatedStorageSettings.ApplicationSettings[App.FirstStart];
-                else
-                    return true;
-            }
-            set
-            {
-                if (IsolatedStorageSettings.ApplicationSettings.Contains(App.FirstStart))
-                    IsolatedStorageSettings.ApplicationSettings[App.FirstStart] = value;
-                else
-                    IsolatedStorageSettings.ApplicationSettings.Add(App.FirstStart, value);
-
-                IsolatedStorageSettings.ApplicationSettings.Save();
-            }
-        }
-
-        public static ThemeBackground CurrentThemeBackground
-        {
-            get
-            {
-                var currentColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
-
-                if (currentColor == Colors.Black)
-                    return ThemeBackground.ThemeBackgroundDark;
-                else
-                    return ThemeBackground.ThemeBackgroundLight;
-            }
-        }
-
-        public enum ThemeBackground
-        {
-            ThemeBackgroundDark,
-            ThemeBackgroundLight
-        }
-
         public static bool Navigate(Uri source)
         {
             if (CurrentRootVisual != null)
                 return CurrentRootVisual.Navigate(source);
-            
+         
             return false;
         }
 
@@ -142,8 +83,6 @@ namespace DMI
 
         private void InitializePhoneApplication()
         {
-            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
             if (phoneApplicationInitialized)
                 return;
 

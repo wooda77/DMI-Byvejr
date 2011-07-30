@@ -20,7 +20,7 @@
 // THE SOFTWARE
 #endregion
 using System.Windows;
-using DMI.Model;
+using DMI.Service;
 
 namespace DMI.Assets
 {

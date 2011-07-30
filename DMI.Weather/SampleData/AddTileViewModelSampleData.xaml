@@ -1,0 +1,28 @@
+<DMI_ViewModel:AddTileViewModel xmlns:DMI_Common="clr-namespace:DMI.Common;assembly=DMI.Common"
+                                xmlns:DMI_ViewModel="clr-namespace:DMI.ViewModel"
+                                xmlns:System_Device_Location="clr-namespace:System.Device.Location;assembly=System.Device">
+    <DMI_ViewModel:AddTileViewModel.Latest>
+        <DMI_Common:TileItem Title="Seneste (09:00)"
+                             LocationName="Viby J"
+                             Temperature="16°"
+                             TileType="Latest"
+                             CloudImage="/Resources/Weather/3.png"
+                             Time="07/28/2011 09:00:00" />
+    </DMI_ViewModel:AddTileViewModel.Latest>
+    <DMI_ViewModel:AddTileViewModel.PlusSixHours>
+        <DMI_Common:TileItem Title="+6 timer (15:00)"
+                             LocationName="Viby J"
+                             Temperature="14°"
+                             TileType="PlusSix"
+                             CloudImage="/Resources/Weather/3.png"
+                             Time="07/28/2011 15:00:00" />
+    </DMI_ViewModel:AddTileViewModel.PlusSixHours>
+    <DMI_ViewModel:AddTileViewModel.PlusTwelveHours>
+        <DMI_Common:TileItem Title="+12 timer (21:00)"
+                             LocationName="Viby J"
+                             Temperature="19°"
+                             TileType="PlusTwelve"
+                             CloudImage="/Resources/Weather/3.png"
+                             Time="07/28/2011 21:00:00" />
+    </DMI_ViewModel:AddTileViewModel.PlusTwelveHours>
+</DMI_ViewModel:AddTileViewModel>

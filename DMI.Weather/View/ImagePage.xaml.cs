@@ -42,5 +42,10 @@ namespace DMI.View
                 (DataContext as ImageViewModel).LoadImage(imageSource);
             }
         }
+
+        private void Image_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            (DataContext as ImageViewModel).CropBorders.Execute(null);
+        }
     }
 }

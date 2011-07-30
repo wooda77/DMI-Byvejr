@@ -13,10 +13,10 @@
     <AssemblyName>DMI.Weather</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>en-US;da-DK</SupportedCultures>
+    <SupportedCultures>en;da-DK</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>DMI.Weather.xap</XapFilename>
@@ -39,29 +39,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
-    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
-    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
-    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
-    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
-    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
-    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
-    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
-    <CodeContractsContainerAnalysis>False</CodeContractsContainerAnalysis>
-    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
-    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
-    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
-    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
-    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
-    <CodeContractsCustomRewriterAssembly />
-    <CodeContractsCustomRewriterClass />
-    <CodeContractsLibPaths />
-    <CodeContractsExtraRewriteOptions />
-    <CodeContractsExtraAnalysisOptions />
-    <CodeContractsBaseLineFile />
-    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
-    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,38 +50,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
-    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
-    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
-    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
-    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
-    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
-    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
-    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
-    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
-    <CodeContractsContainerAnalysis>False</CodeContractsContainerAnalysis>
-    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
-    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
-    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
-    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
-    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
-    <CodeContractsCustomRewriterAssembly />
-    <CodeContractsCustomRewriterClass />
-    <CodeContractsLibPaths />
-    <CodeContractsExtraRewriteOptions />
-    <CodeContractsExtraAnalysisOptions />
-    <CodeContractsBaseLineFile />
-    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
-    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WP7, Version=3.0.0.27837, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\GalaSoft.MvvmLight.Extras.WP7.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.3.0.2\lib\sl3-wp\GalaSoft.MvvmLight.Extras.WP7.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.WP7, Version=3.0.0.27833, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\GalaSoft.MvvmLight.WP7.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.3.0.2\lib\sl3-wp\GalaSoft.MvvmLight.WP7.dll</HintPath>
     </Reference>
     <Reference Include="ImageTools">
       <HintPath>..\lib\ImageTools\ImageTools.dll</HintPath>
@@ -115,30 +67,21 @@
     <Reference Include="ImageTools.IO.Gif">
       <HintPath>..\lib\ImageTools\ImageTools.IO.Gif.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Devices.Sensors" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
-      <HintPath>..\Packages\SilverlightToolkitWP.4.2011.2.1\lib\sl4\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+      <HintPath>..\packages\SilverlightToolkitWP.4.2011.2.2\lib\sl-wp\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Phone.Interop" />
-    <Reference Include="Microsoft.Phone.Reactive" />
     <Reference Include="Newtonsoft.Json.WindowsPhone, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\sl3-wp\Newtonsoft.Json.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="System.Device" />
-    <Reference Include="System.Observable" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Interactivity, Version=3.7.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Packages\MvvmLight.3.0.0.29166\lib\WP7\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -147,29 +90,30 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\DataTemplateSelector.cs" />
-    <Compile Include="Assets\GroupToBrushValueConverter.cs" />
     <Compile Include="Assets\PushpinTemplateSelector.cs" />
     <Compile Include="Assets\IsNullOrEmptyToVisiblityConverter.cs" />
-    <Compile Include="Model\Beach.cs" />
-    <Compile Include="Model\CityGroups.cs" />
-    <Compile Include="Model\City.cs" />
     <Compile Include="Assets\ImageUtility.cs" />
-    <Compile Include="Properties\AppResources.da-DK.Designer.cs">
+    <Compile Include="Assets\LongListCollection.cs" />
+    <Compile Include="Properties\Resources.da-DK.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.da-DK.resx</DependentUpon>
+      <DependentUpon>Resources.da-DK.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AppResources.Designer.cs">
-      <DependentUpon>AppResources.resx</DependentUpon>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Model\Resources.cs" />
+    <Compile Include="Resources\AppResources.cs" />
     <Compile Include="Assets\SmartDispatcher.cs" />
+    <Compile Include="ViewModel\AddTileViewModel.cs" />
     <Compile Include="ViewModel\BeachWeatherViewModel.cs" />
     <Compile Include="ViewModel\ChooseCityViewModel.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\SupportViewModel.cs" />
+    <Compile Include="View\AddTilePage.xaml.cs">
+      <DependentUpon>AddTilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BeachWeatherInfoPage.xaml.cs">
       <DependentUpon>BeachWeatherInfoPage.xaml</DependentUpon>
     </Compile>
@@ -207,6 +151,10 @@
     <Page Include="Resources\Styles\DefaultStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddTilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BeachWeatherInfoPage.xaml">
       <SubType>Designer</SubType>
@@ -250,31 +198,64 @@
     <Content Include="ApplicationIcon.png" />
     <Content Include="Background.png" />
     <Content Include="Resources\Images\blueflag.png" />
+    <Content Include="Resources\Images\TileBackground.png" />
+    <Content Include="Resources\Weather\1.png" />
+    <Content Include="Resources\Weather\10.png" />
+    <Content Include="Resources\Weather\11.png" />
+    <Content Include="Resources\Weather\12.png" />
+    <Content Include="Resources\Weather\13.png" />
+    <Content Include="Resources\Weather\14.png" />
+    <Content Include="Resources\Weather\2.png" />
+    <Content Include="Resources\Weather\20.png" />
+    <Content Include="Resources\Weather\21.png" />
+    <Content Include="Resources\Weather\22.png" />
+    <Content Include="Resources\Weather\23.png" />
+    <Content Include="Resources\Weather\24.png" />
+    <Content Include="Resources\Weather\25.png" />
+    <Content Include="Resources\Weather\26.png" />
+    <Content Include="Resources\Weather\3.png" />
+    <Content Include="Resources\Weather\4.png" />
+    <Content Include="Resources\Weather\5.png" />
+    <Content Include="Resources\Weather\6.png" />
+    <Content Include="Resources\Weather\7.png" />
+    <Content Include="Resources\Weather\8.png" />
+    <Content Include="Resources\Weather\9.png" />
     <Content Include="SplashScreenImage.jpg" />
-    <Content Include="Resources\Images\appbar.addtofavs.light.png" />
-    <Content Include="Resources\Images\appbar.favs.dark.png" />
-    <Content Include="Resources\Images\appbar.favs.light.png" />
-    <Content Include="Resources\Images\appbar.home.dark.png" />
-    <Content Include="Resources\Images\appbar.home.light.png" />
-    <Content Include="Resources\Images\appbar.addtofavs.dark.png" />
-    <Content Include="Resources\Images\appbar.location.dark.png" />
-    <Content Include="Resources\Images\appbar.location.light.png" />
+    <Content Include="Resources\Images\appbar.addtofavs.png" />
+    <Content Include="Resources\Images\appbar.favs.png" />
+    <Content Include="Resources\Images\appbar.home.png" />
+    <Content Include="Resources\Images\appbar.location.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\AppResources.da-DK.resx">
+    <EmbeddedResource Include="Properties\Resources.da-DK.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.da-DK.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.da-DK.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\AppResources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DMI.Common\DMI.Common.csproj">
+      <Project>{EBC918D6-094E-4F0B-B399-8064ADF0913E}</Project>
+      <Name>DMI.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DMI.Service\DMI.Service.csproj">
       <Project>{A138B4D9-93BC-4AF2-A822-6942540EF4A5}</Project>
       <Name>DMI.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DMI.TaskAgent\DMI.TaskAgent.csproj">
+      <Project>{2BCC7015-13C3-49E0-B4EB-7D821BA8808E}</Project>
+      <Name>DMI.TaskAgent</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <DesignData Include="SampleData\AddTileViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

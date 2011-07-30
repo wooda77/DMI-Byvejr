@@ -27,11 +27,14 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using DMI.Service.Properties;
+using DMI.Common;
 
 namespace DMI.Service
 {
     public class FaroeIslands : IWeatherProvider
     {
+        public const string Name = "Faroe Islands";
+
         private static FaroeIslands instance;
 
         public static FaroeIslands Instance
@@ -74,12 +77,12 @@ namespace DMI.Service
             var result = new CityWeatherResult()
             {
                 CityWeatherThreeDaysImage = new Uri(string.Format(
-                    AppResources.FaroeIslands_CityWeatherThreeDaysImage, postalCode)),
+                    Resources.FaroeIslands_CityWeatherThreeDaysImage, postalCode)),
                 CityWeatherSevenDaysImage = new Uri(string.Format(
-                    AppResources.FaroeIslands_CityWeatherSevenDaysImage, postalCode)),
+                    Resources.FaroeIslands_CityWeatherSevenDaysImage, postalCode)),
             };
 
-            callback(result, null);    
+            callback(result, null);
         }
 
         public void GetRegionalWeather(GeoCoordinate location, string postalCode, Action<RegionalWeatherResult, Exception> callback)
@@ -92,55 +95,42 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.FaroeIslands_CountryFeed);
+            client.DownloadStringAsync(html =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var input = HttpUtility.HtmlDecode(html);
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
+                var pattern = @"<td class=""broedtekst"">(?<content>.*?)</td>";
+
+                var regex = new Regex(pattern, RegexOptions.Singleline);
+                var matches = regex.Matches(input);
+
+                var description = new StringBuilder();
+
+                foreach (var match in matches.Cast<Match>().Skip(1))
                 {
-                    callback(new CountryWeatherResult(), e.Error);
+                    var content = match.Groups["content"].Value;
+                    content = content.Replace("<br>", Environment.NewLine).Trim();
+
+                    if (string.IsNullOrEmpty(content) == false)
+                        description.AppendLine(content);
                 }
-                else
+
+                var result = new CountryWeatherResult()
                 {
-                    var input = HttpUtility.HtmlDecode(e.Result);
-
-                    var pattern = @"<td class=""broedtekst"">(?<content>.*?)</td>";
-
-                    var regex = new Regex(pattern, RegexOptions.Singleline);
-                    var matches = regex.Matches(input);
-
-                    var description = new StringBuilder();
-
-                    foreach (var match in matches.Cast<Match>().Skip(1))
+                    Image = null,
+                    Items = new List<CountryWeatherItem>()
                     {
-                        var content = match.Groups["content"].Value;
-                        content = content.Replace("<br>", Environment.NewLine).Trim();
-
-                        if (string.IsNullOrEmpty(content) == false)
-                            description.AppendLine(content);
-                    }
-
-                    var result = new CountryWeatherResult()
-                    {
-                        Image = null,
-                        Items = new List<CountryWeatherItem>()
+                        new CountryWeatherItem() 
                         {
-                            new CountryWeatherItem() 
-                            {
-                                Title = "Udsigt for Færøerne",
-                                Description = description.ToString()
-                            }
+                            Title = "Udsigt for Færøerne",
+                            Description = description.ToString()
                         }
-                    };
+                    }
+                };
 
-                    callback(result, e.Error);
-                }
-            };
-
-            client.DownloadStringAsync(new Uri(AppResources.FaroeIslands_CountryFeed));
+                callback(result, null);
+            });
         }
 
         public void GetPollenData(GeoCoordinate location, string postalCode, Action<PollenResult, Exception> callback)
@@ -152,8 +142,8 @@ namespace DMI.Service
 
         private static int GetPostalCodeFromGeoCoordinate(GeoCoordinate location)
         {
-            double shortestDistance = 0;
-            GeoLocationCity nearestCity = PostalCodes[6011];
+            var shortestDistance = 0.0;
+            var nearestCity = PostalCodes[6011];
 
             foreach (var city in PostalCodes.Values)
             {
@@ -172,11 +162,11 @@ namespace DMI.Service
 
         public static IDictionary<int, GeoLocationCity> PostalCodes = new Dictionary<int, GeoLocationCity>()
         {
-            { 6009, new GeoLocationCity(6009, "Akraberg", 61.400663, -6.687927) },
-            { 6012, new GeoLocationCity(6012, "Fugloy", 62.321555, -6.325378) },
-            { 6005, new GeoLocationCity(6005, "Mykines", 62.097457, -7.676697) },
-            { 6010, new GeoLocationCity(6010, "Sørvágur/Vágar", 62.082833, -7.318611) },
-            { 6011, new GeoLocationCity(6011, "Tórshavn", 62.017985, -6.782684) },
+            { 6009, new GeoLocationCity("Faroe Islands", 6009, 2624923, "Akraberg", 61.400663, -6.687927) },
+            { 6012, new GeoLocationCity("Faroe Islands", 6012, 2621795, "Fugloy", 62.321555, -6.325378) },
+            { 6005, new GeoLocationCity("Faroe Islands", 6005, 2616648, "Mykines", 62.097457, -7.676697) },
+            { 6010, new GeoLocationCity("Faroe Islands", 6010, 2612890, "Sørvágur/Vágar", 62.082833, -7.318611) },
+            { 6011, new GeoLocationCity("Faroe Islands", 6011, 2611396, "Tórshavn", 62.017985, -6.782684) },
         };
 
         #endregion

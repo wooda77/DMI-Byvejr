@@ -22,7 +22,6 @@
 using System;
 using ImageTools.IO;
 using ImageTools.IO.Gif;
-using DMI.Properties;
 
 namespace DMI.View
 {
@@ -38,7 +37,7 @@ namespace DMI.View
         {
             Decoders.AddDecoder<GifDecoder>();
 
-            ImageSource = new Uri(AppResources.RadarAnimation, UriKind.Absolute);
+            ImageSource = new Uri(Properties.Resources.RadarAnimation, UriKind.Absolute);
             DataContext = this;
         }
 

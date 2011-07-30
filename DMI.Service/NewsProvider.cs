@@ -25,8 +25,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
-using DMI.Service.Properties;
 using Newtonsoft.Json;
+using DMI.Common;
+using DMI.Service.Properties;
 
 namespace DMI.Service
 {
@@ -71,7 +72,7 @@ namespace DMI.Service
                 }
             };
 
-            client.DownloadStringAsync(new Uri(AppResources.NewsFeed));
+            client.DownloadStringAsync(new Uri(Resources.NewsFeed));
         }
 
         public static void GetVideos(Action<List<WebTVItem>, Exception> callback)
@@ -107,7 +108,7 @@ namespace DMI.Service
                 }
             };
 
-            client.DownloadStringAsync(new Uri(AppResources.WebTVFeed));
+            client.DownloadStringAsync(new Uri(Resources.WebTVFeed));
         }
     }
 }
