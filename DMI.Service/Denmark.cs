@@ -125,42 +125,42 @@ namespace DMI.Service
             var client = HttpWebRequest.Create(Resources.Denmark_CountryFeed);
             client.DownloadStringAsync(html =>
             {
-                    var input = HttpUtility.HtmlDecode(html);
+                var input = HttpUtility.HtmlDecode(html);
 
-                    var pattern = @"<td class=""mellemrubrik"">(?<title>.*?)</td>";
-                    pattern += @"(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
+                var pattern = @"<td class=""mellemrubrik"">(?<title>.*?)</td>";
+                pattern += @"(.*?)<td class=""broedtekst"">(?<description>.*?)</td>";
 
-                    var regex = new Regex(pattern, RegexOptions.Singleline);
-                    var matches = regex.Matches(input);
+                var regex = new Regex(pattern, RegexOptions.Singleline);
+                var matches = regex.Matches(input);
 
-                    var items = new List<CountryWeatherItem>();
+                var items = new List<CountryWeatherItem>();
 
-                    foreach (var match in matches.Cast<Match>())
+                foreach (var match in matches.Cast<Match>())
+                {
+                    var title = match.Groups["title"].Value;
+                    title = title.Trim();
+                    title = title.Replace(":", "");
+
+                    var description = match.Groups["description"].Value;
+                    description = description.Trim();
+
+                    if (string.IsNullOrEmpty(title) == false)
                     {
-                        var title = match.Groups["title"].Value;
-                        title = title.Trim();
-                        title = title.Replace(":", "");
-
-                        var description = match.Groups["description"].Value;
-                        description = description.Trim();
-
-                        if (string.IsNullOrEmpty(title) == false)
+                        items.Add(new CountryWeatherItem()
                         {
-                            items.Add(new CountryWeatherItem()
-                            {
-                                Title = title,
-                                Description = description
-                            });
-                        }
+                            Title = title,
+                            Description = description
+                        });
                     }
+                }
 
-                    var countryWeatherResult = new CountryWeatherResult()
-                    {
-                        Image = new Uri(Resources.Denmark_CountryImage),
-                        Items = items
-                    };
+                var countryWeatherResult = new CountryWeatherResult()
+                {
+                    Image = new Uri(Resources.Denmark_CountryImage),
+                    Items = items
+                };
 
-                    callback(countryWeatherResult, null);
+                callback(countryWeatherResult, null);
             });
         }
 
