@@ -3,7 +3,6 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                             xmlns:local_assets="clr-namespace:DMI.Assets"
                             xmlns:local_viewmodels="clr-namespace:DMI.ViewModel"
                             xmlns:local_views="clr-namespace:DMI.View"
@@ -245,17 +244,17 @@
             </c:PivotItem>
             <c:PivotItem x:Name="FavoritesPivotItem"
                          Margin="0,28,0,0"
-                         Loaded="FavoritesPivotItem_Loaded"
                          Header="{Binding Resources.FavoritesHeader,
-                                          Source={StaticResource AppResources}}">
+                                          Source={StaticResource AppResources}}"
+                         Loaded="FavoritesPivotItem_Loaded">
                 <Grid Margin="24,0,24,0">
                     <ListBox x:Name="FavoritesListBox"
                              ItemsSource="{Binding Favorites}"
-                             toolkit:TiltEffect.IsTiltEnabled="True"
-                             SelectionChanged="FavoritesListBox_SelectionChanged">
+                             SelectionChanged="FavoritesListBox_SelectionChanged"
+                             toolkit:TiltEffect.IsTiltEnabled="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,17"
+                                <StackPanel Margin="0,24,0,0"
                                             Orientation="Horizontal">
                                     <StackPanel Margin="0,0,0,17"
                                                 Orientation="Horizontal">
@@ -301,8 +300,8 @@
                     <ListBox x:Name="NewsListBox"
                              BorderThickness="0"
                              ItemsSource="{Binding NewsItems}"
-                             toolkit:TiltEffect.IsTiltEnabled="True"
-                             SelectionChanged="NewsListBox_SelectionChanged">
+                             SelectionChanged="NewsListBox_SelectionChanged"
+                             toolkit:TiltEffect.IsTiltEnabled="True">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel x:Name="LayoutRoot"
@@ -327,6 +326,8 @@
         </c:Pivot>
     </Grid>
     <shell:SystemTray.ProgressIndicator>
-        <shell:ProgressIndicator IsIndeterminate="{Binding Loading}" IsVisible="{Binding Loading}" Text="Loading..." />
+        <shell:ProgressIndicator IsIndeterminate="{Binding Loading}"
+                                 IsVisible="{Binding Loading}"
+                                 Text="Loading..." />
     </shell:SystemTray.ProgressIndicator>
 </phone:PhoneApplicationPage>

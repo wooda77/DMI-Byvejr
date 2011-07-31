@@ -71,7 +71,6 @@ namespace DMI.ViewModel
             this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
             this.RemoveFromFavorites = new RelayCommand<GeoLocationCity>(RemoveFromFavoritesExecute);
             this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
-            this.FavoriteItemSelected = new RelayCommand<GeoLocationCity>(FavoriteItemSelectedExecute);
             this.GoToLocation = new RelayCommand(GoToLocationExecute);
 
             if (InternetIsAvailable())
@@ -189,12 +188,6 @@ namespace DMI.ViewModel
         }
 
         public ICommand NewsItemSelected
-        {
-            get;
-            private set;
-        }
-
-        public ICommand FavoriteItemSelected
         {
             get;
             private set;
@@ -326,16 +319,6 @@ namespace DMI.ViewModel
                 };
                 task.Show();
             }
-        }
-
-        private void FavoriteItemSelectedExecute(GeoLocationCity city)
-        {
-            if (city == null)
-                throw new ArgumentException("city");
-
-            var uri = string.Format(AppSettings.MainPageAddress, city.PostalCode, city.Country);
-
-            App.Navigate(new Uri(uri, UriKind.Relative));
         }
 
         private void GoToLocationExecute()

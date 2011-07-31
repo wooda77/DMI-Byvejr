@@ -259,7 +259,12 @@ namespace DMI.View
         private void FavoritesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ViewModel.IsInitialized)
-                ViewModel.FavoriteItemSelected.Execute(FavoritesListBox.SelectedItem);
+            {
+                var city = FavoritesListBox.SelectedItem as GeoLocationCity;                
+                ViewModel.ResolveLocation(city.PostalCode.ToString(), city.Country);
+
+                PivotLayout.SelectedIndex = 0;
+            }
         }
 
         private void FavoritesPivotItem_Loaded(object sender, RoutedEventArgs e)
