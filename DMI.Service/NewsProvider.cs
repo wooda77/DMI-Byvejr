@@ -38,41 +38,28 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.NewsFeed);
+            client.DownloadStringAsync(xml =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var items = XElement.Parse(xml)
+                    .Elements("channel")
+                    .Elements("item")
+                    .Select(item =>
+                    {
+                        var title = item.Element("title");
+                        var description = item.Element("description");
+                        var link = item.Element("link");
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
-                {
-                    callback(Enumerable.Empty<NewsItem>(), e.Error);
-                }
-                else
-                {
-                    var items = XElement.Parse(e.Result)
-                        .Elements("channel")
-                        .Elements("item")
-                        .Select(item =>
+                        return new NewsItem()
                         {
-                            var title = item.Element("title");
-                            var description = item.Element("description");
-                            var link = item.Element("link");
+                            Title = title.TryGetValue(),
+                            Description = description.TryGetValue(),
+                            Link = link == null ? null : new Uri(link.Value)
+                        };
+                    });
 
-                            return new NewsItem()
-                            {
-                                Title = title.TryGetValue(),
-                                Description = description.TryGetValue(),
-                                Link = link == null ? null : new Uri(link.Value)
-                            };
-                        });
-
-                    callback(items, e.Error);
-                }
-            };
-
-            client.DownloadStringAsync(new Uri(Resources.NewsFeed));
+                callback(items, null);
+            });
         }
 
         public static void GetVideos(Action<List<WebTVItem>, Exception> callback)
@@ -80,35 +67,22 @@ namespace DMI.Service
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            var client = new WebClient()
+            var client = HttpWebRequest.Create(Resources.WebTVFeed);
+            client.DownloadStringAsync(text =>
             {
-                Encoding = Encoding.GetEncoding("iso-8859-1")
-            };
+                var json = HttpUtility.HtmlDecode(text);
 
-            client.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error != null)
+                try
                 {
-                    callback(new List<WebTVItem>(), e.Error);
-                }
-                else
-                {
-                    var json = HttpUtility.HtmlDecode(e.Result);
-
-                    try
-                    {
-                        var response = JsonConvert.DeserializeObject<WebTVResponse>(json);
+                    var response = JsonConvert.DeserializeObject<WebTVResponse>(json);
                         
-                        callback(response.Items.ToList(), e.Error);
-                    }
-                    catch (JsonSerializationException exception)
-                    {
-                        callback(new List<WebTVItem>(), exception);
-                    }
+                    callback(response.Items.ToList(), null);
                 }
-            };
-
-            client.DownloadStringAsync(new Uri(Resources.WebTVFeed));
+                catch (JsonSerializationException exception)
+                {
+                    callback(new List<WebTVItem>(), exception);
+                }
+            });
         }
     }
 }

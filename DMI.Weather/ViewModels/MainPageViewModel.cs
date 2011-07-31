@@ -234,35 +234,38 @@ namespace DMI.ViewModels
         {
             NewsProvider.GetVideos((videos, exception) =>
             {
-                NewsItems.Clear();
-
-                if (videos.Count >= 3)
+                SmartDispatcher.BeginInvoke(() =>
                 {
-                    NewsItems.Add(new NewsItem()
-                    {
-                        Title = Properties.Resources.WebTV_DMI,
-                        WebTVItem = videos.FirstOrDefault(v => v.Category == "DMI"),
-                    });
+                    NewsItems.Clear();
 
-                    NewsItems.Add(new NewsItem()
+                    if (videos.Count >= 3)
                     {
-                        Title = Properties.Resources.WebTV_SEJL,
-                        WebTVItem = videos.FirstOrDefault(v => v.Category == "SEJL"),
-                    });
+                        NewsItems.Add(new NewsItem()
+                        {
+                            Title = Properties.Resources.WebTV_DMI,
+                            WebTVItem = videos.FirstOrDefault(v => v.Category == "DMI"),
+                        });
 
-                    NewsItems.Add(new NewsItem()
-                    {
-                        Title = Properties.Resources.WebTV_3D,
-                        WebTVItem = videos.FirstOrDefault(v => v.Category == "3D"),
-                    });
-                }
+                        NewsItems.Add(new NewsItem()
+                        {
+                            Title = Properties.Resources.WebTV_SEJL,
+                            WebTVItem = videos.FirstOrDefault(v => v.Category == "SEJL"),
+                        });
 
-                NewsProvider.GetNewsItems((items, e) =>
-                {
-                    foreach (var item in items)
-                    {
-                        NewsItems.Add(item);
+                        NewsItems.Add(new NewsItem()
+                        {
+                            Title = Properties.Resources.WebTV_3D,
+                            WebTVItem = videos.FirstOrDefault(v => v.Category == "3D"),
+                        });
                     }
+
+                    NewsProvider.GetNewsItems((items, e) =>
+                    {
+                        foreach (var item in items)
+                        {
+                            SmartDispatcher.BeginInvoke(() => NewsItems.Add(item));
+                        }
+                    });
                 });
             });
         }

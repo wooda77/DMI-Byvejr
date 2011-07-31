@@ -192,6 +192,9 @@
   <data name="Header_LiveTile" xml:space="preserve">
     <value>live tile</value>
   </data>
+  <data name="Header_UVIndex" xml:space="preserve">
+    <value>uv index</value>
+  </data>
   <data name="InternetError" xml:space="preserve">
     <value>No internet connection is available. Please try again later.</value>
   </data>
@@ -248,6 +251,15 @@
   </data>
   <data name="SupportHeader" xml:space="preserve">
     <value>support</value>
+  </data>
+  <data name="UVIndexHelpText1" xml:space="preserve">
+    <value>DMI expects skies resulting in a UV-index as displayed on the figure below.</value>
+  </data>
+  <data name="UVIndexHelpText2" xml:space="preserve">
+    <value>UV-index is a measurement for the intensity for the (skin-) harmful UV-radiation. At the midday sun on the equator it can be up to 15, where as in Denmark max 7 during the summer.</value>
+  </data>
+  <data name="UVIndexMenuItem" xml:space="preserve">
+    <value>UV Index</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version: </value>

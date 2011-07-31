@@ -73,6 +73,7 @@
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <HintPath>..\packages\SilverlightToolkitWP.4.2011.2.2\lib\sl-wp\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Newtonsoft.Json.WindowsPhone, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\sl3-wp\Newtonsoft.Json.WindowsPhone.dll</HintPath>
@@ -118,6 +119,7 @@
     <Compile Include="ViewModels\ImagePageViewModel.cs" />
     <Compile Include="ViewModels\RadarPageViewModel.cs" />
     <Compile Include="ViewModels\SupportPageViewModel.cs" />
+    <Compile Include="ViewModels\UVIndexPageViewModel.cs" />
     <Compile Include="Views\AddTilePage.xaml.cs">
       <DependentUpon>AddTilePage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +145,9 @@
     </Compile>
     <Compile Include="Views\SupportPage.xaml.cs">
       <DependentUpon>SupportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UVIndexPage.xaml.cs">
+      <DependentUpon>UVIndexPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +196,10 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\UVIndexPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -204,9 +213,11 @@
   <ItemGroup>
     <Content Include="ApplicationIcon.png" />
     <Content Include="Background.png" />
+    <Content Include="Resources\Images\1daymap.png" />
     <Content Include="Resources\Images\Blank.png" />
     <Content Include="Resources\Images\blueflag.png" />
     <Content Include="Resources\Images\TileBackground.png" />
+    <Content Include="Resources\Images\wx_sun_lightrain.png" />
     <Content Include="Resources\Weather\1.png" />
     <Content Include="Resources\Weather\10.png" />
     <Content Include="Resources\Weather\11.png" />

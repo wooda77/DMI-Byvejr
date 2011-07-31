@@ -231,5 +231,10 @@ namespace DMI.Views
         {
             NavigationService.Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
         }
+
+        private void UVIndexMenuItem_Tap(object sender, GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri(AppSettings.UVIndexPageAddress, UriKind.Relative));
+        }
     }
 }

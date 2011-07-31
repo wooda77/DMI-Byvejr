@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\lib\HTMLAgilityPackWP7\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Devices.Sensors" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
@@ -75,6 +78,7 @@
     <Compile Include="Denmark.cs" />
     <Compile Include="BingLocationProvider.cs" />
     <Compile Include="FaroeIslands.cs" />
+    <Compile Include="UVIndexProvider.cs" />
     <Compile Include="WebRequestEx.cs" />
     <Compile Include="LiveTileWeatherProvider.cs" />
     <Compile Include="NewsProvider.cs" />

@@ -367,6 +367,15 @@ namespace DMI.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/index/danmark/solvarsel.htm.
+        /// </summary>
+        internal static string UVIndexFeed {
+            get {
+                return ResourceManager.GetString("UVIndexFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://tv.dmi.dk/js/photos?raw.
         /// </summary>
         internal static string WebTVFeed {

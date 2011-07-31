@@ -67,6 +67,8 @@ namespace DMI.Common
 
         public static string BeachWeatherInfoPageAddress = "/Views/BeachWeatherInfoPage.xaml?ID={0}";
 
+        public static string UVIndexPageAddress = "/Views/UVIndexPage.xaml";
+
         public static string TileTypeUrlSegment = "TileType={0}";
 
         public static string TemperatureImageSource = "http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&tabel=dag1&mode=long";

@@ -286,6 +286,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to uv index.
+        /// </summary>
+        public static string Header_UVIndex {
+            get {
+                return ResourceManager.GetString("Header_UVIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No internet connection is available. Please try again later..
         /// </summary>
         public static string InternetError {
@@ -453,6 +462,33 @@ namespace DMI.Properties {
         public static string SupportHeader {
             get {
                 return ResourceManager.GetString("SupportHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DMI expects skies resulting in a UV-index as displayed on the figure below..
+        /// </summary>
+        public static string UVIndexHelpText1 {
+            get {
+                return ResourceManager.GetString("UVIndexHelpText1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UV-index is a measurement for the intensity for the (skin-) harmful UV-radiation. At the midday sun on the equator it can be up to 15, where as in Denmark max 7 during the summer..
+        /// </summary>
+        public static string UVIndexHelpText2 {
+            get {
+                return ResourceManager.GetString("UVIndexHelpText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UV Index.
+        /// </summary>
+        public static string UVIndexMenuItem {
+            get {
+                return ResourceManager.GetString("UVIndexMenuItem", resourceCulture);
             }
         }
         

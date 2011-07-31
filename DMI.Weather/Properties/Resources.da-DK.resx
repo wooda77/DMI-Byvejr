@@ -189,6 +189,9 @@
   <data name="Header_LiveTile" xml:space="preserve">
     <value>live tile</value>
   </data>
+  <data name="Header_UVIndex" xml:space="preserve">
+    <value>uv indeks</value>
+  </data>
   <data name="InternetError" xml:space="preserve">
     <value>Der er ingen internet forbindelse. Prøv igen senere.</value>
   </data>
@@ -254,6 +257,15 @@
   </data>
   <data name="Tile_Night" xml:space="preserve">
     <value>Nat ({0:HH':'mm})</value>
+  </data>
+  <data name="UVIndexHelpText1" xml:space="preserve">
+    <value>DMI venter skyforhold der betyder at UV-indeks forventes som på figuren herunder.</value>
+  </data>
+  <data name="UVIndexHelpText2" xml:space="preserve">
+    <value>UV-indeks er et mål for intensiteten af den (hud-) skadelige UV-stråling. I middagssolen kan det ved Ækvator højst blive ca. 15, og i Danmark højst ca. 7 i sommermånederne.</value>
+  </data>
+  <data name="UVIndexMenuItem" xml:space="preserve">
+    <value>UV Indeks</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version: </value>

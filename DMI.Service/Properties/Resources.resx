@@ -219,6 +219,9 @@
   <data name="RegionalText_SouthZealand" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm</value>
   </data>
+  <data name="UVIndexFeed" xml:space="preserve">
+    <value>http://www.dmi.dk/dmi/index/danmark/solvarsel.htm</value>
+  </data>
   <data name="WebTVFeed" xml:space="preserve">
     <value>http://tv.dmi.dk/js/photos?raw</value>
   </data>

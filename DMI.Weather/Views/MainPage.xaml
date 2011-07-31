@@ -260,6 +260,29 @@
                                    Text="{Binding Resources.RadarMenuItem,
                                                   Source={StaticResource AppResources}}" />
                     </StackPanel>
+                    <StackPanel Margin="0,24,0,0"
+                                Orientation="Horizontal">
+                        <toolkit:GestureService.GestureListener>
+                            <toolkit:GestureListener Tap="UVIndexMenuItem_Tap" />
+                        </toolkit:GestureService.GestureListener>
+                        <Grid>
+                            <Ellipse Width="38"
+                                     Height="38"
+                                     Stroke="{StaticResource PhoneForegroundBrush}"
+                                     StrokeThickness="2" />
+                            <Path Width="26"
+                                  Height="26"
+                                  HorizontalAlignment="Center"
+                                  Data="{StaticResource SunImagePath}"
+                                  Fill="{StaticResource PhoneForegroundBrush}"
+                                  Stretch="Fill"
+                                  UseLayoutRounding="False" />
+                        </Grid>
+                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Text="{Binding Resources.UVIndexMenuItem,
+                                      Source={StaticResource AppResources}}" />
+                    </StackPanel>
                 </ListBox>
             </c:PivotItem>
             <!--  Favorites  -->
