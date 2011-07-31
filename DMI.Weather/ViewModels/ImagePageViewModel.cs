@@ -20,34 +20,31 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows.Data;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using DMI.Assets;
 
-namespace DMI.Assets
+namespace DMI.ViewModels
 {
-    public class NegationConverter : IValueConverter
+    public class ImagePageViewModel : ViewModelBase
     {
-        #region IValueConverter Members
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public ImagePageViewModel()
         {
-            if (value is bool)
-            {
-                return !((bool)value);
-            }
-
-            return value;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public Uri ImageSource
         {
-            if (value is bool)
-            {
-                return !((bool)value);
-            }
-
-            return value;
+            get;
+            set;
         }
 
-        #endregion
+        public void LoadImage(string imageSource)
+        {
+            this.ImageSource = new Uri(imageSource, UriKind.Absolute);
+        }
     }
 }

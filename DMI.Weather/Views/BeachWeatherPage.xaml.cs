@@ -20,38 +20,34 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using DMI.Assets;
+using DMI.Common;
+using DMI.Service;
+using DMI.ViewModels;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Controls.Maps;
 
-namespace DMI.ViewModel
+namespace DMI.Views
 {
-    public class ImageViewModel : ViewModelBase
+    public partial class BeachWeatherPage
     {
-        public ImageViewModel()
+        public BeachWeatherPage()
         {
-            this.CropBorders = new RelayCommand<Image>(image => image.CropImageBorders());
+            InitializeComponent();
         }
 
-        public ImageSource ImageSource
+        private void Pushpin_Tap(object sender, GestureEventArgs e)
         {
-            get;
-            set;
-        }
+            var pushpin = sender as Pushpin;
+            if (pushpin != null)
+            {
+                var beach = pushpin.DataContext as Beach;
 
-        public ICommand CropBorders
-        {
-            get;
-            private set;
-        }
-
-        public void LoadImage(string imageSource)
-        {
-            this.ImageSource = new BitmapImage(new Uri(imageSource, UriKind.Absolute));
+                if (beach != null)
+                {
+                    var address = string.Format(AppSettings.BeachWeatherInfoPageAddress, beach.ID);
+                    NavigationService.Navigate(new Uri(address, UriKind.Relative));
+                }
+            }
         }
     }
 }

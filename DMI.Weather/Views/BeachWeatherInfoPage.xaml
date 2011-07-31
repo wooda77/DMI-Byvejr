@@ -1,28 +1,30 @@
-﻿<phone:PhoneApplicationPage x:Class="DMI.View.ImagePage"
+﻿<phone:PhoneApplicationPage x:Class="DMI.Views.BeachWeatherInfoPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:assets="clr-namespace:DMI.Assets"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-                            xmlns:local_viewmodel="clr-namespace:DMI.ViewModel"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                            xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            d:DesignHeight="480"
+                            d:DesignWidth="728"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
-                            Orientation="LandscapeLeft"
-                            shell:SystemTray.IsVisible="False"
+                            Orientation="Landscape"
+                            shell:SystemTray.IsVisible="True"
                             SupportedOrientations="Landscape"
                             mc:Ignorable="d">
-    <phone:PhoneApplicationPage.DataContext>
-        <local_viewmodel:ImageViewModel />
-    </phone:PhoneApplicationPage.DataContext>
     <Grid>
-        <Image HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Source="{Binding ImageSource}"
-               Stretch="Uniform"
-               SizeChanged="Image_SizeChanged" />
+        <ScrollViewer>
+            <StackPanel>
+                <Image x:Name="TemperatureImage"
+                       assets:ImageExtension.SizeChangedCommand="True"
+                       Stretch="Uniform" />
+                <Image x:Name="WavesImage"
+                       assets:ImageExtension.SizeChangedCommand="True"
+                       Stretch="Uniform" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </phone:PhoneApplicationPage>

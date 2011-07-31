@@ -1,10 +1,8 @@
 TODO
 
    - Lokale vejrstationer "Borgervejr" (Temperatur / Middelvind)
+   - UV Index
    - Flere Vejrkort
    - Tidevand
    - Vandstand
- 
-Mango
-  
-   - Ændre alt brug af WebClient , for at undgå UI thread load.
+

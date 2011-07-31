@@ -21,10 +21,10 @@
 #endregion
 using System.Windows.Navigation;
 using DMI.Common;
-using DMI.ViewModel;
+using DMI.ViewModels;
 using Microsoft.Phone.Controls;
 
-namespace DMI.View
+namespace DMI.Views
 {
     public partial class AddTilePage : PhoneApplicationPage
     {
@@ -33,11 +33,11 @@ namespace DMI.View
             InitializeComponent();
         }
 
-        private AddTileViewModel ViewModel
+        private AddTilePageViewModel ViewModel
         {
             get
             {
-                return DataContext as AddTileViewModel;
+                return DataContext as AddTilePageViewModel;
             }
         }
 

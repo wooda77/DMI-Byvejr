@@ -19,35 +19,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Tasks;
-using DMI.Common;
 
-namespace DMI.View
+namespace DMI.Views
 {
-    public partial class SupportPage
+    public partial class ChooseCityPage
     {
-        public SupportPage()
+        public ChooseCityPage()
         {
             InitializeComponent();
-
-            AppSettings.IsFirstStart = false;
-        }
-
-        private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
-
-        private void SendEmailButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var emailTask = new EmailComposeTask()
-            {
-                To = Properties.Resources.Email,
-                Subject = Properties.Resources.AppSupportEmailHeader
-            };
-
-            emailTask.Show();
         }
     }
 }

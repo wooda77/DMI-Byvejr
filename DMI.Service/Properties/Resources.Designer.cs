@@ -70,6 +70,24 @@ namespace DMI.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag10_15.
+        /// </summary>
+        internal static string Denmark_CityWeatherFifteenDaysImage {
+            get {
+                return ResourceManager.GetString("Denmark_CityWeatherFifteenDaysImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag10_14.
+        /// </summary>
+        internal static string Denmark_CityWeatherFourteenDaysImage {
+            get {
+                return ResourceManager.GetString("Denmark_CityWeatherFourteenDaysImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9.
         /// </summary>
         internal static string Denmark_CityWeatherSevenDaysImage {
@@ -129,6 +147,15 @@ namespace DMI.Service.Properties {
         internal static string FaroeIslands_CountryFeed {
             get {
                 return ResourceManager.GetString("FaroeIslands_CountryFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag10_14.
+        /// </summary>
+        internal static string Greenland_CityWeatherFourteenDaysImage {
+            get {
+                return ResourceManager.GetString("Greenland_CityWeatherFourteenDaysImage", resourceCulture);
             }
         }
         

@@ -29,12 +29,26 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
 
-namespace DMI.ViewModel
+namespace DMI.ViewModels
 {
-    public class SupportViewModel : ViewModelBase
+    public class SupportPageViewModel : ViewModelBase
     {
-        public SupportViewModel()
+        public SupportPageViewModel()
         {
+            AppSettings.IsFirstStart = false;
+
+            this.OK = new RelayCommand(App.CurrentRootVisual.GoBack);
+            
+            this.SendEmail = new RelayCommand(() =>
+            {
+                var emailTask = new EmailComposeTask()
+                {
+                    To = Properties.Resources.Email,
+                    Subject = Properties.Resources.AppSupportEmailHeader
+                };
+
+                emailTask.Show();
+            });
         }
 
         public string Version
@@ -64,6 +78,18 @@ namespace DMI.ViewModel
 
                 IsolatedStorageSettings.ApplicationSettings.Save();
             }
+        }
+
+        public ICommand SendEmail
+        {
+            get;
+            private set;
+        }
+
+        public ICommand OK
+        {
+            get;
+            private set;
         }
     }
 }

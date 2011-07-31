@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage x:Class="DMI.View.RadarPage"
+﻿<phone:PhoneApplicationPage x:Class="DMI.Views.RadarPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,6 +6,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:viewmodels="clr-namespace:DMI.ViewModels"
                             d:DesignHeight="800"
                             d:DesignWidth="480"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -14,6 +15,9 @@
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True"
                             mc:Ignorable="d">
+    <phone:PhoneApplicationPage.DataContext>
+        <viewmodels:RadarPageViewModel />
+    </phone:PhoneApplicationPage.DataContext>
     <phone:PhoneApplicationPage.Resources>
         <imageTools:ImageConverter x:Key="ImageConverter" />
     </phone:PhoneApplicationPage.Resources>

@@ -89,7 +89,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Assets\Behaviors\ImageExtension.cs" />
+    <Compile Include="Assets\Behaviors\SelectorExtension.cs" />
     <Compile Include="Assets\DataTemplateSelector.cs" />
+    <Compile Include="Assets\Behaviors\LongListSelectorExtension.cs" />
+    <Compile Include="Assets\Behaviors\PushpinExtension.cs" />
+    <Compile Include="Assets\Behaviors\TextBoxExtension.cs" />
+    <Compile Include="Assets\LowProfileImageLoader.cs" />
     <Compile Include="Assets\PushpinTemplateSelector.cs" />
     <Compile Include="Assets\IsNullOrEmptyToVisiblityConverter.cs" />
     <Compile Include="Assets\ImageUtility.cs" />
@@ -106,35 +112,36 @@
     </Compile>
     <Compile Include="Resources\AppResources.cs" />
     <Compile Include="Assets\SmartDispatcher.cs" />
-    <Compile Include="ViewModel\AddTileViewModel.cs" />
-    <Compile Include="ViewModel\BeachWeatherViewModel.cs" />
-    <Compile Include="ViewModel\ChooseCityViewModel.cs" />
-    <Compile Include="ViewModel\ImageViewModel.cs" />
-    <Compile Include="ViewModel\SupportViewModel.cs" />
-    <Compile Include="View\AddTilePage.xaml.cs">
+    <Compile Include="ViewModels\AddTilePageViewModel.cs" />
+    <Compile Include="ViewModels\BeachWeatherPageViewModel.cs" />
+    <Compile Include="ViewModels\ChooseCityPageViewModel.cs" />
+    <Compile Include="ViewModels\ImagePageViewModel.cs" />
+    <Compile Include="ViewModels\RadarPageViewModel.cs" />
+    <Compile Include="ViewModels\SupportPageViewModel.cs" />
+    <Compile Include="Views\AddTilePage.xaml.cs">
       <DependentUpon>AddTilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\BeachWeatherInfoPage.xaml.cs">
+    <Compile Include="Views\BeachWeatherInfoPage.xaml.cs">
       <DependentUpon>BeachWeatherInfoPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\BeachWeatherPage.xaml.cs">
+    <Compile Include="Views\BeachWeatherPage.xaml.cs">
       <DependentUpon>BeachWeatherPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ChooseCityPage.xaml.cs">
+    <Compile Include="Views\ChooseCityPage.xaml.cs">
       <DependentUpon>ChooseCityPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainPage.xaml.cs">
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="View\ImagePage.xaml.cs">
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="Views\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RadarPage.xaml.cs">
+    <Compile Include="Views\RadarPage.xaml.cs">
       <DependentUpon>RadarPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SupportPage.xaml.cs">
+    <Compile Include="Views\SupportPage.xaml.cs">
       <DependentUpon>SupportPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -152,35 +159,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\AddTilePage.xaml">
+    <Page Include="Views\AddTilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\BeachWeatherInfoPage.xaml">
+    <Page Include="Views\BeachWeatherInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\BeachWeatherPage.xaml">
+    <Page Include="Views\BeachWeatherPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ChooseCityPage.xaml">
+    <Page Include="Views\ChooseCityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainPage.xaml">
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ImagePage.xaml">
+    <Page Include="Views\ImagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RadarPage.xaml">
+    <Page Include="Views\RadarPage.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\SupportPage.xaml">
+    <Page Include="Views\SupportPage.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -197,6 +204,7 @@
   <ItemGroup>
     <Content Include="ApplicationIcon.png" />
     <Content Include="Background.png" />
+    <Content Include="Resources\Images\Blank.png" />
     <Content Include="Resources\Images\blueflag.png" />
     <Content Include="Resources\Images\TileBackground.png" />
     <Content Include="Resources\Weather\1.png" />
@@ -251,11 +259,6 @@
       <Project>{2BCC7015-13C3-49E0-B4EB-7D821BA8808E}</Project>
       <Name>DMI.TaskAgent</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <DesignData Include="SampleData\AddTileViewModelSampleData.xaml">
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-    </DesignData>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

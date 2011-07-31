@@ -1,16 +1,15 @@
-﻿<phone:PhoneApplicationPage x:Class="DMI.View.ChooseCityPage"
+﻿<phone:PhoneApplicationPage x:Class="DMI.Views.ChooseCityPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:assets="clr-namespace:DMI.Assets"
                             xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-                            xmlns:locale_assets="clr-namespace:DMI.Assets"
-                            xmlns:locale_viewmodel="clr-namespace:DMI.ViewModel"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:viewmodels="clr-namespace:DMI.ViewModels"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -20,7 +19,7 @@
                             toolkit:TiltEffect.IsTiltEnabled="True"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>
-        <locale_viewmodel:ChooseCityViewModel />
+        <viewmodels:ChooseCityPageViewModel />
     </phone:PhoneApplicationPage.DataContext>
     <Grid>
         <c:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
@@ -30,15 +29,13 @@
                         <RowDefinition Height="75" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBox Name="SearchTextBox"
-                             Grid.Row="0"
-                             TextChanged="SearchTextBox_TextChanged" />
+                    <TextBox Grid.Row="0"
+                             assets:TextBoxExtension.Command="{Binding TextChanged}" />
                     <Grid Grid.Row="1">
-                        <toolkit:LongListSelector x:Name="ChooseCityGrid"
-                                                  Margin="12,0"
+                        <toolkit:LongListSelector Margin="12,0"
+                                                  assets:LongListSelectorExtension.Command="{Binding SelectionChanged}"
                                                   Background="Transparent"
-                                                  ItemsSource="{Binding Cities}"
-                                                  SelectionChanged="ChooseCityGrid_SelectionChanged">
+                                                  ItemsSource="{Binding Cities}">
                             <toolkit:LongListSelector.GroupItemsPanel>
                                 <ItemsPanelTemplate>
                                     <toolkit:WrapPanel Orientation="Horizontal" />

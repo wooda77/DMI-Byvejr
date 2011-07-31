@@ -28,20 +28,20 @@ using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using DMI.Common;
 using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
-using Microsoft.Phone.Shell;
 
-namespace DMI.ViewModel
+namespace DMI.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainPageViewModel : ViewModelBase
     {
         private GeoCoordinateWatcher geoCoordinateWatcher;
 
-        public MainViewModel()
+        public MainPageViewModel()
         {
             this.Favorites = new ObservableCollection<GeoLocationCity>();
             this.NewsItems = new ObservableCollection<NewsItem>();
@@ -66,10 +66,12 @@ namespace DMI.ViewModel
                 this.Favorites = this.Favorites ?? new ObservableCollection<GeoLocationCity>();
             }
 
-            this.LoadNewsFeed = new RelayCommand(LoadNewsFeedExecute);
-            this.LoadFavorites = new RelayCommand(LoadFavoritesExecute);
+            this.LoadNewsFeed();
+            this.LoadFavorites();
+
             this.AddToFavorites = new RelayCommand(AddToFavoritesExecute);
             this.RemoveFromFavorites = new RelayCommand<GeoLocationCity>(RemoveFromFavoritesExecute);
+            this.FavoriteItemSelected = new RelayCommand<GeoLocationCity>(FavoriteItemSelectedExecute);
             this.NewsItemSelected = new RelayCommand<NewsItem>(NewsItemSelectedExecute);
             this.GoToLocation = new RelayCommand(GoToLocationExecute);
 
@@ -79,37 +81,61 @@ namespace DMI.ViewModel
             }
         }
 
-        public bool IsInitialized
+        public int PivotSelectedIndex
         {
             get;
             set;
         }
 
-        public BitmapSource ThreeDaysImage
+        public ICommand PivotSelectionChanged
         {
             get;
             private set;
         }
 
-        public BitmapSource SevenDaysImage
+        public bool IsInitialized
         {
             get;
             private set;
         }
 
-        public BitmapSource PollenImage
+        public Uri ThreeDaysImage
         {
             get;
             private set;
         }
 
-        public BitmapSource RegionalImage
+        public Uri SevenDaysImage
         {
             get;
             private set;
         }
 
-        public BitmapSource CountryImage
+        public Uri FourteenDaysImage
+        {
+            get;
+            private set;
+        }
+
+        public Uri FifteenDaysImage
+        {
+            get;
+            private set;
+        }
+
+        public Uri PollenImage
+        {
+            get;
+            private set;
+        }
+
+        public Uri RegionalImage
+        {
+            get;
+            private set;
+        }
+
+        public Uri CountryImage
         {
             get;
             private set;
@@ -163,18 +189,6 @@ namespace DMI.ViewModel
             private set;
         }
 
-        public ICommand LoadNewsFeed
-        {
-            get;
-            private set;
-        }
-
-        public ICommand LoadFavorites
-        {
-            get;
-            private set;
-        }
-
         public ICommand AddToFavorites
         {
             get;
@@ -188,6 +202,12 @@ namespace DMI.ViewModel
         }
 
         public ICommand NewsItemSelected
+        {
+            get;
+            private set;
+        }
+
+        public ICommand FavoriteItemSelected
         {
             get;
             private set;
@@ -210,7 +230,7 @@ namespace DMI.ViewModel
             UpdateCurrentLocation();
         }
 
-        private void LoadNewsFeedExecute()
+        private void LoadNewsFeed()
         {
             NewsProvider.GetVideos((videos, exception) =>
             {
@@ -247,7 +267,7 @@ namespace DMI.ViewModel
             });
         }
 
-        private void LoadFavoritesExecute()
+        private void LoadFavorites()
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.FavoritesKey))
                 Favorites = (ObservableCollection<GeoLocationCity>)IsolatedStorageSettings.ApplicationSettings[AppSettings.FavoritesKey];
@@ -295,6 +315,15 @@ namespace DMI.ViewModel
             {
                 Favorites.Remove(city);
                 SaveFavorites();
+            }
+        }
+
+        private void FavoriteItemSelectedExecute(GeoLocationCity city)
+        {
+            if (city != null)
+            {
+                ResolveLocation(city.PostalCode.ToString(), city.Country);
+                PivotSelectedIndex = 0;
             }
         }
 
@@ -363,20 +392,21 @@ namespace DMI.ViewModel
                 Greenland.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
-                            ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
-                            SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                            ThreeDaysImage = result.CityWeatherThreeDaysImage;
+                            SevenDaysImage = result.CityWeatherSevenDaysImage;
+                            FourteenDaysImage = result.CityWeatherFourteenDaysImage;
                         });
                     });
 
                 Greenland.Instance.GetCountryWeather(
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
                             CountryWeather = result;
-                            CountryImage = new BitmapImage(result.Image);
+                            CountryImage = result.Image;
                         });
                     });
             }
@@ -392,20 +422,20 @@ namespace DMI.ViewModel
                 FaroeIslands.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
-                            ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
-                            SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                            ThreeDaysImage = result.CityWeatherThreeDaysImage;
+                            SevenDaysImage = result.CityWeatherSevenDaysImage;
                         });
                     });
 
                 FaroeIslands.Instance.GetCountryWeather(
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
                             CountryWeather = result;
-                            CountryImage = new BitmapImage(result.Image);
+                            CountryImage = result.Image;
                         });
                     });
             }
@@ -414,19 +444,21 @@ namespace DMI.ViewModel
                 Denmark.Instance.GetCityWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
-                            ThreeDaysImage = new BitmapImage(result.CityWeatherThreeDaysImage);
-                            SevenDaysImage = new BitmapImage(result.CityWeatherSevenDaysImage);
+                            ThreeDaysImage = result.CityWeatherThreeDaysImage;
+                            SevenDaysImage = result.CityWeatherSevenDaysImage;
+                            FourteenDaysImage = result.CityWeatherFourteenDaysImage;
+                            FifteenDaysImage = result.CityWeatherFifteenDaysImage;
                         });
                     });
 
                 Denmark.Instance.GetPollenData(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
-                            PollenImage = new BitmapImage(result.Image);
+                            PollenImage = result.Image;
                             PollenData = result;
                         });
                     });
@@ -434,20 +466,20 @@ namespace DMI.ViewModel
                 Denmark.Instance.GetRegionalWeather(CurrentGeoCoordinate, CurrentAddress.PostalCode,
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
                             RegionalWeather = result;
-                            RegionalImage = new BitmapImage(result.Image);
+                            RegionalImage = result.Image;
                         });
                     });
 
                 Denmark.Instance.GetCountryWeather(
                     (result, exception) =>
                     {
-                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        SmartDispatcher.BeginInvoke(() =>
                         {
                             CountryWeather = result;
-                            CountryImage = new BitmapImage(result.Image);
+                            CountryImage = result.Image;
                         });
                     });
             }

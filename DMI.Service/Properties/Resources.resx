@@ -120,6 +120,12 @@
   <data name="BingMapsKey" xml:space="preserve">
     <value>AlqAO_r2pYHWEKTnYolKAITA9Ix8p5mHO26jZ2bWZbmn1FHMU6eEJKRgqnS2v-P4</value>
   </data>
+  <data name="Denmark_CityWeatherFifteenDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag10_15</value>
+  </data>
+  <data name="Denmark_CityWeatherFourteenDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag10_14</value>
+  </data>
   <data name="Denmark_CityWeatherSevenDaysImage" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag3_9</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="FaroeIslands_CountryFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/index/faroerne.htm</value>
+  </data>
+  <data name="Greenland_CityWeatherFourteenDaysImage" xml:space="preserve">
+    <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag10_14</value>
   </data>
   <data name="Greenland_CityWeatherSevenDaysImage" xml:space="preserve">
     <value>http://servlet.dmi.dk/byvejr/servlet/byvejr?by_gl={0}&amp;tabel=dag3_9</value>

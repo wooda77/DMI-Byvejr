@@ -30,25 +30,30 @@ using System.Windows.Threading;
 using DMI.Assets;
 using DMI.Common;
 using DMI.Properties;
-using DMI.ViewModel;
+using DMI.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Data;
 
-namespace DMI.View
+namespace DMI.Views
 {
     public partial class MainPage
     {
         public MainPage()
         {
             InitializeComponent();
+
+            if (ApplicationBar == null)
+            {
+                SmartDispatcher.BeginInvoke(BuildApplicationBar);
+            }
         }
 
-        public MainViewModel ViewModel
+        public MainPageViewModel ViewModel
         {
             get
             {
-                return (DataContext as MainViewModel);
+                return (DataContext as MainPageViewModel);
             }
         }
 
@@ -96,6 +101,11 @@ namespace DMI.View
             ApplicationBar.MenuItems.Add(supportMenu);
 
             ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
+
+            if ((this.Orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
+            {
+                ApplicationBar.IsVisible = false;
+            }
         }
 
         private void LiveTileMenu_Click(object sender, EventArgs e)
@@ -131,17 +141,17 @@ namespace DMI.View
 
         private void AddtoFavoritesAppBarButton_Click(object sender, EventArgs e)
         {
-            if (DataContext != null && DataContext is MainViewModel)
+            if (DataContext != null && DataContext is MainPageViewModel)
             {
-                (DataContext as MainViewModel).AddToFavorites.Execute(null);
+                (DataContext as MainPageViewModel).AddToFavorites.Execute(null);
             }
         }
 
         private void GoToLocationAppBarButton_Click(object sender, EventArgs e)
         {
-            if (DataContext != null && DataContext is MainViewModel)
+            if (DataContext != null && DataContext is MainPageViewModel)
             {
-                (DataContext as MainViewModel).GoToLocation.Execute(null);
+                (DataContext as MainPageViewModel).GoToLocation.Execute(null);
             }
         }
 
@@ -149,7 +159,7 @@ namespace DMI.View
         {
             SmartDispatcher.BeginInvoke(() =>
             {
-                if (ApplicationBar != null)
+                if (ApplicationBar != null && (this.Orientation & PageOrientation.Landscape) != PageOrientation.Landscape)
                 {
                     ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
                 }
@@ -158,12 +168,15 @@ namespace DMI.View
 
         private void OpenInLandscapeMode(object sender, GestureEventArgs e)
         {
-            if (e.OriginalSource is Image)
+            var image = sender as Image;
+            if (image != null)
             {
-                var image = (e.OriginalSource as Image).Source as BitmapImage;
-                var address = string.Format(AppSettings.ImagePageAddress, Uri.EscapeDataString(image.UriSource.ToString()));
-
-                NavigationService.Navigate(new Uri(address, UriKind.Relative));
+                var source = image.Tag as Uri;
+                if (string.IsNullOrEmpty(source.ToString()) == false)
+                {
+                    var address = string.Format(AppSettings.ImagePageAddress, Uri.EscapeDataString(source.ToString()));
+                    NavigationService.Navigate(new Uri(address, UriKind.Relative));
+                }
             }
         }
 
@@ -194,31 +207,6 @@ namespace DMI.View
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-        }
-
-        private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (sender is Image)
-            {
-                var image = sender as Image;
-                var source = image.Source as BitmapSource;
-                var filename = (string)image.Tag;
-
-                image.CropImageBorders(e.NewSize);
-            }
-        }
-
-        private void PivotLayout_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (ApplicationBar == null)
-            {
-                SmartDispatcher.BeginInvoke(BuildApplicationBar);
-            }
-        }
-
         private void Page_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             if (ApplicationBar != null)
@@ -242,35 +230,6 @@ namespace DMI.View
         private void BeachWeatherMenuItem_Tap(object sender, GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
-        }
-
-        private void NewsPivotItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.IsInitialized)
-                ViewModel.LoadNewsFeed.Execute(null);
-        }
-
-        private void NewsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ViewModel.IsInitialized)
-                ViewModel.NewsItemSelected.Execute(NewsListBox.SelectedItem);
-        }
-
-        private void FavoritesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ViewModel.IsInitialized)
-            {
-                var city = FavoritesListBox.SelectedItem as GeoLocationCity;                
-                ViewModel.ResolveLocation(city.PostalCode.ToString(), city.Country);
-
-                PivotLayout.SelectedIndex = 0;
-            }
-        }
-
-        private void FavoritesPivotItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.IsInitialized)
-                ViewModel.LoadFavorites.Execute(null);
         }
     }
 }

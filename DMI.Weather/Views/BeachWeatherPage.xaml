@@ -1,9 +1,9 @@
-﻿<phone:PhoneApplicationPage x:Class="DMI.View.BeachWeatherPage"
+﻿<phone:PhoneApplicationPage x:Class="DMI.Views.BeachWeatherPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:local_assets="clr-namespace:DMI.Assets"
-                            xmlns:local_viewmodel="clr-namespace:DMI.ViewModel"
+                            xmlns:local_viewmodel="clr-namespace:DMI.ViewModels"
                             xmlns:maps="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -17,7 +17,7 @@
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>
-        <local_viewmodel:BeachWeatherViewModel />
+        <local_viewmodel:BeachWeatherPageViewModel />
     </phone:PhoneApplicationPage.DataContext>
     <Grid>
         <maps:Map Center="{Binding Center}"

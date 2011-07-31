@@ -200,6 +200,10 @@ namespace DMI.Service
                     Resources.Denmark_CityWeatherThreeDaysImage, postalCode)),
                 CityWeatherSevenDaysImage = new Uri(string.Format(
                     Resources.Denmark_CityWeatherSevenDaysImage, postalCode)),
+                CityWeatherFourteenDaysImage = new Uri(string.Format(
+                    Resources.Denmark_CityWeatherFourteenDaysImage, postalCode)),
+                CityWeatherFifteenDaysImage = new Uri(string.Format(
+                Resources.Denmark_CityWeatherFifteenDaysImage, postalCode)),
             };
 
             callback(result, null);

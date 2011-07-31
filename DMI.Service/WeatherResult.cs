@@ -127,6 +127,18 @@ namespace DMI.Service
             get;
             set;
         }
+
+        public Uri CityWeatherFourteenDaysImage
+        {
+            get;
+            set;
+        }
+
+        public Uri CityWeatherFifteenDaysImage
+        {
+            get;
+            set;
+        }
     }
 
     public class RegionalWeatherResult

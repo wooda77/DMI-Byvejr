@@ -81,6 +81,9 @@ namespace DMI.Service
                     Resources.Greenland_CityWeatherThreeDaysImage, postalCode)),
                 CityWeatherSevenDaysImage = new Uri(string.Format(
                     Resources.Greenland_CityWeatherSevenDaysImage, postalCode)),
+                CityWeatherFourteenDaysImage = new Uri(string.Format(
+                    Resources.Greenland_CityWeatherFourteenDaysImage, postalCode)),
+
             };
 
             callback(result, null);

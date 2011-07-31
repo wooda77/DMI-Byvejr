@@ -304,6 +304,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to diverse.
         /// </summary>
         public static string MapsHeader {
@@ -372,15 +381,6 @@ namespace DMI.Properties {
         public static string PollenHeader {
             get {
                 return ResourceManager.GetString("PollenHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://www.dmi.dk/dmi/radaranim2.gif.
-        /// </summary>
-        public static string RadarAnimation {
-            get {
-                return ResourceManager.GetString("RadarAnimation", resourceCulture);
             }
         }
         
@@ -457,29 +457,11 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&amp;tabel=dag1&amp;mode=long.
-        /// </summary>
-        public static string TemperatureImageSource {
-            get {
-                return ResourceManager.GetString("TemperatureImageSource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Version: .
         /// </summary>
         public static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&amp;tabel=dag1&amp;param=bolger.
-        /// </summary>
-        public static string WavesImageSource {
-            get {
-                return ResourceManager.GetString("WavesImageSource", resourceCulture);
             }
         }
         

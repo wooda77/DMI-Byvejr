@@ -20,35 +20,32 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows.Controls;
-using DMI.ViewModel;
-using Microsoft.Phone.Controls;
+using System.Net;
+using System.Collections.Generic;
+using System.Device.Location;
+using DMI.Service;
 
-namespace DMI.View
+namespace DMI.ViewModels
 {
-    public partial class ChooseCityPage
+    public class BeachWeatherPageViewModel
     {
-        public ChooseCityPage()
+        public BeachWeatherPageViewModel()
         {
-            InitializeComponent();
+            this.Center = Denmark.CenterCoordinate;
         }
 
-        private ChooseCityViewModel ViewModel
+        public GeoCoordinate Center
+        {
+            get;
+            private set;
+        }
+
+        public IEnumerable<Beach> Beaches
         {
             get
             {
-                return DataContext as ChooseCityViewModel;
+                return Denmark.Beaches;
             }
-        }
-
-        private void ChooseCityGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ViewModel.SelectionChanged.Execute(e);
-        }
-
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ViewModel.TextChanged.Execute(sender);
         }
     }
 }

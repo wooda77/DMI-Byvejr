@@ -36,13 +36,12 @@ namespace DMI.Assets
         /// Crops the Image Borders two pixels on each side.
         /// </summary>
         /// <param name="image">The image.</param>
-        /// <returns>The cropped image.</returns>
-        public static Image CropImageBorders(this Image image)
+        public static void CropImageBorders(this Image image)
         {
             if (image == null)
-                throw new ArgumentException("Argument 'image' cannot be null.");
+                throw new ArgumentNullException("image");
 
-            if ((image.ActualWidth > 0) && (image.ActualHeight > 0))
+            if (image.ActualWidth > 0 && image.ActualHeight > 0)
             {
                 image.Clip = new RectangleGeometry()
                 {
@@ -52,8 +51,6 @@ namespace DMI.Assets
                     )
                 };
             }
-
-            return image;
         }
 
         /// <summary>
@@ -61,14 +58,13 @@ namespace DMI.Assets
         /// </summary>
         /// <param name="image">The image.</param>
         /// <param name="newSize">The new size.</param>
-        /// <returns>The cropped image.</returns>
-        public static Image CropImageBorders(this Image image, Size newSize)
+        public static void CropImageBorders(this Image image, Size newSize)
         {
             if (image == null)
-                throw new ArgumentException("Argument 'image' cannot be null.");
+                throw new ArgumentNullException("image");
 
-            if ((image.ActualWidth > 0) && (image.ActualHeight > 0) &&
-                (newSize.Width > 0) && (newSize.Height > 0))
+            if (image.ActualWidth > 0 && image.ActualHeight > 0 &&
+                newSize.Width > 0 && newSize.Height > 0)
             {
                 image.Clip = new RectangleGeometry()
                 {
@@ -78,8 +74,6 @@ namespace DMI.Assets
                     )
                 };
             }
-
-            return image;
         }
     }
 }

@@ -26,11 +26,11 @@ using DMI.Service;
 using GalaSoft.MvvmLight;
 using Microsoft.Phone.Scheduler;
 
-namespace DMI.ViewModel
+namespace DMI.ViewModels
 {
-    public class AddTileViewModel : ViewModelBase
+    public class AddTilePageViewModel : ViewModelBase
     {
-        public AddTileViewModel()
+        public AddTilePageViewModel()
         {
             if (IsInDesignMode)
             {

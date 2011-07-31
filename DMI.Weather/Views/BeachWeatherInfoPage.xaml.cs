@@ -19,15 +19,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using DMI.ViewModel;
+using DMI.Assets;
+using DMI.Common;
 
-namespace DMI.View
+namespace DMI.Views
 {
-    public partial class ImagePage
+    public partial class BeachWeatherInfoPage
     {
-        public ImagePage()
+        public BeachWeatherInfoPage()
         {
             InitializeComponent();
         }
@@ -36,16 +40,18 @@ namespace DMI.View
         {
             base.OnNavigatedTo(e);
 
-            string imageSource = "";
-            if (NavigationContext.QueryString.TryGetValue("ImageSource", out imageSource))
+            string beachId = NavigationContext.TryGetStringKey("ID");
+            
+            if (string.IsNullOrEmpty(beachId) == false)
             {
-                (DataContext as ImageViewModel).LoadImage(imageSource);
-            }
-        }
+                if (TemperatureImage != null)
+                    TemperatureImage.Source = new BitmapImage(new Uri(string.Format(
+                        AppSettings.TemperatureImageSource, beachId), UriKind.Absolute));
 
-        private void Image_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        {
-            (DataContext as ImageViewModel).CropBorders.Execute(null);
+                if (WavesImage != null)
+                    WavesImage.Source = new BitmapImage(new Uri(string.Format(
+                        AppSettings.WavesImageSource, beachId), UriKind.Absolute));
+            }
         }
     }
 }

@@ -19,33 +19,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Net;
-using System.Collections.Generic;
-using System.Device.Location;
-using DMI.Service;
 
-namespace DMI.ViewModel
+namespace DMI.Views
 {
-    public class BeachWeatherViewModel
+    public partial class SupportPage
     {
-        public BeachWeatherViewModel()
+        public SupportPage()
         {
-            this.Center = Denmark.CenterCoordinate;
-        }
-
-        public GeoCoordinate Center
-        {
-            get;
-            private set;
-        }
-
-        public IEnumerable<Beach> Beaches
-        {
-            get
-            {
-                return Denmark.Beaches;
-            }
+            InitializeComponent();
         }
     }
 }

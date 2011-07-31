@@ -30,16 +30,16 @@ using DMI.Service;
 using DMI.Common;
 using DMI.Assets;
 
-namespace DMI.ViewModel
+namespace DMI.ViewModels
 {
-    public class ChooseCityViewModel : ViewModelBase
+    public class ChooseCityPageViewModel : ViewModelBase
     {
         private IEnumerable<GeoLocationCity> allCities = Enumerable.Empty<GeoLocationCity>();
 
-        public ChooseCityViewModel()
+        public ChooseCityPageViewModel()
         {
-            this.SelectionChanged = new RelayCommand<SelectionChangedEventArgs>(SelectionChangedExecute);
-            this.TextChanged = new RelayCommand<TextBox>(TextChangedExecute);
+            this.SelectionChanged = new RelayCommand<GeoLocationCity>(SelectionChangedExecute);
+            this.TextChanged = new RelayCommand<string>(TextChangedExecute);
 
             this.allCities = Denmark.PostalCodes.Values
                 .Concat(Greenland.PostalCodes.Values)
@@ -66,27 +66,15 @@ namespace DMI.ViewModel
             private set;
         }
 
-        private void SelectionChangedExecute(SelectionChangedEventArgs args)
+        private void SelectionChangedExecute(GeoLocationCity city)
         {
-            if (args == null)
-                throw new ArgumentNullException("args");
+            var uri = string.Format(AppSettings.MainPageAddress, city.PostalCode, city.Country);
 
-            if (args.AddedItems != null &&
-                args.AddedItems.Count > 0)
-            {
-                var city = args.AddedItems[0] as GeoLocationCity;
-                var uri = string.Format(AppSettings.MainPageAddress, city.PostalCode, city.Country);
-
-                App.Navigate(new Uri(uri, UriKind.Relative));
-            }
+            App.CurrentRootVisual.Navigate(new Uri(uri, UriKind.Relative));
         }
 
-        private void TextChangedExecute(TextBox textBox)
+        private void TextChangedExecute(string filter)
         {
-            if (textBox == null)
-                throw new ArgumentNullException("textBox");
-
-            var filter = textBox.Text;
             var filtered = allCities.Where(city => FilterItem(filter, city));
 
             this.Cities = new LongListCollection<GeoLocationCity, char>(filtered, e => e.Name[0]);

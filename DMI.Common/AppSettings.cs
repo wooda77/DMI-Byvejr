@@ -49,23 +49,31 @@ namespace DMI.Common
         /// </summary>
         public const string IsFirstStartKey = "firststart";
 
-        public static string SupportPageAdress = "/View/SupportPage.xaml";
+        public static string SupportPageAdress = "/Views/SupportPage.xaml";
 
-        public static string ImagePageAddress = "/View/ImagePage.xaml?ImageSource={0}";
+        public static string ImagePageAddress = "/Views/ImagePage.xaml?ImageSource={0}";
 
-        public static string ChooseCityPageAddress = "/View/ChooseCityPage.xaml";
+        public static string ChooseCityPageAddress = "/Views/ChooseCityPage.xaml";
 
-        public static string MainPageAddress = "/View/MainPage.xaml?PostalCode={0}&Country={1}";
+        public static string MainPageAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}";
 
-        public static string MainPageWithTileAddress = "/View/MainPage.xaml?PostalCode={0}&Country={1}&TileType={2}";
+        public static string MainPageWithTileAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}&TileType={2}";
 
-        public static string RadarPageAddress = "/View/RadarPage.xaml";
+        public static string RadarPageAddress = "/Views/RadarPage.xaml";
 
-        public static string BeachWeatherPageAddress = "/View/BeachWeatherPage.xaml";
+        public static string BeachWeatherPageAddress = "/Views/BeachWeatherPage.xaml";
 
-        public static string AddTilePageAddress = "/View/AddTilePage.xaml?PostalCode={0}&Country={1}";
+        public static string AddTilePageAddress = "/Views/AddTilePage.xaml?PostalCode={0}&Country={1}";
+
+        public static string BeachWeatherInfoPageAddress = "/Views/BeachWeatherInfoPage.xaml?ID={0}";
 
         public static string TileTypeUrlSegment = "TileType={0}";
+
+        public static string TemperatureImageSource = "http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&tabel=dag1&mode=long";
+
+        public static string RadarAnimation = "http://www.dmi.dk/dmi/radaranim2.gif";
+
+        public static string WavesImageSource = "http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&tabel=dag1&param=bolger";
 
         /// <summary>
         /// Gets a value indicating whether the GPS is enabled.

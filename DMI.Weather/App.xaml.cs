@@ -55,20 +55,6 @@ namespace DMI
             }
         }
 
-        public static bool Navigate(Uri source)
-        {
-            if (CurrentRootVisual != null)
-                return CurrentRootVisual.Navigate(source);
-         
-            return false;
-        }
-
-        public static void GoBack()
-        {
-            if (CurrentRootVisual != null)
-                CurrentRootVisual.GoBack();
-        }
-
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (Debugger.IsAttached)
