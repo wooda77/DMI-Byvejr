@@ -261,10 +261,13 @@ namespace DMI.ViewModels
 
                     NewsProvider.GetNewsItems((items, e) =>
                     {
-                        foreach (var item in items)
+                        SmartDispatcher.BeginInvoke(() => 
                         {
-                            SmartDispatcher.BeginInvoke(() => NewsItems.Add(item));
-                        }
+                            foreach (var item in items)
+                            {
+                                NewsItems.Add(item);
+                            }
+                        });
                     });
                 });
             });
