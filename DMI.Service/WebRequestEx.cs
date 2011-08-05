@@ -25,10 +25,19 @@ namespace DMI.Service
 
             request.BeginGetResponse((IAsyncResult result) =>
             {
-                var response = request.EndGetResponse(result);
-                using (var reader = new StreamReader(response.GetResponseStream(), encoding))
+                try
                 {
-                    callback(reader.ReadToEnd());
+                    var response = request.EndGetResponse(result);
+                    using (var reader = new StreamReader(response.GetResponseStream(), encoding))
+                    {
+                        callback(reader.ReadToEnd());
+                    }
+                }
+                catch (WebException e)
+                {
+                    // Don't perform a callback, as this error is mostly due to
+                    // there being no internet connection available. 
+                    System.Diagnostics.Debug.WriteLine(e.Message);
                 }
             }, request);
         }
