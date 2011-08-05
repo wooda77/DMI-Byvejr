@@ -108,17 +108,7 @@ namespace DMI.ViewModels
 
         public void GenerateTile(TileItem item)
         {
-            PeriodicTask task = new PeriodicTask(AppSettings.PeriodicTaskName);
-            task.Description = Properties.Resources.PeriodicTaskHelpMessage;
-            task.ExpirationTime = DateTime.Now.AddDays(14);
-
-            try
-            {
-                ScheduledActionService.Add(task);
-            }
-            catch (InvalidOperationException)
-            {
-            }
+            TileGenerator.RefreshTileTask();
 
 #if DEBUG
             ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(1));

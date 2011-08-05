@@ -58,6 +58,8 @@ namespace DMI.ViewModels
         {
             this.IsInitialized = true;
 
+            TileGenerator.RefreshTileTask();
+
             if (IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.FavoritesKey))
             {
                 this.Favorites = (ObservableCollection<GeoLocationCity>)

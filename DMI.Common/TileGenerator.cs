@@ -34,6 +34,22 @@ namespace DMI.Common
 {
     public class TileGenerator
     {
+        public static void RefreshTileTask()
+        {
+            PeriodicTask task = new PeriodicTask(AppSettings.PeriodicTaskName);
+            task.Description = Properties.Resources.PeriodicTaskHelpMessage;
+            task.ExpirationTime = DateTime.Now.AddDays(14);
+
+            try
+            {
+                ScheduledActionService.Remove(AppSettings.PeriodicTaskName);
+                ScheduledActionService.Add(task);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+
         public static void GenerateTile(TileItem item, Action completed, bool recreate = false)
         {
             if (item.TileType == TileType.PlusSix)
