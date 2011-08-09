@@ -27,83 +27,30 @@ using DMI.Service;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace DMI.TaskAgent
 {
     public class ScheduledAgent : ScheduledTaskAgent
     {
-        protected override void OnInvoke(ScheduledTask task)
+        protected override void OnInvoke(ScheduledTask scheduledTask)
         {
-            var latestTile = GetTiles(TileType.Latest);
-            var plus6Tile = GetTiles(TileType.PlusSix);
-            var plus12Tile = GetTiles(TileType.PlusTwelve);
+            var latestTile = GetTile(TileType.Latest).FirstOrDefault();
+            var customTiles = GetTile(TileType.Custom);
 
-            if (latestTile != null)
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                // latest
-                RefreshTile(latestTile, TileType.Latest, () => 
-                {
-                    if (plus6Tile != null)
-                    {
-                        RefreshTile(plus6Tile, TileType.PlusSix, () => 
-                        {
-                            if (plus12Tile != null)
-                            {
-                                RefreshTile(plus12Tile, TileType.PlusTwelve, () => 
-                                {
-                                    NotifyComplete();
-                                });
-                            }
-                            else
-                            {
-                                NotifyComplete();
-                            }
-                        });
-                    }
-                    else if (plus6Tile == null && plus12Tile != null)
-                    {
-                        RefreshTile(plus12Tile, TileType.PlusTwelve, () =>
-                        {
-                            NotifyComplete();
-                        });
-                    } 
-                    else
-                    {
-                        NotifyComplete();
-                    }
-                });
-            }
-            else if (latestTile == null && plus6Tile != null)
-            {
-                RefreshTile(plus6Tile, TileType.PlusSix, () =>
-                {
-                    if (plus12Tile != null)
-                    {
-                        RefreshTile(plus12Tile, TileType.PlusTwelve, () =>
-                        {
-                            NotifyComplete();
-                        });
-                    }
-                    else
-                    {
-                        NotifyComplete();
-                    }
-                });
-            }
-            else if (latestTile == null && plus6Tile == null && plus12Tile != null)
-            {
-                RefreshTile(plus12Tile, TileType.PlusTwelve, () =>
-                {
-                    NotifyComplete();
-                });
-            }
-            else
-            {
-                NotifyComplete();
-            }
+                var task = Task.Factory.StartNew(() => RefreshTile(latestTile, TileType.Latest));
+                    
+                foreach (var customTile in customTiles)
+                    task.ContinueWith(t => RefreshTile(customTile, TileType.Custom));
+                    
+                task.ContinueWith(t => NotifyComplete());
+            });
         }
 
-        private void RefreshTile(ShellTile tile, TileType type, Action done)
+        private void RefreshTile(ShellTile tile, TileType type)
         {
             var queryString = tile.NavigationUri.ToString();
             queryString = queryString.Substring(queryString.IndexOf('?'));
@@ -113,6 +60,7 @@ namespace DMI.TaskAgent
             if (int.TryParse(segments["PostalCode"], out postalCode))
             {
                 var country = segments["Country"];
+                var offset = segments["Offset"];
 
                 GeoLocationCity city = null;
 
@@ -133,67 +81,52 @@ namespace DMI.TaskAgent
                 {
                     if (type == TileType.Latest)
                     {
-                        LiveTileWeatherProvider.GetForecast(city, DateTime.Now,
-                            (response, exception) =>
+                        LiveTileWeatherProvider.GetForecast(city, DateTime.Now)
+                            .ContinueWith(task =>
                             {
-                                var now = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
-                                if (now != null)
+                                if (task.IsCompleted)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, now, type), done);
+                                    var now = task.Result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
+                                    if (now != null)
+                                        Deployment.Current.Dispatcher.BeginInvoke(
+                                            () => TileGenerator.GenerateTile(CreateTileItem(city, now, type)));
                                 }
                             });
                     }
-                    else if (type == TileType.PlusSix)
+                    else if (type == TileType.Custom)
                     {
-                        var date = DateTime.Now;
-                        
-                        if (DateTime.Now.Hour >= 18)
+                        int offsetHour = int.Parse(offset);
+                        var date = DateTime.Today.AddHours(offsetHour);
+
+                        if (DateTime.Now.Hour > offsetHour)
                             date = date.AddDays(1);
 
-                        LiveTileWeatherProvider.GetForecast(city, date,
-                            (response, exception) =>
+                        LiveTileWeatherProvider.GetForecast(city, date)
+                            .ContinueWith(task =>
                             {
-                                var plus6 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(6).Hour);
-                                if (plus6 != null)
+                                if (task.IsCompleted)
                                 {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, plus6, type), done);
-                                }
-                            });
-                    }
-                    else if (type == TileType.PlusTwelve)
-                    {
-                        var date = DateTime.Now;
+                                    var custom = task.Result.FirstOrDefault(x => x.Df.Hour == date.Hour);
+                                    if (custom != null)
+                                    {
+                                        var customTile = CreateTileItem(city, custom, type);
+                                        customTile.Offset = offsetHour;
 
-                        if (DateTime.Now.Hour >= 12)
-                            date = date.AddDays(1);
-
-                        LiveTileWeatherProvider.GetForecast(city, date,
-                            (response, exception) =>
-                            {
-                                var plus12 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(12).Hour);
-                                if (plus12 != null)
-                                {
-                                    TileGenerator.GenerateTile(CreateTileItem(city, plus12, type), done);
+                                        Deployment.Current.Dispatcher.BeginInvoke(
+                                            () => TileGenerator.GenerateTile(customTile));
+                                    }
                                 }
                             });
                     }
                 }
-                else
-                {
-                    done();
-                }
-            }
-            else
-            {
-                done();
             }
         }
 
-        private ShellTile GetTiles(TileType type)
+        private ShellTile[] GetTile(TileType type)
         {
-            string urlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)type);
+            string urlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)type, "");
 
-            return ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(urlSegment));
+            return ShellTile.ActiveTiles.Where(x => x.NavigationUri.ToString().Contains(urlSegment)).ToArray();
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)
@@ -218,27 +151,11 @@ namespace DMI.TaskAgent
 
         private TileItem CreateTileItem(GeoLocationCity city, LiveTileWeatherResponse response, TileType type)
         {
-            string title = string.Format(Properties.Resources.LatestTitle, response.Df);
-
-            switch (type)
-            {
-                case TileType.Latest:
-                    title = string.Format(Properties.Resources.LatestTitle, response.Df);
-                    break;
-                case TileType.PlusSix:
-                    title = string.Format(Properties.Resources.PlusSixHoursTitle, response.Df);
-                    break;
-                case TileType.PlusTwelve:
-                    title = string.Format(Properties.Resources.PlusTwelveHoursTitle, response.Df);
-                    break;
-            }
-
             return new TileItem(city)
             {
-                Time = response.Df,
                 TileType = type,
                 LocationName = city.Name,
-                Title = title,
+                Title = string.Format(Properties.Resources.LatestTitle, response.Df),
                 CloudImage = ImageIdToUri(response.S),
                 Temperature = response.T + '°',
             };

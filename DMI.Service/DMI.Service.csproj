@@ -61,6 +61,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Threading.Tasks.WP7">
+      <HintPath>..\packages\TaskParallelLibrary.WP7.1.0\lib\sl3-wp\System.Threading.Tasks.WP7.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -78,6 +81,7 @@
     <Compile Include="Denmark.cs" />
     <Compile Include="BingLocationProvider.cs" />
     <Compile Include="FaroeIslands.cs" />
+    <Compile Include="RestSharpExtension.cs" />
     <Compile Include="UVIndexProvider.cs" />
     <Compile Include="WebRequestEx.cs" />
     <Compile Include="LiveTileWeatherProvider.cs" />

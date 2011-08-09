@@ -466,6 +466,24 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Time Tile.
+        /// </summary>
+        public static string Tile_CustomTile {
+            get {
+                return ResourceManager.GetString("Tile_CustomTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tap to customize display time.
+        /// </summary>
+        public static string Tile_TapToCustom {
+            get {
+                return ResourceManager.GetString("Tile_TapToCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DMI expects skies resulting in a UV-index as displayed on the figure below..
         /// </summary>
         public static string UVIndexHelpText1 {

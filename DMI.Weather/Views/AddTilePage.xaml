@@ -37,7 +37,6 @@
         <Grid x:Name="LayoutRoot"
               Grid.Row="1"
               Margin="24,0">
-
             <TextBlock Height="64"
                        VerticalAlignment="Top"
                        Text="{Binding Resources.PinToHomeHelpText,
@@ -84,81 +83,44 @@
                            Text="{Binding LocationName}"
                            TextWrapping="Wrap" />
             </Grid>
-            <Grid x:Name="PlusSixHoursGrid"
-                  Width="173"
+            <Grid Width="173"
                   Height="173"
                   Margin="185,45,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   Background="#FF0C2D83"
-                  DataContext="{Binding PlusSixHours}">
+                  d:LayoutOverrides="Height">
                 <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener Tap="PlusSixHoursGrid_Tap" />
+                    <toolkit:GestureListener Tap="CustomGrid_Tap" />
                 </toolkit:GestureService.GestureListener>
-                <Image Margin="8,53,65,56"
-                       Source="{Binding CloudImage}"
-                       Stretch="None" />
                 <TextBlock Margin="12,6,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            FontFamily="Segoe WP"
                            FontSize="20"
                            Foreground="White"
-                           Text="{Binding Title}"
+                           Text="{Binding Resources.Tile_CustomTile,
+                                          Source={StaticResource AppResources}}"
                            TextWrapping="Wrap" />
-                <TextBlock Margin="0,63,8,0"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Top"
-                           FontFamily="Segoe WP"
-                           FontSize="30"
-                           Foreground="White"
-                           Text="{Binding Temperature}"
-                           TextWrapping="Wrap" />
-                <TextBlock Margin="12,0,0,6"
+                <TextBlock Margin="12,0,0,5.941"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Bottom"
                            FontSize="18"
-                           Text="{Binding LocationName}"
-                           TextWrapping="Wrap" />
-            </Grid>
-            <Grid x:Name="PlusTwelveHoursGrid"
-                  Width="173"
-                  Height="173"
-                  Margin="0,230,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  Background="#FF0C2D83"
-                  DataContext="{Binding PlusTwelveHours}">
-                <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener Tap="PlusTwelveHoursGrid_Tap" />
-                </toolkit:GestureService.GestureListener>
+                           Text="{Binding Resources.Tile_TapToCustom,
+                                          Source={StaticResource AppResources}}"
+                           TextWrapping="Wrap" Foreground="White" />
                 <Image Margin="8,53,65,56"
-                       Source="{Binding CloudImage}"
+                       Source="/Resources/Weather/2.png"
                        Stretch="None" />
-                <TextBlock Margin="12,6,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           FontFamily="Segoe WP"
-                           FontSize="20"
-                           Foreground="White"
-                           Text="{Binding Title}"
-                           TextWrapping="Wrap" />
                 <TextBlock Margin="124,63,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            FontFamily="Segoe WP"
                            FontSize="30"
                            Foreground="White"
-                           Text="{Binding Temperature}"
-                           TextWrapping="Wrap" />
-                <TextBlock Margin="12,0,0,6"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Bottom"
-                           FontSize="18"
-                           Text="{Binding LocationName}"
+                           Text="t°"
                            TextWrapping="Wrap" />
             </Grid>
-            <Image Margin="208,267,74,174" Source="isostore:/Shared/ShellContent/1.jpg" Width="173" Height="173"/>
         </Grid>
     </Grid>
 </phone:PhoneApplicationPage>

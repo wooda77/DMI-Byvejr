@@ -46,16 +46,6 @@ namespace DMI.Views
             ViewModel.GenerateTile(LatestGrid.DataContext as TileItem);
         }
 
-        private void PlusSixHoursGrid_Tap(object sender, GestureEventArgs e)
-        {
-            ViewModel.GenerateTile(PlusSixHoursGrid.DataContext as TileItem);
-        }
-
-        private void PlusTwelveHoursGrid_Tap(object sender, GestureEventArgs e)
-        {
-            ViewModel.GenerateTile(PlusTwelveHoursGrid.DataContext as TileItem);
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -67,6 +57,11 @@ namespace DMI.Views
             {
                 ViewModel.LoadCity(postalCode.Value, country);
             }
+        }
+
+        private void CustomGrid_Tap(object sender, GestureEventArgs e)
+        {
+            //ViewModel.CreateCustomTile(9);
         }
     }
 }

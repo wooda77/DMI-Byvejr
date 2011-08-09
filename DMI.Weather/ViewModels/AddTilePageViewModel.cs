@@ -25,6 +25,8 @@ using DMI.Common;
 using DMI.Service;
 using GalaSoft.MvvmLight;
 using Microsoft.Phone.Scheduler;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace DMI.ViewModels
 {
@@ -44,66 +46,63 @@ namespace DMI.ViewModels
             set;
         }
 
-        public TileItem PlusSixHours
+        public void CreateCustomTile(int offsetHour)
         {
-            get;
-            set;
-        }
+            var city = Latest.City;
+            var date = DateTime.Now;
 
-        public TileItem PlusTwelveHours
-        {
-            get;
-            set;
+            if (DateTime.Today.Hour > offsetHour)
+                date = date.AddDays(1);
+
+            LiveTileWeatherProvider.GetForecast(city, date)
+                .ContinueWith(task =>
+                {
+                    if (task.IsCompleted)
+                    {
+                        var custom = task.Result.FirstOrDefault(x => x.Df.Hour == offsetHour);
+                        if (custom != null)
+                        {
+                            var tile = new TileItem(city)
+                            {
+                                Offset = offsetHour,
+                                LocationName = city.Name,
+                                CloudImage = ImageIdToUri(custom.S),
+                                Temperature = custom.T + '°',
+                                TileType = TileType.Custom
+                            };
+
+                            Deployment.Current.Dispatcher.BeginInvoke(() => GenerateTile(tile));
+                        }
+                    }
+                });
         }
 
         public void LoadCity(int postalCode, string country)
         {
             var city = GetCityFromZipAndCountry(postalCode, country);
 
-            // Today
-            LiveTileWeatherProvider.GetForecast(city, DateTime.Now,
-                (response, exception) =>
+            LiveTileWeatherProvider.GetForecast(city, DateTime.Now)
+                .ContinueWith(task =>
                 {
-                    var now = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
-                    if (now != null)
-                        this.Latest = CreateTileItem(city, now, TileType.Latest);
-
-                    if (DateTime.Now.Hour < 18)
+                    if (task.IsCompleted)
                     {
-                        var plus6 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(6).Hour);
-                        if (plus6 != null)
-                            this.PlusSixHours = CreateTileItem(city, plus6, TileType.PlusSix);
-                    }
+                        var result = task.Result;
+                        var now = task.Result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
+                        if (now != null)
+                        {
+                            var latestTile = new TileItem(city)
+                            {
+                                LocationName = city.Name,
+                                Title = string.Format(Properties.Resources.LatestTitle, now.Df),
+                                CloudImage = ImageIdToUri(now.S),
+                                Temperature = now.T + '°',
+                                TileType = TileType.Latest
+                            };
 
-                    if (DateTime.Now.Hour < 12)
-                    {
-                        var plus12 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(12).Hour);
-                        if (plus12 != null)
-                            this.PlusTwelveHours = CreateTileItem(city, plus12, TileType.PlusTwelve);
+                            Deployment.Current.Dispatcher.BeginInvoke(() => Latest = latestTile);
+                        }
                     }
                 });
-
-            // Tomorrow, if necessary
-            if (DateTime.Now.Hour >= 12)
-            {
-                LiveTileWeatherProvider.GetForecast(city, DateTime.Now.AddDays(1),
-                    (response, exception) =>
-                    {
-                        if (DateTime.Now.Hour >= 18)
-                        {
-                            var plus6 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(6).Hour);
-                            if (plus6 != null)
-                                this.PlusSixHours = CreateTileItem(city, plus6, TileType.PlusSix);
-                        }
-
-                        if (DateTime.Now.Hour >= 12)
-                        {
-                            var plus12 = response.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(12).Hour);
-                            if (plus12 != null)
-                                this.PlusTwelveHours = CreateTileItem(city, plus12, TileType.PlusTwelve);
-                        }
-                    });
-            }
         }
 
         public void GenerateTile(TileItem item)
@@ -114,7 +113,7 @@ namespace DMI.ViewModels
             ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(1));
 #endif
 
-            TileGenerator.GenerateTile(item, () => {}, true);
+            TileGenerator.GenerateTile(item, true);
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)
@@ -135,34 +134,6 @@ namespace DMI.ViewModels
         private Uri ImageIdToUri(string imageId)
         {
             return new Uri(string.Format("/Resources/Weather/{0}.png", imageId), UriKind.Relative);
-        }
-
-        private TileItem CreateTileItem(GeoLocationCity city, LiveTileWeatherResponse response, TileType type)
-        {
-            string title = string.Format(Properties.Resources.LatestTitle, response.Df);
-
-            switch (type)
-            {
-                case TileType.Latest:
-                    title = string.Format(Properties.Resources.LatestTitle, response.Df);
-                    break;
-                case TileType.PlusSix:
-                    title = string.Format(Properties.Resources.PlusSixHoursTitle, response.Df);
-                    break;
-                case TileType.PlusTwelve:
-                    title = string.Format(Properties.Resources.PlusTwelveHoursTitle, response.Df);
-                    break;
-            }
-
-            return new TileItem(city)
-            {
-                Time = response.Df,
-                TileType = type,
-                LocationName = city.Name,
-                Title = title,
-                CloudImage = ImageIdToUri(response.S),
-                Temperature = response.T + '°',
-            };
         }
     }
 }

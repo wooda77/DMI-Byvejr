@@ -39,7 +39,7 @@ namespace DMI.Common
             this.City = city;
         }
 
-        public DateTime Time
+        public int Offset
         {
             get;
             set;

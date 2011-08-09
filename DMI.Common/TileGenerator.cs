@@ -43,6 +43,13 @@ namespace DMI.Common
             try
             {
                 ScheduledActionService.Remove(AppSettings.PeriodicTaskName);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
+            try
+            {
                 ScheduledActionService.Add(task);
             }
             catch (InvalidOperationException)
@@ -50,29 +57,20 @@ namespace DMI.Common
             }
         }
 
-        public static void GenerateTile(TileItem item, Action completed, bool recreate = false)
+        public static void GenerateTile(TileItem item, bool recreate = false)
         {
-            if (item.TileType == TileType.PlusSix)
+            if (item.TileType == TileType.Custom)
             {
-                if (DateTime.Now.Hour < 6)
-                    item.Title = string.Format(Properties.Resources.Tile_Morning, item.Time);
-                else if (DateTime.Now.Hour < 12)
-                    item.Title = string.Format(Properties.Resources.Tile_Afternoon, item.Time);
-                else if (DateTime.Now.Hour < 18)
-                    item.Title = string.Format(Properties.Resources.Tile_Evening, item.Time);
+                var time = DateTime.Today.AddHours(item.Offset);
+
+                if (item.Offset < 6)
+                    item.Title = string.Format(Properties.Resources.Tile_Night, time);
+                else if (item.Offset < 12)
+                    item.Title = string.Format(Properties.Resources.Tile_Morning, time);
+                else if (item.Offset < 18)
+                    item.Title = string.Format(Properties.Resources.Tile_Afternoon, time);
                 else
-                    item.Title = string.Format(Properties.Resources.Tile_Night, item.Time);
-            }
-            else if (item.TileType == TileType.PlusTwelve)
-            {
-                if (DateTime.Now.Hour < 6)
-                    item.Title = string.Format(Properties.Resources.Tile_Afternoon, item.Time);
-                else if (DateTime.Now.Hour < 12)
-                    item.Title = string.Format(Properties.Resources.Tile_Evening, item.Time);
-                else if (DateTime.Now.Hour < 18)
-                    item.Title = string.Format(Properties.Resources.Tile_Night, item.Time);
-                else
-                    item.Title = string.Format(Properties.Resources.Tile_Morning, item.Time);
+                    item.Title = string.Format(Properties.Resources.Tile_Evening, time);
             }
 
             var fontFamily = new FontFamily("Segoe WP");
@@ -85,7 +83,8 @@ namespace DMI.Common
 
             var source = new BitmapImage(item.CloudImage);
             source.CreateOptions = BitmapCreateOptions.None;
-            source.ImageOpened += (sender, e) =>
+
+            source.ImageOpened += (sender, e) => 
             {
                 var cloudImage = new Image();
                 cloudImage.Source = source;
@@ -105,9 +104,7 @@ namespace DMI.Common
                 tempTextBlock.FontFamily = fontFamily;
 
                 string fileName = string.Format("{0}_{1}_{2}.jpg",
-                    (int)item.TileType,
-                    item.City.PostalCode,
-                    item.City.ShortCountryName);
+                    item.Offset, item.City.PostalCode, item.City.ShortCountryName);
 
                 var tileImage = string.Format("/Shared/ShellContent/{0}", fileName);
                 var isoStoreTileImage = string.Format("isostore:/Shared/ShellContent/{0}", fileName);
@@ -145,9 +142,9 @@ namespace DMI.Common
                 }
 
                 var address = string.Format(AppSettings.MainPageWithTileAddress,
-                    item.City.PostalCode, item.City.Country, (int)item.TileType);
+                    item.City.PostalCode, item.City.Country, (int)item.TileType, item.Offset);
 
-                var tileTypeUrlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)item.TileType);
+                var tileTypeUrlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)item.TileType, item.Offset);
 
                 var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(x =>
                     x.NavigationUri.ToString().Contains(tileTypeUrlSegment));
@@ -166,19 +163,15 @@ namespace DMI.Common
                     {
                         dmiTile.Delete();
                         ShellTile.Create(navigationUri, tileData);
-                        completed();
                     }
                     else
                     {
                         dmiTile.Update(tileData);
                     }
-
-                    completed();
                 }
                 else
                 {
                     ShellTile.Create(navigationUri, tileData);
-                    completed();
                 }
             };
         }

@@ -10,7 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/DefaultStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <r:AppResources x:Key="AppResources" />
         </ResourceDictionary>
-        <r:AppResources x:Key="AppResources" />
     </Application.Resources>
 </Application>

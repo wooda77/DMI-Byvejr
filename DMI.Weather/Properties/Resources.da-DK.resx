@@ -249,6 +249,9 @@
   <data name="Tile_Afternoon" xml:space="preserve">
     <value>Eftermiddag ({0:HH':'mm})</value>
   </data>
+  <data name="Tile_CustomTile" xml:space="preserve">
+    <value>Special Tile</value>
+  </data>
   <data name="Tile_Evening" xml:space="preserve">
     <value>Aften ({0:HH':'mm})</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="Tile_Night" xml:space="preserve">
     <value>Nat ({0:HH':'mm})</value>
+  </data>
+  <data name="Tile_TapToCustom" xml:space="preserve">
+    <value>Tap for at tilpasse</value>
   </data>
   <data name="UVIndexHelpText1" xml:space="preserve">
     <value>DMI venter skyforhold der betyder at UV-indeks forventes som på figuren herunder.</value>

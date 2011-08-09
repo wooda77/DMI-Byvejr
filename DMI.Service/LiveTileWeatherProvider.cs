@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using RestSharp;
 using System.Globalization;
-using DMI.Common;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using DMI.Common;
+using RestSharp;
 
 namespace DMI.Service
 {
     public class LiveTileWeatherProvider
     {
-        public static void GetForecast(GeoLocationCity city, DateTime date, Action<IEnumerable<LiveTileWeatherResponse>, Exception> callback)
+        public static Task<List<LiveTileWeatherResponse>> GetForecast(GeoLocationCity city, DateTime date)
         {
             if (city == null)
                 throw new ArgumentNullException("city");
-
-            if (callback == null)
-                throw new ArgumentNullException("callback");
 
             var client = new RestClient("http://www.dr.dk/tjenester/drvejret/");
             var request = new RestRequest();
@@ -26,11 +24,7 @@ namespace DMI.Service
             request.AddUrlSegment("longitude", city.Location.Longitude.ToString(CultureInfo.InvariantCulture));
             request.AddUrlSegment("date", date.ToString("yyyyMMdd"));
 
-            client.ExecuteAsync<List<LiveTileWeatherResponse>>(request,
-                (response) =>
-                {
-                    callback(response.Data, response.ErrorException);
-                });
+            return client.ExecuteTask<List<LiveTileWeatherResponse>>(request);
         }
     }
 

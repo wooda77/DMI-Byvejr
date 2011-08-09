@@ -57,7 +57,7 @@ namespace DMI.Common
 
         public static string MainPageAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}";
 
-        public static string MainPageWithTileAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}&TileType={2}";
+        public static string MainPageWithTileAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}&TileType={2}&Offset={3}";
 
         public static string RadarPageAddress = "/Views/RadarPage.xaml";
 
@@ -69,7 +69,7 @@ namespace DMI.Common
 
         public static string UVIndexPageAddress = "/Views/UVIndexPage.xaml";
 
-        public static string TileTypeUrlSegment = "TileType={0}";
+        public static string TileTypeUrlSegment = "TileType={0}&Offset={1}";
 
         public static string TemperatureImageSource = "http://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by={0}&tabel=dag1&mode=long";
 

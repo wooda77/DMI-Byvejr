@@ -252,6 +252,12 @@
   <data name="SupportHeader" xml:space="preserve">
     <value>support</value>
   </data>
+  <data name="Tile_CustomTile" xml:space="preserve">
+    <value>Custom Time Tile</value>
+  </data>
+  <data name="Tile_TapToCustom" xml:space="preserve">
+    <value>Tap to customize display time</value>
+  </data>
   <data name="UVIndexHelpText1" xml:space="preserve">
     <value>DMI expects skies resulting in a UV-index as displayed on the figure below.</value>
   </data>
