@@ -29,7 +29,7 @@ using Microsoft.Phone.Shell;
 
 namespace DMI.Views
 {
-    public partial class AddTilePage : PhoneApplicationPage
+    public partial class AddTilePage
     {
         public AddTilePage()
         {

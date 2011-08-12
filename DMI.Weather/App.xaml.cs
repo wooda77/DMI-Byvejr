@@ -78,6 +78,7 @@ namespace DMI
         {
             if (Debugger.IsAttached)
                 Debugger.Break();
+
         }
 
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
