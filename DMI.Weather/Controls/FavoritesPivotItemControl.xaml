@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="DMI.Controls.FavoritesPivotItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:assets="clr-namespace:DMI.Assets"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:delay="clr-namespace:Delay"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+             d:DesignHeight="480"
+             d:DesignWidth="480"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             mc:Ignorable="d">
+    <Grid Margin="24,0,24,0">
+        <ListBox assets:SelectorExtension.Command="{Binding FavoriteItemSelected}"
+                 ItemsSource="{Binding Favorites}"
+                 toolkit:TiltEffect.IsTiltEnabled="True">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,0,0,24"
+                                Orientation="Horizontal">
+                        <StackPanel Margin="0,0,0,17"
+                                    Orientation="Horizontal">
+                            <Canvas Width="38"
+                                    Height="38">
+                                <Ellipse Width="38"
+                                         Height="38"
+                                         Stroke="{StaticResource PhoneForegroundBrush}"
+                                         StrokeThickness="2" />
+                                <Path Canvas.Left="7"
+                                      Canvas.Top="7"
+                                      Width="24"
+                                      Height="24"
+                                      Data="{StaticResource FavoritesListImagePath}"
+                                      Fill="{StaticResource PhoneForegroundBrush}"
+                                      Stretch="Fill" />
+                            </Canvas>
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
+                                       Text="{Binding Name}"
+                                       TextWrapping="Wrap">
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu IsZoomEnabled="False">
+                                        <toolkit:MenuItem Command="{Binding DataContext.RemoveFromFavorites,
+                                                                            ElementName=MainPhoneApplicationPage}"
+                                                          CommandParameter="{Binding}"
+                                                          Header="{Binding Resources.RemoveFavorite,
+                                                                           Source={StaticResource AppResources}}" />
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

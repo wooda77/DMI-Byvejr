@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="DMI.Controls.CountryPivotItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:assets="clr-namespace:DMI.Assets"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:delay="clr-namespace:Delay"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+             d:DesignHeight="480"
+             d:DesignWidth="480"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             mc:Ignorable="d">
+    <Grid>
+        <ListBox toolkit:TiltEffect.IsTiltEnabled="False">
+            <Image Margin="0,0,0,12"
+                   VerticalAlignment="Top"
+                   assets:ImageExtension.SizeChangedCommand="True"
+                   delay:LowProfileImageLoader.UriSource="{Binding CountryImage,
+                                                                   FallbackValue=Resources/Images/Blank.png}"
+                   Stretch="UniformToFill"
+                   Tag="{Binding CountryImage}"
+                   Visibility="{Binding CountryWeather.Image,
+                                        Converter={StaticResource IsNullOrEmptyToVisiblityConverter}}">
+                <toolkit:GestureService.GestureListener>
+                    <toolkit:GestureListener Tap="OpenInLandscapeMode" />
+                </toolkit:GestureService.GestureListener>
+            </Image>
+            <ListBox Margin="0,0,0,0"
+                     BorderThickness="0"
+                     ItemsSource="{Binding CountryWeather.Items}"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     toolkit:TiltEffect.IsTiltEnabled="False">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Style="{StaticResource PhoneTextLargeStyle}"
+                                       Text="{Binding Title}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Margin="24,0,24,0"
+                                       HorizontalAlignment="Left"
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       Text="{Binding Description}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ListBox>
+    </Grid>
+</UserControl>

@@ -100,6 +100,27 @@
     <Compile Include="Assets\IsNullOrEmptyToVisiblityConverter.cs" />
     <Compile Include="Assets\ImageUtility.cs" />
     <Compile Include="Assets\LongListCollection.cs" />
+    <Compile Include="Controls\CountryPivotItemControl.xaml.cs">
+      <DependentUpon>CountryPivotItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DiversePivotItemControl.xaml.cs">
+      <DependentUpon>DiversePivotItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FavoritesPivotItemControl.xaml.cs">
+      <DependentUpon>FavoritesPivotItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NewsPivotItemControl.xaml.cs">
+      <DependentUpon>NewsPivotItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PollenPivotItemControl.xaml.cs">
+      <DependentUpon>PollenPivotItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RegionalPivotItemControl.xaml.cs">
+      <DependentUpon>RegionalPivotItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WeatherPivotItemControl.xaml.cs">
+      <DependentUpon>WeatherPivotItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.da-DK.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -157,6 +178,34 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\CountryPivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DiversePivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FavoritesPivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewsPivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PollenPivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RegionalPivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WeatherPivotItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

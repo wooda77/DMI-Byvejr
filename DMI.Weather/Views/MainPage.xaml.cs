@@ -31,6 +31,7 @@ using DMI.Assets;
 using DMI.Common;
 using DMI.Properties;
 using DMI.ViewModels;
+using DMI.Controls;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Data;
@@ -79,7 +80,10 @@ namespace DMI.Views
             var chooseCityAppBarButton = new ApplicationBarIconButton(
                 new Uri("/Resources/Images/appbar.home.png", UriKind.Relative));
             chooseCityAppBarButton.Text = Properties.Resources.AppBar_ChooseCity;
-            chooseCityAppBarButton.Click += ChooseCityAppBarButton_Click;
+            chooseCityAppBarButton.Click += (s, e) =>
+                {
+                    App.Navigate(new Uri(AppSettings.ChooseCityPageAddress, UriKind.Relative));
+                };
 
             var showFavoritesAppBarButton = new ApplicationBarIconButton(
                 new Uri("/Resources/Images/appbar.favs.png", UriKind.Relative));
@@ -102,7 +106,10 @@ namespace DMI.Views
 
             var supportMenu = new ApplicationBarMenuItem();
             supportMenu.Text = Properties.Resources.AppBar_Support;
-            supportMenu.Click += SettingsMenu_Click;
+            supportMenu.Click += (s, e) => 
+                {
+                    App.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
+                };
 
             ApplicationBar.Buttons.Add(chooseCityAppBarButton);
             ApplicationBar.Buttons.Add(goToLocationAppBarButton);
@@ -120,11 +127,6 @@ namespace DMI.Views
             }
         }
 
-        private void Navigate(Uri source)
-        {
-            Dispatcher.BeginInvoke(() => NavigationService.Navigate(source));
-        }
-
         private void LiveTileMenu_Click(object sender, EventArgs e)
         {
             if (ViewModel != null && 
@@ -134,42 +136,26 @@ namespace DMI.Views
                 string address = string.Format(AppSettings.AddTilePageAddress, 
                     ViewModel.CurrentAddress.PostalCode, ViewModel.CurrentAddress.CountryRegion);
 
-                Navigate(new Uri(address, UriKind.Relative));
+                App.Navigate(new Uri(address, UriKind.Relative));
             }
-        }
-
-        private void SettingsMenu_Click(object sender, EventArgs e)
-        {
-            Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
-        }
-
-        private void ChooseCityAppBarButton_Click(object sender, EventArgs e)
-        {
-            Navigate(new Uri(AppSettings.ChooseCityPageAddress, UriKind.Relative));
         }
 
         private void ShowFavoritesAppBarButton_Click(object sender, EventArgs e)
         {
             if (PivotLayout != null)
-            {
                 PivotLayout.SelectedItem = FavoritesPivotItem;
-            }
         }
 
         private void AddtoFavoritesAppBarButton_Click(object sender, EventArgs e)
         {
             if (DataContext != null && DataContext is MainPageViewModel)
-            {
                 (DataContext as MainPageViewModel).AddToFavorites.Execute(null);
-            }
         }
 
         private void GoToLocationAppBarButton_Click(object sender, EventArgs e)
         {
             if (DataContext != null && DataContext is MainPageViewModel)
-            {
                 (DataContext as MainPageViewModel).GoToLocation.Execute(null);
-            }
         }
 
         private void PivotLayout_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -177,33 +163,17 @@ namespace DMI.Views
             SmartDispatcher.BeginInvoke(() =>
             {
                 if (ApplicationBar != null && (this.Orientation & PageOrientation.Landscape) != PageOrientation.Landscape)
-                {
                     ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
-                }
             });
         }
-
-        private void OpenInLandscapeMode(object sender, GestureEventArgs e)
-        {
-            var image = sender as Image;
-            if (image != null)
-            {
-                var source = image.Tag as Uri;
-                if (string.IsNullOrEmpty(source.ToString()) == false)
-                {
-                    var address = string.Format(AppSettings.ImagePageAddress, Uri.EscapeDataString(source.ToString()));
-                    Navigate(new Uri(address, UriKind.Relative));
-                }
-            }
-        }
-
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             if (AppSettings.IsFirstStart)
             {
-                Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
+                App.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
             }
             else
             {
@@ -229,29 +199,36 @@ namespace DMI.Views
             if (ApplicationBar != null)
             {
                 if ((e.Orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
-                {
                     ApplicationBar.IsVisible = false;
-                }
                 else
-                {
                     ApplicationBar.IsVisible = true;
-                }
             }
         }
-
-        private void RadarMenuItem_Tap(object sender, GestureEventArgs e)
+        
+        private void PivotLayout_LoadingPivotItem(object sender, PivotItemEventArgs e)
         {
-            Navigate(new Uri(AppSettings.RadarPageAddress, UriKind.Relative));
-        }
+            if (e.Item.Content != null)
+                return;
 
-        private void BeachWeatherMenuItem_Tap(object sender, GestureEventArgs e)
-        {
-            Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
-        }
+            var pivot = (Pivot)sender;
 
-        private void UVIndexMenuItem_Tap(object sender, GestureEventArgs e)
-        {
-            Navigate(new Uri(AppSettings.UVIndexPageAddress, UriKind.Relative));
+            if (e.Item == WeatherPivotItem)
+                e.Item.Content = new WeatherPivotItemControl();
+            else if (e.Item == RegionalPivotItem)
+                e.Item.Content = new RegionalPivotItemControl();
+            else if (e.Item == CountryPivotItem)
+                e.Item.Content = new CountryPivotItemControl();
+            else if (e.Item == PollenPivotItem)
+                e.Item.Content = new PollenPivotItemControl();
+            else if (e.Item == DiversePivotItem)
+                e.Item.Content = new DiversePivotItemControl();
+            else if (e.Item == FavoritesPivotItem)
+                e.Item.Content = new FavoritesPivotItemControl();
+            else if (e.Item == NewsPivotItem)
+                e.Item.Content = new NewsPivotItemControl();
+
+            if (e.Item.Content != null)
+                (e.Item.Content as FrameworkElement).DataContext = this.DataContext;
         }
     }
 }

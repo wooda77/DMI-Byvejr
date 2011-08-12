@@ -69,6 +69,11 @@ namespace DMI
             }
         }
 
+        public static void Navigate(Uri source)
+        {
+            SmartDispatcher.BeginInvoke(() => App.CurrentRootVisual.Navigate(source));
+        }
+
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (Debugger.IsAttached)
