@@ -26,6 +26,7 @@ namespace DMI.Common
     public enum TileType
     {
         Latest,
-        Custom
+        Custom,
+        PlusTile,
     }
 }

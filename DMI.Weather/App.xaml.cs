@@ -23,6 +23,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
@@ -39,6 +40,19 @@ namespace DMI
 
             InitializeComponent();
             InitializePhoneApplication();
+        }
+
+        public static ThemeBackground CurrentThemeBackground
+        {
+            get
+            {
+                var currentColor = (Color)Application.Current.Resources["PhoneBackgroundColor"];
+
+                if (currentColor == Colors.Black)
+                    return ThemeBackground.ThemeBackgroundDark;
+                else
+                    return ThemeBackground.ThemeBackgroundLight;
+            }
         }
 
         public PhoneApplicationFrame RootFrame
@@ -72,7 +86,7 @@ namespace DMI
             if (phoneApplicationInitialized)
                 return;
 
-            RootFrame = new PhoneApplicationFrame();
+            RootFrame = new TransitionFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
@@ -88,5 +102,11 @@ namespace DMI
 
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
         }
+    }
+
+    public enum ThemeBackground
+    {
+        ThemeBackgroundDark,
+        ThemeBackgroundLight
     }
 }

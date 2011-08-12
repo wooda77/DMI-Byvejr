@@ -49,9 +49,9 @@ namespace DMI.ViewModels
         public void CreateCustomTile(int offsetHour)
         {
             var city = Latest.City;
-            var date = DateTime.Now;
+            var date = DateTime.Today.AddHours(offsetHour);
 
-            if (DateTime.Today.Hour > offsetHour)
+            if (DateTime.Now.Hour > offsetHour)
                 date = date.AddDays(1);
 
             LiveTileWeatherProvider.GetForecast(city, date)
@@ -68,7 +68,8 @@ namespace DMI.ViewModels
                                 LocationName = city.Name,
                                 CloudImage = ImageIdToUri(custom.S),
                                 Temperature = custom.T + '°',
-                                TileType = TileType.Custom
+                                TileType = TileType.Custom,
+                                Description = custom.Prosa
                             };
 
                             Deployment.Current.Dispatcher.BeginInvoke(() => GenerateTile(tile));
@@ -96,7 +97,8 @@ namespace DMI.ViewModels
                                 Title = string.Format(Properties.Resources.LatestTitle, now.Df),
                                 CloudImage = ImageIdToUri(now.S),
                                 Temperature = now.T + '°',
-                                TileType = TileType.Latest
+                                TileType = TileType.Latest,
+                                Description = now.Prosa
                             };
 
                             Deployment.Current.Dispatcher.BeginInvoke(() => Latest = latestTile);
@@ -113,7 +115,7 @@ namespace DMI.ViewModels
             ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(1));
 #endif
 
-            TileGenerator.GenerateTile(item, true);
+            TileGenerator.GenerateTile(item, () => {}, true);
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)

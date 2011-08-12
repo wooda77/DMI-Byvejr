@@ -80,5 +80,11 @@ namespace DMI.Common
             get;
             set;
         }
+
+        public string Description
+        {
+            get;
+            set;
+        }
     }
 }

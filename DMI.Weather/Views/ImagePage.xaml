@@ -12,7 +12,9 @@
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="LandscapeLeft"
-                            shell:SystemTray.IsVisible="False"
+                            shell:SystemTray.IsVisible="True"
+                            shell:SystemTray.Opacity="0"
+                            Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="Landscape"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>

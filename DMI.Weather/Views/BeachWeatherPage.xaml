@@ -14,6 +14,8 @@
                             d:DesignWidth="480"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True"
+                            shell:SystemTray.Opacity="0"
+                            Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>

@@ -13,6 +13,8 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="Landscape"
                             shell:SystemTray.IsVisible="True"
+                            shell:SystemTray.Opacity="0"
+                            Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="Landscape"
                             mc:Ignorable="d">
     <Grid>

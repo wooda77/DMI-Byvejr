@@ -57,11 +57,24 @@ namespace DMI.Common
             }
         }
 
-        public static void GenerateTile(TileItem item, bool recreate = false)
+        public static void GenerateTile(TileItem item, Action completed, bool recreate = false)
         {
             if (item.TileType == TileType.Custom)
             {
                 var time = DateTime.Today.AddHours(item.Offset);
+
+                if (item.Offset < 6)
+                    item.Title = string.Format(Properties.Resources.Tile_Night, time);
+                else if (item.Offset < 12)
+                    item.Title = string.Format(Properties.Resources.Tile_Morning, time);
+                else if (item.Offset < 18)
+                    item.Title = string.Format(Properties.Resources.Tile_Afternoon, time);
+                else
+                    item.Title = string.Format(Properties.Resources.Tile_Evening, time);
+            }
+            else if (item.TileType == TileType.PlusTile)
+            {
+                var time = DateTime.Now.AddHours(item.Offset);
 
                 if (item.Offset < 6)
                     item.Title = string.Format(Properties.Resources.Tile_Night, time);
@@ -83,6 +96,11 @@ namespace DMI.Common
 
             var source = new BitmapImage(item.CloudImage);
             source.CreateOptions = BitmapCreateOptions.None;
+            
+            source.ImageFailed += (sender, e) =>
+            {
+                System.Diagnostics.Debugger.Break();
+            };
 
             source.ImageOpened += (sender, e) => 
             {
@@ -144,15 +162,15 @@ namespace DMI.Common
                 var address = string.Format(AppSettings.MainPageWithTileAddress,
                     item.City.PostalCode, item.City.Country, (int)item.TileType, item.Offset);
 
-                var tileTypeUrlSegment = string.Format(AppSettings.TileTypeUrlSegment, (int)item.TileType, item.Offset);
-
-                var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(x =>
-                    x.NavigationUri.ToString().Contains(tileTypeUrlSegment));
+                var dmiTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString() == address);
 
                 var tileData = new StandardTileData
                 {
                     BackgroundImage = new Uri(isoStoreTileImage, UriKind.Absolute),
                     Title = item.City.Name,
+                    //BackTitle = "DMI Byvejr",
+                    //BackBackgroundImage = new Uri("/Resources/Weather/Background.png", UriKind.Relative),
+                    //BackContent = item.Description,                    
                 };
 
                 var navigationUri = new Uri(address, UriKind.Relative);
@@ -173,6 +191,8 @@ namespace DMI.Common
                 {
                     ShellTile.Create(navigationUri, tileData);
                 }
+
+                completed();
             };
         }
     }

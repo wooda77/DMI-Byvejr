@@ -19,10 +19,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using DMI.Common;
 using DMI.ViewModels;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace DMI.Views
 {
@@ -31,6 +34,22 @@ namespace DMI.Views
         public AddTilePage()
         {
             InitializeComponent();
+            BuildApplicationBar();
+        }
+
+        private void BuildApplicationBar()
+        {
+            this.ApplicationBar = new ApplicationBar();
+            this.ApplicationBar.BackgroundColor = Colors.Transparent;
+            
+            this.ApplicationBar.Buttons.Add(new ApplicationBarIconButton()
+            {
+                IconUri = new Uri("/Resources/Images/appbar.add.png", System.UriKind.Relative),
+                Text = "new tile",
+            });
+            
+            this.ApplicationBar.IsMenuEnabled = true;
+            this.ApplicationBar.IsVisible = true;
         }
 
         private AddTilePageViewModel ViewModel
@@ -61,7 +80,7 @@ namespace DMI.Views
 
         private void CustomGrid_Tap(object sender, GestureEventArgs e)
         {
-            //ViewModel.CreateCustomTile(9);
+            ViewModel.CreateCustomTile(7);
         }
     }
 }

@@ -22,13 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DMI.Assets;
+using DMI.Common;
+using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using DMI.Service;
-using DMI.Common;
-using DMI.Assets;
 
 namespace DMI.ViewModels
 {
@@ -70,7 +71,8 @@ namespace DMI.ViewModels
         {
             var uri = string.Format(AppSettings.MainPageAddress, city.PostalCode, city.Country);
 
-            App.CurrentRootVisual.Navigate(new Uri(uri, UriKind.Relative));
+            Deployment.Current.Dispatcher.BeginInvoke(
+                () =>  App.CurrentRootVisual.Navigate(new Uri(uri, UriKind.Relative)));
         }
 
         private void TextChangedExecute(string filter)

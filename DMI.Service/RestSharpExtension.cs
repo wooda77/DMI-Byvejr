@@ -8,10 +8,10 @@ namespace RestSharp
         public static Task<T> ExecuteTask<T>(this RestClient client, RestRequest request)
             where T : new()
         {
-            var tcs = new TaskCompletionSource<T>(request, TaskCreationOptions.AttachedToParent);
+            var tcs = new TaskCompletionSource<T>(TaskCreationOptions.AttachedToParent);
 
             client.ExecuteAsync<T>(request, response => 
-                {
+                {                    
                     if (response.Data != null)
                         tcs.TrySetResult(response.Data);
                     else

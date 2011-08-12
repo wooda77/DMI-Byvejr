@@ -24,6 +24,8 @@ using System.Net;
 using System.Collections.Generic;
 using System.Device.Location;
 using DMI.Service;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace DMI.ViewModels
 {
@@ -32,6 +34,13 @@ namespace DMI.ViewModels
         public BeachWeatherPageViewModel()
         {
             this.Center = Denmark.CenterCoordinate;
+            this.Beaches = new ObservableCollection<Beach>();
+
+            Deployment.Current.Dispatcher.BeginInvoke(() => 
+                {
+                    foreach (var beach in Denmark.Beaches)
+                        this.Beaches.Add(beach);
+                });
         }
 
         public GeoCoordinate Center
@@ -40,12 +49,10 @@ namespace DMI.ViewModels
             private set;
         }
 
-        public IEnumerable<Beach> Beaches
+        public ObservableCollection<Beach> Beaches
         {
-            get
-            {
-                return Denmark.Beaches;
-            }
+            get;
+            private set;
         }
     }
 }

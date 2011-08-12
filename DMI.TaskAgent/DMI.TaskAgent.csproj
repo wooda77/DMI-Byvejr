@@ -106,6 +106,7 @@
     <Content Include="Resources\Weather\7.png" />
     <Content Include="Resources\Weather\8.png" />
     <Content Include="Resources\Weather\9.png" />
+    <Content Include="Resources\Weather\Background.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

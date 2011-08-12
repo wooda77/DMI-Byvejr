@@ -14,6 +14,7 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True"
+                            Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>
@@ -45,7 +46,7 @@
             <Grid x:Name="LatestGrid"
                   Width="173"
                   Height="173"
-                  Margin="0,45,0,0"
+                  Margin="0,72,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   Background="#FF0C2D83"
@@ -80,47 +81,50 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Bottom"
                            FontSize="18"
+                           Foreground="White"
                            Text="{Binding LocationName}"
                            TextWrapping="Wrap" />
             </Grid>
-            <Grid Width="173"
-                  Height="173"
-                  Margin="185,45,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  Background="#FF0C2D83"
-                  d:LayoutOverrides="Height">
+            <!--
+                <Grid Width="173"
+                Height="173"
+                Margin="185,45,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#FF0C2D83"
+                d:LayoutOverrides="Height">
                 <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener Tap="CustomGrid_Tap" />
+                <toolkit:GestureListener Tap="CustomGrid_Tap" />
                 </toolkit:GestureService.GestureListener>
                 <TextBlock Margin="12,6,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           FontFamily="Segoe WP"
-                           FontSize="20"
-                           Foreground="White"
-                           Text="{Binding Resources.Tile_CustomTile,
-                                          Source={StaticResource AppResources}}"
-                           TextWrapping="Wrap" />
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontFamily="Segoe WP"
+                FontSize="20"
+                Foreground="White"
+                Text="{Binding Resources.Tile_CustomTile,
+                Source={StaticResource AppResources}}"
+                TextWrapping="Wrap" />
                 <TextBlock Margin="12,0,0,5.941"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Bottom"
-                           FontSize="18"
-                           Text="{Binding Resources.Tile_TapToCustom,
-                                          Source={StaticResource AppResources}}"
-                           TextWrapping="Wrap" Foreground="White" />
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                FontSize="18"
+                Text="{Binding Resources.Tile_TapToCustom,
+                Source={StaticResource AppResources}}"
+                TextWrapping="Wrap" Foreground="White" />
                 <Image Margin="8,53,65,56"
-                       Source="/Resources/Weather/2.png"
-                       Stretch="None" />
+                Source="/Resources/Weather/2.png"
+                Stretch="None" />
                 <TextBlock Margin="124,63,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           FontFamily="Segoe WP"
-                           FontSize="30"
-                           Foreground="White"
-                           Text="t°"
-                           TextWrapping="Wrap" />
-            </Grid>
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontFamily="Segoe WP"
+                FontSize="30"
+                Foreground="White"
+                Text="t°"
+                TextWrapping="Wrap" />
+                </Grid>
+            -->
         </Grid>
     </Grid>
 </phone:PhoneApplicationPage>

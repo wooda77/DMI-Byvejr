@@ -61,6 +61,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add live tile.
+        /// </summary>
+        public static string AddLiveTile {
+            get {
+                return ResourceManager.GetString("AddLiveTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow use of GPS location.
         /// </summary>
         public static string AllowGPSUse {
@@ -358,7 +367,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on a tile to pin it to your home screen..
+        ///   Looks up a localized string similar to Click on a tile to pin it to your home screen, or add a new custom tile..
         /// </summary>
         public static string PinToHomeHelpText {
             get {

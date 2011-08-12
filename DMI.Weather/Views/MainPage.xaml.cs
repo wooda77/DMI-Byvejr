@@ -34,6 +34,7 @@ using DMI.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace DMI.Views
 {
@@ -63,6 +64,17 @@ namespace DMI.Views
                 return;
 
             ApplicationBar = new ApplicationBar();
+            
+            if (App.CurrentThemeBackground == ThemeBackground.ThemeBackgroundDark)
+                ApplicationBar.BackgroundColor = Colors.Black;
+            else
+                ApplicationBar.BackgroundColor = Colors.White;
+
+            ApplicationBar.Opacity = 0.8;
+            ApplicationBar.StateChanged += (sender, e) =>
+                {
+                    ApplicationBar.Opacity = e.IsMenuVisible ? 1 : 0.8;
+                };
 
             var chooseCityAppBarButton = new ApplicationBarIconButton(
                 new Uri("/Resources/Images/appbar.home.png", UriKind.Relative));
@@ -108,6 +120,11 @@ namespace DMI.Views
             }
         }
 
+        private void Navigate(Uri source)
+        {
+            Dispatcher.BeginInvoke(() => NavigationService.Navigate(source));
+        }
+
         private void LiveTileMenu_Click(object sender, EventArgs e)
         {
             if (ViewModel != null && 
@@ -117,18 +134,18 @@ namespace DMI.Views
                 string address = string.Format(AppSettings.AddTilePageAddress, 
                     ViewModel.CurrentAddress.PostalCode, ViewModel.CurrentAddress.CountryRegion);
 
-                NavigationService.Navigate(new Uri(address, UriKind.Relative));
+                Navigate(new Uri(address, UriKind.Relative));
             }
         }
 
         private void SettingsMenu_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
+            Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
         }
 
         private void ChooseCityAppBarButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri(AppSettings.ChooseCityPageAddress, UriKind.Relative));
+            Navigate(new Uri(AppSettings.ChooseCityPageAddress, UriKind.Relative));
         }
 
         private void ShowFavoritesAppBarButton_Click(object sender, EventArgs e)
@@ -175,7 +192,7 @@ namespace DMI.Views
                 if (string.IsNullOrEmpty(source.ToString()) == false)
                 {
                     var address = string.Format(AppSettings.ImagePageAddress, Uri.EscapeDataString(source.ToString()));
-                    NavigationService.Navigate(new Uri(address, UriKind.Relative));
+                    Navigate(new Uri(address, UriKind.Relative));
                 }
             }
         }
@@ -186,7 +203,7 @@ namespace DMI.Views
 
             if (AppSettings.IsFirstStart)
             {
-                NavigationService.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
+                Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
             }
             else
             {
@@ -224,17 +241,17 @@ namespace DMI.Views
 
         private void RadarMenuItem_Tap(object sender, GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri(AppSettings.RadarPageAddress, UriKind.Relative));
+            Navigate(new Uri(AppSettings.RadarPageAddress, UriKind.Relative));
         }
 
         private void BeachWeatherMenuItem_Tap(object sender, GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
+            Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
         }
 
         private void UVIndexMenuItem_Tap(object sender, GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri(AppSettings.UVIndexPageAddress, UriKind.Relative));
+            Navigate(new Uri(AppSettings.UVIndexPageAddress, UriKind.Relative));
         }
     }
 }

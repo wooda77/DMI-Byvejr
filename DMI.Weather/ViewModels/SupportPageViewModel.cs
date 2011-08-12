@@ -21,6 +21,7 @@
 #endregion
 using System;
 using System.IO.IsolatedStorage;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using DMI.Common;
@@ -37,7 +38,7 @@ namespace DMI.ViewModels
         {
             AppSettings.IsFirstStart = false;
 
-            this.OK = new RelayCommand(App.CurrentRootVisual.GoBack);
+            this.OK = new RelayCommand(Navigate);
             
             this.SendEmail = new RelayCommand(() =>
             {
@@ -90,6 +91,11 @@ namespace DMI.ViewModels
         {
             get;
             private set;
+        }
+
+        private void Navigate()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(App.CurrentRootVisual.GoBack);
         }
     }
 }

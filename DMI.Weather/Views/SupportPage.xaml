@@ -15,6 +15,7 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True"
+                            Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>

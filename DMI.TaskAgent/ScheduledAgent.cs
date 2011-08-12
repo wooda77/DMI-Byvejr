@@ -36,24 +36,52 @@ namespace DMI.TaskAgent
     {
         protected override void OnInvoke(ScheduledTask scheduledTask)
         {
-            var latestTile = GetTile(TileType.Latest).FirstOrDefault();
+            var latestTiles = GetTile(TileType.Latest);
+            var plusTiles = GetTile(TileType.PlusTile);
             var customTiles = GetTile(TileType.Custom);
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                var task = Task.Factory.StartNew(() => RefreshTile(latestTile, TileType.Latest));
-                    
-                foreach (var customTile in customTiles)
-                    task.ContinueWith(t => RefreshTile(customTile, TileType.Custom));
-                    
-                task.ContinueWith(t => NotifyComplete());
+                var task = RefreshTile(latestTiles[0], TileType.Latest);
+
+                if (latestTiles.Length > 1)
+                {
+                    foreach (var tile in latestTiles.Skip(1))
+                    {
+                        var latestTile = tile;
+                        task = task.ContinueWith(t => RefreshTile(latestTile, TileType.Latest));
+                    }
+                }
+
+                foreach (var tile in customTiles)
+                {
+                    var customTile = tile;
+                    task = task.ContinueWith(t => RefreshTile(customTile, TileType.Custom));
+                }
+
+                foreach (var tile in plusTiles)
+                {
+                    var plusTile = tile;
+                    task = task.ContinueWith(t => RefreshTile(plusTile, TileType.PlusTile));
+                }
+
+                task.ContinueWith(OnNotifyComplete);
             });
         }
 
-        private void RefreshTile(ShellTile tile, TileType type)
+        private void OnNotifyComplete(Task task)
+        {
+            if (task.IsCompleted)
+            {            
+                Deployment.Current.Dispatcher.BeginInvoke(() => NotifyComplete());
+            }
+        }
+
+        private Task RefreshTile(ShellTile tile, TileType type)
         {
             var queryString = tile.NavigationUri.ToString();
             queryString = queryString.Substring(queryString.IndexOf('?'));
+            
             var segments = Utils.ParseQueryString(queryString);
 
             int postalCode = 0;
@@ -79,47 +107,99 @@ namespace DMI.TaskAgent
 
                 if (city != null)
                 {
-                    if (type == TileType.Latest)
+                    switch (type)
                     {
-                        LiveTileWeatherProvider.GetForecast(city, DateTime.Now)
-                            .ContinueWith(task =>
-                            {
-                                if (task.IsCompleted)
-                                {
-                                    var now = task.Result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
-                                    if (now != null)
-                                        Deployment.Current.Dispatcher.BeginInvoke(
-                                            () => TileGenerator.GenerateTile(CreateTileItem(city, now, type)));
-                                }
-                            });
-                    }
-                    else if (type == TileType.Custom)
-                    {
-                        int offsetHour = int.Parse(offset);
-                        var date = DateTime.Today.AddHours(offsetHour);
-
-                        if (DateTime.Now.Hour > offsetHour)
-                            date = date.AddDays(1);
-
-                        LiveTileWeatherProvider.GetForecast(city, date)
-                            .ContinueWith(task =>
-                            {
-                                if (task.IsCompleted)
-                                {
-                                    var custom = task.Result.FirstOrDefault(x => x.Df.Hour == date.Hour);
-                                    if (custom != null)
-                                    {
-                                        var customTile = CreateTileItem(city, custom, type);
-                                        customTile.Offset = offsetHour;
-
-                                        Deployment.Current.Dispatcher.BeginInvoke(
-                                            () => TileGenerator.GenerateTile(customTile));
-                                    }
-                                }
-                            });
+                        case TileType.Latest:
+                            return RefreshLatestTile(city);
+                        case TileType.Custom:
+                            return RefreshCustomTile(offset, city);
+                        case TileType.PlusTile:
+                            return RefreshPlusTile(offset, city);
                     }
                 }
             }
+
+            throw new InvalidOperationException("Attempted to refresh a non-existant tile");
+        }
+
+        private Task RefreshLatestTile(GeoLocationCity city)
+        {
+            return LiveTileWeatherProvider.GetForecast(city, DateTime.Now)
+                        .ContinueWith<Task>(task =>
+                        {
+                            var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.AttachedToParent);
+
+                            if (task.IsCompleted)
+                            {
+                                var now = task.Result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
+                                if (now != null)               
+                                {
+                                    var latestTile = CreateTileItem(city, now, TileType.Latest);
+                                    
+                                    Deployment.Current.Dispatcher.BeginInvoke(
+                                        () => TileGenerator.GenerateTile(latestTile, () => tcs.SetResult(true)));
+                                }
+                            }
+
+                            return tcs.Task;
+                        });
+        }
+
+        private Task RefreshCustomTile(string offset, GeoLocationCity city)
+        {
+            int offsetHour = int.Parse(offset);
+            var date = DateTime.Today.AddHours(offsetHour);
+
+            if (DateTime.Now.Hour > offsetHour)
+                date = date.AddDays(1);
+
+            return LiveTileWeatherProvider.GetForecast(city, date)
+                        .ContinueWith<Task>(task =>
+                        {
+                            var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.AttachedToParent);
+
+                            if (task.IsCompleted)
+                            {
+                                var custom = task.Result.FirstOrDefault(x => x.Df.Hour == date.Hour);
+                                if (custom != null)
+                                {
+                                    var customTile = CreateTileItem(city, custom, TileType.Custom);
+                                    customTile.Offset = offsetHour;
+
+                                    Deployment.Current.Dispatcher.BeginInvoke(
+                                        () => TileGenerator.GenerateTile(customTile, () => tcs.SetResult(true)));
+                                }
+                            }
+
+                            return tcs.Task;
+                        });
+        }
+
+        private Task RefreshPlusTile(string offset, GeoLocationCity city)
+        {
+            int offsetHour = int.Parse(offset);
+            var date = DateTime.Now.AddHours(offsetHour);
+
+            return LiveTileWeatherProvider.GetForecast(city, date)
+                        .ContinueWith<Task>(task =>
+                        {
+                            var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.AttachedToParent);
+
+                            if (task.IsCompleted)
+                            {
+                                var result = task.Result.FirstOrDefault(x => x.Df.Hour == date.Hour);
+                                if (result != null)
+                                {
+                                    var plusTile = CreateTileItem(city, result, TileType.PlusTile);
+                                    plusTile.Offset = offsetHour;
+
+                                    Deployment.Current.Dispatcher.BeginInvoke(
+                                        () => TileGenerator.GenerateTile(plusTile, () => tcs.SetResult(true)));
+                                }
+                            }
+
+                            return tcs.Task;
+                        });
         }
 
         private ShellTile[] GetTile(TileType type)
@@ -158,6 +238,7 @@ namespace DMI.TaskAgent
                 Title = string.Format(Properties.Resources.LatestTitle, response.Df),
                 CloudImage = ImageIdToUri(response.S),
                 Temperature = response.T + '°',
+                Description = response.Prosa,
             };
         }
     }
