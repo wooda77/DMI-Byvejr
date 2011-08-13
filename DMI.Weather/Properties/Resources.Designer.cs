@@ -124,6 +124,15 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to new tile.
+        /// </summary>
+        public static string AppBar_NewTile {
+            get {
+                return ResourceManager.GetString("AppBar_NewTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to support.
         /// </summary>
         public static string AppBar_Support {
@@ -133,7 +142,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App Name: .
+        ///   Looks up a localized string similar to Application:.
         /// </summary>
         public static string AppName {
             get {
@@ -160,7 +169,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weather Forecast from DMI.
+        ///   Looks up a localized string similar to DMI Byvejr.
         /// </summary>
         public static string AppTitleSmall {
             get {
@@ -241,7 +250,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please write comments or technical questions to: email: 10229@iha.dk.
+        ///   Looks up a localized string similar to Please write comments or technical questions to 10229@iha.dk.
         /// </summary>
         public static string EmailHelpText {
             get {
@@ -376,20 +385,11 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +6 hours ({0:HH&apos;:&apos;mm}).
+        ///   Looks up a localized string similar to +{1} hours ({0:HH&apos;:&apos;mm}).
         /// </summary>
-        public static string PlusSixHoursTitle {
+        public static string PlusTitleTitle {
             get {
-                return ResourceManager.GetString("PlusSixHoursTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to +12 hours ({0:HH&apos;:&apos;mm}).
-        /// </summary>
-        public static string PlusTwelveHoursTitle {
-            get {
-                return ResourceManager.GetString("PlusTwelveHoursTitle", resourceCulture);
+                return ResourceManager.GetString("PlusTitleTitle", resourceCulture);
             }
         }
         
@@ -493,6 +493,24 @@ namespace DMI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string Toggle_Off {
+            get {
+                return ResourceManager.GetString("Toggle_Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string Toggle_On {
+            get {
+                return ResourceManager.GetString("Toggle_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DMI expects skies resulting in a UV-index as displayed on the figure below..
         /// </summary>
         public static string UVIndexHelpText1 {
@@ -520,7 +538,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version: .
+        ///   Looks up a localized string similar to Version Number:.
         /// </summary>
         public static string Version {
             get {

@@ -78,7 +78,7 @@ namespace DMI.Common
         public static string WavesImageSource = "http://servlet.dmi.dk/byvejr/servlet/byvejr?by={0}&tabel=dag1&param=bolger";
 
         /// <summary>
-        /// Gets a value indicating whether the GPS is enabled.
+        /// Gets or sets a value indicating whether the GPS is enabled.
         /// </summary>
         /// <value>
         /// 	<c>true</c> if this the GPS is enabled; otherwise, <c>false</c>.
@@ -91,6 +91,19 @@ namespace DMI.Common
                     return (bool)IsolatedStorageSettings.ApplicationSettings[AppSettings.ToggleGPSKey];
                 else
                     return false;
+            }
+            set
+            {
+                if (!IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.ToggleGPSKey))
+                {
+                    IsolatedStorageSettings.ApplicationSettings.Add(AppSettings.ToggleGPSKey, value);
+                }
+                else
+                {
+                    IsolatedStorageSettings.ApplicationSettings[AppSettings.ToggleGPSKey] = value;
+                }
+
+                IsolatedStorageSettings.ApplicationSettings.Save();
             }
         }
 

@@ -138,11 +138,14 @@
   <data name="AppBar_LiveTile" xml:space="preserve">
     <value>live tile</value>
   </data>
+  <data name="AppBar_NewTile" xml:space="preserve">
+    <value>new tile</value>
+  </data>
   <data name="AppBar_Support" xml:space="preserve">
     <value>support</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>App Name: </value>
+    <value>Application:</value>
   </data>
   <data name="AppSupportEmailHeader" xml:space="preserve">
     <value>DMI Byvejr Support</value>
@@ -151,7 +154,7 @@
     <value>WEATHER FORECAST FROM DMI</value>
   </data>
   <data name="AppTitleSmall" xml:space="preserve">
-    <value>Weather Forecast from DMI</value>
+    <value>DMI Byvejr</value>
   </data>
   <data name="BeachWeatherMenuItem" xml:space="preserve">
     <value>Beach Weather</value>
@@ -178,7 +181,7 @@
     <value>10229@iha.dk</value>
   </data>
   <data name="EmailHelpText" xml:space="preserve">
-    <value>Please write comments or technical questions to: email: 10229@iha.dk</value>
+    <value>Please write comments or technical questions to 10229@iha.dk</value>
   </data>
   <data name="FavoritesHeader" xml:space="preserve">
     <value>favorites</value>
@@ -222,11 +225,8 @@
   <data name="PinToHomeHelpText" xml:space="preserve">
     <value>Click on a tile to pin it to your home screen, or add a new custom tile.</value>
   </data>
-  <data name="PlusSixHoursTitle" xml:space="preserve">
-    <value>+6 hours ({0:HH':'mm})</value>
-  </data>
-  <data name="PlusTwelveHoursTitle" xml:space="preserve">
-    <value>+12 hours ({0:HH':'mm})</value>
+  <data name="PlusTitleTitle" xml:space="preserve">
+    <value>+{1} hours ({0:HH':'mm})</value>
   </data>
   <data name="PollenHeader" xml:space="preserve">
     <value>pollen</value>
@@ -261,6 +261,12 @@
   <data name="Tile_TapToCustom" xml:space="preserve">
     <value>Tap to customize display time</value>
   </data>
+  <data name="Toggle_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Toggle_On" xml:space="preserve">
+    <value>On</value>
+  </data>
   <data name="UVIndexHelpText1" xml:space="preserve">
     <value>DMI expects skies resulting in a UV-index as displayed on the figure below.</value>
   </data>
@@ -271,7 +277,7 @@
     <value>UV Index</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version: </value>
+    <value>Version Number:</value>
   </data>
   <data name="WebTV_3D" xml:space="preserve">
     <value>WebTV - 3-døgnsudsigten</value>

@@ -74,13 +74,14 @@ namespace DMI.Common
             }
             else if (item.TileType == TileType.PlusTile)
             {
-                var time = DateTime.Now.AddHours(item.Offset);
+                var hour = DateTime.Now.AddHours(item.Offset);
+                var time = DateTime.Today.AddHours(hour.Hour);
 
-                if (item.Offset < 6)
+                if (time.Hour < 6)
                     item.Title = string.Format(Properties.Resources.Tile_Night, time);
-                else if (item.Offset < 12)
+                else if (time.Hour < 12)
                     item.Title = string.Format(Properties.Resources.Tile_Morning, time);
-                else if (item.Offset < 18)
+                else if (time.Hour < 18)
                     item.Title = string.Format(Properties.Resources.Tile_Afternoon, time);
                 else
                     item.Title = string.Format(Properties.Resources.Tile_Evening, time);

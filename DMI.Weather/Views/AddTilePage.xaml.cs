@@ -26,6 +26,7 @@ using DMI.Common;
 using DMI.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Windows.Threading;
 
 namespace DMI.Views
 {
@@ -34,7 +35,6 @@ namespace DMI.Views
         public AddTilePage()
         {
             InitializeComponent();
-            BuildApplicationBar();
         }
 
         private void BuildApplicationBar()
@@ -42,11 +42,15 @@ namespace DMI.Views
             this.ApplicationBar = new ApplicationBar();
             this.ApplicationBar.BackgroundColor = Colors.Transparent;
             
-            this.ApplicationBar.Buttons.Add(new ApplicationBarIconButton()
-            {
-                IconUri = new Uri("/Resources/Images/appbar.add.png", System.UriKind.Relative),
-                Text = "new tile",
-            });
+            var addTileButton = new ApplicationBarIconButton();
+            addTileButton.IconUri = new Uri("/Resources/Images/appbar.add.png", UriKind.Relative);
+            addTileButton.Text = Properties.Resources.AppBar_NewTile;
+            addTileButton.Click += (sender, e) =>
+                {
+                    NavigationService.Navigate(new Uri("/Views/AddCustomTilePage.xaml", UriKind.Relative));
+                };
+
+            this.ApplicationBar.Buttons.Add(addTileButton);
             
             this.ApplicationBar.IsMenuEnabled = true;
             this.ApplicationBar.IsVisible = true;
@@ -60,27 +64,28 @@ namespace DMI.Views
             }
         }
 
-        private void LatestGrid_Tap(object sender, GestureEventArgs e)
-        {
-            ViewModel.GenerateTile(LatestGrid.DataContext as TileItem);
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
-
-            var postalCode = NavigationContext.TryGetKey("PostalCode");
-            var country = NavigationContext.TryGetStringKey("Country");
-
-            if (postalCode.HasValue && string.IsNullOrEmpty(country) == false)
+            SmartDispatcher.BeginInvoke(() =>
             {
-                ViewModel.LoadCity(postalCode.Value, country);
-            }
-        }
+                if (ApplicationBar == null)
+                    BuildApplicationBar();
+                else
+                    ApplicationBar.IsVisible = true;
+            });
 
-        private void CustomGrid_Tap(object sender, GestureEventArgs e)
-        {
-            ViewModel.CreateCustomTile(7);
+            SmartDispatcher.BeginInvoke(() =>
+            {
+                var postalCode = NavigationContext.TryGetKey("PostalCode");
+                var country = NavigationContext.TryGetStringKey("Country");
+
+                if (postalCode.HasValue && string.IsNullOrEmpty(country) == false)
+                {
+                    ViewModel.LoadCity(postalCode.Value, country);
+                }
+            });
+
+            base.OnNavigatedTo(e);
         }
     }
 }

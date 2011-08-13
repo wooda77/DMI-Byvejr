@@ -34,6 +34,7 @@ using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
+using DMI.Resources;
 
 namespace DMI.ViewModels
 {
@@ -48,9 +49,13 @@ namespace DMI.ViewModels
             this.IsInitialized = false;
             this.Loading = false;
 
-            if (AppSettings.IsFirstStart == false)
+            if (AppSettings.IsFirstStart)
             {
-                Initialize();
+                var result = MessageBox.Show(Properties.Resources.GPSHelpText, "Allow GPS Services", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    AppSettings.IsGPSEnabled = true;
+                }
             }
         }
 

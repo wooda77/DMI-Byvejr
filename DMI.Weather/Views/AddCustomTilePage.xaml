@@ -1,11 +1,13 @@
 ﻿<phone:PhoneApplicationPage x:Class="DMI.Views.AddCustomTilePage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:viewmodels="clr-namespace:DMI.ViewModels"
                             d:DesignHeight="768"
                             d:DesignWidth="480"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -16,77 +18,41 @@
                             Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
-    <Grid x:Name="LayoutRoot"
-          Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
-                    Margin="12,17,0,28">
-            <TextBlock Style="{StaticResource PhoneTextNormalStyle}"
-                       Text="{Binding Resources.AppTitle,
-                                      Source={StaticResource AppResources}}" />
-            <TextBlock Margin="9,-7,0,0"
-                       Style="{StaticResource PhoneTextTitle1Style}"
-                       Text="{Binding Resources.AddLiveTile,
-                                      Source={StaticResource AppResources}}" />
-        </StackPanel>
-        <StackPanel Grid.Row="1"
-                    Margin="12,0">
-            <TextBlock Margin="12,0,0,0"
-                       Text="Type" />
-            <toolkit:ListPicker ListPickerMode="Expanded">
-                <toolkit:ListPickerItem Content="Fikseret (F.eks. vejret kl. 8 hver dag)" />
-                <toolkit:ListPickerItem Content="Offset (F.eks. vejret om 6 timer)" />
-            </toolkit:ListPicker>
-            <TextBlock Margin="12,0,0,0"
-                       Text="Tidspunkt" />
-            <toolkit:ListPicker ListPickerMode="Full" Margin="12,6,12,12">
-                <toolkit:ListPickerItem Content="01:00" />
-                <toolkit:ListPickerItem Content="02:00" />
-                <toolkit:ListPickerItem Content="03:00" />
-                <toolkit:ListPickerItem Content="04:00" />
-                <toolkit:ListPickerItem Content="05:00" />
-                <toolkit:ListPickerItem Content="06:00" />
-                <toolkit:ListPickerItem Content="07:00" />
-                <toolkit:ListPickerItem Content="08:00" />
-                <toolkit:ListPickerItem Content="09:00" />
-                <toolkit:ListPickerItem Content="10:00" />
-                <toolkit:ListPickerItem Content="11:00" />
-                <toolkit:ListPickerItem Content="12:00" />
-                <toolkit:ListPickerItem Content="13:00" />
-                <toolkit:ListPickerItem Content="14:00" />
-                <toolkit:ListPickerItem Content="15:00" />
-                <toolkit:ListPickerItem Content="16:00" />
-                <toolkit:ListPickerItem Content="17:00" />
-                <toolkit:ListPickerItem Content="18:00" />
-                <toolkit:ListPickerItem Content="19:00" />
-                <toolkit:ListPickerItem Content="20:00" />
-                <toolkit:ListPickerItem Content="21:00" />
-                <toolkit:ListPickerItem Content="22:00" />
-                <toolkit:ListPickerItem Content="23:00" />
-            </toolkit:ListPicker>
-            <TextBlock Margin="12,0,0,0"
-                       Text="Offset" Visibility="Collapsed" />
-            <toolkit:ListPicker ListPickerMode="Full" Visibility="Collapsed">
-                <toolkit:ListPickerItem Content="1 time" />
-                <toolkit:ListPickerItem Content="2 timer" />
-                <toolkit:ListPickerItem Content="3 timer" />
-                <toolkit:ListPickerItem Content="4 timer" />
-                <toolkit:ListPickerItem Content="5 timer" />
-                <toolkit:ListPickerItem Content="6 timer" />
-                <toolkit:ListPickerItem Content="7 timer" />
-                <toolkit:ListPickerItem Content="8 timer" />
-                <toolkit:ListPickerItem Content="9 timer" />
-                <toolkit:ListPickerItem Content="10 timer" />
-                <toolkit:ListPickerItem Content="11 timer" />
-                <toolkit:ListPickerItem Content="12 timer" />
-            </toolkit:ListPicker>
-            <TextBlock Margin="12,0,0,0"
-                       Text="By / Område" />
-            <toolkit:AutoCompleteBox Text="København" />
-        </StackPanel>
+    <phone:PhoneApplicationPage.DataContext>
+        <viewmodels:AddCustomTilePageViewModel />
+    </phone:PhoneApplicationPage.DataContext>
+    <Grid Background="Transparent">
+        <controls:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
+            <controls:PivotItem Header="{Binding Resources.AddLiveTile, Source={StaticResource AppResources}}">
+                <Grid Margin="0">
+                    <StackPanel Grid.Row="1"
+                                Margin="0">
+                        <TextBlock Margin="12,0,0,0"
+                                   Foreground="{StaticResource PhoneSubtleBrush}"
+                                   Text="Type" />
+                        <toolkit:ListPicker ListPickerMode="Expanded">
+                            <toolkit:ListPickerItem Content="Fikseret (F.eks. vejret kl. 8 hver dag)" />
+                            <toolkit:ListPickerItem Content="Offset (F.eks. vejret om 6 timer)" />
+                        </toolkit:ListPicker>
+                        <TextBlock Margin="12,0,0,0"
+                                   Foreground="{StaticResource PhoneSubtleBrush}"
+                                   Text="Tidspunkt" />
+                        <toolkit:ListPicker Margin="12,6,12,12"
+                                            ItemsSource="{Binding Hours}"
+                                            ListPickerMode="Full" />
+                        <TextBlock Margin="12,0,0,0"
+                                   Text="Offset"
+                                   Visibility="Collapsed" />
+                        <toolkit:ListPicker ItemsSource="{Binding Offsets}"
+                                            ListPickerMode="Full" />
+                        <TextBlock Margin="12,0,0,0"
+                                   Foreground="{StaticResource PhoneSubtleBrush}"
+                                   Text="By / Område" />
+                        <toolkit:AutoCompleteBox Text="København" />
+                    </StackPanel>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar BackgroundColor="Transparent"

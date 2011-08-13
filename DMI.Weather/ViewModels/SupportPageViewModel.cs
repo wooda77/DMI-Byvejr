@@ -37,8 +37,6 @@ namespace DMI.ViewModels
         public SupportPageViewModel()
         {
             AppSettings.IsFirstStart = false;
-
-            this.OK = new RelayCommand(Navigate);
             
             this.SendEmail = new RelayCommand(() =>
             {
@@ -68,16 +66,7 @@ namespace DMI.ViewModels
             }
             set
             {
-                if (!IsolatedStorageSettings.ApplicationSettings.Contains(AppSettings.ToggleGPSKey))
-                {
-                    IsolatedStorageSettings.ApplicationSettings.Add(AppSettings.ToggleGPSKey, value);
-                }
-                else
-                {
-                    IsolatedStorageSettings.ApplicationSettings[AppSettings.ToggleGPSKey] = value;
-                }
-
-                IsolatedStorageSettings.ApplicationSettings.Save();
+                AppSettings.IsGPSEnabled = value;
             }
         }
 
@@ -85,17 +74,6 @@ namespace DMI.ViewModels
         {
             get;
             private set;
-        }
-
-        public ICommand OK
-        {
-            get;
-            private set;
-        }
-
-        private void Navigate()
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(App.CurrentRootVisual.GoBack);
         }
     }
 }

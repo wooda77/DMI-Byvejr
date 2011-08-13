@@ -24,7 +24,7 @@
     </phone:PhoneApplicationPage.DataContext>
     <Grid>
         <c:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
-            <c:PivotItem Header="{Binding Resources.AppBar_ChooseCity, Source={StaticResource AppResources}}">
+            <c:PivotItem Margin="12,-80,12,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="75" />

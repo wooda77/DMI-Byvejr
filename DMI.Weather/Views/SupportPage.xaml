@@ -1,13 +1,15 @@
 ﻿<phone:PhoneApplicationPage x:Class="DMI.Views.SupportPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:assets="clr-namespace:DMI.Assets"
                             xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                            xmlns:dmi_viewmodels="clr-namespace:DMI.ViewModels"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:viewmodels="clr-namespace:DMI.ViewModels"
                             d:DesignHeight="800"
                             d:DesignWidth="480"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -19,48 +21,80 @@
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
     <phone:PhoneApplicationPage.DataContext>
-        <dmi_viewmodels:SupportPageViewModel />
+        <viewmodels:SupportPageViewModel />
     </phone:PhoneApplicationPage.DataContext>
+    <phone:PhoneApplicationPage.Resources>
+        <assets:BoolToToggleConverter x:Key="BoolToToggleConverter" />
+    </phone:PhoneApplicationPage.Resources>
     <Grid>
         <controls:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
             <controls:PivotItem Header="{Binding Resources.SupportHeader, Source={StaticResource AppResources}}">
                 <Grid Margin="0">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel Margin="12,0"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="{Binding Resources.AppName, Source={StaticResource AppResources}}" />
-                            <TextBlock Text="{Binding Resources.AppTitleSmall, Source={StaticResource AppResources}}" />
-                        </StackPanel>
-                        <StackPanel Margin="12,0"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="{Binding Resources.Version, Source={StaticResource AppResources}}" />
-                            <TextBlock Text="{Binding Version}" />
-                        </StackPanel>
-                        <StackPanel Margin="12,0"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="{Binding Resources.CreatedBy, Source={StaticResource AppResources}}" />
-                            <TextBlock Text="Claus Jørgensen" />
-                        </StackPanel>
-                        <TextBlock Margin="12"
+                        <Border BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="0,0,0,2" Padding="0,0,24,24">
+                            <StackPanel Orientation="Vertical">
+                                <Grid Margin="12,0">
+                                    <TextBlock Text="{Binding Resources.AppName, Source={StaticResource AppResources}}" HorizontalAlignment="Left" Margin="0,0,0,6" >
+                                    	<TextBlock.Foreground>
+                                    		<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+                                    	</TextBlock.Foreground>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Resources.AppTitleSmall, Source={StaticResource AppResources}}" HorizontalAlignment="Right" />
+                                </Grid>
+                                <Grid Margin="12,0">
+                                <TextBlock Text="{Binding Resources.Version, Source={StaticResource AppResources}}" Margin="0,0,0,6" >
+                                	<TextBlock.Foreground>
+                                		<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+                                	</TextBlock.Foreground>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Version}" HorizontalAlignment="Right" />
+                            </Grid>
+                            <Grid Margin="12,0">
+                        <TextBlock Text="{Binding Resources.CreatedBy, Source={StaticResource AppResources}}" Margin="0" >
+                        	<TextBlock.Foreground>
+                        		<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+                        	</TextBlock.Foreground>
+                        </TextBlock>
+                        <TextBlock Text="Claus Jørgensen" HorizontalAlignment="Right" />
+                    </Grid>
+                    </StackPanel>
+                        </Border>
+                        <Border BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="0,0,0,2" Padding="0,24">
+                            <StackPanel Orientation="Vertical">
+                                <toolkit:ToggleSwitch Margin="1,0"
+                                              Content="{Binding AllowGPS,
+                                                                Converter={StaticResource BoolToToggleConverter}}"
+                                              Header="Location services"
+                                              IsChecked="{Binding AllowGPS,
+                                                                  Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+                        <Border BorderThickness="0" Padding="0,24">
+                        	<Border.BorderBrush>
+                        		<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+                        	</Border.BorderBrush>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="12,0,24,0"
                                    Text="{Binding Resources.EmailHelpText,
                                                   Source={StaticResource AppResources}}"
-                                   TextWrapping="Wrap" />
-                        <Button Command="{Binding SendEmail}"
+                                   TextWrapping="Wrap" Foreground="{StaticResource PhoneSubtleBrush}" />
+                                <Button Command="{Binding SendEmail}"
                                 Content="{Binding Resources.SendEmail,
-                                                  Source={StaticResource AppResources}}" />
-                        <TextBlock Margin="12"
-                                   Text="{Binding Resources.GPSHelpText,
-                                                  Source={StaticResource AppResources}}"
-                                   TextWrapping="Wrap" />
-                        <CheckBox Content="{Binding Resources.AllowGPSUse,
-                                                    Source={StaticResource AppResources}}"
-                                  IsChecked="{Binding AllowGPS,
-                                                      Mode=TwoWay}" />
-                        <Button Command="{Binding OK}"
-                                Content="ok" />
+                                                  Source={StaticResource AppResources}}" HorizontalAlignment="Right" Margin="0,12,24,0" />
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar BackgroundColor="Transparent"
+                              IsMenuEnabled="True"
+                              IsVisible="True">
+            <shell:ApplicationBarIconButton Click="ApplicationBarIconButton_Click"
+                                            IconUri="/Resources/Images/appbar.check.png"
+                                            Text="ok" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

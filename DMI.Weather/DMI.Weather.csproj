@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Assets\Behaviors\ImageExtension.cs" />
     <Compile Include="Assets\Behaviors\SelectorExtension.cs" />
+    <Compile Include="Assets\BoolToToggleConverter.cs" />
     <Compile Include="Assets\DataTemplateSelector.cs" />
     <Compile Include="Assets\Behaviors\LongListSelectorExtension.cs" />
     <Compile Include="Assets\Behaviors\PushpinExtension.cs" />
@@ -133,6 +134,7 @@
     </Compile>
     <Compile Include="Resources\AppResources.cs" />
     <Compile Include="Assets\SmartDispatcher.cs" />
+    <Compile Include="ViewModels\AddCustomTilePageViewModel.cs" />
     <Compile Include="ViewModels\AddTilePageViewModel.cs" />
     <Compile Include="ViewModels\BeachWeatherPageViewModel.cs" />
     <Compile Include="ViewModels\ChooseCityPageViewModel.cs" />
@@ -266,8 +268,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.png" />
-    <Content Include="Background.png" />
+    <Content Include="DMI_ApplicationIcon.png" />
+    <Content Include="DMI_Background.png" />
     <Content Include="Resources\Images\1daymap.png" />
     <Content Include="Resources\Images\appbar.add.png" />
     <Content Include="Resources\Images\appbar.check.png" />
@@ -297,7 +299,6 @@
     <Content Include="Resources\Weather\8.png" />
     <Content Include="Resources\Weather\9.png" />
     <Content Include="Resources\Weather\Background.png" />
-    <Content Include="SplashScreenImage.jpg" />
     <Content Include="Resources\Images\appbar.addtofavs.png" />
     <Content Include="Resources\Images\appbar.favs.png" />
     <Content Include="Resources\Images\appbar.home.png" />

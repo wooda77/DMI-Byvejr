@@ -23,9 +23,6 @@
                             Style="{StaticResource TransitionPageStyle}"
                             SupportedOrientations="PortraitOrLandscape"
                             mc:Ignorable="d">
-    <phone:PhoneApplicationPage.DataContext>
-        <viewmodels:MainPageViewModel />
-    </phone:PhoneApplicationPage.DataContext>
     <Grid>
         <c:Pivot x:Name="PivotLayout"
                  Title="{Binding Resources.AppTitle,

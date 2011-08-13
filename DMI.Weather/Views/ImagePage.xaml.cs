@@ -36,7 +36,7 @@ namespace DMI.Views
         {
             base.OnNavigatedTo(e);
 
-            string imageSource = "";
+            string imageSource = string.Empty;
             if (NavigationContext.QueryString.TryGetValue("ImageSource", out imageSource))
             {
                 (DataContext as ImagePageViewModel).LoadImage(imageSource);

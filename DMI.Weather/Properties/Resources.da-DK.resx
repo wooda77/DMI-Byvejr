@@ -138,11 +138,14 @@
   <data name="AppBar_LiveTile" xml:space="preserve">
     <value>live tile</value>
   </data>
+  <data name="AppBar_NewTile" xml:space="preserve">
+    <value>ny tile</value>
+  </data>
   <data name="AppBar_Support" xml:space="preserve">
     <value>support</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>App Navn: </value>
+    <value>Applikation:</value>
   </data>
   <data name="AppSupportEmailHeader" xml:space="preserve">
     <value>DMI Byvejr Support</value>
@@ -151,7 +154,7 @@
     <value>VEJRUDSIGTEN FRA DMI</value>
   </data>
   <data name="AppTitleSmall" xml:space="preserve">
-    <value>Vejrudsigten fra DMI</value>
+    <value>DMI Byvejr</value>
   </data>
   <data name="BeachWeatherMenuItem" xml:space="preserve">
     <value>Strandvejr</value>
@@ -175,7 +178,7 @@
     <value>Lavet af: </value>
   </data>
   <data name="EmailHelpText" xml:space="preserve">
-    <value>Send venligst kommentarer eller tekniske spørgsmål til email: 10229@iha.dk</value>
+    <value>Send venligst kommentarer eller tekniske spørgsmål til 10229@iha.dk</value>
   </data>
   <data name="FavoritesHeader" xml:space="preserve">
     <value>favoritter</value>
@@ -216,11 +219,8 @@
   <data name="PinToHomeHelpText" xml:space="preserve">
     <value>Klik på en tile for at pin den til din home screen, eller tilføj en ny bruger-tilpasset tile.</value>
   </data>
-  <data name="PlusSixHoursTitle" xml:space="preserve">
-    <value>+6 timer ({0:HH':'mm})</value>
-  </data>
-  <data name="PlusTwelveHoursTitle" xml:space="preserve">
-    <value>+12 timer ({0:HH':'mm})</value>
+  <data name="PlusTitleTitle" xml:space="preserve">
+    <value>+{1} timer ({0:HH':'mm})</value>
   </data>
   <data name="PollenHeader" xml:space="preserve">
     <value>pollental</value>
@@ -267,6 +267,12 @@
   <data name="Tile_TapToCustom" xml:space="preserve">
     <value>Tap for at tilpasse</value>
   </data>
+  <data name="Toggle_Off" xml:space="preserve">
+    <value>Fra</value>
+  </data>
+  <data name="Toggle_On" xml:space="preserve">
+    <value>Til</value>
+  </data>
   <data name="UVIndexHelpText1" xml:space="preserve">
     <value>DMI venter skyforhold der betyder at UV-indeks forventes som på figuren herunder.</value>
   </data>
@@ -277,7 +283,7 @@
     <value>UV Indeks</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version: </value>
+    <value>Versions Nummer:</value>
   </data>
   <data name="WebTV_3D" xml:space="preserve">
     <value>WebTV - 3-døgnsudsigten</value>

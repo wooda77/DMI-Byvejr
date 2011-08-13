@@ -19,6 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System.Windows.Threading;
 
 namespace DMI.Views
 {
@@ -27,6 +28,11 @@ namespace DMI.Views
         public SupportPage()
         {
             InitializeComponent();
+        }
+
+        private void ApplicationBarIconButton_Click(object sender, System.EventArgs e)
+        {
+            SmartDispatcher.BeginInvoke(App.CurrentRootVisual.GoBack);
         }
     }
 }

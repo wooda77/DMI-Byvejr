@@ -44,14 +44,9 @@ namespace DMI.Views
         public MainPage()
         {
             InitializeComponent();
-
-            if (ApplicationBar == null)
-            {
-                SmartDispatcher.BeginInvoke(BuildApplicationBar);
-            }
         }
 
-        public MainPageViewModel ViewModel
+        private MainPageViewModel ViewModel
         {
             get
             {
@@ -166,32 +161,34 @@ namespace DMI.Views
                     ApplicationBar.IsVisible = (PivotLayout.SelectedItem == WeatherPivotItem);
             });
         }
-        
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
+            SmartDispatcher.BeginInvoke(() =>
+            {
+                if (DataContext == null)
+                    DataContext = new MainPageViewModel();
 
-            if (AppSettings.IsFirstStart)
-            {
-                App.Navigate(new Uri(AppSettings.SupportPageAdress, UriKind.Relative));
-            }
-            else
-            {
-                if (ViewModel.IsInitialized == false)
+                if (ViewModel != null && ViewModel.IsInitialized == false)
                     ViewModel.Initialize();
 
+                if (ApplicationBar == null)
+                    BuildApplicationBar();
+            });
+
+            SmartDispatcher.BeginInvoke(() =>
+            {
                 var postalCode = NavigationContext.TryGetStringKey("PostalCode");
                 var country = NavigationContext.TryGetStringKey("Country");
 
-                if (string.IsNullOrEmpty(postalCode) == false && 
+                if (string.IsNullOrEmpty(postalCode) == false &&
                     string.IsNullOrEmpty(country) == false)
                 {
-                    SmartDispatcher.BeginInvoke(() =>
-                    {
-                        ViewModel.ResolveLocation(postalCode, country);
-                    });
+                    ViewModel.ResolveLocation(postalCode, country);
                 }
-            }
+            });
+
+            base.OnNavigatedTo(e);
         }
 
         private void Page_OrientationChanged(object sender, OrientationChangedEventArgs e)

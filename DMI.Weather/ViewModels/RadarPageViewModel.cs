@@ -2,16 +2,20 @@
 using ImageTools.IO;
 using ImageTools.IO.Gif;
 using DMI.Common;
+using GalaSoft.MvvmLight;
 
 namespace DMI.ViewModels
 {
-    public class RadarPageViewModel
+    public class RadarPageViewModel : ViewModelBase
     {
         public RadarPageViewModel()
         {
-            Decoders.AddDecoder<GifDecoder>();
+            if (IsInDesignMode == false)
+            {
+                Decoders.AddDecoder<GifDecoder>();
 
-            this.ImageSource = new Uri(AppSettings.RadarAnimation, UriKind.Absolute);            
+                this.ImageSource = new Uri(AppSettings.RadarAnimation, UriKind.Absolute);            
+            }
         }
 
         public Uri ImageSource

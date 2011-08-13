@@ -73,7 +73,8 @@ namespace DMI.Assets
 
             if (command != null)
             {
-                command.Execute(e.AddedItems[0]);
+                if (e.AddedItems.Count > 0)
+                    command.Execute(e.AddedItems[0]);
             }
         }
     }

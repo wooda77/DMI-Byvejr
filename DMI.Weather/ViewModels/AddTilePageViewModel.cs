@@ -27,6 +27,10 @@ using GalaSoft.MvvmLight;
 using Microsoft.Phone.Scheduler;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 
 namespace DMI.ViewModels
 {
@@ -34,53 +38,64 @@ namespace DMI.ViewModels
     {
         public AddTilePageViewModel()
         {
+            this.Tiles = new ObservableCollection<TileItem>();
+            this.TileSelected = new RelayCommand<TileItem>(OnTileSelected);
+
             if (IsInDesignMode)
             {
                 LoadCity(8260, Denmark.Name);
             }
         }
 
-        public TileItem Latest
+        public ICommand TileSelected
         {
             get;
-            set;
+            private set;
         }
 
-        public void CreateCustomTile(int offsetHour)
+        public ObservableCollection<TileItem> Tiles
         {
-            var city = Latest.City;
-            var date = DateTime.Today.AddHours(offsetHour);
-
-            if (DateTime.Now.Hour > offsetHour)
-                date = date.AddDays(1);
-
-            LiveTileWeatherProvider.GetForecast(city, date)
-                .ContinueWith(task =>
-                {
-                    if (task.IsCompleted)
-                    {
-                        var custom = task.Result.FirstOrDefault(x => x.Df.Hour == offsetHour);
-                        if (custom != null)
-                        {
-                            var tile = new TileItem(city)
-                            {
-                                Offset = offsetHour,
-                                LocationName = city.Name,
-                                CloudImage = ImageIdToUri(custom.S),
-                                Temperature = custom.T + '°',
-                                TileType = TileType.Custom,
-                                Description = custom.Prosa
-                            };
-
-                            Deployment.Current.Dispatcher.BeginInvoke(() => GenerateTile(tile));
-                        }
-                    }
-                });
+            get;
+            private set;
         }
+
+        //public void CreateCustomTile(int offsetHour)
+        //{
+        //    var city = Latest.City;
+        //    var date = DateTime.Today.AddHours(offsetHour);
+
+        //    if (DateTime.Now.Hour > offsetHour)
+        //        date = date.AddDays(1);
+
+        //    LiveTileWeatherProvider.GetForecast(city, date)
+        //        .ContinueWith(task =>
+        //        {
+        //            if (task.IsCompleted)
+        //            {
+        //                var custom = task.Result.FirstOrDefault(x => x.Df.Hour == offsetHour);
+        //                if (custom != null)
+        //                {
+        //                    var tile = new TileItem(city)
+        //                    {
+        //                        Offset = offsetHour,
+        //                        LocationName = city.Name,
+        //                        CloudImage = ImageIdToUri(custom.S),
+        //                        Temperature = custom.T + '°',
+        //                        TileType = TileType.Custom,
+        //                        Description = custom.Prosa
+        //                    };
+
+        //                    Deployment.Current.Dispatcher.BeginInvoke(() => GenerateTile(tile));
+        //                }
+        //            }
+        //        });
+        //}
 
         public void LoadCity(int postalCode, string country)
         {
             var city = GetCityFromZipAndCountry(postalCode, country);
+
+            Tiles.Clear();
 
             LiveTileWeatherProvider.GetForecast(city, DateTime.Now)
                 .ContinueWith(task =>
@@ -88,23 +103,57 @@ namespace DMI.ViewModels
                     if (task.IsCompleted)
                     {
                         var result = task.Result;
-                        var now = task.Result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
-                        if (now != null)
-                        {
-                            var latestTile = new TileItem(city)
-                            {
-                                LocationName = city.Name,
-                                Title = string.Format(Properties.Resources.LatestTitle, now.Df),
-                                CloudImage = ImageIdToUri(now.S),
-                                Temperature = now.T + '°',
-                                TileType = TileType.Latest,
-                                Description = now.Prosa
-                            };
 
-                            Deployment.Current.Dispatcher.BeginInvoke(() => Latest = latestTile);
-                        }
+                        AddLatestTile(city, result);
+                        AddPlusTile(city, result, 6);
+                        AddPlusTile(city, result, 12);
                     }
                 });
+        }
+
+        private void AddLatestTile(GeoLocationCity city, List<LiveTileWeatherResponse> result)
+        {
+            var now = result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.Hour);
+            if (now != null)
+            {
+                var latestTile = new TileItem(city)
+                {
+                    LocationName = city.Name,
+                    Title = string.Format(Properties.Resources.LatestTitle, now.Df),
+                    CloudImage = ImageIdToUri(now.S),
+                    Temperature = now.T + '°',
+                    TileType = TileType.Latest,
+                    Description = now.Prosa
+                };
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    this.Tiles.Add(latestTile);
+                });
+            }
+        }
+
+        private void AddPlusTile(GeoLocationCity city, List<LiveTileWeatherResponse> result, int offset)
+        {
+            var custom = result.FirstOrDefault(x => x.Df.Hour == DateTime.Now.AddHours(offset).Hour);
+            if (custom != null)
+            {
+                var customTile = new TileItem(city)
+                {
+                    LocationName = city.Name,
+                    Title = string.Format(Properties.Resources.PlusTitleTitle, custom.Df, offset),
+                    CloudImage = ImageIdToUri(custom.S),
+                    Temperature = custom.T + '°',
+                    TileType = TileType.PlusTile,
+                    Offset = offset,
+                    Description = custom.Prosa
+                };
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    this.Tiles.Add(customTile);
+                });
+            }
         }
 
         public void GenerateTile(TileItem item)
@@ -116,6 +165,11 @@ namespace DMI.ViewModels
 #endif
 
             TileGenerator.GenerateTile(item, () => {}, true);
+        }
+
+        private void OnTileSelected(TileItem item)
+        {
+            GenerateTile(item);
         }
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)
