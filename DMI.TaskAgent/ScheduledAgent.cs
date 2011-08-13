@@ -44,12 +44,15 @@ namespace DMI.TaskAgent
             {
                 var task = RefreshTile(latestTiles[0], TileType.Latest);
 
+                var last = task;
+
                 if (latestTiles.Length > 1)
                 {
                     foreach (var tile in latestTiles.Skip(1))
                     {
                         var latestTile = tile;
                         task = task.ContinueWith(t => RefreshTile(latestTile, TileType.Latest));
+                        last = task;
                     }
                 }
 
@@ -57,13 +60,18 @@ namespace DMI.TaskAgent
                 {
                     var customTile = tile;
                     task = task.ContinueWith(t => RefreshTile(customTile, TileType.Custom));
+                    last = task;
                 }
 
                 foreach (var tile in plusTiles)
                 {
                     var plusTile = tile;
                     task = task.ContinueWith(t => RefreshTile(plusTile, TileType.PlusTile));
+                    last = task;
                 }
+
+                // repeat last task, to ensure it's actually updated.
+                task = task.ContinueWith(t => last);
 
                 task.ContinueWith(OnNotifyComplete);
             });
