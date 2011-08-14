@@ -19,6 +19,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Phone.Controls;
 
 namespace DMI.Views
 {
@@ -27,6 +31,25 @@ namespace DMI.Views
         public AddCustomTilePage()
         {
             InitializeComponent();
+        }
+
+        private void ListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listPicker = sender as ListPicker;
+
+            if (OffsetTimeListPicker != null && FixedTimeListPicker != null)
+            {
+                if (listPicker.SelectedIndex == 0) // offset
+                {
+                    OffsetTimeListPicker.Visibility = Visibility.Visible;
+                    FixedTimeListPicker.Visibility = Visibility.Collapsed;
+                }
+                else if (listPicker.SelectedIndex == 1) // fixed time
+                {
+                    FixedTimeListPicker.Visibility = Visibility.Visible;
+                    OffsetTimeListPicker.Visibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 }

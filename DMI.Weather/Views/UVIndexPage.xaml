@@ -45,7 +45,7 @@
             <StackPanel>
                 <TextBlock Text="{Binding Resources.UVIndexHelpText1,
                                       Source={StaticResource AppResources}}"
-                           TextWrapping="Wrap" />
+                           TextWrapping="Wrap" FontSize="18.667" />
                 <Grid>
                     <imageTools:AnimatedImage Margin="-12,12"
                                               HorizontalAlignment="Center"
@@ -184,7 +184,7 @@
                 </Grid>
                 <TextBlock Text="{Binding Resources.UVIndexHelpText2,
                                       Source={StaticResource AppResources}}"
-                           TextWrapping="Wrap" />
+                           TextWrapping="Wrap" FontSize="18.667" />
             </StackPanel>
         </Grid>
     </Grid>

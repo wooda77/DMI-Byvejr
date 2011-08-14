@@ -376,7 +376,7 @@ namespace DMI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on a tile to pin it to your home screen, or add a new custom tile..
+        ///   Looks up a localized string similar to Click on a tile to pin it to your home screen..
         /// </summary>
         public static string PinToHomeHelpText {
             get {

@@ -49,12 +49,12 @@
                            HorizontalAlignment="Left"
                            Text="{Binding Resources.RadarPageHelpText1,
                                           Source={StaticResource AppResources}}"
-                           TextWrapping="Wrap" />
+                           TextWrapping="Wrap" FontSize="18.667" />
                 <TextBlock Margin="24,0,24,12"
                            HorizontalAlignment="Left"
                            Text="{Binding Resources.RadarPageHelpText2,
                                           Source={StaticResource AppResources}}"
-                           TextWrapping="Wrap" />
+                           TextWrapping="Wrap" FontSize="18.667" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -56,6 +56,8 @@ namespace DMI.ViewModels
                 {
                     AppSettings.IsGPSEnabled = true;
                 }
+
+                AppSettings.IsFirstStart = false;
             }
         }
 

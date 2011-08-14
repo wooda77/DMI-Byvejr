@@ -55,6 +55,11 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GeoLocationCity.cs" />
+    <Compile Include="Properties\Resources.da-DK.Designer.cs">
+      <DependentUpon>Resources.da-DK.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -68,6 +73,10 @@
     <Compile Include="UVIndex.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.da-DK.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.da-DK.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

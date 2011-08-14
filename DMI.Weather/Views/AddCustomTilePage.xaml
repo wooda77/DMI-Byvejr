@@ -23,32 +23,54 @@
     </phone:PhoneApplicationPage.DataContext>
     <Grid Background="Transparent">
         <controls:Pivot Title="{Binding Resources.AppTitle, Source={StaticResource AppResources}}">
-            <controls:PivotItem Header="{Binding Resources.AddLiveTile, Source={StaticResource AppResources}}">
-                <Grid Margin="0">
-                    <StackPanel Grid.Row="1"
-                                Margin="0">
-                        <TextBlock Margin="12,0,0,0"
-                                   Foreground="{StaticResource PhoneSubtleBrush}"
-                                   Text="Type" />
-                        <toolkit:ListPicker ListPickerMode="Expanded">
-                            <toolkit:ListPickerItem Content="Fikseret (F.eks. vejret kl. 8 hver dag)" />
-                            <toolkit:ListPickerItem Content="Offset (F.eks. vejret om 6 timer)" />
-                        </toolkit:ListPicker>
-                        <TextBlock Margin="12,0,0,0"
-                                   Foreground="{StaticResource PhoneSubtleBrush}"
-                                   Text="Tidspunkt" />
-                        <toolkit:ListPicker Margin="12,6,12,12"
-                                            ItemsSource="{Binding Hours}"
-                                            ListPickerMode="Full" />
-                        <TextBlock Margin="12,0,0,0"
-                                   Text="Offset"
-                                   Visibility="Collapsed" />
-                        <toolkit:ListPicker ItemsSource="{Binding Offsets}"
-                                            ListPickerMode="Full" />
-                        <TextBlock Margin="12,0,0,0"
-                                   Foreground="{StaticResource PhoneSubtleBrush}"
-                                   Text="By / Område" />
-                        <toolkit:AutoCompleteBox Text="København" />
+            <controls:PivotItem Margin="12,0"
+                                Header="{Binding Resources.AddLiveTile,
+                                                 Source={StaticResource AppResources}}">
+                <Grid>
+                    <StackPanel>
+                        <StackPanel>
+                            <toolkit:ListPicker x:Name="TypeListPicker"
+                                                Header="Type"
+                                                ItemCountThreshold="3"
+                                                SelectionChanged="ListPicker_SelectionChanged"
+                                                ItemsSource="{Binding Types}">
+                            </toolkit:ListPicker>
+                        </StackPanel>
+                        <StackPanel>
+                            <toolkit:ListPicker x:Name="FixedTimeListPicker"
+                                                Margin="12,0,12,12"
+                                                FullModeHeader="Tidspunkt"
+                                                Header="Tidspunkt"
+                                                ItemCountThreshold="0"
+                                                ItemsSource="{Binding Hours}"
+                                                Visibility="Collapsed">
+                                <toolkit:ListPicker.FullModeItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                                   FontSize="{StaticResource PhoneFontSizeLarge}"
+                                                   Text="{Binding}"
+                                                   TextAlignment="Center" />
+                                    </DataTemplate>
+                                </toolkit:ListPicker.FullModeItemTemplate>
+                            </toolkit:ListPicker>
+                        </StackPanel>
+                        <StackPanel>
+                            <toolkit:ListPicker x:Name="OffsetTimeListPicker"
+                                                Margin="12,0,12,12"
+                                                FullModeHeader="Tidsforskydning"
+                                                Header="Tidsforskydning"
+                                                ItemCountThreshold="0"
+                                                ItemsSource="{Binding Offsets}">
+                                <toolkit:ListPicker.FullModeItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                                   FontSize="{StaticResource PhoneFontSizeLarge}"
+                                                   Text="{Binding}"
+                                                   TextAlignment="Center" />
+                                    </DataTemplate>
+                                </toolkit:ListPicker.FullModeItemTemplate>
+                            </toolkit:ListPicker>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
             </controls:PivotItem>

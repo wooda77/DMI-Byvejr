@@ -39,21 +39,27 @@ namespace DMI.Views
 
         private void BuildApplicationBar()
         {
-            this.ApplicationBar = new ApplicationBar();
-            this.ApplicationBar.BackgroundColor = Colors.Transparent;
-            
-            var addTileButton = new ApplicationBarIconButton();
-            addTileButton.IconUri = new Uri("/Resources/Images/appbar.add.png", UriKind.Relative);
-            addTileButton.Text = Properties.Resources.AppBar_NewTile;
-            addTileButton.Click += (sender, e) =>
-                {
-                    NavigationService.Navigate(new Uri("/Views/AddCustomTilePage.xaml", UriKind.Relative));
-                };
+            // Feature disabled untill the Mango release of the Silverlight Toolkit is ready.
 
-            this.ApplicationBar.Buttons.Add(addTileButton);
+
+            //if (ApplicationBar != null)
+            //    return;
             
-            this.ApplicationBar.IsMenuEnabled = true;
-            this.ApplicationBar.IsVisible = true;
+            //this.ApplicationBar = new ApplicationBar();
+            //this.ApplicationBar.BackgroundColor = Colors.Transparent;
+            
+            //var addTileButton = new ApplicationBarIconButton();
+            //addTileButton.IconUri = new Uri("/Resources/Images/appbar.add.png", UriKind.Relative);
+            //addTileButton.Text = Properties.Resources.AppBar_NewTile;
+            //addTileButton.Click += (sender, e) =>
+            //    {
+            //        NavigationService.Navigate(new Uri("/Views/AddCustomTilePage.xaml", UriKind.Relative));
+            //    };
+
+            //this.ApplicationBar.Buttons.Add(addTileButton);
+            
+            //this.ApplicationBar.IsMenuEnabled = true;
+            //this.ApplicationBar.IsVisible = true;
         }
 
         private AddTilePageViewModel ViewModel

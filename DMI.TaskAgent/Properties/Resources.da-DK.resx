@@ -117,143 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddLiveTile" xml:space="preserve">
-    <value>tilføj live tile</value>
-  </data>
-  <data name="AllowGPSUse" xml:space="preserve">
-    <value>Tillad brug af GPS</value>
-  </data>
-  <data name="AppBar_AddToFavorites" xml:space="preserve">
-    <value>tilføj favorit</value>
-  </data>
-  <data name="AppBar_ChooseCity" xml:space="preserve">
-    <value>vælg by</value>
-  </data>
-  <data name="AppBar_Favorites" xml:space="preserve">
-    <value>favoritter</value>
-  </data>
-  <data name="AppBar_GoToLocation" xml:space="preserve">
-    <value>vejret her</value>
-  </data>
-  <data name="AppBar_LiveTile" xml:space="preserve">
-    <value>live tile</value>
-  </data>
-  <data name="AppBar_NewTile" xml:space="preserve">
-    <value>ny tile</value>
-  </data>
-  <data name="AppBar_Support" xml:space="preserve">
-    <value>support</value>
-  </data>
-  <data name="AppName" xml:space="preserve">
-    <value>Applikation:</value>
-  </data>
-  <data name="AppSupportEmailHeader" xml:space="preserve">
-    <value>DMI Byvejr Support</value>
-  </data>
-  <data name="AppTitle" xml:space="preserve">
-    <value>VEJRUDSIGTEN FRA DMI</value>
-  </data>
-  <data name="AppTitleSmall" xml:space="preserve">
-    <value>DMI Byvejr</value>
-  </data>
-  <data name="BeachWeatherMenuItem" xml:space="preserve">
-    <value>Strandvejr</value>
-  </data>
-  <data name="CityWeatherHeader" xml:space="preserve">
-    <value>byvejr</value>
-  </data>
-  <data name="CountryHeader" xml:space="preserve">
-    <value>landsudsigt</value>
-  </data>
-  <data name="Country_Denmark" xml:space="preserve">
-    <value>Danmark</value>
-  </data>
-  <data name="Country_FaroeIslands" xml:space="preserve">
-    <value>Færøerne</value>
-  </data>
-  <data name="Country_Greenland" xml:space="preserve">
-    <value>Grønland</value>
-  </data>
-  <data name="CreatedBy" xml:space="preserve">
-    <value>Lavet af: </value>
-  </data>
-  <data name="EmailHelpText" xml:space="preserve">
-    <value>Send venligst kommentarer eller tekniske spørgsmål til 10229@iha.dk</value>
-  </data>
-  <data name="FavoritesHeader" xml:space="preserve">
-    <value>favoritter</value>
-  </data>
-  <data name="GPSDisabledError" xml:space="preserve">
-    <value>Kunne ikke finde din position, fordi GPS'en ikke er slået til.</value>
-  </data>
-  <data name="GPSHelpText" xml:space="preserve">
-    <value>Positions servicen (GPS) i DMI Byvejr sender din nuværende position til en service i skyen for at kunne konvertere din geografiske position om til et postnummer. Lokalisationen bliver så brugt til at vise vejr-information for dit aktuelle område.</value>
-  </data>
-  <data name="GPSResolveError" xml:space="preserve">
-    <value>Kunne ikke finde din position.</value>
-  </data>
-  <data name="Header_LiveTile" xml:space="preserve">
-    <value>live tile</value>
-  </data>
-  <data name="Header_UVIndex" xml:space="preserve">
-    <value>uv indeks</value>
-  </data>
-  <data name="InternetError" xml:space="preserve">
-    <value>Der er ingen internet forbindelse. Prøv igen senere.</value>
-  </data>
   <data name="LatestTitle" xml:space="preserve">
     <value>Seneste ({0:HH':'mm})</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Henter...</value>
-  </data>
-  <data name="MapsHeader" xml:space="preserve">
-    <value>diverse</value>
-  </data>
-  <data name="NewsHeader" xml:space="preserve">
-    <value>nyheder og tv</value>
-  </data>
-  <data name="NoRegionalForecast" xml:space="preserve">
-    <value>Der er ingen regionaludsigt for din region.</value>
-  </data>
-  <data name="PinToHomeHelpText" xml:space="preserve">
-    <value>Klik på en tile for at pin den til din home screen.</value>
-  </data>
-  <data name="PlusTitleTitle" xml:space="preserve">
-    <value>+{1} timer ({0:HH':'mm})</value>
-  </data>
-  <data name="PollenHeader" xml:space="preserve">
-    <value>pollental</value>
-  </data>
-  <data name="RadarHeaderSmall" xml:space="preserve">
-    <value>radar (nedbør)</value>
-  </data>
-  <data name="RadarMenuItem" xml:space="preserve">
-    <value>Radar (nedbør)</value>
-  </data>
-  <data name="RadarPageHelpText1" xml:space="preserve">
-    <value>Billederne opdateres hver 10. minut og viser nedbør, dvs. regn, sne, slud mv. over dansk område.</value>
-  </data>
-  <data name="RadarPageHelpText2" xml:space="preserve">
-    <value>I stabilt højtryksvejr kan radarbølgerne spejles i et varmt luftlag i atmosfæren, således at de rammer jorden eller havet i stedet for at ramme skyerne. I disse tilfælde vil der optræde "nedbørområder" på radarbillederne, som er falske.</value>
-  </data>
-  <data name="RegionalHeader" xml:space="preserve">
-    <value>regionaludsigt</value>
-  </data>
-  <data name="RemoveFavorite" xml:space="preserve">
-    <value>fjern favorit</value>
-  </data>
-  <data name="SendEmail" xml:space="preserve">
-    <value>send email</value>
-  </data>
-  <data name="SupportHeader" xml:space="preserve">
-    <value>support</value>
-  </data>
   <data name="Tile_Afternoon" xml:space="preserve">
     <value>Eftermiddag ({0:HH':'mm})</value>
-  </data>
-  <data name="Tile_CustomTile" xml:space="preserve">
-    <value>Special Tile</value>
   </data>
   <data name="Tile_Evening" xml:space="preserve">
     <value>Aften ({0:HH':'mm})</value>
@@ -263,35 +131,5 @@
   </data>
   <data name="Tile_Night" xml:space="preserve">
     <value>Nat ({0:HH':'mm})</value>
-  </data>
-  <data name="Tile_TapToCustom" xml:space="preserve">
-    <value>Tap for at tilpasse</value>
-  </data>
-  <data name="Toggle_Off" xml:space="preserve">
-    <value>Fra</value>
-  </data>
-  <data name="Toggle_On" xml:space="preserve">
-    <value>Til</value>
-  </data>
-  <data name="UVIndexHelpText1" xml:space="preserve">
-    <value>DMI venter skyforhold der betyder at UV-indeks forventes som på figuren herunder.</value>
-  </data>
-  <data name="UVIndexHelpText2" xml:space="preserve">
-    <value>UV-indeks er et mål for intensiteten af den (hud-) skadelige UV-stråling. I middagssolen kan det ved Ækvator højst blive ca. 15, og i Danmark højst ca. 7 i sommermånederne.</value>
-  </data>
-  <data name="UVIndexMenuItem" xml:space="preserve">
-    <value>UV Indeks</value>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>Versions Nummer:</value>
-  </data>
-  <data name="WebTV_3D" xml:space="preserve">
-    <value>WebTV - 3-døgnsudsigten</value>
-  </data>
-  <data name="WebTV_DMI" xml:space="preserve">
-    <value>WebTV - Dagens Vejrudsigt</value>
-  </data>
-  <data name="WebTV_SEJL" xml:space="preserve">
-    <value>WebTV - Sejlervejret</value>
   </data>
 </root>

@@ -223,7 +223,7 @@
     <value>Periodically checks for weather updates and updates the tile on the start screen.</value>
   </data>
   <data name="PinToHomeHelpText" xml:space="preserve">
-    <value>Click on a tile to pin it to your home screen, or add a new custom tile.</value>
+    <value>Click on a tile to pin it to your home screen.</value>
   </data>
   <data name="PlusTitleTitle" xml:space="preserve">
     <value>+{1} hours ({0:HH':'mm})</value>
