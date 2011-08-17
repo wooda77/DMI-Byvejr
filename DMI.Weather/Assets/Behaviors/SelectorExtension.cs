@@ -76,6 +76,8 @@ namespace DMI.Assets
                 if (e.AddedItems.Count > 0)
                     command.Execute(e.AddedItems[0]);
             }
+
+            selector.SelectedIndex = -1;
         }
     }
 }

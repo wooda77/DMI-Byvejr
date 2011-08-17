@@ -8,6 +8,7 @@
              xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
              d:DesignHeight="480"
              d:DesignWidth="480"
+             x:Name="FavoritesPivotUserControl"
              FontFamily="{StaticResource PhoneFontFamilyNormal}"
              FontSize="{StaticResource PhoneFontSizeNormal}"
              Foreground="{StaticResource PhoneForegroundBrush}"
@@ -42,7 +43,7 @@
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu IsZoomEnabled="False">
                                         <toolkit:MenuItem Command="{Binding DataContext.RemoveFromFavorites,
-                                                                            ElementName=MainPhoneApplicationPage}"
+                                                                            ElementName=FavoritesPivotUserControl}"
                                                           CommandParameter="{Binding}"
                                                           Header="{Binding Resources.RemoveFavorite,
                                                                            Source={StaticResource AppResources}}" />

@@ -71,10 +71,12 @@ namespace DMI.Assets
             var selector = sender as LongListSelector;
             var command = GetCommand(selector);
 
-            if (command != null)
+            if (command != null && selector.SelectedItem != null)
             {
-                command.Execute(e.AddedItems[0]);
+                command.Execute(selector.SelectedItem);
             }
+
+            selector.SelectedItem = null;
         }
     }
 }
