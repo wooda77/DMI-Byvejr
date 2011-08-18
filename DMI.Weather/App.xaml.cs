@@ -27,6 +27,8 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
+using DMI.Common;
+using Microsoft.Phone.Scheduler;
 
 namespace DMI
 {

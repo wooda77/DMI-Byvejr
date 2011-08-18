@@ -59,38 +59,6 @@ namespace DMI.ViewModels
             private set;
         }
 
-        //public void CreateCustomTile(int offsetHour)
-        //{
-        //    var city = Latest.City;
-        //    var date = DateTime.Today.AddHours(offsetHour);
-
-        //    if (DateTime.Now.Hour > offsetHour)
-        //        date = date.AddDays(1);
-
-        //    LiveTileWeatherProvider.GetForecast(city, date)
-        //        .ContinueWith(task =>
-        //        {
-        //            if (task.IsCompleted)
-        //            {
-        //                var custom = task.Result.FirstOrDefault(x => x.Df.Hour == offsetHour);
-        //                if (custom != null)
-        //                {
-        //                    var tile = new TileItem(city)
-        //                    {
-        //                        Offset = offsetHour,
-        //                        LocationName = city.Name,
-        //                        CloudImage = ImageIdToUri(custom.S),
-        //                        Temperature = custom.T + '°',
-        //                        TileType = TileType.Custom,
-        //                        Description = custom.Prosa
-        //                    };
-
-        //                    Deployment.Current.Dispatcher.BeginInvoke(() => GenerateTile(tile));
-        //                }
-        //            }
-        //        });
-        //}
-
         public void LoadCity(int postalCode, string country)
         {
             var city = GetCityFromZipAndCountry(postalCode, country);

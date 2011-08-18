@@ -42,13 +42,23 @@ namespace DMI.TaskAgent
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                var task = RefreshTile(latestTiles[0], TileType.Latest);
+                Task task = null;
+                
+                if (latestTiles.Any())
+                    task = RefreshTile(latestTiles[0], TileType.Latest);
+                else if (plusTiles.Any())
+                    task = RefreshTile(plusTiles[0], TileType.PlusTile);
+                else if (customTiles.Any())
+                    task = RefreshTile(customTiles[0], TileType.Custom);
+
+                if (task == null)
+                    return;
 
                 var last = task;
 
                 if (latestTiles.Length > 1)
                 {
-                    foreach (var tile in latestTiles.Skip(1))
+                    foreach (var tile in latestTiles)
                     {
                         var latestTile = tile;
                         task = task.ContinueWith(t => RefreshTile(latestTile, TileType.Latest));
