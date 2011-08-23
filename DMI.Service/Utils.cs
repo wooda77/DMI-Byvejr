@@ -20,11 +20,11 @@
 // THE SOFTWARE
 #endregion
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Microsoft.Phone.Scheduler;
-using System.Collections.Generic;
 
-namespace DMI.Common
+namespace DMI.Service
 {
     public static class Utils
     {

@@ -19,13 +19,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.IO.IsolatedStorage;
-using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
-using DMI.Common;
-using DMI.Properties;
+using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;

@@ -21,20 +21,12 @@
 #endregion
 using System;
 
-namespace DMI.Common
+namespace DMI.TaskAgent
 {
-    public class UVIndex
+    public enum TileType
     {
-        public string Text
-        {
-            get;
-            set;
-        }
-
-        public Uri Image
-        {
-            get;
-            set;
-        }
+        Latest,
+        Custom,
+        PlusTile,
     }
 }

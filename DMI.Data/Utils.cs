@@ -19,22 +19,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System;
+using System.Text;
+using System.Collections.Generic;
 
-[assembly: AssemblyTitle("DMI.Common")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DMI.Common")]
-[assembly: AssemblyCopyright("Copyright © Claus Jørgensen 2011")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+namespace DMI.Data
+{
+    public static class Utils
+    {
+        public static string ParsePollenData(string data)
+        {
+            if (string.IsNullOrEmpty(data))
+                throw new ArgumentException("Argument 'data' cannot be null or empty.");
 
-[assembly: ComVisible(false)]
+            string input = data.Replace("\n", "").Replace(" ", "");
 
-[assembly: Guid("0c40a0c7-85fb-42de-9cd0-3c6cc1e8995a")]
+            var result = new StringBuilder();
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+            string[] parts = input.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+            {
+                var partValues = part.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if ((partValues.Length == 2) && (partValues[1] != "-"))
+                    result.AppendFormat("{0}: {1} , ", partValues[0], partValues[1]);
+            }
+
+            string output = result.ToString();
+
+            if (string.IsNullOrEmpty(output) == false && output.Length >= 4)
+                output = output.Substring(0, output.Length - 3);
+
+            return output;
+        }
+    }
+}

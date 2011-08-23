@@ -24,9 +24,9 @@ using System.Device.Location;
 using System.Globalization;
 using System.Net;
 using RestSharp;
-using DMI.Service.Properties;
+using DMI.Data.Properties;
 
-namespace DMI.Service
+namespace DMI.Data
 {
     public static class BingLocationProvider
     {

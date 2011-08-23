@@ -120,12 +120,6 @@
   <data name="LatestTitle" xml:space="preserve">
     <value>Latest ({0:HH':'mm})</value>
   </data>
-  <data name="PlusSixHoursTitle" xml:space="preserve">
-    <value>+6 hours ({0:HH':'mm})</value>
-  </data>
-  <data name="PlusTwelveHoursTitle" xml:space="preserve">
-    <value>+12 hours ({0:HH':'mm})</value>
-  </data>
   <data name="Tile_Afternoon" xml:space="preserve">
     <value>Afternoon ({0:HH':'mm})</value>
   </data>

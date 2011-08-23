@@ -20,12 +20,9 @@
 // THE SOFTWARE
 #endregion
 using System;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using DMI.Assets;
-using DMI.Common;
+using DMI.Service;
 
 namespace DMI.Views
 {

@@ -22,7 +22,7 @@
 using System;
 using System.IO.IsolatedStorage;
 
-namespace DMI.Common
+namespace DMI.Service
 {
     /// <summary>
     /// Application Settings

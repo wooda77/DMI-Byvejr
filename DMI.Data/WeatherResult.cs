@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace DMI.Service
+namespace DMI.Data
 {
     public class WebTVResponse
     {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace DMI.Service
+namespace DMI.Data
 {
     public static class WebRequestEx
     {

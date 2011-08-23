@@ -20,17 +20,16 @@
 // THE SOFTWARE
 #endregion
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using DMI.Common;
+using System.Windows;
+using System.Windows.Input;
+using DMI.Data;
 using DMI.Service;
 using GalaSoft.MvvmLight;
-using Microsoft.Phone.Scheduler;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.Generic;
+using Microsoft.Phone.Scheduler;
 
 namespace DMI.ViewModels
 {
@@ -132,7 +131,7 @@ namespace DMI.ViewModels
             ScheduledActionService.LaunchForTest(AppSettings.PeriodicTaskName, TimeSpan.FromSeconds(1));
 #endif
 
-            TileGenerator.GenerateTile(item, () => {}, true);
+            TileGenerator.GenerateTile(item, delegate() {});
         }
 
         private void OnTileSelected(TileItem item)

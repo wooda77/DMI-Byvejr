@@ -49,6 +49,7 @@
     <Reference Include="RestSharp.WindowsPhone, Version=101.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.101.3\lib\sl3-wp\RestSharp.WindowsPhone.dll</HintPath>
     </Reference>
+    <Reference Include="System.Device" />
     <Reference Include="System.Threading.Tasks.WP7">
       <HintPath>..\packages\TaskParallelLibrary.WP7.1.0\lib\sl3-wp\System.Threading.Tasks.WP7.dll</HintPath>
     </Reference>
@@ -60,6 +61,11 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\RestSharpExtension.cs" />
+    <Compile Include="Common\TileItem.cs" />
+    <Compile Include="Common\TileType.cs" />
+    <Compile Include="Common\LiveTileWeatherProvider.cs" />
+    <Compile Include="Common\Utils.cs" />
     <Compile Include="Properties\Resources.da-DK.Designer.cs">
       <DependentUpon>Resources.da-DK.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -72,16 +78,6 @@
     </Compile>
     <Compile Include="ScheduledAgent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DMI.Common\DMI.Common.csproj">
-      <Project>{EBC918D6-094E-4F0B-B399-8064ADF0913E}</Project>
-      <Name>DMI.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DMI.Service\DMI.Service.csproj">
-      <Project>{A138B4D9-93BC-4AF2-A822-6942540EF4A5}</Project>
-      <Name>DMI.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.da-DK.resx">
@@ -119,6 +115,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMI.Data\DMI.Data.csproj">
+      <Project>{84FA150B-7B55-4F6F-BA90-04B53481B89D}</Project>
+      <Name>DMI.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

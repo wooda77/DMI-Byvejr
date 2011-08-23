@@ -19,14 +19,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Windows.Media;
 using System.Windows.Navigation;
-using DMI.Common;
-using DMI.ViewModels;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using System.Windows.Threading;
+using DMI.ViewModels;
+using Microsoft.Phone.Shell;
 
 namespace DMI.Views
 {
@@ -40,7 +36,6 @@ namespace DMI.Views
         private void BuildApplicationBar()
         {
             // Feature disabled untill the Mango release of the Silverlight Toolkit is ready.
-
 
             //if (ApplicationBar != null)
             //    return;

@@ -76,39 +76,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beach.cs" />
-    <Compile Include="BingLocationResponse.cs" />
-    <Compile Include="Denmark.cs" />
-    <Compile Include="BingLocationProvider.cs" />
-    <Compile Include="FaroeIslands.cs" />
-    <Compile Include="RestSharpExtension.cs" />
-    <Compile Include="UVIndexProvider.cs" />
-    <Compile Include="WebRequestEx.cs" />
+    <Compile Include="AppSettings.cs" />
     <Compile Include="LiveTileWeatherProvider.cs" />
+    <Compile Include="Properties\Resources.da-DK.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.da-DK.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RestSharpExtension.cs" />
+    <Compile Include="TileGenerator.cs" />
+    <Compile Include="TileItem.cs" />
+    <Compile Include="TileType.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="UVIndex.cs" />
+    <Compile Include="UVIndexProvider.cs" />
     <Compile Include="NewsProvider.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Greenland.cs" />
-    <Compile Include="IWeatherProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WeatherResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.da-DK.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.da-DK.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DMI.Common\DMI.Common.csproj">
-      <Project>{EBC918D6-094E-4F0B-B399-8064ADF0913E}</Project>
-      <Name>DMI.Common</Name>
+    <ProjectReference Include="..\DMI.Data\DMI.Data.csproj">
+      <Project>{84FA150B-7B55-4F6F-BA90-04B53481B89D}</Project>
+      <Name>DMI.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

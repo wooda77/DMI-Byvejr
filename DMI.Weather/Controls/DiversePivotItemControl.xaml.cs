@@ -20,7 +20,7 @@
 // THE SOFTWARE
 #endregion
 using System;
-using DMI.Common;
+using DMI.Service;
 
 namespace DMI.Controls
 {

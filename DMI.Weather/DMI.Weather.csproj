@@ -100,6 +100,7 @@
     <Compile Include="Assets\Behaviors\LongListSelectorExtension.cs" />
     <Compile Include="Assets\Behaviors\PushpinExtension.cs" />
     <Compile Include="Assets\Behaviors\TextBoxExtension.cs" />
+    <Compile Include="Assets\Extensions.cs" />
     <Compile Include="Assets\LowProfileImageLoader.cs" />
     <Compile Include="Assets\PushpinTemplateSelector.cs" />
     <Compile Include="Assets\IsNullOrEmptyToVisiblityConverter.cs" />
@@ -321,9 +322,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DMI.Common\DMI.Common.csproj">
-      <Project>{EBC918D6-094E-4F0B-B399-8064ADF0913E}</Project>
-      <Name>DMI.Common</Name>
+    <ProjectReference Include="..\DMI.Data\DMI.Data.csproj">
+      <Project>{84FA150B-7B55-4F6F-BA90-04B53481B89D}</Project>
+      <Name>DMI.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\DMI.Service\DMI.Service.csproj">
       <Project>{A138B4D9-93BC-4AF2-A822-6942540EF4A5}</Project>

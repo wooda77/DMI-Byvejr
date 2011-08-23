@@ -19,77 +19,91 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
-using System.Device.Location;
+using System.Collections.Generic;
 
-namespace DMI.Common
+namespace DMI.Data
 {
-    public class GeoLocationCity : IComparable<GeoLocationCity>
+    public class BingLocationResponse
     {
-        public GeoLocationCity()
-        {
-        }
-
-        public GeoLocationCity(string country, int postalCode, int id, string name, double latitude, double longitude)
-        {
-            this.Country = country;
-            this.Id = id;
-            this.PostalCode = postalCode;
-            this.Name = name;
-            this.Location = new GeoCoordinate(latitude, longitude);
-        }
-
-        public string Country
+        public List<BingResourceSet> ResourceSets
         {
             get;
             set;
         }
 
-        public string ShortCountryName
-        {
-            get
-            {
-                if (Country == "Denmark")
-                    return "DK";
-                else if (Country == "Greenland")
-                    return "GR";
-                else if (Country == "Faroe Islands")
-                    return "FR";
-                else
-                    return "__";
-            }
-        }
-
-        public int Id
+        public string StatusCode
         {
             get;
             set;
         }
 
-        public string Name
+        public string StatusDescription
+        {
+            get;
+            set;
+        }
+    }
+
+    public class BingResourceSet
+    {
+        public List<BingResource> Resources
+        {
+            get;
+            set;
+        }
+    }
+
+    public class BingResource
+    {
+        public BingResourceAddress Address
+        {
+            get;
+            set;
+        }
+    }
+
+    public class BingResourceAddress
+    {
+        public string AddressLine
         {
             get;
             set;
         }
 
-        public int PostalCode
+        public string AdminDistrict
         {
             get;
             set;
         }
 
-        public GeoCoordinate Location
+        public string AdminDistrict2
         {
             get;
             set;
         }
 
-        public int CompareTo(GeoLocationCity other)
+        public string CountryRegion
         {
-            if (other == null)
-                return -1;
+            get;
+            set;
+        }
 
-            return this.Name.CompareTo(other.Name);
+        public string FormattedAddress
+        {
+            get;
+            set;
+        }
+
+        public string Locality
+        {
+            get;
+            set;
+        }
+
+        public string PostalCode
+        {
+            get;
+            set;
         }
     }
 }

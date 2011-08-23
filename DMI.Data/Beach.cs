@@ -19,14 +19,58 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System;
+using System.Device.Location;
 
-namespace DMI.Common
+namespace DMI.Data
 {
-    public enum TileType
+    public class Beach
     {
-        Latest,
-        Custom,
-        PlusTile,
+        private GeoCoordinate location;
+        
+        public Beach()
+        {
+            this.HasBlueFlag = true;
+        }
+
+        public GeoCoordinate Location
+        {
+            get
+            {
+                if (location == null)
+                    location = new GeoCoordinate(this.Latitude, this.Longitude);
+
+                return location;
+            }
+        }
+
+        public int ID
+        {
+            get;
+            set;
+        }
+
+        public double Latitude
+        {
+            get;
+            set;
+        }
+
+        public double Longitude
+        {
+            get;
+            set;
+        }
+
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public bool HasBlueFlag
+        {
+            get;
+            set;
+        }
     }
 }

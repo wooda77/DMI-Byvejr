@@ -29,12 +29,12 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using DMI.Common;
 using DMI.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
 using DMI.Resources;
+using DMI.Data;
 
 namespace DMI.ViewModels
 {

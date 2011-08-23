@@ -23,11 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Xml.Linq;
-using Newtonsoft.Json;
-using DMI.Common;
+using DMI.Data;
 using DMI.Service.Properties;
+using Newtonsoft.Json;
 
 namespace DMI.Service
 {

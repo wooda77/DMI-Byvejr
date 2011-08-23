@@ -21,8 +21,9 @@
 #endregion
 using System;
 using System.ComponentModel;
+using DMI.Data;
 
-namespace DMI.Common
+namespace DMI.Service
 {
     public class TileItem : INotifyPropertyChanged
     {

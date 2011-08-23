@@ -19,88 +19,70 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Collections.Generic;
+using System;
+using System.ComponentModel;
+using DMI.Data;
 
-namespace DMI.Service
+namespace DMI.TaskAgent
 {
-    public class BingLocationResponse
+    public class TileItem : INotifyPropertyChanged
     {
-        public List<BingResourceSet> ResourceSets
+#pragma warning disable 67
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 67
+
+        public TileItem()
+        {
+        }
+
+        public TileItem(GeoLocationCity city)
+        {
+            this.City = city;
+        }
+
+        public int Offset
         {
             get;
             set;
         }
 
-        public string StatusCode
+        public GeoLocationCity City
         {
             get;
             set;
         }
 
-        public string StatusDescription
-        {
-            get;
-            set;
-        }
-    }
-
-    public class BingResourceSet
-    {
-        public List<BingResource> Resources
-        {
-            get;
-            set;
-        }
-    }
-
-    public class BingResource
-    {
-        public BingResourceAddress Address
-        {
-            get;
-            set;
-        }
-    }
-
-    public class BingResourceAddress
-    {
-        public string AddressLine
+        public Uri CloudImage
         {
             get;
             set;
         }
 
-        public string AdminDistrict
+        public string LocationName
         {
             get;
             set;
         }
 
-        public string AdminDistrict2
+        public string Title
         {
             get;
             set;
         }
 
-        public string CountryRegion
+        public string Temperature
         {
             get;
             set;
         }
 
-        public string FormattedAddress
+        public TileType TileType
         {
             get;
             set;
         }
 
-        public string Locality
-        {
-            get;
-            set;
-        }
-
-        public string PostalCode
+        public string Description
         {
             get;
             set;

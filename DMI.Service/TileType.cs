@@ -19,33 +19,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Windows;
-using DMI.Service;
-using DMI.Data;
+using System;
 
-namespace DMI.Assets
+namespace DMI.Service
 {
-    public class PushpinTemplateSelector : DataTemplateSelector
+    public enum TileType
     {
-        public DataTemplate BlueFlag
-        {
-            get;
-            set;
-        }
-
-        public DataTemplate NoFlag
-        {
-            get;
-            set;
-        }
-
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            var beach = item as Beach;
-            if (beach != null)
-                return beach.HasBlueFlag ? BlueFlag : NoFlag;
-
-            return base.SelectTemplate(item, container);
-        }
+        Latest,
+        Custom,
+        PlusTile,
     }
 }

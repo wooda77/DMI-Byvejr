@@ -27,10 +27,9 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using DMI.Service.Properties;
-using DMI.Common;
+using DMI.Data.Properties;
 
-namespace DMI.Service
+namespace DMI.Data
 {
     public class Greenland : IWeatherProvider
     {

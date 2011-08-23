@@ -22,16 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using DMI.Service.Properties;
-using DMI.Common;
-using System.IO;
+using DMI.Data.Properties;
 
-namespace DMI.Service
+namespace DMI.Data
 {
     public class Denmark : IWeatherProvider
     {

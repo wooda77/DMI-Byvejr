@@ -165,6 +165,9 @@
   <data name="NewsFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/rss-nyheder</value>
   </data>
+  <data name="PeriodicTaskHelpMessage" xml:space="preserve">
+    <value>Periodically checks for weather updates and updates the tile on the start screen.</value>
+  </data>
   <data name="PollenFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/pollen-feed.xml</value>
   </data>
@@ -218,6 +221,18 @@
   </data>
   <data name="RegionalText_SouthZealand" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/mobil/til_lands/lille-reg_vssjlol.htm</value>
+  </data>
+  <data name="Tile_Afternoon" xml:space="preserve">
+    <value>Afternoon ({0:HH':'mm})</value>
+  </data>
+  <data name="Tile_Evening" xml:space="preserve">
+    <value>Evening ({0:HH':'mm})</value>
+  </data>
+  <data name="Tile_Morning" xml:space="preserve">
+    <value>Morning ({0:HH':'mm})</value>
+  </data>
+  <data name="Tile_Night" xml:space="preserve">
+    <value>Night ({0:HH':'mm})</value>
   </data>
   <data name="UVIndexFeed" xml:space="preserve">
     <value>http://www.dmi.dk/dmi/index/danmark/solvarsel.htm</value>

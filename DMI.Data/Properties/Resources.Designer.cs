@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DMI.Service.Properties {
+namespace DMI.Data.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DMI.Service.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DMI.Service.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DMI.Data.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -205,15 +205,6 @@ namespace DMI.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Periodically checks for weather updates and updates the tile on the start screen..
-        /// </summary>
-        internal static string PeriodicTaskHelpMessage {
-            get {
-                return ResourceManager.GetString("PeriodicTaskHelpMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to http://www.dmi.dk/dmi/pollen-feed.xml.
         /// </summary>
         internal static string PollenFeed {
@@ -372,42 +363,6 @@ namespace DMI.Service.Properties {
         internal static string RegionalText_SouthZealand {
             get {
                 return ResourceManager.GetString("RegionalText_SouthZealand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afternoon ({0:HH&apos;:&apos;mm}).
-        /// </summary>
-        internal static string Tile_Afternoon {
-            get {
-                return ResourceManager.GetString("Tile_Afternoon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Evening ({0:HH&apos;:&apos;mm}).
-        /// </summary>
-        internal static string Tile_Evening {
-            get {
-                return ResourceManager.GetString("Tile_Evening", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Morning ({0:HH&apos;:&apos;mm}).
-        /// </summary>
-        internal static string Tile_Morning {
-            get {
-                return ResourceManager.GetString("Tile_Morning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Night ({0:HH&apos;:&apos;mm}).
-        /// </summary>
-        internal static string Tile_Night {
-            get {
-                return ResourceManager.GetString("Tile_Night", resourceCulture);
             }
         }
         

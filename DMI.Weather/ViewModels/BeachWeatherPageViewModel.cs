@@ -26,6 +26,7 @@ using System.Device.Location;
 using DMI.Service;
 using System.Windows;
 using System.Collections.ObjectModel;
+using DMI.Data;
 
 namespace DMI.ViewModels
 {

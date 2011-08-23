@@ -19,33 +19,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE
 #endregion
-using System.Windows;
-using DMI.Service;
-using DMI.Data;
+using System;
+using System.Text;
+using Microsoft.Phone.Scheduler;
+using System.Collections.Generic;
 
-namespace DMI.Assets
+namespace DMI.TaskAgent
 {
-    public class PushpinTemplateSelector : DataTemplateSelector
+    public static class Utils
     {
-        public DataTemplate BlueFlag
+        public static Dictionary<string, string> ParseQueryString(string queryString)
         {
-            get;
-            set;
-        }
+            Dictionary<string, string> nameValueCollection = new Dictionary<string, string>();
+            string[] items = queryString.Split('&');
 
-        public DataTemplate NoFlag
-        {
-            get;
-            set;
-        }
+            foreach (string item in items)
+            {
+                if (item.Contains("="))
+                {
+                    string[] nameValue = item.Split('=');
+                    if (nameValue[0].Contains("?"))
+                        nameValue[0] = nameValue[0].Replace("?", "");
+                    nameValueCollection.Add(nameValue[0], System.Net.HttpUtility.UrlDecode(nameValue[1]));
+                }
+            }
 
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            var beach = item as Beach;
-            if (beach != null)
-                return beach.HasBlueFlag ? BlueFlag : NoFlag;
-
-            return base.SelectTemplate(item, container);
+            return nameValueCollection;
         }
     }
 }

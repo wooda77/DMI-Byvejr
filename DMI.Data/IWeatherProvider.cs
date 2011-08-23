@@ -22,7 +22,7 @@
 using System;
 using System.Device.Location;
 
-namespace DMI.Service
+namespace DMI.Data
 {
     public interface IWeatherProvider
     {

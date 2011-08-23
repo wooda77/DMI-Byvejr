@@ -28,7 +28,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using DMI.Assets;
-using DMI.Common;
+using DMI.Service;
 using DMI.Properties;
 using DMI.ViewModels;
 using DMI.Controls;

@@ -1,7 +1,7 @@
 ﻿using System;
 using ImageTools.IO;
 using ImageTools.IO.Gif;
-using DMI.Common;
+using DMI.Service;
 using GalaSoft.MvvmLight;
 
 namespace DMI.ViewModels

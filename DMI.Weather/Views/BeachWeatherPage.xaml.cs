@@ -20,9 +20,8 @@
 // THE SOFTWARE
 #endregion
 using System;
-using DMI.Common;
+using DMI.Data;
 using DMI.Service;
-using DMI.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
 

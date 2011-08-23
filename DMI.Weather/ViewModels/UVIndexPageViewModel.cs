@@ -21,7 +21,6 @@
 #endregion
 using System;
 using System.Windows.Threading;
-using DMI.Common;
 using DMI.Service;
 using GalaSoft.MvvmLight;
 using ImageTools.IO;
