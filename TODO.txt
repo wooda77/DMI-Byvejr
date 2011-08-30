@@ -1,8 +1,0 @@
-TODO
-
-   - Lokale vejrstationer "Borgervejr" (Temperatur / Middelvind)
-   - UV Index
-   - Flere Vejrkort
-   - Tidevand
-   - Vandstand
-
