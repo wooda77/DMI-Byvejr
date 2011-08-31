@@ -21,12 +21,9 @@
                                                                    FallbackValue=Resources/Images/Blank.png}"
                    Stretch="UniformToFill"
                    Tag="{Binding CountryImage}"
+                   Tap="OpenInLandscapeMode"
                    Visibility="{Binding CountryWeather.Image,
-                                        Converter={StaticResource IsNullOrEmptyToVisiblityConverter}}">
-                <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener Tap="OpenInLandscapeMode" />
-                </toolkit:GestureService.GestureListener>
-            </Image>
+                                        Converter={StaticResource IsNullOrEmptyToVisiblityConverter}}" />
             <ListBox Margin="0,0,0,0"
                      BorderThickness="0"
                      ItemsSource="{Binding CountryWeather.Items}"

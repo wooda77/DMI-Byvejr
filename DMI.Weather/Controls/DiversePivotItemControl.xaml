@@ -14,10 +14,8 @@
              mc:Ignorable="d">
     <ListBox Margin="24,0,24,0"
              toolkit:TiltEffect.IsTiltEnabled="True">
-        <StackPanel Orientation="Horizontal">
-            <toolkit:GestureService.GestureListener>
-                <toolkit:GestureListener Tap="BeachWeatherMenuItem_Tap" />
-            </toolkit:GestureService.GestureListener>
+        <StackPanel Orientation="Horizontal"
+                    Tap="BeachWeatherMenuItem_Tap">
             <Grid>
                 <Ellipse Width="38"
                          Height="38"
@@ -37,10 +35,8 @@
                                       Source={StaticResource AppResources}}" />
         </StackPanel>
         <StackPanel Margin="0,24,0,0"
-                    Orientation="Horizontal">
-            <toolkit:GestureService.GestureListener>
-                <toolkit:GestureListener Tap="RadarMenuItem_Tap" />
-            </toolkit:GestureService.GestureListener>
+                    Orientation="Horizontal"
+                    Tap="RadarMenuItem_Tap">
             <Grid>
                 <Ellipse Width="38"
                          Height="38"
@@ -60,10 +56,8 @@
                                       Source={StaticResource AppResources}}" />
         </StackPanel>
         <StackPanel Margin="0,24,0,0"
-                    Orientation="Horizontal">
-            <toolkit:GestureService.GestureListener>
-                <toolkit:GestureListener Tap="UVIndexMenuItem_Tap" />
-            </toolkit:GestureService.GestureListener>
+                    Orientation="Horizontal"
+                    Tap="UVIndexMenuItem_Tap">
             <Grid>
                 <Ellipse Width="38"
                          Height="38"

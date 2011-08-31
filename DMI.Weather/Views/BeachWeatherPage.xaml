@@ -38,15 +38,13 @@
                                             <DataTemplate>
                                                 <maps:Pushpin Background="#1E61AF"
                                                               Location="{Binding Location}"
-                                                              Style="{StaticResource PushpinStyle}">
+                                                              Style="{StaticResource PushpinStyle}"
+                                                              Tap="Pushpin_Tap">
                                                     <maps:Pushpin.ContentTemplate>
                                                         <DataTemplate>
                                                             <Image Source="/Resources/Images/blueflag.png" />
                                                         </DataTemplate>
                                                     </maps:Pushpin.ContentTemplate>
-                                                    <toolkit:GestureService.GestureListener>
-                                                        <toolkit:GestureListener Tap="Pushpin_Tap" />
-                                                    </toolkit:GestureService.GestureListener>
                                                 </maps:Pushpin>
                                             </DataTemplate>
                                         </local_assets:PushpinTemplateSelector.BlueFlag>
@@ -54,11 +52,8 @@
                                             <DataTemplate>
                                                 <maps:Pushpin Background="#1BA1E2"
                                                               Location="{Binding Location}"
-                                                              Style="{StaticResource PushpinStyle}">
-                                                    <toolkit:GestureService.GestureListener>
-                                                        <toolkit:GestureListener Tap="Pushpin_Tap" />
-                                                    </toolkit:GestureService.GestureListener>
-                                                </maps:Pushpin>
+                                                              Style="{StaticResource PushpinStyle}"
+                                                              Tap="Pushpin_Tap" />
                                             </DataTemplate>
                                         </local_assets:PushpinTemplateSelector.NoFlag>
                                     </local_assets:PushpinTemplateSelector>

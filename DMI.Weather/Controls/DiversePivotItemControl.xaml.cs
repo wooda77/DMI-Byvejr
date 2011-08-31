@@ -31,17 +31,17 @@ namespace DMI.Controls
             InitializeComponent();
         }
 
-        private void RadarMenuItem_Tap(object sender, Microsoft.Phone.Controls.GestureEventArgs e)
+        private void RadarMenuItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             App.Navigate(new Uri(AppSettings.RadarPageAddress, UriKind.Relative));
         }
 
-        private void BeachWeatherMenuItem_Tap(object sender, Microsoft.Phone.Controls.GestureEventArgs e)
+        private void BeachWeatherMenuItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             App.Navigate(new Uri(AppSettings.BeachWeatherPageAddress, UriKind.Relative));
         }
 
-        private void UVIndexMenuItem_Tap(object sender, Microsoft.Phone.Controls.GestureEventArgs e)
+        private void UVIndexMenuItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             App.Navigate(new Uri(AppSettings.UVIndexPageAddress, UriKind.Relative));
         }

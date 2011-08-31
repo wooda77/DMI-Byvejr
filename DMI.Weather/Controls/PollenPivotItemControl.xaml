@@ -21,12 +21,9 @@
                        delay:LowProfileImageLoader.UriSource="{Binding PollenImage,
                                                                        FallbackValue=Resources/Images/Blank.png}"
                        Tag="{Binding PollenImage}"
+                       Tap="OpenInLandscapeMode"
                        Visibility="{Binding PollenData.Image,
-                                            Converter={StaticResource IsNullOrEmptyToVisiblityConverter}}">
-                    <toolkit:GestureService.GestureListener>
-                        <toolkit:GestureListener Tap="OpenInLandscapeMode" />
-                    </toolkit:GestureService.GestureListener>
-                </Image>
+                                            Converter={StaticResource IsNullOrEmptyToVisiblityConverter}}" />
                 <ListBox Margin="0,0,0,0"
                          ItemsSource="{Binding PollenData.Items}"
                          Padding="0">

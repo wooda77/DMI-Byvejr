@@ -34,7 +34,7 @@ namespace DMI.Views
             InitializeComponent();
         }
 
-        private void Pushpin_Tap(object sender, GestureEventArgs e)
+        private void Pushpin_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             var pushpin = sender as Pushpin;
             if (pushpin != null)

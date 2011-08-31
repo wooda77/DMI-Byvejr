@@ -32,7 +32,7 @@ namespace DMI.Controls
             InitializeComponent();
         }
 
-        private void OpenInLandscapeMode(object sender, Microsoft.Phone.Controls.GestureEventArgs e)
+        private void OpenInLandscapeMode(object sender, System.Windows.Input.GestureEventArgs e)
         {
             var image = sender as Image;
             if (image != null)
