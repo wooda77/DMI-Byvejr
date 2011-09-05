@@ -31,56 +31,75 @@
             <controls:PivotItem Header="{Binding Resources.SupportHeader, Source={StaticResource AppResources}}">
                 <Grid Margin="0">
                     <StackPanel Orientation="Vertical">
-                        <Border BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="0,0,0,2" Padding="0,0,24,24">
+                        <Border Margin="12,0,36,0"
+                                BorderBrush="{StaticResource PhoneAccentBrush}"
+                                BorderThickness="0,0,0,2"
+                                Padding="0,0,0,24">
                             <StackPanel Orientation="Vertical">
-                                <Grid Margin="12,0">
-                                    <TextBlock Text="{Binding Resources.AppName, Source={StaticResource AppResources}}" HorizontalAlignment="Left" Margin="0,0,0,6" >
-                                    	<TextBlock.Foreground>
-                                    		<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
-                                    	</TextBlock.Foreground>
+                                <Grid Margin="0">
+                                    <TextBlock Margin="0,0,0,6"
+                                               HorizontalAlignment="Left"
+                                               Text="{Binding Resources.AppName,
+                                                              Source={StaticResource AppResources}}">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush Color="{StaticResource PhoneSubtleColor}" />
+                                        </TextBlock.Foreground>
                                     </TextBlock>
-                                    <TextBlock Text="{Binding Resources.AppTitleSmall, Source={StaticResource AppResources}}" HorizontalAlignment="Right" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Text="{Binding Resources.AppTitleSmall,
+                                                              Source={StaticResource AppResources}}" />
                                 </Grid>
-                                <Grid Margin="12,0">
-                                <TextBlock Text="{Binding Resources.Version, Source={StaticResource AppResources}}" Margin="0,0,0,6" >
-                                	<TextBlock.Foreground>
-                                		<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
-                                	</TextBlock.Foreground>
-                                </TextBlock>
-                                <TextBlock Text="{Binding Version}" HorizontalAlignment="Right" />
-                            </Grid>
-                            <Grid Margin="12,0">
-                        <TextBlock Text="{Binding Resources.CreatedBy, Source={StaticResource AppResources}}" Margin="0" >
-                        	<TextBlock.Foreground>
-                        		<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
-                        	</TextBlock.Foreground>
-                        </TextBlock>
-                        <TextBlock Text="Claus Jørgensen" HorizontalAlignment="Right" />
-                    </Grid>
-                    </StackPanel>
-                        </Border>
-                        <Border BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="0,0,0,2" Padding="0,24">
-                            <StackPanel Orientation="Vertical">
-                                <toolkit:ToggleSwitch Margin="1,0"
-                                              Content="{Binding AllowGPS,
-                                                                Converter={StaticResource BoolToToggleConverter}}"
-                                              Header="Location services"
-                                              IsChecked="{Binding AllowGPS,
-                                                                  Mode=TwoWay}" />
+                                <Grid Margin="0">
+                                    <TextBlock Margin="0,0,0,6"
+                                               Text="{Binding Resources.Version,
+                                                              Source={StaticResource AppResources}}">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush Color="{StaticResource PhoneSubtleColor}" />
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Text="{Binding Version}" />
+                                </Grid>
+                                <Grid Margin="0">
+                                    <TextBlock Margin="0"
+                                               Text="{Binding Resources.CreatedBy,
+                                                              Source={StaticResource AppResources}}">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush Color="{StaticResource PhoneSubtleColor}" />
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Text="Claus Jørgensen" />
+                                </Grid>
                             </StackPanel>
                         </Border>
-                        <Border BorderThickness="0" Padding="0,24">
-                        	<Border.BorderBrush>
-                        		<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
-                        	</Border.BorderBrush>
+                        <Border Margin="12,0,36,0"
+                                BorderBrush="{StaticResource PhoneAccentBrush}"
+                                BorderThickness="0,0,0,2"
+                                Padding="0,24">
+                            <StackPanel Orientation="Vertical">
+                                <toolkit:ToggleSwitch Margin="-12,0,-24,0"
+                                                      Header="Location services"
+                                                      IsChecked="{Binding AllowGPS,
+                                                                          Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+                        <Border BorderThickness="0"
+                                Padding="0,24">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="{StaticResource PhoneAccentColor}" />
+                            </Border.BorderBrush>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Margin="12,0,24,0"
-                                   Text="{Binding Resources.EmailHelpText,
-                                                  Source={StaticResource AppResources}}"
-                                   TextWrapping="Wrap" Foreground="{StaticResource PhoneSubtleBrush}" />
-                                <Button Command="{Binding SendEmail}"
-                                Content="{Binding Resources.SendEmail,
-                                                  Source={StaticResource AppResources}}" HorizontalAlignment="Right" Margin="0,12,24,0" />
+                                           Foreground="{StaticResource PhoneSubtleBrush}"
+                                           Text="{Binding Resources.EmailHelpText,
+                                                          Source={StaticResource AppResources}}"
+                                           TextWrapping="Wrap" />
+                                <Button Margin="0,12,24,0"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding SendEmail}"
+                                        Content="{Binding Resources.SendEmail,
+                                                          Source={StaticResource AppResources}}" />
                             </StackPanel>
                         </Border>
                     </StackPanel>

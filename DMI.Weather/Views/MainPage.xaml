@@ -3,10 +3,10 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:assets="clr-namespace:DMI.Assets"
                             xmlns:c="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+                            xmlns:controls="clr-namespace:DMI.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:delay="clr-namespace:Delay"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                            xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
@@ -34,25 +34,39 @@
                  SelectionChanged="PivotLayout_SelectionChanged">
             <c:PivotItem x:Name="WeatherPivotItem"
                          Header="{Binding Resources.CityWeatherHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:WeatherPivotItemControl />
+            </c:PivotItem>
             <c:PivotItem x:Name="RegionalPivotItem"
                          Header="{Binding Resources.RegionalHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:RegionalPivotItemControl />
+            </c:PivotItem>
             <c:PivotItem x:Name="CountryPivotItem"
                          Header="{Binding Resources.CountryHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:CountryPivotItemControl />
+            </c:PivotItem>
             <c:PivotItem x:Name="PollenPivotItem"
                          Header="{Binding Resources.PollenHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:PollenPivotItemControl />
+            </c:PivotItem>
             <c:PivotItem x:Name="DiversePivotItem"
                          Header="{Binding Resources.MapsHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:DiversePivotItemControl />
+            </c:PivotItem>
             <c:PivotItem x:Name="FavoritesPivotItem"
                          Header="{Binding Resources.FavoritesHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:FavoritesPivotItemControl />
+            </c:PivotItem>
             <c:PivotItem x:Name="NewsPivotItem"
                          Header="{Binding Resources.NewsHeader,
-                                          Source={StaticResource AppResources}}" />
+                                          Source={StaticResource AppResources}}">
+                <controls:NewsPivotItemControl />
+            </c:PivotItem>
         </c:Pivot>
     </Grid>
     <shell:SystemTray.ProgressIndicator>

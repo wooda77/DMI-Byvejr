@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-    <App xmlns="" ProductID="{8e2f2f7a-8b81-4813-b397-a0ed88f5301a}" Title="DMI Byvejr" RuntimeType="Silverlight" Version="2.2.0.0" Genre="apps.normal" Author="Claus Jørgensen" Description="Vejrudsigten fra DMI" Publisher="">
+    <App xmlns="" ProductID="{8e2f2f7a-8b81-4813-b397-a0ed88f5301a}" Title="DMI Byvejr" RuntimeType="Silverlight" Version="2.3.0.0" Genre="apps.normal" Author="Claus Jørgensen" Description="Vejrudsigten fra DMI" Publisher="">
         <IconPath IsRelative="true" IsResource="false">DMI_ApplicationIcon.png</IconPath>
         <Capabilities>
             <Capability Name="ID_CAP_LOCATION" />

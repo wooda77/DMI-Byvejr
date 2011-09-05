@@ -164,6 +164,13 @@ namespace DMI.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var previousPage = NavigationService.BackStack.LastOrDefault();
+            if (previousPage != null && 
+                previousPage.Source.OriginalString == AppSettings.MainPageBaseAddress)
+            {
+                NavigationService.RemoveBackEntry();   
+            }
+
             SmartDispatcher.BeginInvoke(() =>
             {
                 if (DataContext == null)
@@ -204,26 +211,6 @@ namespace DMI.Views
         
         private void PivotLayout_LoadingPivotItem(object sender, PivotItemEventArgs e)
         {
-            if (e.Item.Content != null)
-                return;
-
-            var pivot = (Pivot)sender;
-
-            if (e.Item == WeatherPivotItem)
-                e.Item.Content = new WeatherPivotItemControl();
-            else if (e.Item == RegionalPivotItem)
-                e.Item.Content = new RegionalPivotItemControl();
-            else if (e.Item == CountryPivotItem)
-                e.Item.Content = new CountryPivotItemControl();
-            else if (e.Item == PollenPivotItem)
-                e.Item.Content = new PollenPivotItemControl();
-            else if (e.Item == DiversePivotItem)
-                e.Item.Content = new DiversePivotItemControl();
-            else if (e.Item == FavoritesPivotItem)
-                e.Item.Content = new FavoritesPivotItemControl();
-            else if (e.Item == NewsPivotItem)
-                e.Item.Content = new NewsPivotItemControl();
-
             if (e.Item.Content != null)
                 (e.Item.Content as FrameworkElement).DataContext = this.DataContext;
         }

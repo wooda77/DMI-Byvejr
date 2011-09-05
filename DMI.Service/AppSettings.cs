@@ -55,6 +55,8 @@ namespace DMI.Service
 
         public static string ChooseCityPageAddress = "/Views/ChooseCityPage.xaml";
 
+        public static string MainPageBaseAddress = "/Views/MainPage.xaml";
+
         public static string MainPageAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}";
 
         public static string MainPageWithTileAddress = "/Views/MainPage.xaml?PostalCode={0}&Country={1}&TileType={2}&Offset={3}";
