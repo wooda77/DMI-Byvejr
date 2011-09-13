@@ -3,13 +3,11 @@
 DMI Byvejr is a Danish weather application for Windows Phone,
 displaying local weather information for over 500 danish cities.
 
-### Version 2.2
+### Version 2.3
 
-The version 2.2 update includes following improvements:
+The version 2.3 update includes following improvements:
 
-* Live Tiles.
-* Major performance improvements.
-* Windows Phone 7.5 "Mango" Support.
+* Minor performance improvements.
 
 ### License
 
