@@ -300,20 +300,27 @@ namespace DMI.ViewModels
             {
                 GeoLocationCity city = null;
 
-                switch (CurrentAddress.CountryRegion)
+                try
                 {
-                    case Greenland.Name:
-                        city = Greenland.PostalCodes[postalCode];
-                        break;
-                    case FaroeIslands.Name:
-                        city = FaroeIslands.PostalCodes[postalCode];
-                        break;
-                    case Denmark.Name:
-                        city = Denmark.PostalCodes[postalCode];
-                        break;
-                    default:
-                        city = Denmark.PostalCodes[Denmark.DefaultPostalCode];
-                        break;
+                    switch (CurrentAddress.CountryRegion)
+                    {
+                        case Greenland.Name:
+                            city = Greenland.PostalCodes[postalCode];
+                            break;
+                        case FaroeIslands.Name:
+                            city = FaroeIslands.PostalCodes[postalCode];
+                            break;
+                        case Denmark.Name:
+                            city = Denmark.PostalCodes[postalCode];
+                            break;
+                        default:
+                            city = Denmark.PostalCodes[Denmark.DefaultPostalCode];
+                            break;
+                    }
+                } 
+                catch (Exception)
+                {   
+                    city = Denmark.PostalCodes[Denmark.DefaultPostalCode];
                 }
 
                 if (city != null && Favorites.Any(c => c.Name == city.Name) == false)

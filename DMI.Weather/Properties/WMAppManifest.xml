@@ -9,7 +9,7 @@
         <Tasks>
             <DefaultTask Name="_default" NavigationPage="Views/MainPage.xaml" />
             <ExtendedTask Name="BackgroundTask">
-                <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="DMI.ScheduledAgent" Source="DMI.TaskAgent" Type="DMI.TaskAgent.ScheduledAgent" />
+                <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="DMI.ScheduledAgent" Source="TwitterLiveTile.TaskAgent" Type="TwitterLiveTile.TaskAgent.ScheduledAgent" />
             </ExtendedTask>
         </Tasks>
         <Tokens>

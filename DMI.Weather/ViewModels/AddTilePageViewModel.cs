@@ -141,14 +141,20 @@ namespace DMI.ViewModels
 
         private GeoLocationCity GetCityFromZipAndCountry(int postalCode, string country)
         {
-            switch (country)
+            try
             {
-                case Denmark.Name:
-                    return Denmark.PostalCodes[postalCode];
-                case Greenland.Name:
-                    return Greenland.PostalCodes[postalCode];
-                case FaroeIslands.Name:
-                    return FaroeIslands.PostalCodes[postalCode];
+                switch (country)
+                {
+                    case Denmark.Name:
+                        return Denmark.PostalCodes[postalCode];
+                    case Greenland.Name:
+                        return Greenland.PostalCodes[postalCode];
+                    case FaroeIslands.Name:
+                        return FaroeIslands.PostalCodes[postalCode];
+                }
+            } 
+            catch (Exception)
+            {
             }
 
             return Denmark.PostalCodes[Denmark.DefaultPostalCode];
