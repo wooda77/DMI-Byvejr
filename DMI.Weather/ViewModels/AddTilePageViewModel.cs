@@ -73,7 +73,7 @@ namespace DMI.ViewModels
 
                         AddLatestTile(city, result);
                         AddPlusTile(city, result, 6);
-                        AddPlusTile(city, result, 12);
+                        AddPlusTile(city, result, 8);
                     }
                 });
         }

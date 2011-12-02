@@ -18,7 +18,7 @@ namespace DMI.TaskAgent
 
             var client = new RestClient("http://www.dr.dk/tjenester/drvejret/");
             var request = new RestRequest();
-            request.DateFormat = "yyyyMMddHHmmss";            
+            request.DateFormat = "yyyyMMddHHmm";
             request.Resource = "Forecast/{latitude}/{longitude}/{date}";
             request.AddUrlSegment("latitude", city.Location.Latitude.ToString(CultureInfo.InvariantCulture));
             request.AddUrlSegment("longitude", city.Location.Longitude.ToString(CultureInfo.InvariantCulture));

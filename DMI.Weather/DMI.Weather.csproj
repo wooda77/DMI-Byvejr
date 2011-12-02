@@ -282,6 +282,7 @@
     <Content Include="Resources\Images\blueflag.png" />
     <Content Include="Resources\Images\TileBackground.png" />
     <Content Include="Resources\Images\wx_sun_lightrain.png" />
+    <Content Include="Resources\Weather\0n.png" />
     <Content Include="Resources\Weather\1.png" />
     <Content Include="Resources\Weather\10.png" />
     <Content Include="Resources\Weather\11.png" />

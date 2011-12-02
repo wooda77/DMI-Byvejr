@@ -90,6 +90,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Weather\0n.png" />
     <Content Include="Resources\Weather\1.png" />
     <Content Include="Resources\Weather\10.png" />
     <Content Include="Resources\Weather\11.png" />
