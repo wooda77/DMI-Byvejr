@@ -247,18 +247,12 @@ namespace DMI.ViewModels
                 {
                     NewsItems.Clear();
 
-                    if (videos.Count >= 3)
+                    if (videos.Count >= 2)
                     {
                         NewsItems.Add(new NewsItem()
                         {
                             Title = Properties.Resources.WebTV_DMI,
                             WebTVItem = videos.FirstOrDefault(v => v.Category == "DMI"),
-                        });
-
-                        NewsItems.Add(new NewsItem()
-                        {
-                            Title = Properties.Resources.WebTV_SEJL,
-                            WebTVItem = videos.FirstOrDefault(v => v.Category == "SEJL"),
                         });
 
                         NewsItems.Add(new NewsItem()
@@ -362,7 +356,7 @@ namespace DMI.ViewModels
                 };
                 task.Show();
             }
-            else
+            else if (item.Link != null)
             {
                 var task = new WebBrowserTask()
                 {
