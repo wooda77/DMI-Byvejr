@@ -90,6 +90,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Weather\0.png" />
     <Content Include="Resources\Weather\0n.png" />
     <Content Include="Resources\Weather\1.png" />
     <Content Include="Resources\Weather\10.png" />
@@ -97,6 +98,7 @@
     <Content Include="Resources\Weather\12.png" />
     <Content Include="Resources\Weather\13.png" />
     <Content Include="Resources\Weather\14.png" />
+    <Content Include="Resources\Weather\1n.png" />
     <Content Include="Resources\Weather\2.png" />
     <Content Include="Resources\Weather\20.png" />
     <Content Include="Resources\Weather\21.png" />
@@ -105,10 +107,15 @@
     <Content Include="Resources\Weather\24.png" />
     <Content Include="Resources\Weather\25.png" />
     <Content Include="Resources\Weather\26.png" />
+    <Content Include="Resources\Weather\2n.png" />
     <Content Include="Resources\Weather\3.png" />
+    <Content Include="Resources\Weather\3n.png" />
     <Content Include="Resources\Weather\4.png" />
+    <Content Include="Resources\Weather\4n.png" />
     <Content Include="Resources\Weather\5.png" />
+    <Content Include="Resources\Weather\5n.png" />
     <Content Include="Resources\Weather\6.png" />
+    <Content Include="Resources\Weather\6n.png" />
     <Content Include="Resources\Weather\7.png" />
     <Content Include="Resources\Weather\8.png" />
     <Content Include="Resources\Weather\9.png" />
